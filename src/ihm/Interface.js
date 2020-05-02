@@ -6,17 +6,16 @@ export class Interface
         this.emitter = new Emitter;
 
         document.querySelector('[name=valider]').addEventListener('click', btn => {
-            this.emitter.emit('namesPicked', [
-                document.querySelector('[name=p1]').value,
-                document.querySelector('[name=p2]').value,
-                document.querySelector('[name=p3]').value
-            ]);
+            this.emitter.emit(
+                'namesPicked', 
+                [...document.querySelectorAll('[step=name] input.name')].map(el => el.value)
+            );
         });
     }
 
     show(step) {
         document.querySelectorAll('[step]').forEach(elm => elm.style.display = "none");
-        document.querySelector('[step='+step+']').style.display = 'block';
+        document.querySelector('[step='+step+']').style.display = 'flex';
     }
 
     hide (step) {

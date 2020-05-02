@@ -104,9 +104,8 @@ export class Game
 
     begin() {
         this.stepper.addSteps(
-            new AutoChoixNoms(this),
-            new RandomBuild(this),
-            new AutoPreparation(this),
+            new ChoixNoms(this),
+            new Preparation(this),
         );
 
         this.stepper.addInfiniteSubsetSteps(

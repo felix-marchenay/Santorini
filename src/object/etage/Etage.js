@@ -12,7 +12,7 @@ export class Etage
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'etage-'+niveau).clone();
         
         this.mesh.material = new StandardMaterial("gris", this.scene);
-        this.mesh.material.diffuseTexture = new Texture("/dist/image/concrete.jpg", this.scene);
+        this.mesh.material.diffuseTexture = new Texture("/image/concrete.jpg", this.scene);
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');
         }
