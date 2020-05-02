@@ -24,6 +24,7 @@ export class Game
         this.couleursJoueur = [
             new Color3(0.3, 0.66, 0.35),
             new Color3(0.45, 0.32, 0.81),
+            new Color3(0.65, 0.32, 0.81),
         ];
 
         scene.onPointerObservable.add(pointerInfo => {
@@ -103,9 +104,9 @@ export class Game
 
     begin() {
         this.stepper.addSteps(
-            new ChoixNoms(this),
-            // new RandomBuild(this),
-            new Preparation(this),
+            new AutoChoixNoms(this),
+            new RandomBuild(this),
+            new AutoPreparation(this),
         );
 
         this.stepper.addInfiniteSubsetSteps(
