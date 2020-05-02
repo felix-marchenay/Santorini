@@ -1,0 +1,149 @@
+import { MeshBuilder, StandardMaterial, Color3, Vector3 } from "@babylonjs/core";
+import { OperationCanceledException } from "typescript";
+import { Etage1 } from "./etage/Etage1";
+import { Etage2 } from "./etage/Etage2";
+import { Etage3 } from "./etage/Etage3";
+import { Dome } from "./etage/Dome";
+import { Emitter } from "../infrastructure/emitter";
+
+export class Case
+{
+    constructor (scene, x, y) {
+        this.coordinates = {x, y};
+        this.emitter = new Emitter;
+        this.scene = scene;
+        this.mesh = MeshBuilder.CreateBox("case"+x+y, {
+            height: 0.3,
+            width: 3,
+            depth: 3
+        }, this.scene);
+        this.pion = null;
+
+        this.mesh.material = new StandardMaterial("gris", this.scene);
+        this.mesh.material.diffuseColor = new Color3(0.86, 0.8, 0.9);
+
+        this.mesh.position = new Vector3(3.1 * x - 6.2, 0.2, 3.1 * y - 6.2);
+
+        this.mesh.receiveShadows = true;
+        this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
+        this.mesh.pointerPicked = () => {
+            this.emitter.emit('pointerPicked');
+        }
+    }
+
+    poserPion(pion) {
+        if (this.dernierEtage()) {
+            if (this.dernierEtage().niveau == 'dome') {
+                throw "Impossible de se déplacer sur un dome";
+            }
+        }
+        if (pion.case) {
+            if (this.differenceNiveau(pion.case) > 1) {
+                throw "Etage trop haut pour y monter";
+            }
+        }
+        pion.moveTo(this);
+        this.pion = pion;
+    }
+
+    differenceNiveau (caze) {
+        if (this.dernierEtage()) {
+            return this.dernierEtage().difference(caze.dernierEtage());
+        }
+
+        if (caze.dernierEtage() === null) {
+            return 0;
+        }
+
+        return - (caze.dernierEtage().difference(null));
+    }
+
+    liberer() {
+        this.pion = null;
+    }
+
+    estAvoisinante(case2) {
+        return Math.abs(case2.coordinates.x - this.coordinates.x) <= 1 && Math.abs(case2.coordinates.y - this.coordinates.y) <= 1;
+    }
+
+    pick() {
+        this.mesh.material.diffuseColor = new Color3(0.4, 0.5, 0.9);
+    }
+
+    unpick() {
+        this.mesh.material.diffuseColor = new Color3(0.86, 0.8, 0.9);
+    }
+
+    build() {
+        if (this.constructions.dome) {
+            throw "Impossible de construire sur un dome";
+        }
+        if (this.pion) {
+            throw "Impossible de construire ici, un pion est posé";
+        }
+        this.doBuild();
+    }
+
+    zeusBuild() {
+        if (this.constructions.dome) {
+            throw "Impossible de construire sur un dome";
+        }
+
+        this.doBuild();
+    }
+
+    doBuild() {
+        if (this.constructions.etage1 === null) {
+            this.constructions.etage1 = new Etage1(this.scene, this);
+            this.constructions.etage1.emitter.on('pointerPicked', () => {
+                this.emitter.emit('pointerPicked')
+            });
+        } else if(this.constructions.etage2 === null) {
+            this.constructions.etage2 = new Etage2(this.scene, this);
+            this.constructions.etage2.emitter.on('pointerPicked', () => {
+                this.emitter.emit('pointerPicked')
+            });
+        } else if(this.constructions.etage3 === null) {
+            this.constructions.etage3 = new Etage3(this.scene, this);
+            this.constructions.etage3.emitter.on('pointerPicked', () => {
+                this.emitter.emit('pointerPicked')
+            });
+        } else if(this.constructions.dome === null) {
+            this.constructions.dome = new Dome(this.scene, this);
+            this.constructions.dome.emitter.on('pointerPicked', () => {
+                this.emitter.emit('pointerPicked')
+            });
+        }
+    }
+
+    positionPosePion() {
+        const dernierEtage = this.dernierEtage();
+
+        if (dernierEtage === null) {
+            const position = this.mesh.position.clone();
+            position.y = 0.8;
+            return position;
+        }
+
+        if (dernierEtage.constructor.name === 'Dome') {
+            throw "Impossible de poser le pion ici un dome est construit";
+        }
+
+        const point = dernierEtage.pionPosition;
+        return point;
+    }
+
+    dernierEtage() {
+        if (this.constructions.dome !== null) {
+            return this.constructions.dome;
+        } else if(this.constructions.etage3 !== null) {
+            return this.constructions.etage3;
+        } else if(this.constructions.etage2 !== null) {
+            return this.constructions.etage2;
+        } else if(this.constructions.etage1 !== null) {
+            return this.constructions.etage1;
+        }
+
+        return null;
+    }
+}
