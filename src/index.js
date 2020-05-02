@@ -101,7 +101,7 @@ const canvas = document.getElementById("render");
 const engine = new Engine(canvas);
 var scene = new Scene(engine);
 
-SceneLoader.LoadAssetContainer("/dist/models/", "santorini3.babylon", scene, function(container) {
+SceneLoader.LoadAssetContainer("./models/", "santorini3.babylon", scene, function(container) {
     scene.container = container;
     
     var camera = new ArcRotateCamera("camera", .05, .7, 20, Vector3.Zero(), scene);
