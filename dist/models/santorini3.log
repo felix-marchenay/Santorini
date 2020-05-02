@@ -14,14 +14,14 @@ Exporter version: 6.3.1, Blender version: 2.80 (sub 75)
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of mesh:  etage-1
 		WARNING: No materials have been assigned: 
-		num positions      :  783
-		num normals        :  783
+		num positions      :  18097
+		num normals        :  18097
 		num tangents       :  0
-		num uvs            :  1566
+		num uvs            :  36194
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  1050
-		WARNING: # of 0 area faces found:  4
+		num indices        :  21630
+		WARNING: # of 0 area faces found:  9
 	processing begun of mesh:  etage-2
 		WARNING: No materials have been assigned: 
 		num positions      :  69
@@ -40,15 +40,15 @@ Exporter version: 6.3.1, Blender version: 2.80 (sub 75)
 		num uvs2           :  0
 		num colors         :  0
 		num indices        :  1332
-	processing begun of mesh:  etage-dome
+	processing begun of mesh:  dome
 		WARNING: No materials have been assigned: 
-		num positions      :  1373
-		num normals        :  1373
+		num positions      :  6483
+		num normals        :  6483
 		num tangents       :  0
-		num uvs            :  2746
+		num uvs            :  12966
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  1530
+		num indices        :  7230
 	processing begun of mesh:  pion-f
 		WARNING: No materials have been assigned: 
 		num positions      :  14290
@@ -72,9 +72,9 @@ Exporter version: 6.3.1, Blender version: 2.80 (sub 75)
 	writing mesh:  etage-1
 	writing mesh:  etage-2
 	writing mesh:  etage-3
-	writing mesh:  etage-dome
+	writing mesh:  dome
 	writing mesh:  pion-f
 	writing mesh:  pion-h
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 2.4778 secs
+elapsed time:  0 min, 2.3984 secs
