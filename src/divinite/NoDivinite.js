@@ -1,4 +1,6 @@
 import { Divinite } from "./Divinite";
+import { Construction } from "../steps/Construction";
+import { Deplacement } from "../steps/Deplacement";
 
 export class NoDivinite extends Divinite
 {
@@ -7,10 +9,10 @@ export class NoDivinite extends Divinite
     }
 
     getDeplacementStep (game, joueur) {
-        return this.divinite.getDeplacementStep(game, this);
+        return new Deplacement(game, joueur);
     }
 
     getConstructionStep (game, joueur) {
-        return this.divinite.getConstructionStep(game, this);
+        return new Construction(game, joueur);
     }
 }

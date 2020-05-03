@@ -122,7 +122,7 @@ SceneLoader.LoadAssetContainer("./models/", "santorini3.babylon", scene, functio
     
     const game = new Game(scene);
     
-    game.begin();
+    game.play();
     
     // drawAxis(scene);
     
