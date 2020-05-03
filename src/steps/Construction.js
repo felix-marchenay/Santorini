@@ -14,6 +14,8 @@ export class Construction extends Step
 
             const pion = this.joueur.lastMovedPion;
 
+            this.game.plateau.showBuildHintAround(pion.case);
+
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
                     try {
@@ -32,7 +34,10 @@ export class Construction extends Step
 
     after () {
         this.game.nextPlayerActive();
-        this.game.plateau.allCases().forEach(cas => {cas.emitter.flush()});
+        this.game.plateau.allCases().forEach(cas => {
+            cas.emitter.flush();
+            cas.hideBuildHint();
+        });
         this.game.ihm.hide('tour');
     }
 }

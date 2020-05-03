@@ -52,6 +52,20 @@ export class Plateau {
         return boardMesh;
     }
 
+    casesAvoisinantes(caseA) {
+        return this.allCases().filter(caseB => caseB.estAvoisinante(caseA) && caseB != caseA);
+    }
+
+    showBuildHintAround (caze) {
+        this.showBuildHint(
+            this.casesAvoisinantes(caze)
+        );
+    }
+    
+    showBuildHint (cases) {
+        cases.map(cas => cas.showBuildHint());
+    }
+
     allCases() {
         return this.cases.reduce((carry, ligne) => {
             carry.push(...ligne);
@@ -61,11 +75,5 @@ export class Plateau {
 
     getCase(x, y) {
         return this.allCases().find(cas => cas.coordinates.x == x && cas.coordinates.y == y);
-    }
-
-    keyup(keyEvent) {
-        if (keyEvent.key == 'b' && this.casePicked) {
-            this.casePicked.build();
-        }
     }
 }

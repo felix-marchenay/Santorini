@@ -102,38 +102,43 @@ const engine = new Engine(canvas);
 var scene = new Scene(engine);
 
 SceneLoader.LoadAssetContainer("./models/", "santorini3.babylon", scene, function(container) {
-    scene.container = container;
     
-    var camera = new ArcRotateCamera("camera", .05, .7, 20, Vector3.Zero(), scene);
     
-    camera.attachControl(canvas, true);
+    try {
+        scene.container = container;
     
-    const lightPosition1 = new Vector3(-6, 25, 15);
-    var light1 = new HemisphericLight("light", lightPosition1, scene);
-    light1.intensity = 0.35;
-    const lightBox = MeshBuilder.CreateBox("lightBox", {}, scene);
-    lightBox.position = lightPosition1;
+        var camera = new ArcRotateCamera("camera", .05, .7, 20, Vector3.Zero(), scene);
+        
+        camera.attachControl(canvas, true);
+        
+        const lightPosition1 = new Vector3(-6, 25, 15);
+        var light1 = new HemisphericLight("light", lightPosition1, scene);
+        light1.intensity = 0.35;
+        const lightBox = MeshBuilder.CreateBox("lightBox", {}, scene);
+        lightBox.position = lightPosition1;
+        
+        const lightPosition2 = new Vector3(20, 35, 4);
+        var light2 = new HemisphericLight("light", lightPosition2, scene);
+        light2.intensity = 0.2;
+        const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, scene);
+        lightBox2.position = lightPosition2;
     
-    const lightPosition2 = new Vector3(20, 35, 4);
-    var light2 = new HemisphericLight("light", lightPosition2, scene);
-    light2.intensity = 0.2;
-    const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, scene);
-    lightBox2.position = lightPosition2;
-
-    const lightPosition3 = new Vector3(10, 31, -12);
-    var light3 = new HemisphericLight("light", lightPosition3, scene);
-    light3.intensity = 0.2;
-    const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, scene);
-    lightBox3.position = lightPosition3;
-    
-    const game = new Game(scene);
-    
-    game.play();
-    
-    // drawAxis(scene);
-    
-    // Render every frame
-    engine.runRenderLoop(() => {
-        scene.render();
-    });
+        const lightPosition3 = new Vector3(10, 31, -12);
+        var light3 = new HemisphericLight("light", lightPosition3, scene);
+        light3.intensity = 0.2;
+        const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, scene);
+        lightBox3.position = lightPosition3;
+        
+        const game = new Game(scene);
+        game.play();
+        
+        // drawAxis(scene);
+        
+        // Render every frame
+        engine.runRenderLoop(() => {
+            scene.render();
+        });
+    } catch (e) {
+        console.error(e);
+    }
 });

@@ -4,6 +4,7 @@ import { Etage1 } from "./etage/Etage1";
 import { Etage2 } from "./etage/Etage2";
 import { Etage3 } from "./etage/Etage3";
 import { Dome } from "./etage/Dome";
+import { BuildHint } from "./BuildHint";
 import { Emitter } from "../infrastructure/emitter";
 
 export class Case
@@ -29,6 +30,10 @@ export class Case
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');
         }
+        this.buildHint = new BuildHint(scene, this);
+        this.buildHint.emitter.on('pointerPicked', () => {
+            this.emitter.emit('pointerPicked');
+        });
     }
 
     poserPion(pion) {
@@ -60,6 +65,14 @@ export class Case
 
     liberer() {
         this.pion = null;
+    }
+
+    showBuildHint() {
+        this.buildHint.show();
+    }
+
+    hideBuildHint() {
+        this.buildHint.hide();
     }
 
     estAvoisinante(case2) {
