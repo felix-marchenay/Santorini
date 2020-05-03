@@ -11,11 +11,11 @@ export class Deplacement extends Step
         return super.run(resolve => {
 
             this.game.ihm.show('tour');
-            this.game.ihm.resume(this.game.activePlayer().name, 'se déplacer');
+            this.game.ihm.resume(this.joueur.name, 'se déplacer');
 
-            this.game.activePlayer().pions.forEach(pion => {
+            this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {
-                    this.game.activePlayer().pions.filter(p => p != pion).forEach(p => {
+                    this.joueur.pions.filter(p => p != pion).forEach(p => {
                         p.stopIdle();
                     });
                     pion.toggleIdle();
@@ -40,7 +40,7 @@ export class Deplacement extends Step
                                 resolve(true);
                             }
 
-                            this.game.activePlayer().lastMovedPion = this.game.idlePion();
+                            this.joueur.lastMovedPion = this.game.idlePion();
                             this.game.idlePion().stopIdle();
 
                             resolve();

@@ -103,29 +103,22 @@ export class Game
     }
 
     async play() {
-        this.stepper.addSteps(
-            new ChoixNoms(this),
-            // new Preparation(this),
-        );
+        this.stepper.addSteps(new ChoixNoms(this));
 
         await this.stepper.run();
 
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
-                steps.push(joueur.getDeplacementStep(), joueur.getConstructionStep());
+                steps.push(joueur.getDeplacementStep(this), joueur.getConstructionStep(this));
                 return steps;
             },
             []
         )];
 
-        console.log(playSteps);
-
-        this.stepper = new Stepper(
-            ...playSteps
-        );
-
+        this.stepper = new Stepper(new Preparation(this));
+        this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
-            console.log(e);
+            console.error(e);
         });
     }
 }

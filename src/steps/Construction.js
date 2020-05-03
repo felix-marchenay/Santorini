@@ -10,9 +10,9 @@ export class Construction extends Step
     run () {
         return super.run(resolve => {
             this.game.ihm.show('tour');
-            this.game.ihm.resume(this.game.activePlayer().name, 'construire');
+            this.game.ihm.resume(this.joueur.name, 'construire');
 
-            const pion = this.game.activePlayer().lastMovedPion;
+            const pion = this.joueur.lastMovedPion;
 
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
