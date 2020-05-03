@@ -109,8 +109,13 @@ export class Game
         );
 
         this.stepper.addInfiniteSubsetSteps(
-            new Deplacement(this),
-            new Construction(this),
+            ...this.joueurs.reduce(
+                (steps, joueur) => {
+                    steps.push(joueur.getDeplacementStep(), joueur.getConstructionStep());
+                    return steps;
+                },
+                []
+            )
         );
 
         this.stepper.run().catch(e => {

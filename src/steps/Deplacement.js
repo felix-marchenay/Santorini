@@ -2,6 +2,11 @@ import { Step } from "./Step";
 
 export class Deplacement extends Step
 {
+    constructor(game, joueur) {
+        super(game);
+        this.joueur = joueur;
+    }
+
     run () {
         return super.run(resolve => {
 
