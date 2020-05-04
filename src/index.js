@@ -101,9 +101,7 @@ const canvas = document.getElementById("render");
 const engine = new Engine(canvas);
 var scene = new Scene(engine);
 
-SceneLoader.LoadAssetContainer("./models/", "santorini3.babylon", scene, function(container) {
-    
-    
+SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
     try {
         scene.container = container;
     
@@ -113,26 +111,26 @@ SceneLoader.LoadAssetContainer("./models/", "santorini3.babylon", scene, functio
         
         const lightPosition1 = new Vector3(-6, 25, 15);
         var light1 = new HemisphericLight("light", lightPosition1, scene);
-        light1.intensity = 0.35;
+        light1.intensity = 0.45;
         const lightBox = MeshBuilder.CreateBox("lightBox", {}, scene);
         lightBox.position = lightPosition1;
         
         const lightPosition2 = new Vector3(20, 35, 4);
         var light2 = new HemisphericLight("light", lightPosition2, scene);
-        light2.intensity = 0.2;
+        light2.intensity = 0.3;
         const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, scene);
         lightBox2.position = lightPosition2;
     
         const lightPosition3 = new Vector3(10, 31, -12);
         var light3 = new HemisphericLight("light", lightPosition3, scene);
-        light3.intensity = 0.2;
+        light3.intensity = 0.35;
         const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, scene);
         lightBox3.position = lightPosition3;
         
         const game = new Game(scene);
         game.play();
         
-        // drawAxis(scene);
+        drawAxis(scene);
         
         // Render every frame
         engine.runRenderLoop(() => {

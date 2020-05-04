@@ -1,0 +1,154 @@
+Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  /home/felix/santorini/public/models/
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
+	processing begun of skeleton:  Armature, id:  0
+		processing begun of bone:  Bone, index:  0
+		processing begun of bone:  Bone.001, index:  1
+		processing begun of bone:  Bone.002, index:  2
+		processing begun of bone:  Bone.003, index:  3
+		processing begun of bone:  Bone.004, index:  4
+		processing begun of bone:  Bone.008, index:  5
+		processing begun of bone:  Bone.005, index:  6
+		processing begun of bone:  Bone.006, index:  7
+		processing begun of bone:  Bone.007, index:  8
+		processing begun of bone:  Bone.009, index:  9
+		processing begun of bone:  Bone.012, index:  10
+		processing begun of bone:  Bone.013, index:  11
+		processing begun of bone:  Bone.014, index:  12
+		processing begun of bone:  Bone.015, index:  13
+		processing begun of bone:  Bone.016, index:  14
+		processing begun of bone:  Bone.010, index:  15
+		processing begun of bone:  Bone.011, index:  16
+		processing begun of bone:  Bone.017, index:  17
+		processing begun of bone:  Bone.018, index:  18
+		processing begun of bone:  Bone.019, index:  19
+		processing begun of bone:  Bone.020, index:  20
+		processing begun of bone:  Bone.021, index:  21
+		processing begun of bone:  Bone.022, index:  22
+		processing begun of bone:  Bone.023, index:  23
+	processing begun of skeleton:  Armature.001, id:  1
+		processing begun of bone:  Bone, index:  0
+		processing begun of bone:  Bone.001, index:  1
+		processing begun of bone:  Bone.002, index:  2
+		processing begun of bone:  Bone.003, index:  3
+		processing begun of bone:  Bone.004, index:  4
+		processing begun of bone:  Bone.008, index:  5
+		processing begun of bone:  Bone.005, index:  6
+		processing begun of bone:  Bone.006, index:  7
+		processing begun of bone:  Bone.007, index:  8
+		processing begun of bone:  Bone.009, index:  9
+		processing begun of bone:  Bone.012, index:  10
+		processing begun of bone:  Bone.013, index:  11
+		processing begun of bone:  Bone.014, index:  12
+		processing begun of bone:  Bone.015, index:  13
+		processing begun of bone:  Bone.016, index:  14
+		processing begun of bone:  Bone.010, index:  15
+		processing begun of bone:  Bone.011, index:  16
+		processing begun of bone:  Bone.017, index:  17
+		processing begun of bone:  Bone.018, index:  18
+		processing begun of bone:  Bone.019, index:  19
+		processing begun of bone:  Bone.020, index:  20
+		processing begun of bone:  Bone.021, index:  21
+		processing begun of bone:  Bone.022, index:  22
+		processing begun of bone:  Bone.023, index:  23
+	processing begun of mesh:  etage-1
+		WARNING: No materials have been assigned: 
+		num positions      :  3071
+		num normals        :  3071
+		num tangents       :  0
+		num uvs            :  6142
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  5898
+		WARNING: # of 0 area faces found:  36
+	processing begun of mesh:  etage-2
+		WARNING: No materials have been assigned: 
+		num positions      :  4052
+		num normals        :  4052
+		num tangents       :  0
+		num uvs            :  8104
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4464
+	processing begun of mesh:  etage-3
+		WARNING: No materials have been assigned: 
+		num positions      :  445
+		num normals        :  445
+		num tangents       :  0
+		num uvs            :  890
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  528
+	processing begun of mesh:  etage-dome
+		WARNING: No materials have been assigned: 
+		num positions      :  6577
+		num normals        :  6577
+		num tangents       :  0
+		num uvs            :  13154
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7194
+	processing begun of mesh:  pion-h
+		WARNING: No materials have been assigned: 
+		Custom split normals with tangents being used
+		num positions      :  2140
+		num normals        :  2140
+		num tangents       :  8560
+		num uvs            :  4280
+		num uvs2           :  4280
+		num colors         :  0
+		num indices        :  8892
+	processing begun of mesh:  pion-f
+		WARNING: No materials have been assigned: 
+		Custom split normals with tangents being used
+		num positions      :  2136
+		num normals        :  2136
+		num tangents       :  8544
+		num uvs            :  4272
+		num uvs2           :  4272
+		num colors         :  0
+		num indices        :  8892
+	processing begun of mesh:  case1
+		WARNING: No materials have been assigned: 
+		num positions      :  1317
+		num normals        :  1317
+		num tangents       :  0
+		num uvs            :  2634
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1407
+		WARNING: # of 0 area faces found:  46
+	processing begun of mesh:  case2
+		WARNING: No materials have been assigned: 
+		num positions      :  1823
+		num normals        :  1823
+		num tangents       :  0
+		num uvs            :  3646
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1860
+		WARNING: # of 0 area faces found:  8
+	processing begun of light (POINT):  Light
+========= Writing of JSON file started =========
+	writing mesh:  etage-1
+	writing mesh:  etage-2
+	writing mesh:  etage-3
+	writing mesh:  etage-dome
+	writing mesh:  pion-h
+	writing mesh:  pion-f
+	writing mesh:  case1
+	writing mesh:  case2
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 1.1023 secs

@@ -6,6 +6,7 @@ import { Etage3 } from "./etage/Etage3";
 import { Dome } from "./etage/Dome";
 import { BuildHint } from "./BuildHint";
 import { Emitter } from "../infrastructure/emitter";
+import { Etage } from "./etage/Etage";
 
 export class Case
 {
@@ -13,17 +14,14 @@ export class Case
         this.coordinates = {x, y};
         this.emitter = new Emitter;
         this.scene = scene;
-        this.mesh = MeshBuilder.CreateBox("case"+x+y, {
-            height: 0.3,
-            width: 3,
-            depth: 3
-        }, this.scene);
+        const meshId = Math.random() < 0.3 ? 'case1' : 'case2';
+        this.mesh = scene.container.meshes.find(mesh => mesh.id == meshId).clone();
         this.pion = null;
 
         this.mesh.material = new StandardMaterial("gris", this.scene);
         this.mesh.material.diffuseColor = new Color3(0.86, 0.8, 0.9);
 
-        this.mesh.position = new Vector3(3.1 * x - 6.2, 0.2, 3.1 * y - 6.2);
+        this.mesh.position = new Vector3(2.5 * x - 5, 0.26, 2.5 * y - 5);
 
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
@@ -68,7 +66,15 @@ export class Case
     }
 
     showBuildHint() {
-        this.buildHint.show();
+        try {
+            this.buildHint.show(this.nextLevelToBuild());
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    nextLevelToBuild() {
+        return this.dernierEtage() !== null ? this.dernierEtage().nextLevel() : Etage.NIVEAU_1;
     }
 
     hideBuildHint() {
@@ -134,11 +140,11 @@ export class Case
 
         if (dernierEtage === null) {
             const position = this.mesh.position.clone();
-            position.y = 0.8;
+            position.y = 0.28;
             return position;
         }
 
-        if (dernierEtage.constructor.name === 'Dome') {
+        if (dernierEtage.constructor.niveau === Etage.NIVEAU_DOME) {
             throw "Impossible de poser le pion ici un dome est construit";
         }
 

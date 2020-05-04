@@ -122,11 +122,10 @@ export class Game
             []
         )];
 
-        // this.stepper = new Stepper(new Preparation(this));
         this.stepper = new Stepper();
         this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
-            console.error(e);
+            return 'win';
         });
     }
 }

@@ -26,4 +26,22 @@ export class Etage
         
         return parseInt(this.niveau) - parseInt(etage.niveau);
     }
+
+    nextLevel() {
+        switch (this.niveau) {
+            case Etage.NIVEAU_1:
+                return Etage.NIVEAU_2;
+            case Etage.NIVEAU_2:
+                return Etage.NIVEAU_3;
+            case Etage.NIVEAU_3:
+                return Etage.NIVEAU_DOME;
+            case Etage.NIVEAU_DOME:
+                throw "Pas de niveau après le dôme";
+        }
+    }
 }
+
+Etage.NIVEAU_1 = "1";
+Etage.NIVEAU_2 = "2";
+Etage.NIVEAU_3 = "3";
+Etage.NIVEAU_DOME = "dome";

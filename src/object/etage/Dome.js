@@ -10,7 +10,6 @@ export class Dome extends Etage {
         this.mesh.material.diffuseColor = new Color3(0.3, 0.3, 0.9);
 
         const position = caseFrom.mesh.position.clone();
-        position.y = 4;
         this.mesh.position = position;
         
         this.mesh.pointerPicked = () => {

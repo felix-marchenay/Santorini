@@ -24,7 +24,7 @@ export class Plateau {
         this.emitter = new Emitter;
         this.scene = scene;
         this.nbCases = [5, 5];
-        this.dimensions = {h: 0.5, w: 16.8, d: 16.8};
+        this.dimensions = {h: 0.5, w: 12.5, d: 12.5};
         this.cases = this.genererCases();
         this.board = this.createBoard();
         this.casePicked = null;
@@ -37,7 +37,14 @@ export class Plateau {
                 cases[x] = [];
             }
             for (let y = 0; y < this.nbCases[1]; y++) {
-                cases[x][y] = new Case(this.scene, x, y);
+                cases[x][y] = new Case(
+                    this.scene, 
+                    x, 
+                    y, 
+                    this.dimensions.w / this.nbCases[1],
+                    this.dimensions.d / this.nbCases[0],
+                    0.2
+                );
             }
         }
         return cases;
