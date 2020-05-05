@@ -49,7 +49,7 @@ html,
             display: flex;
         }
 
-        [step=name] .player .divinite {
+        [step=name] .player .divinite-name {
             background: white;
             border-radius: 4px;
             border-top: 5px solid rgb(16, 102, 182);
@@ -58,6 +58,31 @@ html,
             margin: -25px 20px 0 20px;
             z-index: 2;
             position: relative;
+        }
+
+        [step=name] .pick-divinite {
+            flex-direction: row;
+            display: flex;
+            position: absolute;
+            left: 95px;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+            transition: 150ms ease-out;
+        }
+
+        [step=name] .pick-divinite.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        [step=name] .pick-divinite .image {
+            margin: 15px;
+        }
+
+        [step=name] .pick-divinite .proposal {
+            margin: 5px 10px;
         }
 
         [step=name] h3 {

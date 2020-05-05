@@ -1,9 +1,11 @@
 import { Emitter } from "../infrastructure/emitter";
+import { DivinitePicker } from "./DivinitePicker";
 
 export class Interface 
 {
     constructor() {
         this.emitter = new Emitter;
+        this.divinitePicker = new DivinitePicker;
 
         document.querySelector('[name=valider]').addEventListener('click', btn => {
             this.emitter.emit(
