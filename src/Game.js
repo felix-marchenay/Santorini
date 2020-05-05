@@ -126,11 +126,7 @@ export class Game
         this.stepper = new Stepper();
         this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
-            if (e instanceof Victoire) {
-                this.ihm.victory(e);
-            } else {
-                console.error('pas victoire : ', e);
-            }
+            this.ihm.victory(e);
         });
     }
 }

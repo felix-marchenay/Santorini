@@ -1,3 +1,5 @@
+import { Victoire } from "../Victoire";
+
 export class Stepper
 {
     constructor(...steps) {
@@ -44,9 +46,18 @@ export class Stepper
 
     async cycle (step) {
         console.log(step);
-        await step.run();
-        if (typeof step.after === 'function') {
-            step.after();
+        try {
+            await step.run();
+        } catch (e) {
+            if (e instanceof Victoire) {
+                throw e;
+            } else {
+                console.error(e);
+            }
+        } finally {
+            if (typeof step.after === 'function') {
+                step.after();
+            }
         }
     }
 }
