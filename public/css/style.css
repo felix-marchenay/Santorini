@@ -1,0 +1,142 @@
+html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #render {
+            width: 100%;
+            height: 100%;
+            display: block;
+            font-size: 0;
+        }
+
+        #gui {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            color: black;
+            font-family: sans-serif;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+
+        [step] {
+            z-index: 3;
+            display: none;
+            padding: 15px;
+            margin-top: 4px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 4px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        [step=name] {
+            margin: 40px;
+            top: 0;
+            min-width: 350px;
+            flex-direction: column;
+        }
+
+        [step=name] .players {
+            text-align: center;
+            flex-direction: row;
+            display: flex;
+        }
+
+        [step=name] .player .divinite {
+            background: white;
+            border-radius: 4px;
+            border-top: 5px solid rgb(16, 102, 182);
+            border-bottom: 5px solid rgb(16, 102, 182);
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+            margin: -25px 20px 0 20px;
+            z-index: 2;
+            position: relative;
+        }
+
+        [step=name] h3 {
+            text-align: center;
+        }
+        
+        [step=name] .player {
+            display: inline-block;
+            border-radius: 3px;
+            margin: 10px;
+        }
+
+        [step=name] img {
+            border: 5px solid rgba(110, 110, 110, 0.3);
+            box-shadow: 2px 3px 9px 4px rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        [step=name] .player input {
+            padding: 15px 8px;
+            margin: 10px 0 0 0;
+            text-align: center;
+            border: none;
+            font-size: 19px;
+            background: none;
+        }
+
+        button {
+            background: rgba(214, 148, 61, 0.1);
+            padding: 10px 20px;
+            border: 3px solid rgba(214, 148, 60);
+            text-transform: uppercase;
+            border-radius: 4px;
+            color : rgba(214, 148, 60);
+            font-size: 18px;
+            margin: 15px 0;
+            cursor: pointer;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: 100ms ease-out;
+        }
+
+        button.big {
+            padding: 15px 30px;
+            font-size: 23px;
+        }
+        
+        [step=name] button:hover {
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        [step=tour] span {
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            padding: 0 7px;
+        }
+
+        [step=tour] .name{
+            color: blue;
+        }
+
+        [step=tour] .action{
+            color: orange;
+        }
+
+        [step=victory] {
+            margin: 40px;
+            flex-direction: column;
+            top: 0;
+            min-width: 350px;
+            align-items: center;
+        }
+
+        [step=victory] h2 {
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .errors {
+            color: red;
+            float: right;
+        }

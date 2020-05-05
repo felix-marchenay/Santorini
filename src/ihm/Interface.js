@@ -8,7 +8,11 @@ export class Interface
         document.querySelector('[name=valider]').addEventListener('click', btn => {
             this.emitter.emit(
                 'namesPicked', 
-                [...document.querySelectorAll('[step=name] input.name')].map(el => el.value)
+                [...document.querySelectorAll('[step=name] input.name')].map(el => {
+                    return {
+                        name: el.value
+                    };
+                })
             );
         });
     }
