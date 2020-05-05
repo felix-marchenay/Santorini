@@ -1,5 +1,4 @@
 import { MeshBuilder, StandardMaterial, Color3, Vector3 } from "@babylonjs/core";
-import { OperationCanceledException } from "typescript";
 import { Etage1 } from "./etage/Etage1";
 import { Etage2 } from "./etage/Etage2";
 import { Etage3 } from "./etage/Etage3";
@@ -55,6 +54,10 @@ export class Case
     differenceNiveau (caze) {
         if (this.dernierEtage()) {
             return this.dernierEtage().difference(caze.dernierEtage());
+        }
+
+        if (caze === null) {
+            return 0;
         }
 
         if (caze.dernierEtage() === null) {

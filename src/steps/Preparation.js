@@ -20,7 +20,7 @@ export class Preparation extends Step
 
             this.game.plateau.allCases().forEach(cas => {
                 cas.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
+                    if (this.game.idlePion() && this.game.idlePion().canGo(cas)) {
                         cas.poserPion(this.game.idlePion());
                         this.game.idlePion().stopIdle();
                     }

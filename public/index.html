@@ -71,17 +71,23 @@
             background: none;
         }
 
-        [step=name] button {
-            background: #d6943d;
+        button {
+            background: rgba(214, 148, 61, 0.1);
             padding: 10px 20px;
-            border: none;
+            border: 3px solid rgba(214, 148, 60);
+            text-transform: uppercase;
             border-radius: 4px;
-            color : white;
-            font-size: 16px;
+            color : rgba(214, 148, 60);
+            font-size: 18px;
             margin: 15px 0;
             cursor: pointer;
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             transition: 100ms ease-out;
+        }
+
+        button.big {
+            padding: 15px 30px;
+            font-size: 23px;
         }
         
         [step=name] button:hover {
@@ -146,8 +152,12 @@
         <div step="info"></div>
         <div step="victory">
             <h2>
-                Victoire pour <span class="name"></span> !!</div>
+                Victoire pour <span class="name"></span> !!
+                <button class="again">
+                    Rejouer
+                </button>
             </h2>
+        </div>
         <div step="tour">
             Au tour de <span class="name"></span> de <span class="action"></span>
         </div>

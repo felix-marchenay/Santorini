@@ -1,5 +1,4 @@
 import { Step } from "./Step";
-import { Win } from "../exceptions/Win";
 import { Victoire } from "../Victoire";
 
 export class Deplacement extends Step
