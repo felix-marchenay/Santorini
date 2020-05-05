@@ -71,6 +71,10 @@ export class Pion {
         return animation;
     }
 
+    canGo(caze) {
+        return caze.pion == null && (this.case.differenceNiveau(caze) < 2) && !caze.hasDome();
+    }
+
     toggleIdle() {
         if (this.idle) {
             this.stopIdle();

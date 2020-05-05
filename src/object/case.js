@@ -163,6 +163,10 @@ export class Case
         return point;
     }
 
+    hasDome() {
+        return this.constructions.dome !== null;
+    }
+
     dernierEtage() {
         if (this.constructions.dome !== null) {
             return this.constructions.dome;
