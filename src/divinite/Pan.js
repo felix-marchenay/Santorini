@@ -1,9 +1,9 @@
 import { Divinite } from "./Divinite";
-import { Deplacement } from "../steps/divinite/pan/Deplacement";
+import { PanDeplacement } from "../steps/divinite/pan/Deplacement";
 
 export class Pan extends Divinite
 {
     getDeplacementStep (game, joueur) {
-        return new Deplacement(game, joueur);
+        return new PanDeplacement(game, joueur);
     }
 }
