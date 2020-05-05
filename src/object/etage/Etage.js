@@ -1,5 +1,5 @@
 import { Emitter } from "../../infrastructure/emitter";
-import { StandardMaterial, Color3, Texture } from "babylonjs";
+import { StandardMaterial, Color3, Texture, HighlightLayer } from "babylonjs";
 
 export class Etage
 {
@@ -10,9 +10,10 @@ export class Etage
         this.emitter = new Emitter;
         
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'etage-'+niveau).clone();
+        this.mesh.renderOutline = true;
+        this.mesh.outlineColor = new Color3(.2, .20, .20);
+        this.mesh.outlineWidth = .025;
         
-        this.mesh.material = new StandardMaterial("gris", this.scene);
-        this.mesh.material.diffuseTexture = new Texture("/image/concrete.jpg", this.scene);
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');
         }

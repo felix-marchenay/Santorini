@@ -63,7 +63,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		processing begun of bone:  Bone.022, index:  22
 		processing begun of bone:  Bone.023, index:  23
 	processing begun of mesh:  etage-1
-		WARNING: No materials have been assigned: 
+		processing begun of material:  White cement
 		num positions      :  3071
 		num normals        :  3071
 		num tangents       :  0
@@ -73,7 +73,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  5898
 		WARNING: # of 0 area faces found:  36
 	processing begun of mesh:  etage-2
-		WARNING: No materials have been assigned: 
+		processing begun of material:  White cement
+		registered as also a user of material:  White cement
 		num positions      :  4052
 		num normals        :  4052
 		num tangents       :  0
@@ -82,7 +83,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  4464
 	processing begun of mesh:  etage-3
-		WARNING: No materials have been assigned: 
+		processing begun of material:  White cement
+		registered as also a user of material:  White cement
 		num positions      :  445
 		num normals        :  445
 		num tangents       :  0
@@ -91,14 +93,165 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  528
 	processing begun of mesh:  etage-dome
-		WARNING: No materials have been assigned: 
-		num positions      :  6577
-		num normals        :  6577
+		processing begun of material:  Blue cement
+		num positions      :  1322
+		num normals        :  1322
 		num tangents       :  0
-		num uvs            :  13154
+		num uvs            :  2644
 		num uvs2           :  0
 		num colors         :  0
 		num indices        :  7194
+	processing begun of mesh:  ile
+		processing begun of material:  Material.002
+			processing texture cliff
+				texture type:  diffuseTexture, mapped using: "UVMap"
+		num positions      :  3890
+		num normals        :  3890
+		num tangents       :  0
+		num uvs            :  7780
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of mesh:  case2
+		WARNING: No materials have been assigned: 
+		num positions      :  918
+		num normals        :  918
+		num tangents       :  0
+		num uvs            :  1836
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+		WARNING: # of 0 area faces found:  12
+	processing begun of mesh:  case-vide
+		WARNING: No materials have been assigned: 
+		num positions      :  87
+		num normals        :  87
+		num tangents       :  0
+		num uvs            :  174
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  108
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.001
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.002
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.003
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.004
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.005
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.006
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.007
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.008
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  case1.009
+		WARNING: No materials have been assigned: 
+		num positions      :  241
+		num normals        :  241
+		num tangents       :  0
+		num uvs            :  482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  297
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  colonnes
+		WARNING: No materials have been assigned: 
+		num positions      :  25438
+		num normals        :  25438
+		num tangents       :  0
+		num uvs            :  50876
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  26136
+		WARNING: # of 0 area faces found:  16
+	processing begun of mesh:  ile.001
+		WARNING: No materials have been assigned: 
+		num positions      :  123469
+		num normals        :  123469
+		num tangents       :  0
+		num uvs            :  246938
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  124404
+		WARNING: # of 0 area faces found:  4
 	processing begun of mesh:  pion-h
 		WARNING: No materials have been assigned: 
 		Custom split normals with tangents being used
@@ -119,36 +272,29 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num uvs2           :  4272
 		num colors         :  0
 		num indices        :  8892
-	processing begun of mesh:  case1
-		WARNING: No materials have been assigned: 
-		num positions      :  1317
-		num normals        :  1317
-		num tangents       :  0
-		num uvs            :  2634
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  1407
-		WARNING: # of 0 area faces found:  46
-	processing begun of mesh:  case2
-		WARNING: No materials have been assigned: 
-		num positions      :  1823
-		num normals        :  1823
-		num tangents       :  0
-		num uvs            :  3646
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  1860
-		WARNING: # of 0 area faces found:  8
 	processing begun of light (POINT):  Light
 ========= Writing of JSON file started =========
 	writing mesh:  etage-1
 	writing mesh:  etage-2
 	writing mesh:  etage-3
 	writing mesh:  etage-dome
+	writing mesh:  ile
+	writing mesh:  case2
+	writing mesh:  case-vide
+	writing mesh:  case1
+	writing mesh:  case1.001
+	writing mesh:  case1.002
+	writing mesh:  case1.003
+	writing mesh:  case1.004
+	writing mesh:  case1.005
+	writing mesh:  case1.006
+	writing mesh:  case1.007
+	writing mesh:  case1.008
+	writing mesh:  case1.009
+	writing mesh:  colonnes
+	writing mesh:  ile.001
 	writing mesh:  pion-h
 	writing mesh:  pion-f
-	writing mesh:  case1
-	writing mesh:  case2
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 1.1023 secs
+elapsed time:  0 min, 4.9002 secs

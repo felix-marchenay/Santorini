@@ -10,6 +10,6 @@ export class Etage2 extends Etage {
         const positionCase = caseFrom.mesh.position.clone();
         this.mesh.position = positionCase;
         this.pionPosition = positionCase.clone();
-        this.pionPosition.y = 2.05;
+        this.pionPosition.y = 2.1;
     }
 }

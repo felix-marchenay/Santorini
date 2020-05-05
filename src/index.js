@@ -105,23 +105,28 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
     try {
         scene.container = container;
     
-        var camera = new ArcRotateCamera("camera", .05, .7, 20, Vector3.Zero(), scene);
+        var camera = new ArcRotateCamera("camera", .05, Math.PI / 2, 20, Vector3.Zero(), scene);
+        camera.allowUpsideDown = false;
+        camera.wheelPrecision = 10;
+        camera.lowerRadiusLimit = 15;
+        camera.upperRadiusLimit = 50;
+        camera.upperBetaLimit = Math.PI / 2.1;
         
         camera.attachControl(canvas, true);
         
-        const lightPosition1 = new Vector3(-6, 25, 15);
+        const lightPosition1 = new Vector3(-25, 20, 25);
         var light1 = new HemisphericLight("light", lightPosition1, scene);
         light1.intensity = 0.45;
         const lightBox = MeshBuilder.CreateBox("lightBox", {}, scene);
         lightBox.position = lightPosition1;
         
-        const lightPosition2 = new Vector3(20, 35, 4);
+        const lightPosition2 = new Vector3(30, 17, 45);
         var light2 = new HemisphericLight("light", lightPosition2, scene);
         light2.intensity = 0.3;
         const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, scene);
         lightBox2.position = lightPosition2;
     
-        const lightPosition3 = new Vector3(10, 31, -12);
+        const lightPosition3 = new Vector3(-18, 15, -32);
         var light3 = new HemisphericLight("light", lightPosition3, scene);
         light3.intensity = 0.35;
         const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, scene);
@@ -130,7 +135,7 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         const game = new Game(scene);
         game.play();
         
-        drawAxis(scene);
+        // drawAxis(scene);
         
         // Render every frame
         engine.runRenderLoop(() => {

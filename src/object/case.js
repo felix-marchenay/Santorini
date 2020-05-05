@@ -7,6 +7,8 @@ import { Dome } from "./etage/Dome";
 import { BuildHint } from "./BuildHint";
 import { Emitter } from "../infrastructure/emitter";
 import { Etage } from "./etage/Etage";
+import { HighlightLayer } from "babylonjs";
+import { MoveHint } from "./MoveHint";
 
 export class Case
 {
@@ -32,6 +34,7 @@ export class Case
         this.buildHint.emitter.on('pointerPicked', () => {
             this.emitter.emit('pointerPicked');
         });
+        this.moveHint = new MoveHint(scene, this);
     }
 
     poserPion(pion) {
@@ -71,6 +74,14 @@ export class Case
         } catch (e) {
             console.log(e);
         }
+    }
+
+    showMoveHint() {
+        this.moveHint.on();
+    }
+
+    hideMoveHint() {
+        this.moveHint.off();
     }
 
     nextLevelToBuild() {

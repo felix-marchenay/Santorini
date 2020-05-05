@@ -19,6 +19,7 @@ export class Deplacement extends Step
                         p.stopIdle();
                     });
                     pion.toggleIdle();
+                    this.game.plateau.showMoveHintAround(pion.case);
                 });
             });
 
@@ -55,7 +56,10 @@ export class Deplacement extends Step
 
     after () {
         this.game.pions.forEach(pion => {pion.emitter.flush()});
-        this.game.plateau.allCases().forEach(cas => {cas.emitter.flush()});
+        this.game.plateau.allCases().forEach(cas => {
+            cas.emitter.flush();
+            cas.hideMoveHint();
+        });
         this.game.ihm.hide('tour');
     }
 }

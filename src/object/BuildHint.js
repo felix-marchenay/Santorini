@@ -1,4 +1,4 @@
-import { MeshBuilder, StandardMaterial, Color3 } from "@babylonjs/core";
+import { MeshBuilder, StandardMaterial, Color3, HighlightLayer } from "@babylonjs/core";
 import { Emitter } from "../infrastructure/emitter";
 import { Etage } from "./etage/Etage";
 
@@ -37,6 +37,9 @@ export class BuildHint
             etage.mesh.pointerPicked = () => {
                 this.emitter.emit('pointerPicked');
             }
+            etage.mesh.enableEdgesRendering();    
+            etage.mesh.edgesWidth = 1.6;
+            etage.mesh.edgesColor = new BABYLON.Color4(0.8, .2, .85, 0.05);
         });
     }
 

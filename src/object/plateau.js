@@ -56,6 +56,8 @@ export class Plateau {
             height: this.dimensions.h,
             depth: this.dimensions.d
         });
+        const ile = this.scene.container.meshes.find(mesh => mesh.id == 'ile').clone();
+
         return boardMesh;
     }
 
@@ -71,6 +73,16 @@ export class Plateau {
     
     showBuildHint (cases) {
         cases.map(cas => cas.showBuildHint());
+    }
+
+    showMoveHintAround(caze) {
+        this.showMoveHint(
+            this.casesAvoisinantes(caze)
+        );
+    }
+
+    showMoveHint(cases) {
+        cases.map(cas => cas.showMoveHint());
     }
 
     allCases() {
