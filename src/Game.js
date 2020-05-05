@@ -13,6 +13,7 @@ import { Deplacement } from "./steps/Deplacement";
 import { Construction } from "./steps/Construction";
 import { Interface } from "./ihm/Interface";
 import { RandomBuild } from "./steps/RandomBuild";
+import { Victoire } from "./Victoire";
 
 export class Game
 {
@@ -125,7 +126,11 @@ export class Game
         this.stepper = new Stepper();
         this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
-            this.ihm.victory(e);
+            if (e instanceof Victoire) {
+                this.ihm.victory(e);
+            } else {
+                console.error('pas victoire : ', e);
+            }
         });
     }
 }

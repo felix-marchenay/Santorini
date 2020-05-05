@@ -1,6 +1,6 @@
-export class Win extends Error {
+export class Victoire
+{
     constructor(joueur) {
-        super();
         this.joueur = joueur;
     }
 }

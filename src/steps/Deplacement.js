@@ -1,5 +1,6 @@
 import { Step } from "./Step";
 import { Win } from "../exceptions/Win";
+import { Victoire } from "../Victoire";
 
 export class Deplacement extends Step
 {
@@ -43,7 +44,7 @@ export class Deplacement extends Step
                             this.joueur.lastMovedPion = this.game.idlePion();
     
                             if (this.joueur.isVictorious()) {
-                                reject(this.joueur);
+                                reject(new Victoire(this.joueur));
                             }
                             this.game.idlePion().stopIdle();
     

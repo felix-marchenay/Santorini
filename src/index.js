@@ -26,7 +26,6 @@ import {
     NormalMaterial
 } from "@babylonjs/materials";
 
-import { Game } from "./game";
 import { SantoriniScene } from "./SantoriniScene";
 
 function drawAxis(scene) {

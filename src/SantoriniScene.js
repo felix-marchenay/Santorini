@@ -1,5 +1,5 @@
 import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder } from "babylonjs";
-import { Game } from "./game";
+import { Game } from "./Game";
 
 export class SantoriniScene
 {

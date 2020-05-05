@@ -35,10 +35,10 @@ export class Interface
         document.querySelector('[step]').style.display = 'none';
     }
 
-    victory(joueur) {
+    victory(victoire) {
         this.hideAll();
         this.show('victory');
-        document.querySelector('[step=victory] .name').innerHTML = joueur.name;
+        document.querySelector('[step=victory] .name').innerHTML = victoire.joueur.name;
     }
 
     error(error) {
