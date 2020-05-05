@@ -48,12 +48,12 @@ export class DivinitePicker
     }
 
     close() {
-        console.log(document.querySelectorAll('.pick-divinite'));
         document.querySelectorAll('.pick-divinite').forEach(el => el.classList.remove('active'));
     }
 
     select(divinite) {
         this.emitter.emit('picked', this.divinites[divinite.getAttribute('name')]);
+        
         this.close();
     }
 }

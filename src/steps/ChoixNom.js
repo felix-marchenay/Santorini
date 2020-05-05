@@ -2,6 +2,7 @@ import { Step } from "./Step";
 import { Joueur } from "../joueur";
 import { Athena } from "../divinite/Athena";
 import { Atlas } from "../divinite/Atlas";
+import { Pan } from "../divinite/Pan";
 
 export class ChoixNoms extends Step
 {
@@ -16,7 +17,7 @@ export class ChoixNoms extends Step
                 }
 
                 const divinites = [
-                    new Atlas,
+                    new Pan,
                     new Athena
                 ];
 

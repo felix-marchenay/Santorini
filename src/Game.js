@@ -105,9 +105,9 @@ export class Game
 
     async play() {
         this.stepper.addSteps(
-            new ChoixNoms(this),
-            // new RandomBuild(this),
-            new Preparation(this),
+            new AutoChoixNoms(this),
+            new RandomBuild(this),
+            new AutoPreparation(this)
         );
 
         await this.stepper.run();

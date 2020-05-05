@@ -8,7 +8,10 @@ export class Joueur
         this.pions = [];
         this.couleurPion = couleur;
         this.lastMovedPion = null;
-        this.divinite = new NoDivinite;
+        if (divinite === null) {
+            divinite = new NoDivinite;
+        }
+        this.divinite = divinite;
     }
 
     getDeplacementStep (game) {
