@@ -67,7 +67,7 @@ export class Plateau {
 
     showBuildHintAround (caze) {
         this.showBuildHint(
-            this.casesAvoisinantes(caze)
+            this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())
         );
     }
     

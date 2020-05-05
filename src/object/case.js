@@ -76,6 +76,10 @@ export class Case
         }
     }
 
+    isBuildable() {
+        return this.pion == null && !this.hasDome();
+    }
+
     showMoveHint() {
         this.moveHint.on();
     }

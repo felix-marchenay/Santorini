@@ -19,10 +19,10 @@ export class Construction extends Step
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
                     try {
-                        if (!pion.case.estAvoisinante(caze)) {
-                            throw "La case est trop loin pour construire";
+                        if (caze.isBuildable()) {
+                            caze.build();
                         }
-                        caze.build();
+
                         resolve();
                     } catch (e) {
                         this.game.ihm.error(e);

@@ -72,7 +72,6 @@ export class Pion {
     }
 
     canGo(caze) {
-        console.log(this.case.differenceNiveau(caze));
         return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
 
