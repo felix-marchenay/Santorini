@@ -19,11 +19,11 @@ export class Construction extends Step
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
                     try {
-                        if (caze.isBuildable()) {
+                        if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                             caze.build();
-                        }
 
-                        resolve();
+                            resolve();
+                        }
                     } catch (e) {
                         console.log(e);
                         this.game.ihm.error(e);

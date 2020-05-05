@@ -39,19 +39,19 @@ export class Deplacement extends Step
                             }
 
                             caze.poserPion(this.game.idlePion());
+
+                            this.joueur.lastMovedPion = this.game.idlePion();
+    
+                            if (this.joueur.isVictorious()) {
+                                reject(this.joueur);
+                            }
+                            this.game.idlePion().stopIdle();
+    
+                            resolve();
                         } catch (e) {
                             console.log(e);
                             this.game.ihm.error(e);
                         }
-
-                        this.joueur.lastMovedPion = this.game.idlePion();
-
-                        if (this.joueur.isVictorious()) {
-                            reject(this.joueur);
-                        }
-                        this.game.idlePion().stopIdle();
-
-                        resolve();
                     }
                 });
             });

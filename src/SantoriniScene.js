@@ -13,7 +13,7 @@ export class SantoriniScene
     }
 
     arcCamera() {
-        var camera = new ArcRotateCamera("camera", Math.PI / 6, Math.PI / 4, 20, Vector3.Zero(), this.scene);
+        var camera = new ArcRotateCamera("camera", Math.PI / 12, Math.PI / 4, 20, Vector3.Zero(), this.scene);
         camera.allowUpsideDown = false;
         camera.wheelPrecision = 10;
         camera.lowerRadiusLimit = 15;
