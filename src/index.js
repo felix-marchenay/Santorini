@@ -104,6 +104,7 @@ var scene = new Scene(engine);
 SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
     try {
         scene.container = container;
+        console.log(container);
     
         var camera = new ArcRotateCamera("camera", .05, Math.PI / 2, 20, Vector3.Zero(), scene);
         camera.allowUpsideDown = false;
@@ -133,7 +134,10 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         lightBox3.position = lightPosition3;
         
         const game = new Game(scene);
+        
         game.play();
+
+        console.log('ready');
         
         // drawAxis(scene);
         

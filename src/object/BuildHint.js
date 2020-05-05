@@ -1,6 +1,7 @@
 import { MeshBuilder, StandardMaterial, Color3, HighlightLayer } from "@babylonjs/core";
 import { Emitter } from "../infrastructure/emitter";
 import { Etage } from "./etage/Etage";
+import { Color4 } from "babylonjs";
 
 export class BuildHint
 {
@@ -27,19 +28,19 @@ export class BuildHint
                 mesh : scene.container.meshes.find(mesh => mesh.id === 'etage-dome').clone(),
             },
         ];
-
+        
         this.etages.forEach(etage => {
             etage.mesh.material = new StandardMaterial("", scene);
-            etage.mesh.material.alpha = 0.35;
+            etage.mesh.material.alpha = 0.15;
             etage.mesh.material.diffuseColor = new Color3(0.9, 0.25, 0.9);
             etage.mesh.position = this.case.mesh.position;
             etage.mesh.setEnabled(false);
             etage.mesh.pointerPicked = () => {
                 this.emitter.emit('pointerPicked');
             }
-            etage.mesh.enableEdgesRendering();    
-            etage.mesh.edgesWidth = 1.6;
-            etage.mesh.edgesColor = new BABYLON.Color4(0.8, .2, .85, 0.05);
+            etage.mesh.renderOutline = true;
+            etage.mesh.outlineColor = new Color3(.8, .2, .85);
+            etage.mesh.outlineWidth = .025;
         });
     }
 

@@ -72,7 +72,8 @@ export class Pion {
     }
 
     canGo(caze) {
-        return caze.pion == null && (this.case.differenceNiveau(caze) < 2) && !caze.hasDome();
+        console.log(this.case.differenceNiveau(caze));
+        return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
 
     toggleIdle() {

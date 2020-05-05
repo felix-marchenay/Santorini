@@ -26,7 +26,7 @@ export class Game
             new Color3(0.45, 0.32, 0.81),
             new Color3(0.65, 0.32, 0.81),
         ];
-
+        
         scene.onPointerObservable.add(pointerInfo => {
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
