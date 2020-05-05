@@ -16,7 +16,7 @@ import { RandomBuild } from "./steps/RandomBuild";
 
 export class Game
 {
-    constructor (scene, ihm) {
+    constructor (scene) {
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.stepper = new Stepper;
@@ -125,8 +125,7 @@ export class Game
         this.stepper = new Stepper();
         this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
-            console.log(e);
-            return 'win';
+            this.ihm.victory(e);
         });
     }
 }

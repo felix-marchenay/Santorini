@@ -171,6 +171,18 @@ export class Case
         return this.constructions.dome !== null;
     }
 
+    niveau() {
+        if (this.dernierEtage() == null) {
+            return 0;
+        }
+
+        if (this.dernierEtage().niveau == Etage.NIVEAU_DOME) {
+            return 4;
+        }
+
+        return parseInt(this.dernierEtage().niveau);
+    }
+
     dernierEtage() {
         if (this.constructions.dome !== null) {
             return this.constructions.dome;

@@ -44,14 +44,11 @@ export class Stepper
 
     async cycle (step) {
         console.log(step);
-        const result = await step.run();
-        
+        await step.run().catch(e => {
+            console.log(e);
+        });
         if (typeof step.after === 'function') {
             step.after();
-        }
-
-        if (result) {
-            throw "win";
         }
     }
 }

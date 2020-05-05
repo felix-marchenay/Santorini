@@ -27,6 +27,7 @@ import {
 } from "@babylonjs/materials";
 
 import { Game } from "./game";
+import { SantoriniScene } from "./SantoriniScene";
 
 function drawAxis(scene) {
     MeshBuilder.CreateLines("axisX", {
@@ -99,51 +100,20 @@ export function info(string) {
 
 const canvas = document.getElementById("render");
 const engine = new Engine(canvas);
-var scene = new Scene(engine);
+const scene = new Scene(engine);
 
 SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
     try {
         scene.container = container;
-        console.log(container);
-    
-        var camera = new ArcRotateCamera("camera", .05, Math.PI / 2, 20, Vector3.Zero(), scene);
-        camera.allowUpsideDown = false;
-        camera.wheelPrecision = 10;
-        camera.lowerRadiusLimit = 15;
-        camera.upperRadiusLimit = 50;
-        camera.upperBetaLimit = Math.PI / 2.1;
-        
-        camera.attachControl(canvas, true);
-        
-        const lightPosition1 = new Vector3(-25, 20, 25);
-        var light1 = new HemisphericLight("light", lightPosition1, scene);
-        light1.intensity = 0.45;
-        const lightBox = MeshBuilder.CreateBox("lightBox", {}, scene);
-        lightBox.position = lightPosition1;
-        
-        const lightPosition2 = new Vector3(30, 17, 45);
-        var light2 = new HemisphericLight("light", lightPosition2, scene);
-        light2.intensity = 0.3;
-        const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, scene);
-        lightBox2.position = lightPosition2;
-    
-        const lightPosition3 = new Vector3(-18, 15, -32);
-        var light3 = new HemisphericLight("light", lightPosition3, scene);
-        light3.intensity = 0.35;
-        const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, scene);
-        lightBox3.position = lightPosition3;
-        
-        const game = new Game(scene);
-        
-        game.play();
 
-        console.log('ready');
+        console.log(container);
+
+        const santoScene = new SantoriniScene(scene, canvas);
         
-        // drawAxis(scene);
-        
-        // Render every frame
+        santoScene.game.play();
+
         engine.runRenderLoop(() => {
-            scene.render();
+            santoScene.render();
         });
     } catch (e) {
         console.error(e);

@@ -1,4 +1,5 @@
 import { Step } from "./Step";
+import { Win } from "../exceptions/Win";
 
 export class Deplacement extends Step
 {
@@ -8,7 +9,7 @@ export class Deplacement extends Step
     }
 
     run () {
-        return super.run(resolve => {
+        return super.run((resolve, reject) => {
 
             this.game.ihm.show('tour');
             this.game.ihm.resume(this.joueur.name, 'se déplacer');
@@ -38,18 +39,19 @@ export class Deplacement extends Step
                             }
 
                             caze.poserPion(this.game.idlePion());
-
-                            if (caze.dernierEtage() && caze.dernierEtage().niveau === "3") {
-                                resolve(true);
-                            }
-
-                            this.joueur.lastMovedPion = this.game.idlePion();
-                            this.game.idlePion().stopIdle();
-
-                            resolve();
                         } catch (e) {
+                            console.log(e);
                             this.game.ihm.error(e);
                         }
+
+                        this.joueur.lastMovedPion = this.game.idlePion();
+
+                        if (this.joueur.isVictorious()) {
+                            reject(this.joueur);
+                        }
+                        this.game.idlePion().stopIdle();
+
+                        resolve();
                     }
                 });
             });

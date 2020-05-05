@@ -25,6 +25,7 @@ export class Construction extends Step
 
                         resolve();
                     } catch (e) {
+                        console.log(e);
                         this.game.ihm.error(e);
                     }
                 });

@@ -102,6 +102,18 @@
             color: orange;
         }
 
+        [step=victory] {
+            margin: 40px;
+            flex-direction: column;
+            top: 0;
+            min-width: 350px;
+            align-items: center;
+        }
+
+        [step=victory] h2 {
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
         .errors {
             color: red;
             float: right;
@@ -132,7 +144,10 @@
             <button name="valider">Valider</button>
         </div>
         <div step="info"></div>
-        <div step="victory">Victoire pour <span class="name"></span> !!</div>
+        <div step="victory">
+            <h2>
+                Victoire pour <span class="name"></span> !!</div>
+            </h2>
         <div step="tour">
             Au tour de <span class="name"></span> de <span class="action"></span>
         </div>

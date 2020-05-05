@@ -31,7 +31,13 @@ export class Interface
         document.querySelector('[step=info]').innerHTML = str;
     }
 
+    hideAll() {
+        document.querySelector('[step]').style.display = 'none';
+    }
+
     victory(joueur) {
+        this.hideAll();
+        this.show('victory');
         document.querySelector('[step=victory] .name').innerHTML = joueur.name;
     }
 

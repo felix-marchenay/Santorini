@@ -18,4 +18,8 @@ export class Joueur
     getConstructionStep (game) {
         return this.divinite.getConstructionStep(game, this);
     }
+
+    isVictorious() {
+        return this.divinite.isVictorious(this.lastMovedPion);
+    }
 }
