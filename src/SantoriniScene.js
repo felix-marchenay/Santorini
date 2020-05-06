@@ -28,19 +28,19 @@ export class SantoriniScene
     hemisphericLights() {
         const lightPosition1 = new Vector3(-25, 20, 25);
         const light1 = new HemisphericLight("light", lightPosition1, this.scene);
-        light1.intensity = 0.45;
+        light1.intensity = 0.6;
         const lightBox = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         lightBox.position = lightPosition1;
         
         const lightPosition2 = new Vector3(30, 17, 45);
         const light2 = new HemisphericLight("light", lightPosition2, this.scene);
-        light2.intensity = 0.3;
+        light2.intensity = 0.4;
         const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         lightBox2.position = lightPosition2;
     
         const lightPosition3 = new Vector3(-18, 15, -32);
         const light3 = new HemisphericLight("light", lightPosition3, this.scene);
-        light3.intensity = 0.35;
+        light3.intensity = 0.55;
         const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         lightBox3.position = lightPosition3;
 

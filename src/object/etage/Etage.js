@@ -10,9 +10,6 @@ export class Etage
         this.emitter = new Emitter;
         
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'etage-'+niveau).clone();
-        this.mesh.renderOutline = true;
-        this.mesh.outlineColor = new Color3(.2, .20, .20);
-        this.mesh.outlineWidth = .025;
         
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');

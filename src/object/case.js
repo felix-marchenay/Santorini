@@ -15,8 +15,7 @@ export class Case
         this.coordinates = {x, y};
         this.emitter = new Emitter;
         this.scene = scene;
-        const meshId = Math.random() < 0.3 ? 'case1' : 'case2';
-        this.mesh = scene.container.meshes.find(mesh => mesh.id == meshId).clone();
+        this.mesh = scene.container.meshes.find(mesh => mesh.id == 'case').clone();
         this.pion = null;
 
         this.mesh.material = new StandardMaterial("gris", this.scene);

@@ -12,58 +12,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		Texture directory   :  /home/felix/santorini/public/models/
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
-	processing begun of skeleton:  Armature, id:  0
-		processing begun of bone:  Bone, index:  0
-		processing begun of bone:  Bone.001, index:  1
-		processing begun of bone:  Bone.002, index:  2
-		processing begun of bone:  Bone.003, index:  3
-		processing begun of bone:  Bone.004, index:  4
-		processing begun of bone:  Bone.008, index:  5
-		processing begun of bone:  Bone.005, index:  6
-		processing begun of bone:  Bone.006, index:  7
-		processing begun of bone:  Bone.007, index:  8
-		processing begun of bone:  Bone.009, index:  9
-		processing begun of bone:  Bone.012, index:  10
-		processing begun of bone:  Bone.013, index:  11
-		processing begun of bone:  Bone.014, index:  12
-		processing begun of bone:  Bone.015, index:  13
-		processing begun of bone:  Bone.016, index:  14
-		processing begun of bone:  Bone.010, index:  15
-		processing begun of bone:  Bone.011, index:  16
-		processing begun of bone:  Bone.017, index:  17
-		processing begun of bone:  Bone.018, index:  18
-		processing begun of bone:  Bone.019, index:  19
-		processing begun of bone:  Bone.020, index:  20
-		processing begun of bone:  Bone.021, index:  21
-		processing begun of bone:  Bone.022, index:  22
-		processing begun of bone:  Bone.023, index:  23
-	processing begun of skeleton:  Armature.001, id:  1
-		processing begun of bone:  Bone, index:  0
-		processing begun of bone:  Bone.001, index:  1
-		processing begun of bone:  Bone.002, index:  2
-		processing begun of bone:  Bone.003, index:  3
-		processing begun of bone:  Bone.004, index:  4
-		processing begun of bone:  Bone.008, index:  5
-		processing begun of bone:  Bone.005, index:  6
-		processing begun of bone:  Bone.006, index:  7
-		processing begun of bone:  Bone.007, index:  8
-		processing begun of bone:  Bone.009, index:  9
-		processing begun of bone:  Bone.012, index:  10
-		processing begun of bone:  Bone.013, index:  11
-		processing begun of bone:  Bone.014, index:  12
-		processing begun of bone:  Bone.015, index:  13
-		processing begun of bone:  Bone.016, index:  14
-		processing begun of bone:  Bone.010, index:  15
-		processing begun of bone:  Bone.011, index:  16
-		processing begun of bone:  Bone.017, index:  17
-		processing begun of bone:  Bone.018, index:  18
-		processing begun of bone:  Bone.019, index:  19
-		processing begun of bone:  Bone.020, index:  20
-		processing begun of bone:  Bone.021, index:  21
-		processing begun of bone:  Bone.022, index:  22
-		processing begun of bone:  Bone.023, index:  23
 	processing begun of mesh:  etage-1
-		processing begun of material:  White cement
+		processing begun of material:  white cement
 		num positions      :  3071
 		num normals        :  3071
 		num tangents       :  0
@@ -73,8 +23,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  5898
 		WARNING: # of 0 area faces found:  36
 	processing begun of mesh:  etage-2
-		processing begun of material:  White cement
-		registered as also a user of material:  White cement
+		processing begun of material:  white cement
+		registered as also a user of material:  white cement
 		num positions      :  4052
 		num normals        :  4052
 		num tangents       :  0
@@ -83,8 +33,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  4464
 	processing begun of mesh:  etage-3
-		processing begun of material:  White cement
-		registered as also a user of material:  White cement
+		processing begun of material:  white cement
+		registered as also a user of material:  white cement
 		num positions      :  445
 		num normals        :  445
 		num tangents       :  0
@@ -93,7 +43,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  528
 	processing begun of mesh:  etage-dome
-		processing begun of material:  Blue cement
+		processing begun of material:  Blue cement.001
 		num positions      :  1322
 		num normals        :  1322
 		num tangents       :  0
@@ -102,138 +52,44 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  7194
 	processing begun of mesh:  ile
-		processing begun of material:  Material.002
+		processing begun of material:  roche
+		processing begun of material:  Plateau
 			processing texture cliff
 				texture type:  diffuseTexture, mapped using: "UVMap"
-		num positions      :  3890
-		num normals        :  3890
+		processing begun of multimaterial:  pieces.Multimaterial#0
+		num positions      :  128120
+		num normals        :  128120
 		num tangents       :  0
-		num uvs            :  7780
+		num uvs            :  256240
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  4146
-	processing begun of mesh:  case2
-		WARNING: No materials have been assigned: 
-		num positions      :  918
-		num normals        :  918
+		num indices        :  129510
+		WARNING: # of 0 area faces found:  324
+	processing begun of mesh:  case
+		processing begun of material:  white cement
+		registered as also a user of material:  white cement
+		num positions      :  88
+		num normals        :  88
 		num tangents       :  0
-		num uvs            :  1836
+		num uvs            :  176
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  1152
-		WARNING: # of 0 area faces found:  12
-	processing begun of mesh:  case-vide
-		WARNING: No materials have been assigned: 
-		num positions      :  87
-		num normals        :  87
-		num tangents       :  0
-		num uvs            :  174
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  108
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.001
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.002
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.003
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.004
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.005
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.006
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.007
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.008
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  case1.009
-		WARNING: No materials have been assigned: 
-		num positions      :  241
-		num normals        :  241
-		num tangents       :  0
-		num uvs            :  482
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  297
+		num indices        :  126
 		WARNING: # of 0 area faces found:  8
 	processing begun of mesh:  colonnes
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Marbre
+			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
+			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
+			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
+			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
+			WARNING: unsupported node type(ShaderNodeMixRGB) will trigger baking
+			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
+			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
+			WARNING: Roughness channel baking required, but not possible, ignored
+			Baking texture, type: DIFFUSE, mapped using: UVMap
+			processing texture Marbre_DIFFUSE
+				texture type:  diffuseTexture, mapped using: "UVMap"
+			bake time:  0 min, 32.2002 secs
 		num positions      :  25438
 		num normals        :  25438
 		num tangents       :  0
@@ -242,18 +98,18 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  26136
 		WARNING: # of 0 area faces found:  16
-	processing begun of mesh:  ile.001
-		WARNING: No materials have been assigned: 
-		num positions      :  123469
-		num normals        :  123469
-		num tangents       :  0
-		num uvs            :  246938
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  124404
-		WARNING: # of 0 area faces found:  4
 	processing begun of mesh:  pion-h
-		WARNING: No materials have been assigned: 
+		processing begun of material:  pion-blanc
+		Custom split normals with tangents being used
+		num positions      :  2140
+		num normals        :  2140
+		num tangents       :  8560
+		num uvs            :  4280
+		num uvs2           :  4280
+		num colors         :  0
+		num indices        :  8892
+	processing begun of mesh:  pion-h.001
+		processing begun of material:  pion-vert
 		Custom split normals with tangents being used
 		num positions      :  2140
 		num normals        :  2140
@@ -263,7 +119,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  8892
 	processing begun of mesh:  pion-f
-		WARNING: No materials have been assigned: 
+		processing begun of material:  pion-bleu
 		Custom split normals with tangents being used
 		num positions      :  2136
 		num normals        :  2136
@@ -273,28 +129,18 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  8892
 	processing begun of light (POINT):  Light
+	processing begun of light (POINT):  Light.001
 ========= Writing of JSON file started =========
 	writing mesh:  etage-1
 	writing mesh:  etage-2
 	writing mesh:  etage-3
 	writing mesh:  etage-dome
 	writing mesh:  ile
-	writing mesh:  case2
-	writing mesh:  case-vide
-	writing mesh:  case1
-	writing mesh:  case1.001
-	writing mesh:  case1.002
-	writing mesh:  case1.003
-	writing mesh:  case1.004
-	writing mesh:  case1.005
-	writing mesh:  case1.006
-	writing mesh:  case1.007
-	writing mesh:  case1.008
-	writing mesh:  case1.009
+	writing mesh:  case
 	writing mesh:  colonnes
-	writing mesh:  ile.001
 	writing mesh:  pion-h
+	writing mesh:  pion-h.001
 	writing mesh:  pion-f
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 4.9002 secs
+elapsed time:  0 min, 37.7493 secs

@@ -11,17 +11,15 @@ import { Emitter } from "../infrastructure/emitter";
 import { CircleEase, EasingFunction } from "babylonjs";
 
 export class Pion {
-    constructor (scene, color, gender) {
+    constructor (scene, material, gender) {
         this.emitter = new Emitter;
         this.idle = false;
         this.idleAnimation = null;
         this.scene = scene;
         this.gender = gender;
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'pion-'+gender).clone();
-        this.mesh.material = new StandardMaterial("grey", scene);
+        this.mesh.material = material;
         this.initRotation = this.mesh.rotation;
-        this.baseColor = color;
-        this.mesh.material.diffuseColor = this.baseColor;
 
         this.mesh.actionManager = new ActionManager(scene);
         this.mesh.animations = [];
