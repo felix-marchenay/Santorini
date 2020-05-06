@@ -105,8 +105,6 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
     try {
         scene.container = container;
 
-        console.log(container);
-
         const santoScene = new SantoriniScene(scene, canvas);
         
         santoScene.game.play();

@@ -154,7 +154,7 @@ export class Case
 
         if (dernierEtage === null) {
             const position = this.mesh.position.clone();
-            position.y = 0.28;
+            position.y = 0.05;
             return position;
         }
 

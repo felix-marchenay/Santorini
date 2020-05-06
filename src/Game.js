@@ -106,27 +106,27 @@ export class Game
     async play() {
         this.stepper.addSteps(
             new AutoChoixNoms(this),
-            new RandomBuild(this),
-            new AutoPreparation(this)
+            // new RandomBuild(this),
+            new Preparation(this)
         );
 
         await this.stepper.run();
 
-        const playSteps = [...this.joueurs.reduce(
-            (steps, joueur) => {
-                steps.push(
-                    joueur.getDeplacementStep(this), 
-                    joueur.getConstructionStep(this),
-                );
-                return steps;
-            },
-            []
-        )];
+        // const playSteps = [...this.joueurs.reduce(
+        //     (steps, joueur) => {
+        //         steps.push(
+        //             joueur.getDeplacementStep(this), 
+        //             joueur.getConstructionStep(this),
+        //         );
+        //         return steps;
+        //     },
+        //     []
+        // )];
 
-        this.stepper = new Stepper();
-        this.stepper.addInfiniteSubsetSteps(...playSteps);
-        this.stepper.run().catch(e => {
-            this.ihm.victory(e);
-        });
+        // this.stepper = new Stepper();
+        // this.stepper.addInfiniteSubsetSteps(...playSteps);
+        // this.stepper.run().catch(e => {
+        //     this.ihm.victory(e);
+        // });
     }
 }

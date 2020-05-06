@@ -25,6 +25,7 @@ export class Plateau {
         this.scene = scene;
         this.nbCases = [5, 5];
         this.dimensions = {h: 0.5, w: 12.5, d: 12.5};
+        this.meshes = [];
         this.cases = this.genererCases();
         this.createBoard();
         this.casePicked = null;
@@ -44,9 +45,11 @@ export class Plateau {
     }
 
     createBoard() {
-        this.scene.container.meshes.find(mesh => mesh.id == 'ile').clone();
-        this.scene.container.meshes.find(mesh => mesh.id == 'plateau').clone();
-        this.scene.container.meshes.find(mesh => mesh.id == 'colonnes').clone();
+        this.meshes.push(this.scene.container.meshes.find(mesh => mesh.id == 'ile').clone());
+        this.meshes.push(this.scene.container.meshes.find(mesh => mesh.id == 'plateau').clone());
+        this.meshes.push(this.scene.container.meshes.find(mesh => mesh.id == 'colonnes').clone());
+
+        this.meshes.forEach(mesh => mesh.receiveShadows = true);
     }
 
     casesAvoisinantes(caseA) {
