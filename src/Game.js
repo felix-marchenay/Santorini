@@ -23,9 +23,9 @@ export class Game
         this.stepper = new Stepper;
 
         this.couleursJoueur = [
-            scene.container.materials.find(mat => mat.id == 'pion-blanc'),
-            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
             scene.container.materials.find(mat => mat.id == 'pion-vert'),
+            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
+            scene.container.materials.find(mat => mat.id == 'pion-blanc'),
         ];
         
         scene.onPointerObservable.add(pointerInfo => {

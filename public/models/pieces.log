@@ -12,8 +12,28 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		Texture directory   :  /home/felix/santorini/public/models/
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
-	processing begun of mesh:  etage-1
+	processing begun of mesh:  case
 		processing begun of material:  white cement
+		num positions      :  452
+		num normals        :  452
+		num tangents       :  0
+		num uvs            :  904
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2700
+		WARNING: # of 0 area faces found:  40
+	processing begun of mesh:  case.002
+		processing begun of material:  blanc
+		num positions      :  452
+		num normals        :  452
+		num tangents       :  0
+		num uvs            :  904
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2700
+		WARNING: # of 0 area faces found:  40
+	processing begun of mesh:  etage-1
+		processing begun of material:  pion-blanc
 		num positions      :  3071
 		num normals        :  3071
 		num tangents       :  0
@@ -23,8 +43,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  5898
 		WARNING: # of 0 area faces found:  36
 	processing begun of mesh:  etage-2
-		processing begun of material:  white cement
-		registered as also a user of material:  white cement
+		processing begun of material:  pion-blanc
+		registered as also a user of material:  pion-blanc
 		num positions      :  4052
 		num normals        :  4052
 		num tangents       :  0
@@ -33,8 +53,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  4464
 	processing begun of mesh:  etage-3
-		processing begun of material:  white cement
-		registered as also a user of material:  white cement
+		processing begun of material:  pion-blanc
+		registered as also a user of material:  pion-blanc
 		num positions      :  445
 		num normals        :  445
 		num tangents       :  0
@@ -56,40 +76,29 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		processing begun of material:  Plateau
 			processing texture cliff
 				texture type:  diffuseTexture, mapped using: "UVMap"
-		processing begun of multimaterial:  pieces.Multimaterial#0
-		num positions      :  128120
-		num normals        :  128120
-		num tangents       :  0
-		num uvs            :  256240
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  129510
-		WARNING: # of 0 area faces found:  324
-	processing begun of mesh:  case
-		processing begun of material:  white cement
-		registered as also a user of material:  white cement
-		num positions      :  88
-		num normals        :  88
-		num tangents       :  0
-		num uvs            :  176
-		num uvs2           :  0
-		num colors         :  0
-		num indices        :  126
-		WARNING: # of 0 area faces found:  8
-	processing begun of mesh:  colonnes
-		processing begun of material:  Marbre
-			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
-			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
-			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
-			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
-			WARNING: unsupported node type(ShaderNodeMixRGB) will trigger baking
-			WARNING: unsupported node type(ShaderNodeTexNoise) will trigger baking
-			WARNING: unsupported node type(ShaderNodeValToRGB) will trigger baking
-			WARNING: Roughness channel baking required, but not possible, ignored
-			Baking texture, type: DIFFUSE, mapped using: UVMap
-			processing texture Marbre_DIFFUSE
+			processing texture grass7_brightnesscontrast
 				texture type:  diffuseTexture, mapped using: "UVMap"
-			bake time:  0 min, 32.2002 secs
+		processing begun of multimaterial:  pieces.Multimaterial#0
+		num positions      :  3890
+		num normals        :  3890
+		num tangents       :  0
+		num uvs            :  7780
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of mesh:  case.001
+		WARNING: No materials have been assigned: 
+		num positions      :  0
+		num normals        :  0
+		num tangents       :  0
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  0
+	WARNING: mesh, case.001, has 0 vertices; ignored
+	processing begun of mesh:  colonnes
+		processing begun of material:  pion-blanc
+		registered as also a user of material:  pion-blanc
 		num positions      :  25438
 		num normals        :  25438
 		num tangents       :  0
@@ -98,8 +107,24 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  26136
 		WARNING: # of 0 area faces found:  16
+	processing begun of mesh:  plateau
+		processing begun of material:  roche
+		processing begun of material:  Plateau
+			processing texture cliff
+				texture type:  diffuseTexture, mapped using: "UVMap"
+		registered as also a user of material:  Plateau
+		processing begun of multimaterial:  pieces.Multimaterial#1
+		num positions      :  123955
+		num normals        :  123955
+		num tangents       :  0
+		num uvs            :  247910
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  125082
+		WARNING: # of 0 area faces found:  324
 	processing begun of mesh:  pion-h
 		processing begun of material:  pion-blanc
+		registered as also a user of material:  pion-blanc
 		Custom split normals with tangents being used
 		num positions      :  2140
 		num normals        :  2140
@@ -130,17 +155,20 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  8892
 	processing begun of light (POINT):  Light
 	processing begun of light (POINT):  Light.001
+	processing begun of light (POINT):  Light.002
 ========= Writing of JSON file started =========
+	writing mesh:  case
+	writing mesh:  case.002
 	writing mesh:  etage-1
 	writing mesh:  etage-2
 	writing mesh:  etage-3
 	writing mesh:  etage-dome
 	writing mesh:  ile
-	writing mesh:  case
 	writing mesh:  colonnes
+	writing mesh:  plateau
 	writing mesh:  pion-h
 	writing mesh:  pion-h.001
 	writing mesh:  pion-f
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 37.7493 secs
+elapsed time:  0 min, 5.0121 secs

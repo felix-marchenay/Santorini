@@ -18,10 +18,7 @@ export class Case
         this.mesh = scene.container.meshes.find(mesh => mesh.id == 'case').clone();
         this.pion = null;
 
-        this.mesh.material = new StandardMaterial("gris", this.scene);
-        this.mesh.material.diffuseColor = new Color3(0.86, 0.8, 0.9);
-
-        this.mesh.position = new Vector3(2.5 * x - 5, 0.26, 2.5 * y - 5);
+        this.mesh.position = new Vector3(3.2 * x - 6.2, 0, 3.2 * y - 6.2);
 
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
