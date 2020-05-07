@@ -10,7 +10,7 @@ export class PanDeplacement extends Deplacement {
     run() {
         return super.run(resolve => {   
             this.game.ihm.show('tour');
-            this.game.ihm.resume(this.joueur.name, 'se déplacer');
+            this.game.ihm.resume(this.joueur, 'se déplacer');
     
             this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {

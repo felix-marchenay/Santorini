@@ -28,8 +28,8 @@ export class Interface
         document.querySelector('[step='+step+']').style.display = "none";
     }
 
-    resume(name, action) {
-        document.querySelector('[step=tour] .name').innerHTML = name;
+    resume(joueur, action) {
+        document.querySelector('[step=tour] .name').innerHTML = joueur.name + ' ('+ joueur.divinite.name +')';
         document.querySelector('[step=tour] .action').innerHTML = action;
     }
 

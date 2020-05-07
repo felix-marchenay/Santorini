@@ -3,6 +3,10 @@ import { PanDeplacement } from "../steps/divinite/pan/Deplacement";
 
 export class Pan extends Divinite
 {
+    constructor() {
+        super('Pan');
+    }
+
     getDeplacementStep (game, joueur) {
         return new PanDeplacement(game, joueur);
     }
