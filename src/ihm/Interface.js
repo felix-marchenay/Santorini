@@ -20,7 +20,6 @@ export class Interface
     }
 
     show(step) {
-        document.querySelectorAll('[step]').forEach(elm => elm.style.display = "none");
         document.querySelector('[step='+step+']').style.display = 'flex';
     }
 
@@ -28,9 +27,18 @@ export class Interface
         document.querySelector('[step='+step+']').style.display = "none";
     }
 
+    initJoueurs(joueurs) {
+        joueurs.forEach((joueur, n) => {
+            const elJoueur = document.querySelector('[step=joueurs] .joueur[joueur="'+(n+1)+'"]');
+            elJoueur.querySelector('.img-divinite').setAttribute('src', 'image/divinite/' + joueur.divinite.name.toLowerCase() + '.jpg');
+            elJoueur.querySelector('.infos .divinite-name').innerHTML = joueur.divinite.name;
+            elJoueur.querySelector('.infos .name').innerHTML = joueur.name;
+        });
+    }
+
     resume(joueur, action) {
-        document.querySelector('[step=tour] .name').innerHTML = joueur.name + ' ('+ joueur.divinite.name +')';
-        document.querySelector('[step=tour] .action').innerHTML = action;
+        // document.querySelector('[step=tour] .name').innerHTML = joueur.name + ' ('+ joueur.divinite.name +')';
+        // document.querySelector('[step=tour] .action').innerHTML = action;
     }
 
     info(str) {

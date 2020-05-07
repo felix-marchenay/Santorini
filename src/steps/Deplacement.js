@@ -11,7 +11,7 @@ export class Deplacement extends Step
     run () {
         return super.run((resolve, reject) => {
 
-            this.game.ihm.show('tour');
+            this.game.ihm.show('info');
             this.game.ihm.resume(this.joueur, 'se déplacer');
 
             this.joueur.pions.forEach(pion => {
@@ -64,6 +64,5 @@ export class Deplacement extends Step
             cas.emitter.flush();
             cas.hideMoveHint();
         });
-        this.game.ihm.hide('tour');
     }
 }

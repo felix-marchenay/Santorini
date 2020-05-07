@@ -9,7 +9,7 @@ export class Construction extends Step
     
     run () {
         return super.run(resolve => {
-            this.game.ihm.show('tour');
+            this.game.ihm.show('info');
             this.game.ihm.resume(this.joueur, 'construire');
 
             const pion = this.joueur.lastMovedPion;
@@ -39,6 +39,6 @@ export class Construction extends Step
             cas.emitter.flush();
             cas.hideBuildHint();
         });
-        this.game.ihm.hide('tour');
+        this.game.ihm.hide('info');
     }
 }

@@ -4,23 +4,39 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+    mode: 'development',
 
-  entry: './src/index.js',
+    entry: './src/index.js',
 
-  devServer: {
-    contentBase: './public',
-    port: 8081
-  },
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    'style-loader',
+                    // Translates CSS into CommonJS
+                    'css-loader',
+                    // Compiles Sass to CSS
+                    'sass-loader',
+                ],
+            },
+        ]
+    },
 
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'main.js',
-  },
+    devServer: {
+        contentBase: './public',
+        port: 8081
+    },
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
-    new CopyWebpackPlugin([{ from: './public/models', to: 'models' }]),
-  ],
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'main.js',
+    },
+
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({ template: './public/index.html' }),
+        new CopyWebpackPlugin([{ from: './public/models', to: 'models' }]),
+    ],
 };

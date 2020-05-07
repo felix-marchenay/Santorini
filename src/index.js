@@ -22,6 +22,8 @@ import {
     SceneLoader
 } from "@babylonjs/core";
 
+import '../public/css/style.scss';
+
 import {
     NormalMaterial
 } from "@babylonjs/materials";
@@ -103,6 +105,7 @@ const scene = new Scene(engine);
 
 SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
     try {
+        console.log(container);
         scene.container = container;
 
         const santoScene = new SantoriniScene(scene, canvas);

@@ -3,9 +3,6 @@
 
 <head>
     <title>Local Development</title>
-
-    <link rel="stylesheet" media="all" href="./css/style.css">
-
 <body>
     <canvas id="render" touch-action="none"></canvas>
 
@@ -76,7 +73,6 @@
             
             <button name="valider">Valider</button>
         </div>
-        <div step="info"></div>
         <div step="victory">
             <h2>
                 Victoire pour <span class="name"></span> !!
@@ -85,9 +81,27 @@
                 </button>
             </h2>
         </div>
-        <div step="tour">
-            Au tour de <span class="name"></span> de <span class="action"></span>
+        <div step="joueurs">
+            <div class="joueur" joueur="1">
+                <div class="image">
+                    <img class="img-divinite" src="image/divinite/athena.jpg" alt="">
+                </div>
+                <div class="infos">
+                    <div class="divinite-name">Athéna</div>
+                    <div class="name">Jacques</div>
+                </div>
+            </div>
+            <div class="joueur" joueur="2">
+                <div class="image">
+                    <img class="img-divinite" src="image/divinite/atlas.jpg" alt="">
+                </div>
+                <div class="infos">
+                    <div class="divinite-name">Atlas</div>
+                    <div class="name">xx-ti-keum-du-49</div>
+                </div>
+            </div>
         </div>
+        <div step="info"></div>
         <div class="errors"></div>
     </div>
 </body>

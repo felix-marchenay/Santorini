@@ -15,6 +15,9 @@ export class AutoChoixNoms extends Step
             );
             this.game.preparerPions();
 
+            this.game.ihm.show('joueurs');
+            this.game.ihm.initJoueurs(this.game.joueurs);
+
             resolve();
         });
     }

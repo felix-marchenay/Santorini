@@ -170,7 +170,7 @@ export class Case
 
     positionPosePion() {
         const pionPosition = this.mesh.position.clone();
-        pionPosition.y = this.YHighest() - 0.1;
+        pionPosition.y = this.YHighest();
         return pionPosition;
     }
 
