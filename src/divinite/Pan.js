@@ -1,5 +1,5 @@
 import { Divinite } from "./Divinite";
-import { PanDeplacement } from "../steps/divinite/pan/Deplacement";
+import { PanDeplacement } from "../steps/divinite/pan/PanDeplacement";
 
 export class Pan extends Divinite
 {

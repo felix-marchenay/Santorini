@@ -1,17 +1,18 @@
 import { Step } from "../../Step";
 import { Deplacement } from "../../Deplacement";
+import { Victoire } from "../../../Victoire";
 
-export class PanDeplacement extends Deplacement {
+export class PanDeplacement extends Step {
     constructor(game, joueur) {
         super(game);
         this.joueur = joueur;
     }
 
     run() {
-        return super.run(resolve => {   
+        return super.run((resolve, reject) => {   
             this.game.ihm.show('tour');
             this.game.ihm.resume(this.joueur, 'se déplacer');
-    
+
             this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {
                     this.joueur.pions.filter(p => p != pion).forEach(p => {
@@ -35,8 +36,15 @@ export class PanDeplacement extends Deplacement {
                             if (caze.pion !== null) {
                                 throw "La case doit être vide pour s'y rendre";
                             }
+
+                            const caseDepart = this.game.idlePion().case;
     
                             caze.poserPion(this.game.idlePion());
+
+                            console.log(caseDepart.differenceNiveau(caze));
+                            if (caseDepart.differenceNiveau(caze) === 2) {
+                                reject(new Victoire(this.joueur));
+                            }
     
                             this.joueur.lastMovedPion = this.game.idlePion();
         
@@ -54,5 +62,14 @@ export class PanDeplacement extends Deplacement {
                 });
             });
         });
+    }
+
+    after () {
+        this.game.pions.forEach(pion => {pion.emitter.flush()});
+        this.game.plateau.allCases().forEach(cas => {
+            cas.emitter.flush();
+            cas.hideMoveHint();
+        });
+        this.game.ihm.hide('tour');
     }
 }
