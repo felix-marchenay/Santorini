@@ -16,7 +16,7 @@ import { Victoire } from "./Victoire";
 
 export class Game
 {
-    constructor (scene) {
+    constructor (scene, nbJoueurs) {
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.stepper = new Stepper;
@@ -85,7 +85,8 @@ export class Game
                 
             }
         });
-        this.ihm = new Interface;
+        
+        this.ihm = new Interface();
         this.scene = scene;
     }
 

@@ -2,44 +2,17 @@ import { Emitter } from "../infrastructure/emitter";
 
 export class DivinitePicker
 {
-    constructor() {
-        this.divinites = {
-            athena: {
-                name: 'Athéna',
-                image: 'image/divinite/athena.jpg'
-            },
-            demeter: {
-                name: 'Demeter',
-                image: 'image/divinite/demeter.jpg'
-            },
-            atlas: {
-                name: 'Atlas',
-                image: 'image/divinite/atlas.jpg'
-            },
-            no: {
-                name: 'Aucune',
-                image: 'image/divinite/no.jpg'
-            },
-            pan: {
-                name: 'Pan',
-                image: 'image/divinite/pan.jpg'
-            },
-            poseidon: {
-                name: 'Athéna',
-                image: 'image/divinite/demeter.jpg'
-            }
-        };
-
+    constructor(el) {
+        this.el = el;
+        
         this.emitter = new Emitter;
 
-        document.querySelectorAll('.players .player').forEach(el => {
-            el.querySelector('.divinite > img').addEventListener('click', () => {
-                this.open(el);
-            });
+        this.el.querySelector('.picked.img-divinite').addEventListener('click', () => {
+            this.open(el);
+        });
 
-            el.querySelectorAll('.pick-divinite .proposal').forEach(elDivinite => {
-                elDivinite.addEventListener('click', () => this.select(elDivinite));
-            });
+        this.el.querySelectorAll('.pick-divinite .proposal').forEach(elDivinite => {
+            elDivinite.addEventListener('click', () => this.select(elDivinite));
         });
     }
 
@@ -52,8 +25,7 @@ export class DivinitePicker
     }
 
     select(divinite) {
-        this.emitter.emit('picked', this.divinites[divinite.getAttribute('name')]);
-        
+        this.emitter.emit('picked', divinite.getAttribute('name'));
         this.close();
     }
 }

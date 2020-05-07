@@ -112,8 +112,6 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         
         santoScene.game.play();
 
-        // drawAxis();
-
         engine.runRenderLoop(() => {
             santoScene.render();
         });
