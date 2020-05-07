@@ -11,5 +11,7 @@ export class Etage2 extends Etage {
         this.mesh.position = positionCase;
         this.pionPosition = positionCase.clone();
         this.pionPosition.y = 1.8;
+
+        this.animateBuild();
     }
 }

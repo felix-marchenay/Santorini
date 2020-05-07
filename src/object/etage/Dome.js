@@ -12,5 +12,7 @@ export class Dome extends Etage {
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');
         }
+
+        this.animateBuild();
     }
 }
