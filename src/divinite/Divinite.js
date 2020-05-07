@@ -19,3 +19,13 @@ export class Divinite
         return pion.case.niveau() == 3;
     }
 }
+
+Divinite.fromString = function(string) {
+    console.log(window[string]);
+    return '(';
+    // return ({
+    //     pan: new Pan,
+    //     atlas: new Atlas,
+    //     athena: new Athena
+    // })[string];
+};

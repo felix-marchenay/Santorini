@@ -7,17 +7,6 @@ export class Interface
         this.emitter = new Emitter;
         this.divinitePickers = [];
 
-        document.querySelector('[name=valider]').addEventListener('click', btn => {
-            this.emitter.emit(
-                'namesPicked', 
-                [...document.querySelectorAll('[step=name] input.name')].map(el => {
-                    return {
-                        name: el.value
-                    };
-                })
-            );
-        });
-
         this.divinites = {
             athena: {
                 name: 'Athéna',
@@ -58,18 +47,27 @@ export class Interface
 
     initElements() {
         for (let i = 0; i < 2; i ++) {
-            // const elPlayer = document.querySelector('[step=name] .players .player');
-            // if (i > 0) {
-            //     document.querySelector('[step=name] .players').append(elPlayer.cloneNode(true));
-            // }
             const elPlayer = document.querySelectorAll('.players .player')[i];
             const picker = new DivinitePicker(elPlayer);
             this.divinitePickers.push(picker);
             picker.emitter.on('picked', divinite => {
                 elPlayer.querySelector('.divinite-name').innerHTML = this.divinites[divinite].name;
                 elPlayer.querySelector('.picked.img-divinite').setAttribute('src', this.divinites[divinite].image);
+                elPlayer.querySelector('input[name=divinite]').value = divinite;
             });
         }
+
+        document.querySelector('[name=valider]').addEventListener('click', btn => {
+            this.emitter.emit(
+                'namesPicked', 
+                [...document.querySelectorAll('[step=name] .players .player')].map(el => {
+                    return {
+                        name: el.querySelector('input[name=name]').value,
+                        divinite: el.querySelector('input[name=divinite]').value
+                    };
+                })
+            );
+        });
     }
 
     initJoueurs(joueurs) {
