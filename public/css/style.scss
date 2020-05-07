@@ -63,6 +63,9 @@ html,
             top: 0;
             min-width: 350px;
             flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 4px;
 
             .players {
                 text-align: center;
@@ -125,11 +128,11 @@ html,
         }
 
         [step=joueurs] {
-            
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
+            pointer-events: none;;
             
             .joueur {
                 margin: 0 15px;
@@ -140,6 +143,7 @@ html,
                     transform: rotateZ(-10deg) translateY(130px);
                     transition: 150ms ease-out;
                     cursor: pointer;
+                    pointer-events: all;
 
                     &:hover {
                         transform: rotateZ(-7deg) translateY(100px);
@@ -171,12 +175,45 @@ html,
             }
         }
 
+        [step=tour] {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 10px;
+            border-radius: 3px 0 0 0;
+
+            span {
+                padding: 0 5px;
+                font-weight: bold;
+
+                &.action {
+                    color: #24e;
+                }
+
+                &.name {
+                    color: rgb(197, 72, 0);
+                }
+            }
+        }
+
+        [step=info] {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 10px;
+            border-radius: 3px 0 0 0;
+        }
+
         [step=victory] {
             margin: 40px;
             flex-direction: column;
             top: 0;
             min-width: 350px;
             align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 4px;
         }
 
         [step=victory] h2 {

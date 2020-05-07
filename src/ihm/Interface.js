@@ -28,6 +28,7 @@ export class Interface
     }
 
     initJoueurs(joueurs) {
+        this.show('joueurs');
         joueurs.forEach((joueur, n) => {
             const elJoueur = document.querySelector('[step=joueurs] .joueur[joueur="'+(n+1)+'"]');
             elJoueur.querySelector('.img-divinite').setAttribute('src', 'image/divinite/' + joueur.divinite.name.toLowerCase() + '.jpg');
@@ -36,13 +37,15 @@ export class Interface
         });
     }
 
-    resume(joueur, action) {
-        // document.querySelector('[step=tour] .name').innerHTML = joueur.name + ' ('+ joueur.divinite.name +')';
-        // document.querySelector('[step=tour] .action').innerHTML = action;
+    info(str) {
+        this.show('info');
+        document.querySelector('[step=info]').innerHTML = str;
     }
 
-    info(str) {
-        document.querySelector('[step=info]').innerHTML = str;
+    tour(joueur, action) {
+        this.show('tour');
+        document.querySelector('[step=tour] .name').innerHTML = joueur.name;
+        document.querySelector('[step=tour] .action').innerHTML = action;
     }
 
     hideAll() {

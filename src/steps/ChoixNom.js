@@ -21,13 +21,16 @@ export class ChoixNoms extends Step
                     new Athena
                 ];
 
-                filtered.forEach((name, i) => {
+                filtered.forEach((info, i) => {
                     this.game.joueurs.push(
-                        new Joueur(name, this.game.couleursJoueur[i], divinites[i])
+                        new Joueur(info.name, this.game.couleursJoueur[i], divinites[i])
                     );
                 });
 
                 this.game.preparerPions();
+
+                this.game.ihm.hide('name');
+                this.game.ihm.initJoueurs(this.game.joueurs);
 
                 resolve();
             });

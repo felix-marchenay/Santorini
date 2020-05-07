@@ -9,8 +9,7 @@ export class AtlasConstruction extends Step
     
     run () {
         return super.run(resolve => {
-            this.game.ihm.show('info');
-            this.game.ihm.resume(this.joueur, 'construire');
+            this.game.ihm.tour(this.joueur, 'construire');
 
             const pion = this.joueur.lastMovedPion;
 
