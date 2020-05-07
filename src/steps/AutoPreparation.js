@@ -11,7 +11,6 @@ export class AutoPreparation extends Step
                 [4, 4]
             ];
 
-            console.log(this.game.pions);
             this.game.pions.forEach((pion, i) => {
                 if (i == 1) {
                     const lv3 = this.game.plateau.allCases().filter(cas => cas.niveau() == 2);

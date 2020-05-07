@@ -1,14 +1,13 @@
 import { Plateau } from "./object/plateau";
 import { Joueur } from "./joueur";
-import { Color3, KeyboardEventTypes, PointerEventTypes } from "@babylonjs/core";
+import { Color3, KeyboardEventTypes, PointerEventTypes, Color4 } from "@babylonjs/core";
 import { Pion } from "./object/pion";
-import { Vector3 } from "babylonjs";
+import { Vector3, MeshBuilder } from "babylonjs";
 import { Stepper } from "./infrastructure/Stepper";
 import { Preparation } from "./steps/Preparation";
 import { ChoixNoms } from "./steps/ChoixNom";
 import { AutoChoixNoms } from "./steps/AutoChoixNoms";
 import { AutoPreparation } from "./steps/AutoPreparation";
-import { Debug } from "./steps/Debug";
 import { Deplacement } from "./steps/Deplacement";
 import { Construction } from "./steps/Construction";
 import { Interface } from "./ihm/Interface";
@@ -32,6 +31,31 @@ export class Game
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
                     if (pointerInfo.pickInfo.pickedMesh) {
+
+                        /////
+                        // console.log(pointerInfo.pickInfo.pickedMesh, pointerInfo.pickInfo.pickedMesh.getBoundingInfo());
+                        // pointerInfo.pickInfo.pickedMesh.showBoundingBox = true;
+                        // MeshBuilder.CreateLines("axisX", {
+                        //     points: [
+                        //         new Vector3(0, 0, 0), 
+                        //         pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.center
+                        //     ],
+                        //     colors: [
+                        //         new Color4(0.9, 0.2, 0.2), 
+                        //         new Color4(0.9, 0.2, 0.2)
+                        //     ]
+                        // }, scene);
+                        // MeshBuilder.CreateLines("axisX", {
+                        //     points: [
+                        //         new Vector3(0, 0, 0), 
+                        //         pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld
+                        //     ],
+                        //     colors: [
+                        //         new Color4(0.2, 0.9, 0.2), 
+                        //         new Color4(0.2, 0.9, 0.2)
+                        //     ]
+                        // }, scene);
+
                         if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
                             pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
                         }

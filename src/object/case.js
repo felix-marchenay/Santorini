@@ -149,21 +149,29 @@ export class Case
         }
     }
 
+    AtlasBuildDome() {
+        if (this.constructions.dome !== null) {
+            throw "Un dôme est déjà construit";
+        }
+
+        this.constructions.dome = new Dome(this.scene, this);
+        this.constructions.dome.emitter.on('pointerPicked', () => {
+            this.emitter.emit('pointerPicked')
+        });
+    }
+
+    YHighest() {
+        if (this.dernierEtage() === null) {
+            return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
+        }
+
+        return this.dernierEtage().mesh.getBoundingInfo().boundingBox.maximumWorld.y;
+    }
+
     positionPosePion() {
-        const dernierEtage = this.dernierEtage();
-
-        if (dernierEtage === null) {
-            const position = this.mesh.position.clone();
-            position.y = 0.05;
-            return position;
-        }
-
-        if (dernierEtage.constructor.niveau === Etage.NIVEAU_DOME) {
-            throw "Impossible de poser le pion ici un dome est construit";
-        }
-
-        const point = dernierEtage.pionPosition;
-        return point;
+        const pionPosition = this.mesh.position.clone();
+        pionPosition.y = this.YHighest() - 0.1;
+        return pionPosition;
     }
 
     hasDome() {

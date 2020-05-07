@@ -16,8 +16,6 @@ export class Etage
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');
         }
-
-        this.pionPosition = null;
     }
 
     difference (etage) {

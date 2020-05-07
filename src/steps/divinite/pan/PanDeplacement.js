@@ -41,7 +41,6 @@ export class PanDeplacement extends Step {
     
                             caze.poserPion(this.game.idlePion());
 
-                            console.log(caseDepart.differenceNiveau(caze));
                             if (caseDepart.differenceNiveau(caze) === 2) {
                                 reject(new Victoire(this.joueur));
                             }

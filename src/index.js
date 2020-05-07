@@ -38,7 +38,7 @@ function drawAxis(scene) {
             new Color4(0.9, 0.2, 0.2), 
             new Color4(0.9, 0.2, 0.2)
         ]
-    });
+    }, scene);
     MeshBuilder.CreateLines("axisY", {
         points: [
             new Vector3(0, -10, 0), 
@@ -48,7 +48,7 @@ function drawAxis(scene) {
             new Color4(0.1, 0.8, 0.2), 
             new Color4(0.2, 0.8, 0.2)
         ]
-    });
+    }, scene);
     MeshBuilder.CreateLines("axisZ", {
         points: [
             new Vector3(0, 0, -10), 
@@ -58,7 +58,7 @@ function drawAxis(scene) {
             new Color4(0.2, 0.2, 0.9), 
             new Color4(0.2, 0.2, 0.9)
         ]
-    });
+    }, scene);
     for (let i = 1; i <= 20; i++) {
         MeshBuilder.CreateLines("axisX", {
             points: [
@@ -69,7 +69,7 @@ function drawAxis(scene) {
                 new Color4(0.9, 0.2, 0.2), 
                 new Color4(0.9, 0.2, 0.2)
             ]
-        });
+        }, scene);
         MeshBuilder.CreateLines("axisY", {
             points: [
                 new Vector3(-1, i, 0), 
@@ -79,7 +79,7 @@ function drawAxis(scene) {
                 new Color4(0.1, 0.8, 0.2), 
                 new Color4(0.2, 0.8, 0.2)
             ]
-        });
+        }, scene);
         MeshBuilder.CreateLines("axisZ", {
             points: [
                 new Vector3(-1, 0, i), 
@@ -89,7 +89,7 @@ function drawAxis(scene) {
                 new Color4(0.2, 0.2, 0.9), 
                 new Color4(0.2, 0.2, 0.9)
             ]
-        });
+        }, scene);
     }
 }
 
@@ -109,6 +109,8 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         
         santoScene.game.play();
 
+        // drawAxis();
+
         engine.runRenderLoop(() => {
             santoScene.render();
         });
@@ -116,3 +118,7 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         console.error(e);
     }
 });
+
+function getGame() {
+    return santoScene;
+}
