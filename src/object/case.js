@@ -18,7 +18,7 @@ export class Case
         this.mesh = scene.container.meshes.find(mesh => mesh.id == 'case').clone();
         this.pion = null;
 
-        this.mesh.position = new Vector3(3.2 * x - 6.2, 0, 3.2 * y - 6.2);
+        this.mesh.position = new Vector3(3.1 * x - 6.2, 0, 3.1 * y - 6.2);
 
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
