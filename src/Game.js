@@ -15,6 +15,7 @@ import { RandomBuild } from "./steps/RandomBuild";
 import { Victoire } from "./Victoire";
 import { Poseidon } from "./divinite/Poseidon";
 import { Atlas } from "./divinite/Atlas";
+import { Unsplash } from "./steps/Unsplash";
 
 export class Game
 {
@@ -124,9 +125,10 @@ export class Game
     async play() {
         
         this.stepper.addSteps(
-            new AutoChoixNoms(this),
+            new Unsplash(this),
+            new ChoixNoms(this),
             new RandomBuild(this),
-            new AutoPreparation(this)
+            new Preparation(this)
         );
 
         await this.stepper.run();

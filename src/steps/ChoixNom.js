@@ -31,7 +31,7 @@ export class ChoixNoms extends Step
 
                 filtered.forEach((info, i) => {
                     this.game.joueurs.push(
-                        new Joueur(info.name, this.game.couleursJoueur[i], divinites[info.divinite])
+                        new Joueur(i+1, info.name, this.game.couleursJoueur[i], divinites[info.divinite], this.game.scene)
                     );
                 });
 

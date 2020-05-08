@@ -16,6 +16,7 @@ export class Joueur
             this.divinite = new NoDivinite;
         }
 
+        console.log(scene);
         this.pions.push(
             new Pion(scene, material, 'h'),
             new Pion(scene, material, 'f')

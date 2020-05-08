@@ -70,6 +70,10 @@ export class Interface
         });
     }
 
+    unsplash() {
+        document.querySelector('#splash').classList.remove('active');
+    }
+
     initJoueurs(joueurs) {
         this.show('joueurs');
         joueurs.forEach((joueur, n) => {
