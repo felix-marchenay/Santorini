@@ -115,6 +115,15 @@ export class Pion {
         this.idleAnimation = this.scene.beginAnimation(this.mesh, 0, frames, true);
     }
 
+    resetPosition() {
+        if (!this.initialPosition) {
+            console.error("No initial position");
+            return;
+        }
+
+        this.mesh.position = this.initialPosition.clone();
+    }
+
     pick() {
         this.mesh.material.diffuseColor = new Color3(0.6, 0.2, 0.9);
     }

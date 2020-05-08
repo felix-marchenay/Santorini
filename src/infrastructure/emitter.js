@@ -13,6 +13,14 @@ export class Emitter
         return f;
     }
 
+    off (event, f) {
+        this.listeners[event].forEach((fn, i) => {
+            if (f === fn) {
+                delete this.listeners[event][i];
+            }
+        });
+    }
+
     emit (event, ...vars) {
         if (this.listeners[event]) {
             this.listeners[event].forEach(f => f(...vars));

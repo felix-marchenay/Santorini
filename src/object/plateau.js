@@ -99,6 +99,13 @@ export class Plateau {
         }, []);
     }
 
+    vider() {
+        this.allCases().forEach(cas => {
+            cas.pion = null;
+            cas.dispose();
+        });
+    }
+
     getCase(x, y) {
         return this.allCases().find(cas => cas.coordinates.x == x && cas.coordinates.y == y);
     }

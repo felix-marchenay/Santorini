@@ -203,4 +203,14 @@ export class Case
 
         return null;
     }
+
+    dispose() {
+        Object.keys(this.constructions).forEach(key => {
+            if (this.constructions[key]) {
+                this.constructions[key].mesh.dispose();
+            }
+
+            this.constructions[key] = null;
+        });
+    }
 }

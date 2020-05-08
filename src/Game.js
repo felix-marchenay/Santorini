@@ -24,7 +24,12 @@ export class Game
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
         this.joueurs = [];
-        this.stepper = new Stepper;
+        this.scene = scene;
+        
+        this.ihm = new Interface();
+        this.ihm.emitter.on('replay', () => {
+            this.emitter.emit('replay');
+        });
 
         this.couleursJoueur = [
             scene.container.materials.find(mat => mat.id == 'pion-vert'),
@@ -36,31 +41,6 @@ export class Game
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
                     if (pointerInfo.pickInfo.pickedMesh) {
-
-                        /////
-                        // console.log(pointerInfo.pickInfo.pickedMesh, pointerInfo.pickInfo.pickedMesh.getBoundingInfo());
-                        // pointerInfo.pickInfo.pickedMesh.showBoundingBox = true;
-                        // MeshBuilder.CreateLines("axisX", {
-                        //     points: [
-                        //         new Vector3(0, 0, 0), 
-                        //         pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.center
-                        //     ],
-                        //     colors: [
-                        //         new Color4(0.9, 0.2, 0.2), 
-                        //         new Color4(0.9, 0.2, 0.2)
-                        //     ]
-                        // }, scene);
-                        // MeshBuilder.CreateLines("axisX", {
-                        //     points: [
-                        //         new Vector3(0, 0, 0), 
-                        //         pointerInfo.pickInfo.pickedMesh.getBoundingInfo().boundingBox.maximumWorld
-                        //     ],
-                        //     colors: [
-                        //         new Color4(0.2, 0.9, 0.2), 
-                        //         new Color4(0.2, 0.9, 0.2)
-                        //     ]
-                        // }, scene);
-
                         if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
                             pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
                         }
@@ -93,7 +73,6 @@ export class Game
         scene.onKeyboardObservable.add(keyInfo => {
             switch (keyInfo.type) {
                 case BABYLON.KeyboardEventTypes.KEYDOWN:
-                    console.log(keyInfo.event);
                     this.emitter.emit('keyDown', keyInfo.event);
                     this.emitter.emit('keyDown-'+keyInfo.event.code);
                     break;
@@ -103,9 +82,6 @@ export class Game
                     break;
             }
         });
-        
-        this.ihm = new Interface();
-        this.scene = scene;
     }
 
     get pions () {
@@ -138,6 +114,7 @@ export class Game
     }
 
     async play() {
+        this.stepper = new Stepper();
         
         this.stepper.addSteps(
             new Unsplash(this),
@@ -164,5 +141,17 @@ export class Game
         this.stepper.run().catch(e => {
             this.ihm.victory(e);
         });
+    }
+
+    replay () {
+        this.ihm.hideAll();
+
+        this.plateau.vider();
+        
+        this.pions.forEach(pion => pion.mesh.dispose());
+
+        this.joueurs = [];
+
+        this.play();
     }
 }

@@ -23,6 +23,7 @@ export class Joueur
 
         this.pions.forEach((pion, i) => {
             pion.mesh.position = new Vector3((-7 + (this.nb*2+i)*2.2), 0, 8.6);
+            pion.initialPosition = pion.mesh.position.clone();
         });
     }
 

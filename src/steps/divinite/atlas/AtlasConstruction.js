@@ -24,7 +24,7 @@ export class AtlasConstruction extends Step
                 }
             });
 
-            this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
+            this.keydownspace = this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
 
             if (this.game.ihm.atlasActionMode == 'etage') {
                 this.game.plateau.showBuildHintAround(pion.case);
@@ -60,7 +60,7 @@ export class AtlasConstruction extends Step
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
         });
-        this.game.emitter.flush();
+        this.game.emitter.off('keyDown-Space', this.keydownspace);
         this.game.ihm.hide('action-atlas');
     }
 }

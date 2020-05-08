@@ -105,8 +105,8 @@ export class Interface
 
     initJoueurs(joueurs) {
         this.show('joueurs');
-        joueurs.forEach((joueur, n) => {
-            const elJoueur = document.querySelector('[step=joueurs] .joueur[joueur="'+(n+1)+'"]');
+        joueurs.forEach(joueur => {
+            const elJoueur = document.querySelector('[step=joueurs] .joueur[joueur="'+(joueur.nb)+'"]');
             elJoueur.querySelector('.img-divinite').setAttribute('src', 'image/divinite/' + joueur.divinite.name.toLowerCase() + '.jpg');
             elJoueur.querySelector('.infos .divinite-name').innerHTML = joueur.divinite.name;
             elJoueur.querySelector('.infos .name').innerHTML = joueur.name;
@@ -125,7 +125,7 @@ export class Interface
     }
 
     hideAll() {
-        document.querySelector('[step]').style.display = 'none';
+        document.querySelectorAll('[step]').forEach(el => {el.style.display = 'none'});
     }
 
     victory(victoire) {
