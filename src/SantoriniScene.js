@@ -38,7 +38,7 @@ export class SantoriniScene
         const lightBox = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         lightBox.position = lightPosition1;
         
-        const lightPosition2 = new Vector3(1, 10, 0);
+        const lightPosition2 = new Vector3(1, 15, 0);
         const light2 = new PointLight("light", lightPosition2, this.scene);
         light2.intensity = 200;
         const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);

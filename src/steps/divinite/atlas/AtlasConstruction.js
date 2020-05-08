@@ -24,6 +24,8 @@ export class AtlasConstruction extends Step
                 }
             });
 
+            this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
+
             if (this.game.ihm.atlasActionMode == 'etage') {
                 this.game.plateau.showBuildHintAround(pion.case);
             } else {

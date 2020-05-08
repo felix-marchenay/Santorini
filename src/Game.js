@@ -16,10 +16,12 @@ import { Victoire } from "./Victoire";
 import { Poseidon } from "./divinite/Poseidon";
 import { Atlas } from "./divinite/Atlas";
 import { Unsplash } from "./steps/Unsplash";
+import { Emitter } from "./infrastructure/emitter";
 
 export class Game
 {
     constructor (scene, nbJoueurs) {
+        this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.stepper = new Stepper;
@@ -85,7 +87,20 @@ export class Game
                         }
                     }
                     break;
-                
+            }
+        });
+
+        scene.onKeyboardObservable.add(keyInfo => {
+            switch (keyInfo.type) {
+                case BABYLON.KeyboardEventTypes.KEYDOWN:
+                    console.log(keyInfo.event);
+                    this.emitter.emit('keyDown', keyInfo.event);
+                    this.emitter.emit('keyDown-'+keyInfo.event.code);
+                    break;
+                case BABYLON.KeyboardEventTypes.KEYUP:
+                    this.emitter.emit('keyUp', keyInfo.event);
+                    this.emitter.emit('keyUp-'+keyInfo.event.code);
+                    break;
             }
         });
         

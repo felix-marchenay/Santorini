@@ -75,19 +75,20 @@ export class Interface
 
         this.displayAtlasBuildMode();
 
-        this.atlasBtn.addEventListener('click', () => {
-            let mode = 'etage';
+        this.atlasBtn.addEventListener('click', () => {this.switchAtlasMode()});
+    }
 
-            if (this.atlasActionMode == 'etage') {
-                mode = 'dome'
-            }
+    switchAtlasMode() {
+        let mode = 'etage';
 
-            this.atlasActionMode = mode;
+        console.log('???', this);
+        if (this.atlasActionMode == 'etage') {
+            mode = 'dome'
+        }
 
-            this.displayAtlasBuildMode();
-
-            this.emitter.emit('modeSelected', mode);
-        });
+        this.atlasActionMode = mode;
+        this.displayAtlasBuildMode();
+        this.emitter.emit('modeSelected', mode);
     }
 
     displayAtlasBuildMode() {
