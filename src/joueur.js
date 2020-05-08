@@ -16,14 +16,14 @@ export class Joueur
             this.divinite = new NoDivinite;
         }
 
-        console.log(scene);
         this.pions.push(
             new Pion(scene, material, 'h'),
             new Pion(scene, material, 'f')
         );
 
-        this.pions.forEach(pion => {
-            pion.mesh.position = new Vector3(-10, 1, (-5 + this.nb*2.2));
+        this.pions.forEach((pion, i) => {
+            console.log(this.nb, i);
+            pion.mesh.position = new Vector3((-7 + (this.nb*2+i)*2.2), 0, 8.6);
         });
     }
 
