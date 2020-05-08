@@ -123,12 +123,8 @@ export class Game
 
     async play() {
         
-        this.setPlayers(
-            new Joueur(1, 'Albert', this.couleursJoueur[0], new Atlas, this.scene),
-            new Joueur(2, 'Bertinho', this.couleursJoueur[1], new Poseidon, this.scene),
-        );
         this.stepper.addSteps(
-            // new ChoixNoms(this),
+            new AutoChoixNoms(this),
             new RandomBuild(this),
             new AutoPreparation(this)
         );
