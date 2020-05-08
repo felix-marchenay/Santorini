@@ -13,6 +13,8 @@ import { Construction } from "./steps/Construction";
 import { Interface } from "./ihm/Interface";
 import { RandomBuild } from "./steps/RandomBuild";
 import { Victoire } from "./Victoire";
+import { Poseidon } from "./divinite/Poseidon";
+import { Atlas } from "./divinite/Atlas";
 
 export class Game
 {
@@ -90,25 +92,16 @@ export class Game
         this.scene = scene;
     }
 
+    get pions () {
+        return this.joueurs.reduce((pions, joueur) => {
+            pions.push(...joueur.pions);
+            return pions;
+        }, []);
+    }
+
     idlePion() {
         const idling = this.pions.filter(pion => pion.idle);
         return idling.length > 0 ? idling[0] : null;
-    }
-    
-    preparerPions() {
-        this.pions = this.joueurs.reduce((pions, joueur) => {
-            const pionsJoueur = [
-                new Pion(this.scene, joueur.couleurPion, 'h'),
-                new Pion(this.scene, joueur.couleurPion, 'f')
-            ];
-            joueur.pions = pionsJoueur;
-            pions.push(...pionsJoueur);
-            return pions;
-        }, []);
-
-        this.pions.forEach((pion, i) => {
-            pion.mesh.position = new Vector3(-10, 1, (-5 + i*2.2));
-        });
     }
 
     nextPlayerActive() {
@@ -130,10 +123,14 @@ export class Game
 
     async play() {
         
+        this.setPlayers(
+            new Joueur(1, 'Albert', this.couleursJoueur[0], new Atlas, this.scene),
+            new Joueur(2, 'Bertinho', this.couleursJoueur[1], new Poseidon, this.scene),
+        );
         this.stepper.addSteps(
-            new ChoixNoms(this),
+            // new ChoixNoms(this),
             new RandomBuild(this),
-            new Preparation(this)
+            new AutoPreparation(this)
         );
 
         await this.stepper.run();

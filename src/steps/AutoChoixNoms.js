@@ -13,7 +13,6 @@ export class AutoChoixNoms extends Step
                 new Joueur('Edouard', this.game.couleursJoueur[1], new Atlas),
                 new Joueur('Michel', this.game.couleursJoueur[0], new Pan),
             );
-            this.game.preparerPions();
 
             this.game.ihm.initJoueurs(this.game.joueurs);
 

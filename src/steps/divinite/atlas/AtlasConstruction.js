@@ -11,6 +11,8 @@ export class AtlasConstruction extends Step
         return super.run(resolve => {
             this.game.ihm.tour(this.joueur, 'construire');
 
+            this.game.ihm.show('action-atlas');
+
             const pion = this.joueur.lastMovedPion;
 
             this.game.plateau.showBuildHintAround(pion.case);
