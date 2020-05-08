@@ -22,7 +22,6 @@ export class Joueur
         );
 
         this.pions.forEach((pion, i) => {
-            console.log(this.nb, i);
             pion.mesh.position = new Vector3((-7 + (this.nb*2+i)*2.2), 0, 8.6);
         });
     }

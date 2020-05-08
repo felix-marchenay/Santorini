@@ -128,7 +128,7 @@ export class Game
             new Unsplash(this),
             new ChoixNoms(this),
             new RandomBuild(this),
-            new Preparation(this)
+            new AutoPreparation(this)
         );
 
         await this.stepper.run();

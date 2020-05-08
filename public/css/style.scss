@@ -191,6 +191,22 @@ html,
             }
         }
 
+        [step=action-atlas] button {
+            text-transform: uppercase;
+            outline: none;
+
+            &.dome {
+                border-radius: 40px 40px 2px 2px;
+                background: rgb(16, 102, 182);
+                color: white;
+                border: 3px solid rgba(16, 102, 182, 0.4);
+            }
+
+            &.etage {
+                border-radius : 4px 4px 2px 2px;
+            }
+        }
+
         [step=tour] {
             position: fixed;
             bottom: 0;

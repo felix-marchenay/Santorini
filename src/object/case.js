@@ -68,11 +68,11 @@ export class Case
     }
 
     showBuildHint() {
-        try {
-            this.buildHint.show(this.nextLevelToBuild());
-        } catch (e) {
-            console.log(e);
-        }
+        this.buildHint.show(this.nextLevelToBuild());
+    }
+
+    showBuildHintDome() {
+        this.buildHint.show(this.nextLevelToBuild() + '-dome');
     }
 
     isBuildable() {

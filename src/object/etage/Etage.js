@@ -104,4 +104,7 @@ export class Etage
 Etage.NIVEAU_1 = "1";
 Etage.NIVEAU_2 = "2";
 Etage.NIVEAU_3 = "3";
+Etage.NIVEAU_1_DOME = "1-dome";
+Etage.NIVEAU_2_DOME = "2-dome";
+Etage.NIVEAU_3_DOME = "3-dome";
 Etage.NIVEAU_DOME = "dome";

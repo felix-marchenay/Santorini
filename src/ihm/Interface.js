@@ -34,6 +34,8 @@ export class Interface
             }
         };
 
+        this.atlasActionMode = 'etage';
+
         this.initElements();
     }
 
@@ -68,6 +70,29 @@ export class Interface
                 })
             );
         });
+
+        this.atlasBtn = document.querySelector('[step=action-atlas] button');
+
+        this.displayAtlasBuildMode();
+
+        this.atlasBtn.addEventListener('click', () => {
+            let mode = 'etage';
+
+            if (this.atlasActionMode == 'etage') {
+                mode = 'dome'
+            }
+
+            this.atlasActionMode = mode;
+
+            this.displayAtlasBuildMode();
+
+            this.emitter.emit('modeSelected', mode);
+        });
+    }
+
+    displayAtlasBuildMode() {
+        this.atlasBtn.classList = [this.atlasActionMode];
+        this.atlasBtn.innerHTML = this.atlasActionMode;
     }
 
     unsplash() {

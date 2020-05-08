@@ -61,9 +61,25 @@ export class Plateau {
             this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())
         );
     }
+
+    showBuildHintDomeAround (caze) {
+        this.showBuildHintDome(
+            this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())
+        );
+    }
+
+    hideBuildHint() {
+        this.allCases().forEach(cas => {
+            cas.hideBuildHint();
+        });
+    }
     
     showBuildHint (cases) {
         cases.map(cas => cas.showBuildHint());
+    }
+
+    showBuildHintDome (cases) {
+        cases.map(cas => cas.showBuildHintDome());
     }
 
     showMoveHintAround(caze) {

@@ -14,14 +14,32 @@ export class AtlasConstruction extends Step
             this.game.ihm.show('action-atlas');
 
             const pion = this.joueur.lastMovedPion;
+            
+            this.game.ihm.emitter.on('modeSelected', mode => {
+                this.game.plateau.hideBuildHint();
+                if (mode == 'dome') {
+                    this.game.plateau.showBuildHintDomeAround(pion.case);
+                } else {
+                    this.game.plateau.showBuildHintAround(pion.case);
+                }
+            });
 
-            this.game.plateau.showBuildHintAround(pion.case);
+            if (this.game.ihm.atlasActionMode == 'etage') {
+                this.game.plateau.showBuildHintAround(pion.case);
+            } else {
+                this.game.plateau.showBuildHintDomeAround(pion.case);
+            }
 
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
                     try {
                         if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
-                            caze.AtlasBuildDome();
+
+                            if (this.game.ihm.atlasActionMode == 'etage') {
+                                caze.build();
+                            } else {
+                                caze.AtlasBuildDome();
+                            }
 
                             resolve();
                         }
@@ -36,9 +54,10 @@ export class AtlasConstruction extends Step
 
     after () {
         this.game.nextPlayerActive();
+        this.game.plateau.hideBuildHint();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
-            cas.hideBuildHint();
         });
+        this.game.ihm.hide('action-atlas');
     }
 }
