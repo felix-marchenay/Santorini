@@ -119,8 +119,7 @@ export class Game
         this.stepper.addSteps(
             new Unsplash(this),
             new ChoixNoms(this),
-            new RandomBuild(this),
-            new AutoPreparation(this)
+            new Preparation(this)
         );
 
         await this.stepper.run();
