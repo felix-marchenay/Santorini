@@ -35,7 +35,6 @@ export class ChoixNoms extends Step
                     );
                 });
 
-                this.game.ihm.hide('name');
                 this.game.ihm.initJoueurs(this.game.joueurs);
 
                 resolve();

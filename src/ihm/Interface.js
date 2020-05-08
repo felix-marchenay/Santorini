@@ -71,6 +71,10 @@ export class Interface
             );
         });
 
+        document.querySelector('[step=victory] button.again').addEventListener('click', () => {
+            this.emitter.emit('replay');
+        });
+
         this.atlasBtn = document.querySelector('[step=action-atlas] button');
 
         this.displayAtlasBuildMode();
@@ -81,7 +85,6 @@ export class Interface
     switchAtlasMode() {
         let mode = 'etage';
 
-        console.log('???', this);
         if (this.atlasActionMode == 'etage') {
             mode = 'dome'
         }

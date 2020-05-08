@@ -60,6 +60,7 @@ export class AtlasConstruction extends Step
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
         });
+        this.game.emitter.flush();
         this.game.ihm.hide('action-atlas');
     }
 }
