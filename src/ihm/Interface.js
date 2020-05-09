@@ -149,6 +149,7 @@ export class Interface
             elJoueur.querySelector('.img-divinite').setAttribute('src', 'image/divinite/' + joueur.divinite.name.toLowerCase() + '.jpg');
             elJoueur.querySelector('.infos .divinite-name').innerHTML = joueur.divinite.name;
             elJoueur.querySelector('.infos .name').innerHTML = joueur.name;
+            elJoueur.querySelector('.color').style.backgroundColor = '#'+joueur.couleurHex;
         });
     }
 
