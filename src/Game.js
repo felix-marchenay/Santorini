@@ -96,11 +96,6 @@ export class Game
         return idling.length > 0 ? idling[0] : null;
     }
 
-    nextPlayerActive() {
-        const inactives = this.joueurs.filter(player => player != this.activePlayer());
-        this.joueurs = [...inactives, this.activePlayer()];
-    }
-
     activePlayer() {
         return this.joueurs[0];
     }

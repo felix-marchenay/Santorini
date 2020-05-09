@@ -34,7 +34,6 @@ export class Construction extends Step
     }
 
     after () {
-        this.game.nextPlayerActive();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
             cas.hideBuildHint();

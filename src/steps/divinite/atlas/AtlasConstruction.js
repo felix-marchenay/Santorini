@@ -55,7 +55,6 @@ export class AtlasConstruction extends Step
     }
 
     after () {
-        this.game.nextPlayerActive();
         this.game.plateau.hideBuildHint();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
