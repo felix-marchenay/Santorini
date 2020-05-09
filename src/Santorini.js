@@ -25,8 +25,8 @@ export class Santorini
     ignition() {
         this.preparation.launch();
         
-        // this.engine.runRenderLoop(() => {
-        //     this.scene.render();
-        // });
+        this.engine.runRenderLoop(() => {
+            this.scene.render();
+        });
     }
 }
