@@ -32,9 +32,14 @@ export class Game
         });
 
         this.couleursJoueur = [
-            scene.container.materials.find(mat => mat.id == 'pion-vert'),
-            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
             scene.container.materials.find(mat => mat.id == 'pion-blanc'),
+            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
+            scene.container.materials.find(mat => mat.id == 'pion-vert'),
+        ];
+        this.couleursHex = [
+            'e6e6e6',
+            '1543e6',
+            '11d934'
         ];
         
         scene.onPointerObservable.add(pointerInfo => {
@@ -96,11 +101,6 @@ export class Game
         return idling.length > 0 ? idling[0] : null;
     }
 
-    nextPlayerActive() {
-        const inactives = this.joueurs.filter(player => player != this.activePlayer());
-        this.joueurs = [...inactives, this.activePlayer()];
-    }
-
     activePlayer() {
         return this.joueurs[0];
     }
@@ -109,13 +109,27 @@ export class Game
         this.joueurs = [active, ...players];
     }
 
+    onClickCaseAvoisinantes(pion, fn) {
+        this.plateau.casesAvoisinantes(pion.case).forEach(cas => {
+            cas.emitter.on('pointerPicked', () => { fn(cas) });
+        });
+    }
+
+    flushEventsCases() {
+        this.plateau.allCases().forEach(cas => cas.emitter.flush());
+    }
+
+    hideAllBuildHint() {
+        this.plateau.allCases().forEach(cas => cas.hideBuildHint());
+    }
+
     async play() {
         this.stepper = new Stepper();
         
         this.stepper.addSteps(
             new Unsplash(this),
-            new ChoixNoms(this),
-            new Preparation(this)
+            new AutoChoixNoms(this),
+            new AutoPreparation(this)
         );
 
         await this.stepper.run();
@@ -123,8 +137,8 @@ export class Game
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
                 steps.push(
-                    joueur.getDeplacementStep(this), 
-                    joueur.getConstructionStep(this),
+                    ...joueur.getDeplacementStep(this), 
+                    ...joueur.getConstructionStep(this),
                 );
                 return steps;
             },

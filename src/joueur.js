@@ -5,12 +5,13 @@ import { Vector3 } from "babylonjs";
 
 export class Joueur
 {
-    constructor (nb, name, material, divinite, scene) {
+    constructor (nb, name, material, divinite, scene, couleurHex) {
         this.name = name;
         this.pions = [];
         this.lastMovedPion = null;
         this.nb = nb;
         this.divinite = divinite;
+        this.couleurHex = couleurHex;
 
         if (divinite === null) {
             this.divinite = new NoDivinite;

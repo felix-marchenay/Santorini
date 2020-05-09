@@ -43,8 +43,28 @@ export class Interface
         document.querySelector('[step='+step+']').style.display = 'flex';
     }
 
+    showActionFor(divinite) {
+        this.show('action-joueur');
+        document.querySelector('[step="action-joueur"] [joueur="'+divinite+'"]').style.display = 'flex';
+    }
+
+    hideAction (divinite) {
+        this.hide('action-joueur');
+        document.querySelector('[step="action-joueur"] [joueur="'+divinite+'"]').style.display = 'none';
+    }
+
     hide (step) {
         document.querySelector('[step='+step+']').style.display = "none";
+    }
+
+    showSkip() {
+        this.show('action-joueur');
+        this.skipEl.style.display = 'flex';
+    }
+
+    hideSkip() {
+        this.hide('action-joueur');
+        this.skipEl.style.display = 'none';
     }
 
     initElements() {
@@ -75,11 +95,30 @@ export class Interface
             this.emitter.emit('replay');
         });
 
-        this.atlasBtn = document.querySelector('[step=action-atlas] button');
+        this.skipEl = document.querySelector('#skip');
+        this.skipEl.querySelector('button').addEventListener('click', () => {
+            this.emitter.emit('skip');
+        });
+
+        this.atlasBtn = document.querySelector('[step="action-joueur"] [joueur=atlas] button');
 
         this.displayAtlasBuildMode();
 
         this.atlasBtn.addEventListener('click', () => {this.switchAtlasMode()});
+    }
+
+    showActivePlayer(joueur) {
+        const elPlayers = document.querySelectorAll('[step=joueurs] .joueur');
+        
+        [...elPlayers].forEach(el => el.classList.remove('current'));
+
+        [...elPlayers].find(el => {
+            if (el.querySelector('.infos .name').innerHTML == joueur.name) {
+                return true;
+            }
+
+            return false;
+        }).classList.add('current');
     }
 
     switchAtlasMode() {
@@ -110,6 +149,7 @@ export class Interface
             elJoueur.querySelector('.img-divinite').setAttribute('src', 'image/divinite/' + joueur.divinite.name.toLowerCase() + '.jpg');
             elJoueur.querySelector('.infos .divinite-name').innerHTML = joueur.divinite.name;
             elJoueur.querySelector('.infos .name').innerHTML = joueur.name;
+            elJoueur.querySelector('.color').style.backgroundColor = '#'+joueur.couleurHex;
         });
     }
 

@@ -1,12 +1,7 @@
 import { Step } from "./Step";
 
 export class Construction extends Step
-{
-    constructor(game, joueur) {
-        super(game);
-        this.joueur = joueur;
-    }
-    
+{    
     run () {
         return super.run(resolve => {
             
@@ -34,7 +29,6 @@ export class Construction extends Step
     }
 
     after () {
-        this.game.nextPlayerActive();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
             cas.hideBuildHint();
