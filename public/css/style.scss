@@ -157,10 +157,16 @@ html,
             .joueur {
                 margin: 0 15px;
 
+                &.current {
+                    .img-divinite {
+                        transform: rotateZ(-4deg) translate3d(10px, 50px, 0px);
+                    }
+                }
+
                 .img-divinite {
                     z-index: 3;
                     position: relative;
-                    transform: rotateZ(-10deg) translateY(130px);
+                    transform: rotateZ(-14deg) translateY(190px);
                     transition: 150ms ease-out;
                     cursor: pointer;
                     pointer-events: all;
