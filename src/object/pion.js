@@ -7,7 +7,7 @@ import {
     Animation,
     SceneLoader
 } from "@babylonjs/core";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 import { CircleEase, EasingFunction } from "babylonjs";
 
 export class Pion {

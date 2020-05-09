@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight } from "babylonjs";
+import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight, Scene } from "babylonjs";
 import { Game } from "./Game";
 import { DirectionalLight } from "@babylonjs/core";
 
@@ -9,12 +9,9 @@ export class SantoriniScene
         this.canvas = canvas;
         this.camera = this.arcCamera();
         this.lights = this.hemisphericLights();
-
-        this.game = new Game(this.scene);
-
         this.shadow = new ShadowGenerator(1024, this.lights[0]);
         this.shadow.usePercentageCloserFiltering = true;
-        this.shadow.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
+        this.shadow.filteringQuality = ShadowGenerator.QUALITY_HIGH;
         this.scene.shadow = this.shadow;
     }
 

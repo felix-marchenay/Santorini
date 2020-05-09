@@ -12,23 +12,6 @@ export class PoseidonConstruction extends Step
             this.game.ihm.tour(this.joueur, 'construire');
 
             const pion = this.joueur.lastMovedPion;
-            
-            this.game.ihm.emitter.on('modeSelected', mode => {
-                this.game.plateau.hideBuildHint();
-                if (mode == 'dome') {
-                    this.game.plateau.showBuildHintDomeAround(pion.case);
-                } else {
-                    this.game.plateau.showBuildHintAround(pion.case);
-                }
-            });
-
-            this.keydownspace = this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
-
-            if (this.game.ihm.atlasActionMode == 'etage') {
-                this.game.plateau.showBuildHintAround(pion.case);
-            } else {
-                this.game.plateau.showBuildHintDomeAround(pion.case);
-            }
 
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {

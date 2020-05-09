@@ -8,7 +8,23 @@
 
     <div id="gui">
         <div id="splash" class="active"></div>
+        <div step="main-menu">
+            <div class="line online">
+                <h3>Jouer en ligne</h3>
+                <div class="connection">
+                    <input type="text" class="room" placeholder="Nom de la partie">
+                    <button class="">Rechercher</button>
+                </div>
+            </div>
+            <div class="line offline">
+                <h3>Jouer en local</h3>
+            </div>
+        </div>
         <div step="name">
+            <div class="online">
+                <input type="text" name="room">
+                <button class="join-room">join</button>
+            </div>
             <div class="players">
                 <div class="player">
                     <div class="divinite">

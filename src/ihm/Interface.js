@@ -1,4 +1,4 @@
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 import { DivinitePicker } from "./DivinitePicker";
 
 export class Interface 
@@ -8,14 +8,14 @@ export class Interface
         this.divinitePickers = [];
 
         this.divinites = {
-            athena: {
-                name: 'Athéna',
-                image: 'image/divinite/athena.jpg'
-            },
-            demeter: {
-                name: 'Demeter',
-                image: 'image/divinite/demeter.jpg'
-            },
+            // athena: {
+            //     name: 'Athéna',
+            //     image: 'image/divinite/athena.jpg'
+            // },
+            // demeter: {
+            //     name: 'Demeter',
+            //     image: 'image/divinite/demeter.jpg'
+            // },
             atlas: {
                 name: 'Atlas',
                 image: 'image/divinite/atlas.jpg'

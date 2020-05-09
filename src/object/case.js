@@ -4,7 +4,7 @@ import { Etage2 } from "./etage/Etage2";
 import { Etage3 } from "./etage/Etage3";
 import { Dome } from "./etage/Dome";
 import { BuildHint } from "./BuildHint";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 import { Etage } from "./etage/Etage";
 import { HighlightLayer } from "babylonjs";
 import { MoveHint } from "./MoveHint";

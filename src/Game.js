@@ -1,32 +1,32 @@
 import { Plateau } from "./object/plateau";
 import { Joueur } from "./joueur";
-import { Color3, KeyboardEventTypes, PointerEventTypes, Color4 } from "@babylonjs/core";
+import { Color3, KeyboardEventTypes, PointerEventTypes, Color4, Scene } from "@babylonjs/core";
 import { Pion } from "./object/pion";
-import { Vector3, MeshBuilder } from "babylonjs";
 import { Stepper } from "./infrastructure/Stepper";
 import { Preparation } from "./steps/Preparation";
 import { ChoixNoms } from "./steps/ChoixNom";
 import { AutoChoixNoms } from "./steps/AutoChoixNoms";
 import { AutoPreparation } from "./steps/AutoPreparation";
-import { Deplacement } from "./steps/Deplacement";
-import { Construction } from "./steps/Construction";
-import { Interface } from "./ihm/Interface";
 import { RandomBuild } from "./steps/RandomBuild";
-import { Victoire } from "./Victoire";
-import { Poseidon } from "./divinite/Poseidon";
-import { Atlas } from "./divinite/Atlas";
 import { Unsplash } from "./steps/Unsplash";
-import { Emitter } from "./infrastructure/emitter";
+import { Emitter } from "./infrastructure/Emitter";
+import { Interface } from "./ihm/Interface";
 
 export class Game
 {
-    constructor (scene, nbJoueurs) {
+    /**
+     * 
+     * @param {Scene} scene 
+     * @param {number} nbJoueurs 
+     * @param {Interface} ihm 
+     */
+    constructor (scene, nbJoueurs, ihm) {
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.scene = scene;
+        this.ihm = ihm;
         
-        this.ihm = new Interface();
         this.ihm.emitter.on('replay', () => {
             this.emitter.emit('replay');
         });
@@ -103,10 +103,6 @@ export class Game
 
     activePlayer() {
         return this.joueurs[0];
-    }
-
-    inactivePlayer() {
-        return this.joueurs.filter();
     }
 
     setPlayers(active, ...players) {

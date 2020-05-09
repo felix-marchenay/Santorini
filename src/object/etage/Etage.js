@@ -1,4 +1,4 @@
-import { Emitter } from "../../infrastructure/emitter";
+import { Emitter } from "../../infrastructure/Emitter";
 import { StandardMaterial, Color3, Texture, HighlightLayer, Animation, Vector3 } from "babylonjs";
 
 export class Etage

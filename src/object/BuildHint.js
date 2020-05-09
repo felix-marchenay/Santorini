@@ -1,5 +1,5 @@
 import { MeshBuilder, StandardMaterial, Color3, HighlightLayer } from "@babylonjs/core";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 import { Etage } from "./etage/Etage";
 import { Color4 } from "babylonjs";
 

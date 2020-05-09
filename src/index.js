@@ -29,6 +29,7 @@ import {
 } from "@babylonjs/materials";
 
 import { SantoriniScene } from "./SantoriniScene";
+import { Santorini } from "./Santorini";
 
 function drawAxis(scene) {
     MeshBuilder.CreateLines("axisX", {
@@ -99,28 +100,10 @@ export function info(string) {
     document.getElementById('info').textContent = string;
 }
 
-const canvas = document.getElementById("render");
-const engine = new Engine(canvas);
-const scene = new Scene(engine);
+try {
+    const santorini = new Santorini();
 
-SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
-    try {
-        console.log(container);
-        scene.container = container;
-
-        const santoScene = new SantoriniScene(scene, canvas);
-        
-        santoScene.game.play();
-
-        console.log('register replay');
-        santoScene.game.emitter.on('replay', () => {
-            santoScene.game.replay();
-        });
-
-        engine.runRenderLoop(() => {
-            santoScene.render();
-        });
-    } catch (e) {
-        console.error(e);
-    }
-});
+    santorini.ignition();
+} catch (e) {
+    console.error(e);
+}

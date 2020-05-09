@@ -16,7 +16,7 @@ import {
 
 import { Pion } from "./pion";
 import { Case } from "./case";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 
 export class Plateau {
 
