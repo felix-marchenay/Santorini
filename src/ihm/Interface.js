@@ -43,6 +43,16 @@ export class Interface
         document.querySelector('[step='+step+']').style.display = 'flex';
     }
 
+    showActionFor(divinite) {
+        this.show('action-joueur');
+        document.querySelector('[step="action-joueur"] [joueur="'+divinite+'"]').style.display = 'flex';
+    }
+
+    hideAction (divinite) {
+        this.hide('action-joueur');
+        document.querySelector('[step="action-joueur"] [joueur="'+divinite+'"]').style.display = 'none';
+    }
+
     hide (step) {
         document.querySelector('[step='+step+']').style.display = "none";
     }
@@ -75,7 +85,7 @@ export class Interface
             this.emitter.emit('replay');
         });
 
-        this.atlasBtn = document.querySelector('[step=action-atlas] button');
+        this.atlasBtn = document.querySelector('[step="action-joueur"] [joueur=atlas] button');
 
         this.displayAtlasBuildMode();
 

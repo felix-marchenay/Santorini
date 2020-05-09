@@ -118,8 +118,8 @@ export class Game
         
         this.stepper.addSteps(
             new Unsplash(this),
-            new ChoixNoms(this),
-            new Preparation(this)
+            new AutoChoixNoms(this),
+            new AutoPreparation(this)
         );
 
         await this.stepper.run();

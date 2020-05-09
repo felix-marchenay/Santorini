@@ -12,7 +12,7 @@ export class AutoChoixNoms extends Step
         return super.run(resolve => {
             this.game.setPlayers(
                 new Joueur(1, 'Albert', this.game.couleursJoueur[0], new Atlas, this.game.scene),
-                new Joueur(2, 'Bertinho', this.game.couleursJoueur[1], new Poseidon, this.game.scene),
+                new Joueur(2, 'Bertinho', this.game.couleursJoueur[1], new Atlas, this.game.scene),
             );
 
             this.game.ihm.initJoueurs(this.game.joueurs);

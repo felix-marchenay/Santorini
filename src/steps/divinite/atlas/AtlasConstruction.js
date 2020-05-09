@@ -11,7 +11,7 @@ export class AtlasConstruction extends Step
         return super.run(resolve => {
             this.game.ihm.tour(this.joueur, 'construire');
 
-            this.game.ihm.show('action-atlas');
+            this.game.ihm.showActionFor('atlas');
 
             const pion = this.joueur.lastMovedPion;
             
@@ -61,6 +61,6 @@ export class AtlasConstruction extends Step
             cas.emitter.flush();
         });
         this.game.emitter.off('keyDown-Space', this.keydownspace);
-        this.game.ihm.hide('action-atlas');
+        this.game.ihm.hideAction('atlas');
     }
 }
