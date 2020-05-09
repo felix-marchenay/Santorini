@@ -8,6 +8,6 @@ export class Atlas extends Divinite
     }
 
     getConstructionStep(game, joueur) {
-        return new AtlasConstruction(game, joueur);
+        return [new AtlasConstruction(game, joueur)];
     }
 }

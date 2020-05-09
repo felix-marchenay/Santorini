@@ -200,6 +200,10 @@ html,
             #skip {
                 display: none;
             }
+
+            [joueur] {
+                display: none;
+            }
             
             [joueur=atlas] button {
                 text-transform: uppercase;

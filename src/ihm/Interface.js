@@ -57,6 +57,16 @@ export class Interface
         document.querySelector('[step='+step+']').style.display = "none";
     }
 
+    showSkip() {
+        this.show('action-joueur');
+        this.skipEl.style.display = 'flex';
+    }
+
+    hideSkip() {
+        this.hide('action-joueur');
+        this.skipEl.style.display = 'none';
+    }
+
     initElements() {
         for (let i = 0; i < 2; i ++) {
             const elPlayer = document.querySelectorAll('.players .player')[i];
@@ -83,6 +93,11 @@ export class Interface
 
         document.querySelector('[step=victory] button.again').addEventListener('click', () => {
             this.emitter.emit('replay');
+        });
+
+        this.skipEl = document.querySelector('#skip');
+        this.skipEl.querySelector('button').addEventListener('click', () => {
+            this.emitter.emit('skip');
         });
 
         this.atlasBtn = document.querySelector('[step="action-joueur"] [joueur=atlas] button');

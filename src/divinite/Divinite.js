@@ -8,11 +8,11 @@ export class Divinite
     }
 
     getDeplacementStep (game, joueur) {
-        return new Deplacement(game, joueur);
+        return [new Deplacement(game, joueur)];
     }
 
     getConstructionStep (game, joueur) {
-        return new Construction(game, joueur);
+        return [new Construction(game, joueur)];
     }
 
     isVictorious(pion) {

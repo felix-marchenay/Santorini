@@ -113,6 +113,20 @@ export class Game
         this.joueurs = [active, ...players];
     }
 
+    onClickCaseAvoisinantes(pion, fn) {
+        this.plateau.casesAvoisinantes(pion.case).forEach(cas => {
+            cas.emitter.on('pointerPicked', () => { fn(cas) });
+        });
+    }
+
+    flushEventsCases() {
+        this.plateau.allCases().forEach(cas => cas.emitter.flush());
+    }
+
+    hideAllBuildHint() {
+        this.plateau.allCases().forEach(cas => cas.hideBuildHint());
+    }
+
     async play() {
         this.stepper = new Stepper();
         
@@ -127,8 +141,8 @@ export class Game
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
                 steps.push(
-                    joueur.getDeplacementStep(this), 
-                    joueur.getConstructionStep(this),
+                    ...joueur.getDeplacementStep(this), 
+                    ...joueur.getConstructionStep(this),
                 );
                 return steps;
             },

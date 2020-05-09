@@ -8,6 +8,6 @@ export class Pan extends Divinite
     }
 
     getDeplacementStep (game, joueur) {
-        return new PanDeplacement(game, joueur);
+        return [new PanDeplacement(game, joueur)];
     }
 }
