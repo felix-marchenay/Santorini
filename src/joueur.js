@@ -2,16 +2,19 @@ import { Deplacement } from "./steps/Deplacement";
 import { NoDivinite } from "./divinite/NoDivinite";
 import { Pion } from "./object/pion";
 import { Vector3 } from "babylonjs";
+import { DistantConstruction } from "./steps/distant/DistantConstruction";
+import { DistantDeplacement } from "./steps/distant/DistantDeplacement";
 
 export class Joueur
 {
-    constructor (nb, name, material, divinite, scene, couleurHex) {
+    constructor (nb, name, material, divinite, scene, couleurHex, distant) {
         this.name = name;
         this.pions = [];
         this.lastMovedPion = null;
         this.nb = nb;
         this.divinite = divinite;
         this.couleurHex = couleurHex;
+        this.distant = distant;
 
         if (divinite === null) {
             this.divinite = new NoDivinite;
@@ -29,10 +32,18 @@ export class Joueur
     }
 
     getDeplacementStep (game) {
+        if (this.distant) {
+            return [new DistantDeplacement(game, this)];
+        }
+
         return this.divinite.getDeplacementStep(game, this);
     }
 
     getConstructionStep (game) {
+        if (this.distant) {
+            return [new DistantConstruction(game, this)];
+        }
+
         return this.divinite.getConstructionStep(game, this);
     }
 

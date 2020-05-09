@@ -12,7 +12,7 @@ export class SantoriniScene
 
         this.game = new Game(this.scene);
 
-        this.shadow = new ShadowGenerator(1024, this.lights[0]);
+        this.shadow = new ShadowGenerator(1600, this.lights[0]);
         this.shadow.usePercentageCloserFiltering = true;
         this.shadow.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
         this.scene.shadow = this.shadow;
