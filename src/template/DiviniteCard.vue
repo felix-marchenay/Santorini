@@ -13,12 +13,19 @@ export default {
     },
     computed: {
         src() {
-            return '/public/image/divinite/' + this.divinite + '.jpg';
+            return '/image/divinite/' + this.divinite + '.jpg';
         }
     }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.divinite-card {
+    border: 5px solid rgba(110, 110, 110, 0.3);
+    box-shadow: 2px 3px 9px 4px rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    border-radius: 5px;
+    position: relative;
+    transition: 100ms ease-out;
+}
 </style>

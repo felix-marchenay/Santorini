@@ -25,7 +25,8 @@ export default {
     },
     methods: {
         search() {
-
+            this.$store.emitter.emit('oups', 45);
+            this.$store.commit('roomName', this.roomName);
         },
         back() {
             this.$emit('back');

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from '../template/App';
+import store from '../template/store';
 import { Emitter } from "../infrastructure/Emitter";
 import { DivinitePicker } from "./DivinitePicker";
 
@@ -9,11 +10,17 @@ export class Interface
         this.emitter = new Emitter;
         this.divinitePickers = [];
         
+        this.store = store;
+        this.store.emitter = new Emitter;
         this.vue = new Vue({
-            render: h => h(App)
+            render: h => h(App),
+            store: this.store
         }).$mount('#gui');
 
         this.vue.$on('tested', a => console.log('!!____', a));
+        this.store.emitter.on('oups', a => {
+            console.log(a);
+        })
 
         this.divinites = {
             // athena: {
