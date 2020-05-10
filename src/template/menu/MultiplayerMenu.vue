@@ -4,9 +4,13 @@
         <Button class="back" @click="back">
             retour
         </Button>
-        <input type="room" v-model="roomName" palceholder="Nom de la partie">
-        <Button @click="search">Rechercher</Button>
-        <PlayerPicker />
+        <div v-if="!room" class="room-search">
+            <input type="room" v-model="roomName" palceholder="Nom de la partie">
+            <Button @click="search">Rechercher</Button>
+        </div>
+        <div v-else class="players">
+            <PlayerPicker />
+        </div>
     </div>
 </template>
 
@@ -20,7 +24,8 @@ export default {
     },
     data: function() {
         return {
-            roomName: null
+            roomName: null,
+            room: this.$store.state.room
         };
     },
     methods: {

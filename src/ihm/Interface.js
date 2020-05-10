@@ -17,11 +17,6 @@ export class Interface
             store: this.store
         }).$mount('#gui');
 
-        this.vue.$on('tested', a => console.log('!!____', a));
-        this.store.emitter.on('oups', a => {
-            console.log(a);
-        })
-
         this.divinites = {
             // athena: {
             //     name: 'Athéna',

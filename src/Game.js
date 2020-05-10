@@ -11,6 +11,8 @@ import { RandomBuild } from "./steps/RandomBuild";
 import { Unsplash } from "./steps/Unsplash";
 import { Emitter } from "./infrastructure/Emitter";
 import { Interface } from "./ihm/Interface";
+import { Server } from "./Server";
+import { AutoDistant } from "./steps/AutoDistant";
 
 export class Game
 {
@@ -26,6 +28,7 @@ export class Game
         this.joueurs = [];
         this.scene = scene;
         this.ihm = ihm;
+        this.server = null;
         
         this.ihm.emitter.on('replay', () => {
             this.emitter.emit('replay');
@@ -128,11 +131,25 @@ export class Game
         
         this.stepper.addSteps(
             new Unsplash(this),
-            new AutoChoixNoms(this),
-            new AutoPreparation(this)
+            new AutoDistant(this)
         );
 
         await this.stepper.run();
+
+        this.server = new Server(this.joueurs[0]);
+        this.server.emitter.on('entered', room => {
+            const autresJoueurs = room.joueurs;
+            console.log('others', autresJoueurs);
+            this.joueurs.push(
+                
+            );
+        });
+        this.server.emitter.on('newPlayer', player => {
+            
+        });
+        await this.server.connect('room214').catch(e => {
+            console.error(e);
+        });
 
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
