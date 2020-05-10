@@ -12,7 +12,7 @@ export class Server
     }
 
     connect (roomName) {
-        const fn = resolve => {
+        const fn = (resolve, reject) => {
             this.socket = io('http://' + this.host + ':' + this.port);
     
             this.socket.on('connected', () => {
@@ -33,7 +33,7 @@ export class Server
             });
 
             this.socket.on('noRoom', (e) => {
-                throw "Server error : " + e;
+                reject("Server error : " + e);
             });
         }
 

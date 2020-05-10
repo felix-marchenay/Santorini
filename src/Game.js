@@ -140,20 +140,20 @@ export class Game
 
         await this.stepper.run();
 
-        try {
-            this.server = new Server(this.joueurs[0]);
-            this.server.emitter.on('entered', room => {
-                const autresJoueurs = room.joueurs.filter(roomJ => !this.joueurs.map(j => name).includes(roomJ));
-                console.log(autresJoueurs);
+        this.server = new Server(this.joueurs[0]);
+        this.server.emitter.on('entered', room => {
+            const autresJoueurs = room.joueurs;
+            console.log('others', autresJoueurs);
+            this.joueurs.push(
                 
-            });
-            this.server.emitter.on('newPlayer', player => {
-                
-            });
-            await this.server.connect('room214');
-        } catch (e) {
+            );
+        });
+        this.server.emitter.on('newPlayer', player => {
+            
+        });
+        await this.server.connect('room214').catch(e => {
             console.error(e);
-        }
+        });
 
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
