@@ -112,7 +112,6 @@ SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(co
         
         santoScene.game.play();
 
-        console.log('register replay');
         santoScene.game.emitter.on('replay', () => {
             santoScene.game.replay();
         });

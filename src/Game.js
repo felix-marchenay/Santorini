@@ -17,6 +17,8 @@ import { Poseidon } from "./divinite/Poseidon";
 import { Atlas } from "./divinite/Atlas";
 import { Unsplash } from "./steps/Unsplash";
 import { Emitter } from "./infrastructure/emitter";
+import { Server } from "./Server";
+import { AutoDistant } from "./steps/AutoDistant";
 
 export class Game
 {
@@ -25,6 +27,7 @@ export class Game
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.scene = scene;
+        this.server = null;
         
         this.ihm = new Interface();
         this.ihm.emitter.on('replay', () => {
@@ -132,11 +135,25 @@ export class Game
         
         this.stepper.addSteps(
             new Unsplash(this),
-            new AutoChoixNoms(this),
-            new AutoPreparation(this)
+            new AutoDistant(this)
         );
 
         await this.stepper.run();
+
+        try {
+            this.server = new Server(this.joueurs[0]);
+            this.server.emitter.on('entered', room => {
+                const autresJoueurs = room.joueurs.filter(roomJ => !this.joueurs.map(j => name).includes(roomJ));
+                console.log(autresJoueurs);
+                
+            });
+            this.server.emitter.on('newPlayer', player => {
+                
+            });
+            await this.server.connect('room214');
+        } catch (e) {
+            console.error(e);
+        }
 
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
