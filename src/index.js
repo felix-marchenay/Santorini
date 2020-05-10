@@ -1,35 +1,7 @@
-import {
-    Engine,
-    Scene,
-    Camera,
-    Vector3,
-    HemisphericLight,
-    Color3,
-    MeshBuilder,
-    FlyCamera,
-    Mesh,
-    DynamicTexture,
-    StandardMaterial,
-    Color4,
-    DirectionalLight,
-    Animation,
-    PointerEventTypes,
-    KeyboardEventTypes,
-    ArcRotateCamera,
-    ShadowGenerator,
-    SpotLight,
-    PointLight,
-    SceneLoader
-} from "@babylonjs/core";
-
-import '../public/css/style.scss';
-
-import {
-    NormalMaterial
-} from "@babylonjs/materials";
-
 import { SantoriniScene } from "./SantoriniScene";
 import { Santorini } from "./Santorini";
+
+import { Vector3, Color4, MeshBuilder } from "babylonjs";
 
 function drawAxis(scene) {
     MeshBuilder.CreateLines("axisX", {

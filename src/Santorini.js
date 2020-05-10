@@ -4,6 +4,7 @@ import { Game } from "./Game";
 import { Interface } from "./ihm/Interface";
 import { Scene } from "@babylonjs/core";
 import { Preparation } from "./Preparation";
+import { Stepper } from "./infrastructure/Stepper";
 
 export class Santorini 
 {
@@ -17,6 +18,7 @@ export class Santorini
             this.scene.scene.container = container;
         });
 
+        this.stepper = new Stepper;
         this.ihm = new Interface;
         this.preparation = new Preparation(this.ihm);
         this.game = null;

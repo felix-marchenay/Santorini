@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import App from '../template/App';
 import { Emitter } from "../infrastructure/Emitter";
 import { DivinitePicker } from "./DivinitePicker";
 
@@ -6,6 +8,12 @@ export class Interface
     constructor() {
         this.emitter = new Emitter;
         this.divinitePickers = [];
+        
+        this.vue = new Vue({
+            render: h => h(App)
+        }).$mount('#gui');
+
+        this.vue.$on('tested', a => console.log('!!____', a));
 
         this.divinites = {
             // athena: {

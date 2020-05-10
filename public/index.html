@@ -3,10 +3,31 @@
 
 <head>
     <title>SANTORINI - by Félix</title>
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            font-size: 0;
+        }
+    </style>
 <body>
     <canvas id="render" touch-action="none"></canvas>
 
-    <div id="gui">
+    <div id="gui"></div>
+
+    <div id="gui_old" style="display: none;">
         <div id="splash" class="active"></div>
         <div step="main-menu">
             <div class="line online">
