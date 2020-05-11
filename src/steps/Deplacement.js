@@ -35,6 +35,8 @@ export class Deplacement extends Step
 
                             caze.poserPion(this.game.idlePion());
 
+                            this.game.sendServer('pionMove', this.game.idlePion().export());
+
                             this.joueur.lastMovedPion = this.game.idlePion();
     
                             if (this.joueur.isVictorious()) {

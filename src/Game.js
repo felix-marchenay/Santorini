@@ -145,7 +145,8 @@ export class Game
 
     async play() {
         this.stepper.run().catch(e => {
-            this.ihm.victory(e);
+            console.error(e);
+            // this.ihm.victory(e);
         });
     }
 

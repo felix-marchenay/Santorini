@@ -19,12 +19,10 @@ export class Server
             });
 
             this.socket.on('enteredRoom', room => {
-                console.log(room);
                 this.emitter.emit('entered', room);
             });
 
             this.socket.on('someoneEnteredRoom', newPlayer => {
-                console.log(newPlayer);
                 this.emitter.emit('newPlayer', newPlayer);
             });
 
@@ -45,8 +43,11 @@ export class Server
             });
 
             this.socket.on('pionMove', data => {
-                console.log('pionMove', data);
                 this.emitter.emit('pionMove', data);
+            });
+
+            this.socket.on('construct', data => {
+                this.emitter.emit('construct', data);
             });
         }
 

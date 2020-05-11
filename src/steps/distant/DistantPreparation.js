@@ -7,9 +7,9 @@ export class DistantPreparation extends Step
 
             this.game.ihm.tour(this.joueur, 'placer ses pions');
 
-            this.game.server.emitter.on('idlePion', pion => {
+            this.game.server.emitter.on('idlePion', data => {
 
-                pion = this.game.findPionById(pion.id);
+                const pion = this.game.findPionById(data.data.id);
 
                 this.game.pions.filter(p => p != pion).forEach(p => {
                     p.stopIdle();
@@ -19,22 +19,13 @@ export class DistantPreparation extends Step
             });
 
             this.game.server.emitter.on('pionMove', data => {
-                const pion = this.game.findPionById(data.id);
+                const pion = this.game.findPionById(data.data.id);
 
-                const caze = this.game.findCaseByCoordinates(data.position);
+                const caze = this.game.findCaseByCoordinates(data.data.position);
 
                 caze.poserPion(pion);
 
-                const joueur = this.game.joueurs.find(j => {
-                    const pionFound = j.pions.find(p => p.id == data.id);
-                    if (pionFound) {
-                        return true;
-                    }
-
-                    return false;
-                });
-
-                console.log(joueur);
+                const joueur = this.game.joueurs.find(j => j.id == data.joueur);
 
                 if (joueur.pions.filter(p => p.case === null).length === 0) {
                     resolve();
@@ -45,5 +36,6 @@ export class DistantPreparation extends Step
     }
 
     after () {
+        this.game.server.emitter.flush();
     }
 }

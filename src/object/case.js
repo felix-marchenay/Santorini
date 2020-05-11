@@ -213,4 +213,8 @@ export class Case
             this.constructions[key] = null;
         });
     }
+
+    export() {
+        return this.coordinates;
+    }
 }

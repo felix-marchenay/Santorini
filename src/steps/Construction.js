@@ -17,6 +17,8 @@ export class Construction extends Step
                         if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                             caze.build();
 
+                            this.game.sendServer('construct', caze.export());
+
                             resolve();
                         }
                     } catch (e) {
@@ -33,6 +35,5 @@ export class Construction extends Step
             cas.emitter.flush();
             cas.hideBuildHint();
         });
-        this.game.ihm.hide('info');
     }
 }
