@@ -5,7 +5,7 @@ export class Server
 {
     constructor() {
         this.emitter = new Emitter;
-        this.host = 'localhost';
+        this.host = '192.168.1.14';
         this.port = '4949'
         this.socket = null;
     }

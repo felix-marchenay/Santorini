@@ -68,10 +68,6 @@ function drawAxis(scene) {
     }
 }
 
-export function info(string) {
-    document.getElementById('info').textContent = string;
-}
-
 try {
     const santorini = new Santorini();
 

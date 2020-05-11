@@ -23,12 +23,14 @@ export class Santorini
         this.server = new Server();
         this.stepper = new Stepper;
         this.ihm = new Interface;
-        this.preparation = new Preparation(this.ihm, this.server);
+        this.preparation = new Preparation(this.ihm, this.server, this.scene.scene);
         this.game = null;
     }
 
     async ignition() {
         const game = await this.preparation.launch();
+
+        game.play();
         
         this.engine.runRenderLoop(() => {
             this.scene.render();

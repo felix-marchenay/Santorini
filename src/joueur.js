@@ -7,13 +7,24 @@ import { DistantDeplacement } from "./steps/distant/DistantDeplacement";
 
 export class Joueur
 {
-    constructor (nb, name, material, divinite, scene, couleurHex, distant) {
+    constructor (nb, name, divinite, scene, distant) {
+        const couleursHex = [
+            'e6e6e6',
+            '1543e6',
+            '11d934'
+        ];
+        const materials = [
+            scene.container.materials.find(mat => mat.id == 'pion-blanc'),
+            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
+            scene.container.materials.find(mat => mat.id == 'pion-vert'),
+        ];
+
+        this.couleursHex = couleursHex[nb];
         this.name = name;
         this.pions = [];
         this.lastMovedPion = null;
         this.nb = nb;
         this.divinite = divinite;
-        this.couleurHex = couleurHex;
         this.distant = distant;
 
         if (divinite === null) {
@@ -21,8 +32,8 @@ export class Joueur
         }
 
         this.pions.push(
-            new Pion(scene, material, 'h'),
-            new Pion(scene, material, 'f')
+            new Pion(scene, materials[nb], 'h'),
+            new Pion(scene, materials[nb], 'f')
         );
 
         this.pions.forEach((pion, i) => {

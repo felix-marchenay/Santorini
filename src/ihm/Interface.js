@@ -57,6 +57,10 @@ export class Interface
         this.vue.$emit('newPlayer', player);
     }
 
+    letsGo() {
+
+    }
+
     // show(step) {
     //     document.querySelector('[step='+step+']').style.display = 'flex';
     // }
@@ -125,7 +129,7 @@ export class Interface
     //     this.atlasBtn.addEventListener('click', () => {this.switchAtlasMode()});
     // }
 
-    // showActivePlayer(joueur) {
+    showActivePlayer(joueur) {
     //     const elPlayers = document.querySelectorAll('[step=joueurs] .joueur');
         
     //     [...elPlayers].forEach(el => el.classList.remove('current'));
@@ -137,7 +141,7 @@ export class Interface
 
     //         return false;
     //     }).classList.add('current');
-    // }
+    }
 
     // switchAtlasMode() {
     //     let mode = 'etage';
@@ -176,11 +180,11 @@ export class Interface
     //     document.querySelector('[step=info]').innerHTML = str;
     // }
 
-    // tour(joueur, action) {
+    tour(joueur, action) {
     //     this.show('tour');
     //     document.querySelector('[step=tour] .name').innerHTML = joueur.name;
     //     document.querySelector('[step=tour] .action').innerHTML = action;
-    // }
+    }
 
     // hideAll() {
     //     document.querySelectorAll('[step]').forEach(el => {el.style.display = 'none'});

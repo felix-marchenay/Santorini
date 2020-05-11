@@ -37,6 +37,13 @@ export default {
         multi() {
             this.page = 'multiplayer';
         }
+    },
+    
+    created() {
+        this.$root.$on('letsgo', room => {
+            console.log('vue letsgo : ', room);
+            this.page = 'game';
+        });
     }
 }
 </script>

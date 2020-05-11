@@ -21,10 +21,10 @@ export class Game
      * @param {Scene} scene 
      * @param {Interface} ihm 
      */
-    constructor (scene, ihm) {
+    constructor (scene, ihm, joueurs) {
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
-        this.joueurs = [];
+        this.joueurs = joueurs;
         this.scene = scene;
         this.ihm = ihm;
         this.stepper = new Stepper;
@@ -32,17 +32,6 @@ export class Game
         this.ihm.emitter.on('replay', () => {
             this.emitter.emit('replay');
         });
-
-        this.couleursJoueur = [
-            scene.container.materials.find(mat => mat.id == 'pion-blanc'),
-            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
-            scene.container.materials.find(mat => mat.id == 'pion-vert'),
-        ];
-        this.couleursHex = [
-            'e6e6e6',
-            '1543e6',
-            '11d934'
-        ];
         
         scene.onPointerObservable.add(pointerInfo => {
             switch (pointerInfo.type) {
@@ -126,28 +115,6 @@ export class Game
     }
 
     async play() {
-        
-        this.stepper.addSteps(
-            new AutoDistant(this)
-        );
-
-        await this.stepper.run();
-
-        this.server = new Server(this.joueurs[0]);
-        this.server.emitter.on('entered', room => {
-            const autresJoueurs = room.joueurs;
-            console.log('others', autresJoueurs);
-            this.joueurs.push(
-                
-            );
-        });
-        this.server.emitter.on('newPlayer', player => {
-            
-        });
-        await this.server.connect('room214').catch(e => {
-            console.error(e);
-        });
-
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
                 steps.push(

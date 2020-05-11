@@ -24,6 +24,7 @@ export default {
 
         &.back {
             background: none;
+            color: rgb(17, 101, 197);
             text-decoration: underline;
         }
     }
