@@ -139,6 +139,10 @@ export class Game
         return this.joueurs.find(j => j.id == id);
     }
 
+    findCaseByCoordinates(coordinates) {
+        return this.plateau.cases[coordinates.x][coordinates.y];
+    }
+
     async play() {
         this.stepper.run().catch(e => {
             this.ihm.victory(e);

@@ -23,6 +23,8 @@ export class PreparationUnSeulJoueur extends Step
                 cas.emitter.on('pointerPicked', () => {
                     if (this.game.idlePion() && this.game.idlePion().canGo(cas)) {
                         cas.poserPion(this.game.idlePion());
+
+                        this.game.sendServer('pionMove', this.game.idlePion().export());
                         this.game.idlePion().stopIdle();
                     }
 

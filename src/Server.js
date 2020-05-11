@@ -43,6 +43,11 @@ export class Server
             this.socket.on('idlePion', data => {
                 this.emitter.emit('idlePion', data);
             });
+
+            this.socket.on('pionMove', data => {
+                console.log('pionMove', data);
+                this.emitter.emit('pionMove', data);
+            });
         }
 
         return new Promise(fn);
