@@ -5,7 +5,8 @@ import { Construction } from "../steps/Construction";
 export class Poseidon extends Divinite
 {
     constructor() {
-        super("poseidon");
+        this.name = 'Poséidon';
+        this.slug = 'poseidon';
     }
 
     getConstructionStep(game, joueur) {

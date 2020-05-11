@@ -3,6 +3,7 @@ import { Divinite } from "./Divinite";
 export class Athena extends Divinite
 {
     constructor() {
-        super('Athena');
+        this.name = 'Athéna';
+        this.slug = 'athena';
     }
 }
