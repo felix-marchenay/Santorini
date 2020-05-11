@@ -24,6 +24,21 @@ export class DistantPreparation extends Step
                 const caze = this.game.findCaseByCoordinates(data.position);
 
                 caze.poserPion(pion);
+
+                const joueur = this.game.joueurs.find(j => {
+                    const pionFound = j.pions.find(p => p.id == data.id);
+                    if (pionFound) {
+                        return true;
+                    }
+
+                    return false;
+                });
+
+                console.log(joueur);
+
+                if (joueur.pions.filter(p => p.case === null).length === 0) {
+                    resolve();
+                }
             });
 
         });

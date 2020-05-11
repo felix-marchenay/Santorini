@@ -28,7 +28,7 @@ export class PreparationUnSeulJoueur extends Step
                         this.game.idlePion().stopIdle();
                     }
 
-                    if (this.game.pions.filter(p => p.case === null).length === 0) {
+                    if (this.joueur.pions.filter(p => p.case === null).length === 0) {
                         resolve();
                     }
                 });

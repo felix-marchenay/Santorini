@@ -58,10 +58,19 @@ export class Preparation
 
                 const game = new Game(this.scene, this.ihm, joueurs, this.server);
 
-                const steps = [...joueurs.reduce(
+                game.stepper.addSteps([...joueurs.reduce(
                     (steps, joueur) => {
                         steps.push(
                             ...joueur.getPreparationStep(game),
+                        );
+                        return steps;
+                    },
+                    []
+                )]);
+
+                const steps = [...joueurs.reduce(
+                    (steps, joueur) => {
+                        steps.push(
                             ...joueur.getDeplacementStep(game), 
                             ...joueur.getConstructionStep(game),
                         );
