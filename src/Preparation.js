@@ -7,6 +7,7 @@ import { Demeter } from "./divinite/Demeter";
 import { Poseidon } from "./divinite/Poseidon";
 import { Athena } from "./divinite/Athena";
 import { NoDivinite } from "./divinite/NoDivinite";
+import { PreparationUnSeulJoueur } from "./steps/PreparationUnJoueur";
 
 export class Preparation
 {
@@ -16,7 +17,6 @@ export class Preparation
     constructor(ihm, server, scene) {
         this.ihm = ihm;
         this.server = server;
-        this.joueurs = [];
         this.id = null;
         this.scene = scene;
     }
@@ -52,16 +52,27 @@ export class Preparation
                     no: new NoDivinite,
                 };
 
-                console.log('letsgooo', room);
+                const joueurs = room.joueurs.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, p.id, (p.id !== this.id), p.pions));
 
-                const joueurs = room.joueurs.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, (p.id !== this.id)));
+                this.ihm.letsGo(joueurs);
 
-                this.ihm.letsGo(joueurs.map(j => ({
-                    name: j.name,
-                    divinite: j.divinite.name
-                })));
+                const game = new Game(this.scene, this.ihm, joueurs, this.server);
 
-                resolve(new Game(this.scene, this.ihm, joueurs));
+                const steps = [...joueurs.reduce(
+                    (steps, joueur) => {
+                        steps.push(
+                            ...joueur.getPreparationStep(game),
+                            ...joueur.getDeplacementStep(game), 
+                            ...joueur.getConstructionStep(game),
+                        );
+                        return steps;
+                    },
+                    []
+                )];
+
+                game.stepper.addInfiniteSubsetSteps(...steps);
+
+                resolve(game);
             });
         }
         return new Promise(fn);

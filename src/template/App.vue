@@ -49,7 +49,6 @@ export default {
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';
             this.players = joueurs;
-            console.log(joueurs);
         });
     }
 }

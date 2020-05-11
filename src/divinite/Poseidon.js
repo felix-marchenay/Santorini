@@ -5,6 +5,7 @@ import { Construction } from "../steps/Construction";
 export class Poseidon extends Divinite
 {
     constructor() {
+        super();
         this.name = 'Poséidon';
         this.slug = 'poseidon';
     }

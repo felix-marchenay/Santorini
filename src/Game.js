@@ -11,8 +11,8 @@ import { RandomBuild } from "./steps/RandomBuild";
 import { Unsplash } from "./steps/Unsplash";
 import { Emitter } from "./infrastructure/Emitter";
 import { Interface } from "./ihm/Interface";
-import { Server } from "./Server";
 import { AutoDistant } from "./steps/AutoDistant";
+import { Server } from "./Server";
 
 export class Game
 {
@@ -20,14 +20,16 @@ export class Game
      * 
      * @param {Scene} scene 
      * @param {Interface} ihm 
+     * @param {Server} server 
      */
-    constructor (scene, ihm, joueurs) {
+    constructor (scene, ihm, joueurs, server) {
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
         this.joueurs = joueurs;
         this.scene = scene;
         this.ihm = ihm;
         this.stepper = new Stepper;
+        this.server = server;
         
         this.ihm.emitter.on('replay', () => {
             this.emitter.emit('replay');
@@ -87,6 +89,13 @@ export class Game
         }, []);
     }
 
+    sendServer(event, data) {
+        if (this.server) {
+            console.log('emitting: ', event, data);
+            this.server.emit(event, data);
+        }
+    }
+
     idlePion() {
         const idling = this.pions.filter(pion => pion.idle);
         return idling.length > 0 ? idling[0] : null;
@@ -114,22 +123,23 @@ export class Game
         this.plateau.allCases().forEach(cas => cas.hideBuildHint());
     }
 
+    findPionById(id) {
+        let pionFound = null;
+        this.joueurs.forEach(j => {
+            const pion = j.pions.find(p => p.id == id);
+            if (pion) {
+                pionFound = pion;
+            }
+        });
+        
+        return pionFound;
+    }
+
+    findJoueurById(id) {
+        return this.joueurs.find(j => j.id == id);
+    }
+
     async play() {
-        this.stepper = new Stepper();
-
-        this.stepper.addSteps(new Preparation(this));
-        const playSteps = [...this.joueurs.reduce(
-            (steps, joueur) => {
-                steps.push(
-                    ...joueur.getDeplacementStep(this), 
-                    ...joueur.getConstructionStep(this),
-                );
-                return steps;
-            },
-            []
-        )];
-
-        this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
             this.ihm.victory(e);
         });

@@ -4,6 +4,7 @@
             <PlayerResume v-for="(player, i) in players" v-bind:key="i" 
                 :name="player.name"
                 :divinite="player.divinite"
+                :active="activePlayer == player.id"
             />
         </div>
     </div>
@@ -21,8 +22,13 @@ export default {
     },
     data() {
         return {
-            
+            activePlayer: null
         };
+    },
+    created() {
+        this.$root.$on('activePlayer', id => {
+            this.activePlayer = id;
+        });
     }
 }
 </script>

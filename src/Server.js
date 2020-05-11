@@ -39,9 +39,17 @@ export class Server
             this.socket.on('letsgo', room => {
                 this.emitter.emit('letsgo', room);
             });
+
+            this.socket.on('idlePion', data => {
+                this.emitter.emit('idlePion', data);
+            });
         }
 
         return new Promise(fn);
+    }
+
+    emit(event ,data) {
+        this.socket.emit(event, data);
     }
 
     registerPlayer(player) {

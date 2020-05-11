@@ -130,17 +130,7 @@ export class Interface
     // }
 
     showActivePlayer(joueur) {
-    //     const elPlayers = document.querySelectorAll('[step=joueurs] .joueur');
-        
-    //     [...elPlayers].forEach(el => el.classList.remove('current'));
-
-    //     [...elPlayers].find(el => {
-    //         if (el.querySelector('.infos .name').innerHTML == joueur.name) {
-    //             return true;
-    //         }
-
-    //         return false;
-    //     }).classList.add('current');
+        this.vue.$emit('activePlayer', joueur.id);
     }
 
     // switchAtlasMode() {

@@ -4,10 +4,11 @@ import { Pion } from "./object/pion";
 import { Vector3 } from "babylonjs";
 import { DistantConstruction } from "./steps/distant/DistantConstruction";
 import { DistantDeplacement } from "./steps/distant/DistantDeplacement";
+import { DistantPreparation } from "./steps/distant/DistantPreparation";
 
 export class Joueur
 {
-    constructor (nb, name, divinite, scene, distant) {
+    constructor (nb, name, divinite, scene, id, distant, pionsIds) {
         const couleursHex = [
             'e6e6e6',
             '1543e6',
@@ -26,14 +27,15 @@ export class Joueur
         this.nb = nb;
         this.divinite = divinite;
         this.distant = distant;
+        this.id = id;
 
         if (divinite === null) {
             this.divinite = new NoDivinite;
         }
 
         this.pions.push(
-            new Pion(scene, materials[nb], 'h'),
-            new Pion(scene, materials[nb], 'f')
+            new Pion(scene, materials[nb], 'h', pionsIds[0].id),
+            new Pion(scene, materials[nb], 'f', pionsIds[1].id)
         );
 
         this.pions.forEach((pion, i) => {
@@ -58,7 +60,24 @@ export class Joueur
         return this.divinite.getConstructionStep(game, this);
     }
 
+    getPreparationStep (game) {
+        if (this.distant) {
+            return [new DistantPreparation(game, this)];
+        }
+
+        return this.divinite.getPreparationStep(game, this);
+    }
+
     isVictorious() {
         return this.divinite.isVictorious(this.lastMovedPion);
+    }
+
+    export () {
+        return {
+            name: this.name,
+            divinite: this.divinite.name,
+            id: this.id,
+            pions: this.pions.map(p => p.export())
+        }
     }
 }

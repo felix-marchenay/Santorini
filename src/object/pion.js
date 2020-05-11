@@ -11,7 +11,7 @@ import { Emitter } from "../infrastructure/Emitter";
 import { CircleEase, EasingFunction } from "babylonjs";
 
 export class Pion {
-    constructor (scene, material, gender) {
+    constructor (scene, material, gender, id) {
         this.emitter = new Emitter;
         this.idle = false;
         this.idleAnimation = null;
@@ -20,6 +20,7 @@ export class Pion {
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'pion-'+gender).clone();
         this.mesh.material = material;
         this.initRotation = this.mesh.rotation;
+        this.id = id;
 
         this.scene.shadows.forEach(sh => sh.getShadowMap().renderList.push(this.mesh));
         this.mesh.receiveShadows = true;
@@ -132,7 +133,13 @@ export class Pion {
         this.mesh.material.diffuseColor = this.baseColor;
     }
 
-    static VectorXY(x, y) {
-        return new Vector3(x, 1.1, y);
+    export () {
+        return {
+            id: this.id,
+            position: {
+                x: this.case ? this.case.coordinates.x : null,
+                y: this.case ? this.case.coordinates.y : null,
+            }
+        };
     }
 }

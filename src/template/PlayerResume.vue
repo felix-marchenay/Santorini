@@ -1,12 +1,12 @@
 <template>
-  <div class="joueur" joueur="1">
+  <div class="joueur" :class="{current: active}" joueur="1">
     <div class="image">
       <img class="img-divinite" :src="imgSrc" alt />
     </div>
     <div class="infos">
       <div class="color"></div>
-      <div class="divinite-name">{{ name }}</div>
-      <div class="name">{{ diviniteFormatted }}</div>
+      <div class="divinite-name">{{ divinite.name }}</div>
+      <div class="name">{{ name }}</div>
     </div>
   </div>
 </template>
@@ -15,14 +15,12 @@
 export default {
   props: {
     name: { type: String },
-    divinite: { type: String }
+	divinite: { type: Object },
+	active: {type: Boolean}
   },
   computed: {
-    diviniteFormatted() {
-      return this.divinite[0].toUpperCase() + this.divinite.substring(1);
-    },
     imgSrc() {
-      return "/image/divinite/" + this.divinite + ".jpg";
+      return "/image/divinite/" + this.divinite.slug + ".jpg";
     }
   }
 };

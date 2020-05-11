@@ -7,7 +7,7 @@ export class Step
 
     run (fn) {
         if (this.joueur) {
-            this.game.ihm.showActivePlayer(this.joueur);
+            this.game.ihm.showActivePlayer(this.joueur.id);
         }
         return new Promise(fn);
     }
