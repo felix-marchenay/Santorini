@@ -21,7 +21,7 @@ export class Pion {
         this.mesh.material = material;
         this.initRotation = this.mesh.rotation;
 
-        this.scene.shadow.getShadowMap().renderList.push(this.mesh);
+        this.scene.shadows.forEach(sh => sh.getShadowMap().renderList.push(this.mesh));
         this.mesh.receiveShadows = true;
 
         this.mesh.actionManager = new ActionManager(scene);
