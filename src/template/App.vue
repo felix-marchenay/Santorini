@@ -13,6 +13,10 @@
             v-show="page == 'multiplayer'"
             @back="page = 'main-menu'"
         />
+        <GamePage
+            v-show="page == 'game'"
+            :players="players"
+        />
     </div>
 </template>
 
@@ -20,13 +24,15 @@
 import MainMenu from "./menu/MainMenu";
 import SinglePlayerMenu from "./menu/SinglePlayerMenu";
 import MultiPlayerMenu from "./menu/MultiplayerMenu";
+import GamePage from "./GamePage";
 
 export default {
-    components: { MainMenu, MultiPlayerMenu, SinglePlayerMenu },
+    components: { MainMenu, MultiPlayerMenu, SinglePlayerMenu, GamePage },
 
     data: function() {
         return {
-            page: 'main-menu'
+            page: 'main-menu',
+            players: null
         }
     },
 
@@ -40,15 +46,16 @@ export default {
     },
     
     created() {
-        this.$root.$on('letsgo', room => {
-            console.log('vue letsgo : ', room);
+        this.$root.$on('letsgo', joueurs => {
             this.page = 'game';
+            this.players = joueurs;
+            console.log(joueurs);
         });
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
     #app {
         position: fixed;
@@ -56,6 +63,29 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
+        font-family: sans-serif;
+        pointer-events: none;
+
+        .menu {
+            pointer-events: all;
+        }
+
+        .page {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .img-divinite {
+            border: 5px solid rgba(110, 110, 110, 0.3);
+            box-shadow: 2px 3px 9px 4px rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            border-radius: 5px;
+            position: relative;
+            transition: 100ms ease-out;
+        }
     }
 
 </style>

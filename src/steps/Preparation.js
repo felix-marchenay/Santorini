@@ -5,7 +5,7 @@ export class Preparation extends Step
     run () {
         return super.run(resolve => {
 
-            this.game.ihm.info('Placez vos pions');
+            // this.game.ihm.info('Placez vos pions');
             
             this.game.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {

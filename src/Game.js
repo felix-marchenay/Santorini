@@ -115,6 +115,9 @@ export class Game
     }
 
     async play() {
+        this.stepper = new Stepper();
+
+        this.stepper.addSteps(new Preparation(this));
         const playSteps = [...this.joueurs.reduce(
             (steps, joueur) => {
                 steps.push(
@@ -126,7 +129,6 @@ export class Game
             []
         )];
 
-        this.stepper = new Stepper();
         this.stepper.addInfiniteSubsetSteps(...playSteps);
         this.stepper.run().catch(e => {
             this.ihm.victory(e);

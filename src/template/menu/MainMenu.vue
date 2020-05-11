@@ -1,5 +1,5 @@
 <template>
-    <div class="main-menu">
+    <div class="main-menu menu">
         <Button @click="single">Single player</Button>
         <Button @click="multi">Multiplayer</Button>
     </div>

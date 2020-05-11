@@ -57,8 +57,8 @@ export class Interface
         this.vue.$emit('newPlayer', player);
     }
 
-    letsGo() {
-
+    letsGo(joueurs) {
+        this.vue.$emit('letsgo', joueurs);
     }
 
     // show(step) {

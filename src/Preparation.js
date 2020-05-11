@@ -42,7 +42,6 @@ export class Preparation
             });
 
             this.server.emitter.on('letsgo', room => {
-                this.ihm.letsGo(room);
 
                 const divinites = {
                     pan: new Pan,
@@ -56,6 +55,11 @@ export class Preparation
                 console.log('letsgooo', room);
 
                 const joueurs = room.joueurs.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, (p.id !== this.id)));
+
+                this.ihm.letsGo(joueurs.map(j => ({
+                    name: j.name,
+                    divinite: j.divinite.name
+                })));
 
                 resolve(new Game(this.scene, this.ihm, joueurs));
             });
