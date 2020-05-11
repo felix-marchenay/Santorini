@@ -11,6 +11,7 @@ export default new Vuex.Store({
     mutations: {
         roomName (state, name) {
             state.roomName = name;
+            this.
         }
     }
 });

@@ -9,7 +9,6 @@ export class SantoriniScene
         this.canvas = canvas;
         this.camera = this.arcCamera();
         this.lights = this.hemisphericLights();
-        this.game = new Game(this.scene);
 
         this.shadow = new ShadowGenerator(1600, this.lights[0]);
         this.shadow.usePercentageCloserFiltering = true;
@@ -54,9 +53,5 @@ export class SantoriniScene
 
     render() {
         this.scene.render();
-    }
-
-    setGame(game) {
-        this.game = game;
     }
 }

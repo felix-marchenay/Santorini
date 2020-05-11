@@ -19,16 +19,15 @@ export class Game
     /**
      * 
      * @param {Scene} scene 
-     * @param {number} nbJoueurs 
      * @param {Interface} ihm 
      */
-    constructor (scene, nbJoueurs, ihm) {
+    constructor (scene, ihm) {
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
         this.joueurs = [];
         this.scene = scene;
         this.ihm = ihm;
-        this.server = null;
+        this.stepper = new Stepper;
         
         this.ihm.emitter.on('replay', () => {
             this.emitter.emit('replay');
@@ -127,10 +126,8 @@ export class Game
     }
 
     async play() {
-        this.stepper = new Stepper();
         
         this.stepper.addSteps(
-            new Unsplash(this),
             new AutoDistant(this)
         );
 

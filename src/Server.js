@@ -1,14 +1,13 @@
 import io from 'socket.io-client';
-import { Emitter } from './infrastructure/emitter';
+import { Emitter } from './infrastructure/Emitter';
 
 export class Server
 {
-    constructor(joueur) {
+    constructor() {
         this.emitter = new Emitter;
         this.host = 'localhost';
         this.port = '4949'
         this.socket = null;
-        this.joueur = joueur;
     }
 
     connect (roomName) {
@@ -16,10 +15,7 @@ export class Server
             this.socket = io('http://' + this.host + ':' + this.port);
     
             this.socket.on('connected', () => {
-                this.socket.emit('register', {
-                    joueur : this.joueur.name,
-                    roomName
-                });
+                this.socket.emit('register', roomName);
             });
 
             this.socket.on('enteredRoom', room => {
@@ -35,8 +31,20 @@ export class Server
             this.socket.on('noRoom', (e) => {
                 reject("Server error : " + e);
             });
+
+            this.socket.on('newPlayer', player => {
+                this.emitter.emit('newPlayer', player);
+            });
+
+            this.socket.on('letsgo', room => {
+                this.emitter.emit('letsgo', room);
+            });
         }
 
         return new Promise(fn);
+    }
+
+    registerPlayer(player) {
+        this.socket.emit('addPlayer', player);
     }
 }
