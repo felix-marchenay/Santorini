@@ -8,6 +8,7 @@ export class Interface
     constructor() {
         this.emitter = new Emitter;
         this.divinitePickers = [];
+        this.atlasBuildMode = 'etage';
         
         this.vue = new Vue({
             render: h => h(App),
@@ -19,33 +20,13 @@ export class Interface
         this.vue.$on('ready', data => {
             this.emitter.emit('ready', data);
         });
-
-        this.divinites = {
-            // athena: {
-            //     name: 'Athéna',
-            //     image: 'image/divinite/athena.jpg'
-            // },
-            // demeter: {
-            //     name: 'Demeter',
-            //     image: 'image/divinite/demeter.jpg'
-            // },
-            atlas: {
-                name: 'Atlas',
-                image: 'image/divinite/atlas.jpg'
-            },
-            no: {
-                name: 'Aucune',
-                image: 'image/divinite/no.jpg'
-            },
-            pan: {
-                name: 'Pan',
-                image: 'image/divinite/pan.jpg'
-            },
-            poseidon: {
-                name: 'Poséidon',
-                image: 'image/divinite/poseidon.jpg'
-            }
-        };
+        this.vue.$on('skip', () => {
+            this.emitter.emit('skip');
+        });
+        this.vue.$on('switchAtlasMode', () => {
+            this.atlasBuildMode = (this.atlasBuildMode == 'etage' ? 'dome': 'etage');
+            this.emitter.emit('switchAtlasMode', this.atlasBuildMode);
+        });
     }
 
     enteredRoom(room) {
@@ -62,6 +43,10 @@ export class Interface
 
     removePlayer(player) {
         this.vue.$emit('removePlayer', player);
+    }
+
+    switchAtlasMode(player) {
+        this.vue.$emit('switchAtlasMode', player);
     }
 
     // show(step) {
@@ -82,15 +67,13 @@ export class Interface
     //     document.querySelector('[step='+step+']').style.display = "none";
     // }
 
-    // showSkip() {
-    //     this.show('action-joueur');
-    //     this.skipEl.style.display = 'flex';
-    // }
+    showSkip() {
+        this.vue.$emit("showSkip");
+    }
 
-    // hideSkip() {
-    //     this.hide('action-joueur');
-    //     this.skipEl.style.display = 'none';
-    // }
+    hideSkip() {
+        this.vue.$emit("hideSkip");
+    }
 
     // initElements() {
     //     for (let i = 0; i < 2; i ++) {

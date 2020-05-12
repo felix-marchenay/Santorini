@@ -12,6 +12,11 @@ export class DistantConstruction extends Step
                 caze.build();
             });
 
+            this.game.server.emitter.on('constructDome', data => {
+                const caze = this.game.findCaseByCoordinates(data);
+                caze.AtlasBuildDome();
+            });
+
             this.game.server.emitter.on('endTurn', () => {
                 resolve();
             });
