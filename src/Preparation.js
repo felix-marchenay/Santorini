@@ -60,32 +60,24 @@ export class Preparation
 
                 this.ihm.letsGo(joueurs);
 
-                const game = new Game(this.scene, this.ihm, joueurs, this.server);
+                resolve(new Game(this.scene, this.ihm, joueurs, this.server));
+            });
 
-                game.stepper.addSteps([...joueurs.reduce(
-                    (steps, joueur) => {
-                        steps.push(
-                            ...joueur.getPreparationStep(game),
-                        );
-                        return steps;
-                    },
-                    []
-                )]);
+            this.ihm.emitter.on('goSingleplayer', players => {
+                console.log(players);
 
-                const steps = [...joueurs.reduce(
-                    (steps, joueur) => {
-                        steps.push(
-                            ...joueur.getDeplacementStep(game), 
-                            ...joueur.getConstructionStep(game),
-                        );
-                        return steps;
-                    },
-                    []
-                )];
+                const divinites = {
+                    pan: new Pan,
+                    atlas: new Atlas,
+                    demeter: new Demeter,
+                    poseidon: new Poseidon,
+                    athena: new Athena,
+                    no: new NoDivinite,
+                };
 
-                game.stepper.addInfiniteSubsetSteps(...steps);
+                const joueurs = players.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, null, false, [{id:0},{id:1}]));
 
-                resolve(game);
+                resolve(new Game(this.scene, this.ihm, joueurs));
             });
         }
         return new Promise(fn);

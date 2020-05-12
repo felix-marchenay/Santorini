@@ -31,56 +31,7 @@ export class Game
         this.ihm = ihm;
         this.stepper = new Stepper;
         this.server = server;
-        
-        this.ihm.emitter.on('replay', () => {
-            this.emitter.emit('replay');
-        });
-        
-        scene.onPointerObservable.add(pointerInfo => {
-            switch (pointerInfo.type) {
-                case PointerEventTypes.POINTERPICK:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERDOWN:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerDown === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerDown(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERUP:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerUp === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerUp(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERMOVE:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-            }
-        });
-
-        scene.onKeyboardObservable.add(keyInfo => {
-            switch (keyInfo.type) {
-                case BABYLON.KeyboardEventTypes.KEYDOWN:
-                    this.emitter.emit('keyDown', keyInfo.event);
-                    this.emitter.emit('keyDown-'+keyInfo.event.code);
-                    break;
-                case BABYLON.KeyboardEventTypes.KEYUP:
-                    this.emitter.emit('keyUp', keyInfo.event);
-                    this.emitter.emit('keyUp-'+keyInfo.event.code);
-                    break;
-            }
-        });
+        this.setStepsFromPlayers();
     }
 
     get pions () {
@@ -102,6 +53,24 @@ export class Game
             joueur: joueur.export(),
             pion: this.idlePion().export()
         });
+    }
+
+    setStepsFromPlayers() {
+
+        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+
+        const steps = [...this.joueurs.reduce(
+            (steps, joueur) => {
+                steps.push(
+                    ...joueur.getDeplacementStep(this), 
+                    ...joueur.getConstructionStep(this),
+                );
+                return steps;
+            },
+            []
+        )];
+
+        this.stepper.addInfiniteSubsetSteps(...steps);
     }
 
     sendEndTurn() {

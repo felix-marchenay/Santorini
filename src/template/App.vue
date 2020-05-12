@@ -46,17 +46,7 @@ export default {
     },
     
     created() {
-        this.page = 'multiplayer';
-        // this.players = [
-        //     {
-        //         name: 'Maichelon',
-        //         divinite: {name: 'atlas', slug: 'atlas'},
-        //     },
-        //     {
-        //         name: 'Fzeros',
-        //         divinite: {name: 'Démèter', slug: 'demeter'}
-        //     }
-        // ];
+        this.page = 'singleplayer';
 
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';

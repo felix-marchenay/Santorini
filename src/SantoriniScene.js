@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight, Scene } from "babylonjs";
+import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight, Scene, PointerEventTypes } from "babylonjs";
 import { Game } from "./Game";
 import { DirectionalLight } from "@babylonjs/core";
 
@@ -18,6 +18,52 @@ export class SantoriniScene
         this.scene.shadows = this.shadows;
 
         this.shadow2 = new ShadowGenerator(1600, this.lights[2]);
+
+        scene.onPointerObservable.add(pointerInfo => {
+            switch (pointerInfo.type) {
+                case PointerEventTypes.POINTERPICK:
+                    if (pointerInfo.pickInfo.pickedMesh) {
+                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
+                            pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
+                        }
+                    }
+                    break;
+                case PointerEventTypes.POINTERDOWN:
+                    if (pointerInfo.pickInfo.pickedMesh) {
+                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerDown === 'function') {
+                            pointerInfo.pickInfo.pickedMesh.pointerDown(pointerInfo.pickInfo);
+                        }
+                    }
+                    break;
+                case PointerEventTypes.POINTERUP:
+                    if (pointerInfo.pickInfo.pickedMesh) {
+                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerUp === 'function') {
+                            pointerInfo.pickInfo.pickedMesh.pointerUp(pointerInfo.pickInfo);
+                        }
+                    }
+                    break;
+                case PointerEventTypes.POINTERMOVE:
+                    if (pointerInfo.pickInfo.pickedMesh) {
+                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
+                            pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
+                        }
+                    }
+                    break;
+            }
+        });
+
+        // scene.onKeyboardObservable.add(keyInfo => {
+        //     switch (keyInfo.type) {
+        //         case BABYLON.KeyboardEventTypes.KEYDOWN:
+        //             this.emitter.emit('keyDown', keyInfo.event);
+        //             this.emitter.emit('keyDown-'+keyInfo.event.code);
+        //             break;
+        //         case BABYLON.KeyboardEventTypes.KEYUP:
+        //             this.emitter.emit('keyUp', keyInfo.event);
+        //             this.emitter.emit('keyUp-'+keyInfo.event.code);
+        //             break;
+        //     }
+        // });
     }
 
     arcCamera() {
