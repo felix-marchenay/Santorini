@@ -2,8 +2,7 @@
     <div class="game page">
         <div class="joueurs">
             <PlayerResume v-for="(player, i) in players" v-bind:key="i" 
-                :name="player.name"
-                :divinite="player.divinite"
+                :player="player"
                 :active="activePlayerId == player.id"
             />
             <div class="actions">

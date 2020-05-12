@@ -1,12 +1,14 @@
 <template>
   <div class="joueur" :class="{ current: active }" joueur="1">
     <div class="image">
-      <DiviniteCard :divinite="divinite.slug"/>
+      <DiviniteCard :divinite="player.divinite.slug"/>
     </div>
     <div class="infos">
-      <div class="color"></div>
-      <div class="divinite-name">{{ divinite.name }}</div>
-      <div class="name">{{ name }}</div>
+      <div class="color" :style="'background-color: #' + player.couleursHex"></div>
+      <div class="name">
+        <div class="divinite-name">{{ player.divinite.name }}</div>
+        <div class="name">{{ player.name }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,9 +19,8 @@ import DiviniteCard from "./DiviniteCard";
 export default {
   components: { DiviniteCard },
   props: {
-    name: { type: String },
-    divinite: { type: Object },
-    active: { type: Boolean },
+    player: { type: Object },
+    active: { type: Boolean }
   },
   computed: {
     imgSrc() {
@@ -32,6 +33,14 @@ export default {
 <style lang="scss" scoped>
 .joueur {
   margin: 0 15px;
+
+  .color {
+    width: 20px;
+    height: 30px;
+    border-radius: 20px;
+    margin: 4px 10px 3px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
 
   &.current {
     .divinite-card {
@@ -54,13 +63,15 @@ export default {
   }
 
   .infos {
-    background: rgba(255, 255, 255, 0.95);
-    border-top: 5px solid rgb(16, 102, 182);
+    background: rgba(255, 255, 255, 0.9);
+    border-top: 7px solid rgb(16, 102, 182);
     border-radius: 5px 5px 0 0;
     padding: 5px 10px;
     min-width: 250px;
     z-index: 4;
     position: relative;
+    display: flex;
+    flex-direction: row;
 
     .divinite-name {
       font-size: 16px;

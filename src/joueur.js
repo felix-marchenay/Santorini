@@ -20,7 +20,7 @@ export class Joueur
             scene.container.materials.find(mat => mat.id == 'pion-vert'),
         ];
 
-        this.couleursHex = couleursHex[nb];
+        this.couleursHex = couleursHex[nb-1];
         this.name = name;
         this.pions = [];
         this.lastMovedPion = null;
@@ -34,8 +34,8 @@ export class Joueur
         }
 
         this.pions.push(
-            new Pion(scene, materials[nb], 'h', pionsIds[0].id),
-            new Pion(scene, materials[nb], 'f', pionsIds[1].id)
+            new Pion(scene, materials[nb-1], 'h', pionsIds[0].id),
+            new Pion(scene, materials[nb-1], 'f', pionsIds[1].id)
         );
 
         this.pions.forEach((pion, i) => {

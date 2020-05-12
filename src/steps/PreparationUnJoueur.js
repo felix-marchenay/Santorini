@@ -5,7 +5,7 @@ export class PreparationUnSeulJoueur extends Step
     run () {
         return super.run(resolve => {
             
-            this.game.ihm.tour('se déplacer');
+            this.game.ihm.tour('placer ses pions');
             
             this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {
