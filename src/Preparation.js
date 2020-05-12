@@ -28,7 +28,6 @@ export class Preparation
             });
     
             this.server.emitter.on('entered', room => {
-                console.log('room on preparation : ', room);
                 this.id = room.you;
                 this.ihm.enteredRoom(room);
             });
@@ -56,7 +55,9 @@ export class Preparation
                     no: new NoDivinite,
                 };
 
-                const joueurs = room.joueurs.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, p.id, (p.id !== this.id), p.pions));
+                const joueurs = room.joueurs.map((p, i) => 
+                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene, p.id, (p.id !== this.id), p.pions)
+                );
 
                 this.ihm.letsGo(joueurs);
 
@@ -64,7 +65,6 @@ export class Preparation
             });
 
             this.ihm.emitter.on('goSingleplayer', players => {
-                console.log(players);
 
                 const divinites = {
                     pan: new Pan,
@@ -75,8 +75,11 @@ export class Preparation
                     no: new NoDivinite,
                 };
 
-                const joueurs = players.map((p, i) => new Joueur(i+1, p.name, divinites[p.divinite], this.scene, null, false, [{id:0},{id:1}]));
+                const joueurs = players.map((p, i) => 
+                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene, i, false, [{id:0},{id:1}])
+                );
 
+                this.ihm.letsGo(joueurs);
                 resolve(new Game(this.scene, this.ihm, joueurs));
             });
         }
