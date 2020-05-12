@@ -10,7 +10,7 @@ export class PanDeplacement extends Step {
 
     run() {
         return super.run((resolve, reject) => {
-            this.game.ihm.tour(this.joueur, 'se déplacer');
+            this.game.ihm.tour('se déplacer');
 
             this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {

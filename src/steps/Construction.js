@@ -5,7 +5,7 @@ export class Construction extends Step
     run () {
         return super.run(resolve => {
             
-            this.game.ihm.tour(this.joueur, 'construire');
+            this.game.ihm.tour('construire');
 
             const pion = this.joueur.lastMovedPion;
 

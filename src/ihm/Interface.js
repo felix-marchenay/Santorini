@@ -46,7 +46,6 @@ export class Interface
                 image: 'image/divinite/poseidon.jpg'
             }
         };
-        // this.initElements();
     }
 
     enteredRoom(room) {
@@ -174,10 +173,8 @@ export class Interface
     //     document.querySelector('[step=info]').innerHTML = str;
     // }
 
-    tour(joueur, action) {
-    //     this.show('tour');
-    //     document.querySelector('[step=tour] .name').innerHTML = joueur.name;
-    //     document.querySelector('[step=tour] .action').innerHTML = action;
+    tour(action) {
+        this.vue.$emit('tour', action);
     }
 
     // hideAll() {

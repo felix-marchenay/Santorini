@@ -6,7 +6,7 @@ export class DistantDeplacement extends Step
     run () {
         return super.run((resolve, reject) => {
 
-            this.game.ihm.tour(this.joueur, 'se déplacer');
+            this.game.ihm.tour('se déplacer');
 
             this.game.server.emitter.on('pionMove', data => {
                 const pion = this.game.findPionById(data.data.id);

@@ -9,7 +9,7 @@ export class AtlasConstruction extends Step
     
     run () {
         return super.run(resolve => {
-            this.game.ihm.tour(this.joueur, 'construire');
+            this.game.ihm.tour('construire');
 
             this.game.ihm.showActionFor('atlas');
 

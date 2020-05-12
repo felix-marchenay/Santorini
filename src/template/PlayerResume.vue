@@ -1,7 +1,7 @@
 <template>
-  <div class="joueur" :class="{current: active}" joueur="1">
+  <div class="joueur" :class="{ current: active }" joueur="1">
     <div class="image">
-      <img class="img-divinite" :src="imgSrc" alt />
+      <DiviniteCard :divinite="divinite.slug"/>
     </div>
     <div class="infos">
       <div class="color"></div>
@@ -12,17 +12,20 @@
 </template>
 
 <script>
+import DiviniteCard from "./DiviniteCard";
+
 export default {
+  components: { DiviniteCard },
   props: {
     name: { type: String },
-	divinite: { type: Object },
-	active: {type: Boolean}
+    divinite: { type: Object },
+    active: { type: Boolean },
   },
   computed: {
     imgSrc() {
       return "/image/divinite/" + this.divinite.slug + ".jpg";
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -36,7 +39,7 @@ export default {
     }
   }
 
-  .img-divinite {
+  .divinite-card {
     z-index: 3;
     position: relative;
     transform: rotateZ(-14deg) translateY(190px);

@@ -5,7 +5,7 @@ export class DistantPreparation extends Step
     run () {
         return super.run((resolve, reject) => {
 
-            this.game.ihm.tour(this.joueur, 'placer ses pions');
+            this.game.ihm.tour('placer ses pions');
 
             this.game.server.emitter.on('idlePion', data => {
 
