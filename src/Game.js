@@ -158,7 +158,8 @@ export class Game
     async play() {
         this.stepper.run().catch(e => {
             if (e instanceof Victoire) {
-                this.ihm.victory(e);
+                console.log(e);
+                this.ihm.victory(e.joueur);
             } else {
                 console.error(e);
             }

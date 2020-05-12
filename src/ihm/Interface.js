@@ -164,7 +164,7 @@ export class Interface
     //     document.querySelectorAll('[step]').forEach(el => {el.style.display = 'none'});
     // }
 
-    victory(victoire) {
+    victory(joueur) {
         this.vue.$emit('victory', joueur);
     }
 

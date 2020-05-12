@@ -78,8 +78,8 @@ export default {
             this.showSkip = false;
         });
 
-        this.$root.$on('victory', () => {
-            this.showSkip = false;
+        this.$root.$on('victory', joueur => {
+            this.playerVictoriousId = joueur.id;
         });
     },
     methods: {

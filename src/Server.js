@@ -9,7 +9,7 @@ export class Server
         this.port = '4949'
         this.socket = null;
         this.transitEvents = [
-            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'construct', 'constructDome', 'endTurn', 'disconnection'
+            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory'
         ];
     }
 

@@ -55,6 +55,7 @@ export class PanDeplacement extends Step {
                             }
                             this.game.idlePion().stopIdle();
     
+                            this.game.sendEndTurn();
                             resolve();
                         } catch (e) {
                             console.log(e);
