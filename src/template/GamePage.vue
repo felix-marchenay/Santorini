@@ -17,6 +17,11 @@
             <div class="tour" v-if="activePlayer">
                 à <span class="player">{{ activePlayer.name }}</span> de <span class="action">{{ action }}</span>
             </div>
+            <div class="victory" v-if="playerVictorious">
+                <div class="text">
+                    Victoire pour <span class="name">{{ playerVictorious.name }}</span> !!
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -37,7 +42,8 @@ export default {
             activePlayerId: null,
             action: null,
             atlasMode: 'etage',
-            showSkip: false
+            showSkip: false,
+            playerVictoriousId: null
         };
     },
     computed: {
@@ -46,6 +52,13 @@ export default {
         },
         atlasBuilding() {
             return this.activePlayer && this.activePlayer.divinite.slug == 'atlas' && this.action == 'construire';
+        },
+        playerVictorious() {
+            if (this.playerVictoriousId === null) {
+                return null;
+            }
+
+            return this.players.find(p => p.id == this.playerVictoriousId);
         }
     },
     created() {
@@ -62,6 +75,10 @@ export default {
         });
 
         this.$root.$on('hideSkip', () => {
+            this.showSkip = false;
+        });
+
+        this.$root.$on('victory', () => {
             this.showSkip = false;
         });
     },
@@ -133,6 +150,24 @@ export default {
         span.action {
             font-weight: 800;
             color: seagreen;
+        }
+    }
+
+    .victory {
+        position: fixed;
+        left: 50%;
+        bottom: 130px;
+        background: white;
+        z-index: 5;
+        transform: translate(-50%, 0, 0);
+        padding: 20px;
+        font-size: 22px;
+        border-radius: 5px;
+        border: 5px solid rgb(16, 102, 182);
+
+        span.name {
+            font-weight: 800;
+            color: rgb(173, 162, 6);
         }
     }
 }

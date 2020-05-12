@@ -165,9 +165,7 @@ export class Interface
     // }
 
     victory(victoire) {
-    //     this.hideAll();
-    //     this.show('victory');
-    //     document.querySelector('[step=victory] .name').innerHTML = victoire.joueur.name;
+        this.vue.$emit('victory', joueur);
     }
 
     error(error) {
