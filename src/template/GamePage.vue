@@ -6,7 +6,7 @@
                 :divinite="player.divinite"
                 :active="activePlayerId == player.id"
             />
-            <div class="tour">
+            <div class="tour" v-if="activePlayer">
                 à <span class="player">{{ activePlayer.name }}</span> de <span class="action">{{ action }}</span>
             </div>
         </div>
@@ -61,7 +61,7 @@ export default {
         position: fixed;
         right: 0;
         bottom: 10px;
-        background: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.89);
         border: 1px solid white;
         padding: 5px 8px;
 

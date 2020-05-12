@@ -133,7 +133,7 @@ export class Interface
     // }
 
     showActivePlayer(joueur) {
-        this.vue.$emit('activePlayer', joueur.id);
+        this.vue.$emit('activePlayer', joueur);
     }
 
     // switchAtlasMode() {

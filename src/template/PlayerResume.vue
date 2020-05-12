@@ -34,7 +34,7 @@ export default {
   margin: 0 15px;
 
   &.current {
-    .img-divinite {
+    .divinite-card {
       transform: rotateZ(-4deg) translate3d(10px, 50px, 0px);
     }
   }

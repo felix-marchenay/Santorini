@@ -32,7 +32,7 @@ export default {
     data: function() {
         return {
             page: 'main-menu',
-            players: null
+            players: []
         }
     },
 
@@ -46,17 +46,17 @@ export default {
     },
     
     created() {
-        this.page = 'game';
-        this.players = [
-            {
-                name: 'Maichelon',
-                divinite: {name: 'atlas', slug: 'atlas'},
-            },
-            {
-                name: 'Fzeros',
-                divinite: {name: 'Démèter', slug: 'demeter'}
-            }
-        ];
+        this.page = 'multiplayer';
+        // this.players = [
+        //     {
+        //         name: 'Maichelon',
+        //         divinite: {name: 'atlas', slug: 'atlas'},
+        //     },
+        //     {
+        //         name: 'Fzeros',
+        //         divinite: {name: 'Démèter', slug: 'demeter'}
+        //     }
+        // ];
 
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';
