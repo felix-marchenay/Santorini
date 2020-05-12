@@ -62,7 +62,7 @@ export default {
         });
 
         this.$root.$on('hideSkip', () => {
-            this.showSkip = true;
+            this.showSkip = false;
         });
     },
     methods: {

@@ -16,7 +16,6 @@ export class AtlasConstruction extends Step
             this.keydownspace = this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
 
             this.game.ihm.emitter.on('switchAtlasMode', mode => {
-                console.log(mode);
                 this.game.plateau.hideBuildHint();
                 if (mode == 'etage') {
                     this.game.plateau.showBuildHintAround(pion.case);
@@ -25,7 +24,6 @@ export class AtlasConstruction extends Step
                 }
             });
 
-            console.log(this.game.ihm.atlasBuildMode);
             if (this.game.ihm.atlasBuildMode == 'etage') {
                 this.game.plateau.showBuildHintAround(pion.case);
             } else {
@@ -36,8 +34,6 @@ export class AtlasConstruction extends Step
                 caze.emitter.on('pointerPicked', () => {
                     try {
                         if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
-
-                            console.log(this.game.ihm.atlasBuildMode);
                             if (this.game.ihm.atlasBuildMode == 'etage') {
                                 caze.build();
                                 this.game.sendServer('construct', caze.export());
