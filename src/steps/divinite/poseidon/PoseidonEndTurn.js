@@ -30,6 +30,8 @@ export class PoseidonEndTurn extends Step
                     this.game.hideAllBuildHint();
                     this.game.plateau.showBuildHintAround(pionImmobile.case);
                     nbConstructions ++;
+                    
+                    this.game.sendServer('construct', cas.export());
                 }
 
                 if (nbConstructions >= 3) {

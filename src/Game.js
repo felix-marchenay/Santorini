@@ -13,6 +13,7 @@ import { Emitter } from "./infrastructure/Emitter";
 import { Interface } from "./ihm/Interface";
 import { AutoDistant } from "./steps/AutoDistant";
 import { Server } from "./Server";
+import { Victoire } from "./Victoire";
 
 export class Game
 {
@@ -96,6 +97,17 @@ export class Game
         }
     }
 
+    sendVictory(joueur) {
+        this.sendServer('victory', {
+            joueur: joueur.export(),
+            pion: this.idlePion().export()
+        });
+    }
+
+    sendEndTurn() {
+        this.sendServer('endTurn');
+    }
+
     idlePion() {
         const idling = this.pions.filter(pion => pion.idle);
         return idling.length > 0 ? idling[0] : null;
@@ -145,8 +157,11 @@ export class Game
 
     async play() {
         this.stepper.run().catch(e => {
-            console.error(e);
-            // this.ihm.victory(e);
+            if (e instanceof Victoire) {
+                this.ihm.victory(e);
+            } else {
+                console.error(e);
+            }
         });
     }
 

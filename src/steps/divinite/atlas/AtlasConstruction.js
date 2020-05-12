@@ -39,8 +39,10 @@ export class AtlasConstruction extends Step
 
                             if (this.game.ihm.atlasActionMode == 'etage') {
                                 caze.build();
+                                this.game.sendServer('construct', caze.export());
                             } else {
                                 caze.AtlasBuildDome();
+                                this.game.sendServer('constructDome', caze.export());
                             }
 
                             resolve();

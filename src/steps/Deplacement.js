@@ -40,10 +40,12 @@ export class Deplacement extends Step
                             this.joueur.lastMovedPion = this.game.idlePion();
     
                             if (this.joueur.isVictorious()) {
+                                this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }
                             this.game.idlePion().stopIdle();
     
+                            this.game.sendEndTurn();
                             resolve();
                         } catch (e) {
                             console.log(e);

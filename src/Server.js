@@ -8,6 +8,9 @@ export class Server
         this.host = '192.168.1.14';
         this.port = '4949'
         this.socket = null;
+        this.transitEvents = [
+            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'construct', 'constructDome', 'endTurn'
+        ];
     }
 
     connect (roomName) {
@@ -30,24 +33,10 @@ export class Server
                 reject("Server error : " + e);
             });
 
-            this.socket.on('newPlayer', player => {
-                this.emitter.emit('newPlayer', player);
-            });
-
-            this.socket.on('letsgo', room => {
-                this.emitter.emit('letsgo', room);
-            });
-
-            this.socket.on('idlePion', data => {
-                this.emitter.emit('idlePion', data);
-            });
-
-            this.socket.on('pionMove', data => {
-                this.emitter.emit('pionMove', data);
-            });
-
-            this.socket.on('construct', data => {
-                this.emitter.emit('construct', data);
+            this.transitEvents.forEach(ev => {
+                this.socket.on(ev, data => {
+                    this.emitter.emit(ev, data);
+                });
             });
         }
 

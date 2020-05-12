@@ -19,6 +19,7 @@ export class Construction extends Step
 
                             this.game.sendServer('construct', caze.export());
 
+                            this.game.sendEndTurn();
                             resolve();
                         }
                     } catch (e) {

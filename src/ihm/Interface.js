@@ -180,16 +180,16 @@ export class Interface
     //     document.querySelectorAll('[step]').forEach(el => {el.style.display = 'none'});
     // }
 
-    // victory(victoire) {
+    victory(victoire) {
     //     this.hideAll();
     //     this.show('victory');
     //     document.querySelector('[step=victory] .name').innerHTML = victoire.joueur.name;
-    // }
+    }
 
-    // error(error) {
+    error(error) {
     //     document.querySelector('.errors').innerHTML = error;
     //     setTimeout(() => {
     //         document.querySelector('.errors').innerHTML = '';
     //     }, 2500);
-    // }
+    }
 }

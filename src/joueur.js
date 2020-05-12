@@ -46,7 +46,7 @@ export class Joueur
 
     getDeplacementStep (game) {
         if (this.distant) {
-            return [new DistantDeplacement(game, this)];
+            return this.divinite.getDistantDeplacementStep(game, this);
         }
 
         return this.divinite.getDeplacementStep(game, this);
@@ -54,7 +54,7 @@ export class Joueur
 
     getConstructionStep (game) {
         if (this.distant) {
-            return [new DistantConstruction(game, this)];
+            return this.divinite.getDistantConstructionStep(game, this);
         }
 
         return this.divinite.getConstructionStep(game, this);
@@ -62,7 +62,7 @@ export class Joueur
 
     getPreparationStep (game) {
         if (this.distant) {
-            return [new DistantPreparation(game, this)];
+            return this.divinite.getDistantPreparationStep(game, this);
         }
 
         return this.divinite.getPreparationStep(game, this);
