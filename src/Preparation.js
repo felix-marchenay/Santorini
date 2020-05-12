@@ -41,6 +41,10 @@ export class Preparation
                 this.ihm.newPlayer(player);
             });
 
+            this.server.emitter.on('disconnection', player => {
+                this.ihm.removePlayer(player);
+            });
+
             this.server.emitter.on('letsgo', room => {
 
                 const divinites = {

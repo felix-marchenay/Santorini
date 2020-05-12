@@ -61,6 +61,10 @@ export class Interface
         this.vue.$emit('letsgo', joueurs);
     }
 
+    removePlayer(player) {
+        this.vue.$emit('removePlayer', player);
+    }
+
     // show(step) {
     //     document.querySelector('[step='+step+']').style.display = 'flex';
     // }

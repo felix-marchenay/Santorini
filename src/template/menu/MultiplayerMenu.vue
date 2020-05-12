@@ -16,7 +16,8 @@
         <h2>Room : {{ room }}</h2>
         <div class="players">
             <div class="my player">
-                <DiviniteCard :divinite="divinite" />
+                <DivinitePicker @selected="setDivinite" :active="divinitePickerActive"/>
+                <DiviniteCard :divinite="divinite" @click.native="divinitePickerActive = true"/>
                 <input type="text" v-model="playerName" placeholder="Nom" />
                 <Button :class="{active: amReady}" @click="ready">{{ amReady ? 'Ready!': 'not ready' }}</Button>
             </div>
@@ -34,27 +35,29 @@
 import Button from "../Button";
 import PlayerPicker from "../PlayerPicker";
 import DiviniteCard from "../DiviniteCard";
+import DivinitePicker from "../DivinitePicker";
 
 export default {
   components: {
     Button,
     PlayerPicker,
     DiviniteCard,
+    DivinitePicker
   },
   data: function() {
     return {
       roomNameInput: null,
       room: null,
       serverId: null,
-      playerName: "Félix",
+      playerName: "",
       divinite: "no",
       amReady: false,
       othersPlayers: [],
+      divinitePickerActive: false
     };
   },
   created() {
     this.$root.$on("enteredRoom", (data) => {
-      console.log("entered !", data);
       this.room = data.room.name;
       this.serverId = data.you;
       this.othersPlayers.push(
@@ -72,6 +75,10 @@ export default {
             this.othersPlayers.push(player);
         }
     });
+
+    this.$root.$on('removePlayer', player => {
+        this.othersPlayers = this.othersPlayers.filter(p => p.id !== player.id);
+    });
   },
   methods: {
     search() {
@@ -88,6 +95,10 @@ export default {
             ready: this.amReady
         });
     },
+    setDivinite(divinite) {
+        this.divinite = divinite;
+        this.divinitePickerActive = false;
+    }
   },
 };
 </script>
@@ -96,6 +107,11 @@ export default {
     h2 {
         text-align: center;
     }
+
+    .multiplayer.menu {
+        position: relative;
+    }
+
     .players {
 
         display: flex;
@@ -108,6 +124,7 @@ export default {
             flex-direction: column;
 
             &.my {
+                position: relative;
 
                 input {
                     margin: 10px 0;
@@ -125,6 +142,10 @@ export default {
                         background: #1165c5;
                         color: white;
                     }
+                }
+
+                > .divinite-card {
+                    cursor: pointer;
                 }
             }
 
