@@ -46,8 +46,4 @@ export class Server
     emit(event ,data) {
         this.socket.emit(event, data);
     }
-
-    registerPlayer(player) {
-        this.socket.emit('addPlayer', player);
-    }
 }

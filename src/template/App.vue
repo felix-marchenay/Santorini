@@ -46,6 +46,9 @@ export default {
     },
     
     created() {
+        ////////////////////
+        this.page = 'multiplayer';
+
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';
             this.players = joueurs;
@@ -67,6 +70,19 @@ export default {
 
         .menu {
             pointer-events: all;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                
+                button.back {
+                    border: none;
+                    margin: auto;
+                }
+            }
         }
 
         .page {

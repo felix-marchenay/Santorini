@@ -34,7 +34,7 @@ export class Preparation
             });
     
             this.ihm.emitter.on('ready', data => {
-                this.server.registerPlayer(data);
+                this.server.emit('ready', data);
             });
 
             this.server.emitter.on('newPlayer', player => {

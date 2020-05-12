@@ -1,9 +1,11 @@
 <template>
-    <div class="multiplayer-menu">
-        <H3>SinglePlayer</H3>
-        <Button class="back" @click="back">
-            retour
-        </Button>
+    <div class="multiplayer-menu menu">
+        <div class="title">
+            <Button class="back" @click="back">
+                retour
+            </Button>
+            <H3>SinglePlayer</H3>
+        </div>
     </div>
 </template>
 
