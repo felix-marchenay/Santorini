@@ -26,6 +26,13 @@ export default {
     display: inline-block;
     border-radius: 5px;
     position: relative;
+    height: 220px;
+    width: 160px;
+    overflow: hidden;
     transition: 100ms ease-out;
+
+    img {
+        width: 100%;
+    }
 }
 </style>
