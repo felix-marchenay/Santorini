@@ -62,6 +62,13 @@ export class Plateau {
         );
     }
 
+    showBuildHintZeusAround (caze) {
+        this.showBuildHint([
+            ...this.casesAvoisinantes(caze).filter(caze => caze.isBuildable()),
+            caze
+        ]);
+    }
+
     showBuildHintDomeAround (caze) {
         this.showBuildHintDome(
             this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())

@@ -83,7 +83,7 @@ export class Game
     }
 
     endTurn() {
-        this.pions.forEach(p => p.idle = false);
+        this.pions.forEach(p => p.stopIdle());
         this.sendEndTurn();
     }
 

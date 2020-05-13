@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             diviniteSelected: null,
-            divinites: ['atlas', 'poseidon', 'pan', 'demeter', 'athena', 'no']
+            divinites: ['atlas', 'poseidon', 'pan', 'no', 'zeus', 'triton']
         };
     },
     methods: {

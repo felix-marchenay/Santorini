@@ -9,13 +9,16 @@ export class ZeusConstruction extends Step
 
             const pion = this.joueur.lastMovedPion;
 
-            this.game.plateau.showBuildHintAround(pion.case);
+            this.game.plateau.showBuildHintZeusAround(pion.case);
 
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
                     try {
-                        if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
+                        if (caze.isBuildable() && caze.estAvoisinante(pion.case) || caze == pion.case) {
                             caze.build();
+                            if (caze == pion.case) {
+                                caze.poserPion(pion);
+                            }
 
                             this.game.sendServer('construct', caze.export());
 

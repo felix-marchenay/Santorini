@@ -46,16 +46,18 @@ export class Preparation
                 this.ihm.removePlayer(player);
             });
 
-            this.server.emitter.on('letsgo', room => {
+            const divinites = {
+                pan: new Pan,
+                atlas: new Atlas,
+                demeter: new Demeter,
+                poseidon: new Poseidon,
+                athena: new Athena,
+                no: new NoDivinite,
+                triton: new Triton,
+                zeus: new Zeus
+            };
 
-                const divinites = {
-                    pan: new Pan,
-                    atlas: new Atlas,
-                    demeter: new Demeter,
-                    poseidon: new Poseidon,
-                    athena: new Athena,
-                    no: new NoDivinite,
-                };
+            this.server.emitter.on('letsgo', room => {
 
                 const joueurs = room.joueurs.map((p, i) => 
                     new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, p.id, (p.id !== this.id), p.pions)
@@ -68,15 +70,6 @@ export class Preparation
 
             this.ihm.emitter.on('goSingleplayer', players => {
 
-                const divinites = {
-                    pan: new Pan,
-                    atlas: new Atlas,
-                    demeter: new Demeter,
-                    poseidon: new Poseidon,
-                    athena: new Athena,
-                    no: new NoDivinite,
-                };
-
                 const joueurs = players.map((p, i) => 
                     new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
                 );
@@ -84,18 +77,6 @@ export class Preparation
                 this.ihm.letsGo(joueurs);
                 resolve(new Game(this.scene.scene, this.ihm, joueurs));
             });
-
-            ///////////////////////
-            const divinites = {
-                pan: new Pan,
-                atlas: new Atlas,
-                demeter: new Demeter,
-                poseidon: new Poseidon,
-                athena: new Athena,
-                no: new NoDivinite,
-                triton: new Triton,
-                zeus: new Zeus
-            };
 
             const players = [
                 {
@@ -108,13 +89,13 @@ export class Preparation
                 },
             ];
 
-            const joueurs = players.map((p, i) => 
-                new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
-            );
+            // const joueurs = players.map((p, i) => 
+            //     new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
+            // );
 
             
-            this.ihm.letsGo(joueurs);
-            resolve(new Game(this.scene.scene, this.ihm, joueurs));
+            // this.ihm.letsGo(joueurs);
+            // resolve(new Game(this.scene.scene, this.ihm, joueurs));
         }
         return new Promise(fn);
     }

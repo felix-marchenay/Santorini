@@ -10,7 +10,7 @@ export class SantoriniScene
         this.camera = this.arcCamera();
         this.lights = this.hemisphericLights();
 
-        this.shadows = [this.lights[1], this.lights[2]].map(l => new ShadowGenerator(1500, l));
+        this.shadows = [this.lights[1]].map(l => new ShadowGenerator(512, l));
         this.shadows.forEach(sh => {
             sh.usePercentageCloserFiltering = true;
             sh.filteringQuality = ShadowGenerator.QUALITY_HIGH;

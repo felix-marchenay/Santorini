@@ -115,17 +115,6 @@ export class Case
         if (this.constructions.dome) {
             throw "Impossible de construire sur un dome";
         }
-        if (this.pion) {
-            throw "Impossible de construire ici, un pion est posé";
-        }
-        this.doBuild();
-    }
-
-    zeusBuild() {
-        if (this.constructions.dome) {
-            throw "Impossible de construire sur un dome";
-        }
-
         this.doBuild();
     }
 
