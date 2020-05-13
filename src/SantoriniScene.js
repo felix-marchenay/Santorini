@@ -17,8 +17,6 @@ export class SantoriniScene
         });
         this.scene.shadows = this.shadows;
 
-        this.shadow2 = new ShadowGenerator(1600, this.lights[2]);
-
         scene.onPointerObservable.add(pointerInfo => {
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
@@ -80,29 +78,31 @@ export class SantoriniScene
     }
 
     hemisphericLights() {
-        const lightPosition1 = new Vector3(0, 20, 2);
-        const light1 = new HemisphericLight("light", lightPosition1, this.scene);
-        light1.intensity = 0.5;
+        // const lightPosition1 = new Vector3(0, 20, 2);
+        // const light1 = new HemisphericLight("light", lightPosition1, this.scene);
+        // light1.intensity = 0.65;
         // const lightBox = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         // lightBox.position = lightPosition1;
         
-        const lightPosition2 = new Vector3(1, 15, 0);
+        const lightPosition2 = new Vector3(-6, 15, -10);
         const light2 = new PointLight("light", lightPosition2, this.scene);
-        light2.intensity = 5;
-        // const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        // lightBox2.position = lightPosition2;
+        light2.intensity = 500;
+        const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        lightBox2.position = lightPosition2;
     
-        const lightPosition3 = new Vector3(4, 15, 10);
+        const lightPosition3 = new Vector3(7, 15, -15);
         const light3 = new PointLight("light", lightPosition3, this.scene);
-        light3.intensity = 3;
-        // const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        // lightBox3.position = lightPosition3;
+        light3.intensity = 600;
+        const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        lightBox3.position = lightPosition3;
 
-        const lightPosition4 = new Vector3(4, 15, 10);
+        const lightPosition4 = new Vector3(-8, 20, 10);
         const light4 = new PointLight("light", lightPosition4, this.scene);
-        light4.intensity = 4;
+        light4.intensity = 500;
+        const lightBox4 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        lightBox4.position = lightPosition4;
 
-        return [light1, light2, light3];
+        return [light4, light2, light3];
     }
 
     showFPS(engine) {

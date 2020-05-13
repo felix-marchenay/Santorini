@@ -26,16 +26,13 @@ export class Game
      */
     constructor (scene, ihm, joueurs, server) {
         this.emitter = new Emitter;
-        console.log(2);
         this.plateau = new Plateau(scene);
         this.joueurs = joueurs;
         this.scene = scene;
-        console.log(25);
         this.ihm = ihm;
         this.stepper = new Stepper;
         this.server = server;
         this.setStepsFromPlayers();
-        console.log(26);
     }
 
     get pions () {
@@ -136,11 +133,18 @@ export class Game
         return this.plateau.cases[coordinates.x][coordinates.y];
     }
 
+    victory(joueur) {
+        this.ihm.victory(joueur);
+        setTimeout(() => {
+            joueur.lastPionMoved.forEach(p => p.animateVictory());
+        }, 1100);
+    }
+
     async play() {
         this.stepper.run().catch(e => {
             if (e instanceof Victoire) {
                 console.log(e);
-                this.ihm.victory(e.joueur);
+                this.victory(e.joueur);
             } else {
                 console.error(e);
             }

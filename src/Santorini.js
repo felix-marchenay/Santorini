@@ -28,10 +28,11 @@ export class Santorini
         this.ihm = new Interface;
         this.preparation = new Preparation(this.ihm, this.server, this.scene);
         this.game = null;
+
+        console.log(this.scene);
     }
 
     async ignition() {
-        console.log(1);
         const game = await this.preparation.launch();
 
         game.play();
