@@ -46,7 +46,7 @@ export default {
     },
     
     created() {
-        this.page = 'singleplayer';
+        this.page = 'game';
 
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';

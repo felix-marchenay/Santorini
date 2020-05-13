@@ -71,7 +71,9 @@ function drawAxis(scene) {
 try {
     const santorini = new Santorini();
 
-    santorini.ignition();
+    santorini.emitter.on('ready', () => {
+        santorini.ignition();
+    });
 } catch (e) {
     console.error(e);
 }

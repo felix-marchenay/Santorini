@@ -12,6 +12,9 @@ export class Etage
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'etage-'+niveau).clone();
         this.scene.shadows.forEach(sh => sh.getShadowMap().renderList.push(this.mesh));
         this.mesh.receiveShadows = true;
+        this.mesh.material.freeze();
+        this.mesh.convertToUnIndexedMesh();
+        this.mesh.freezeWorldMatrix();
         
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');

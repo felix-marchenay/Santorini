@@ -158,7 +158,7 @@ export default {
         bottom: 130px;
         background: white;
         z-index: 5;
-        transform: translate(-50%, 0, 0);
+        transform: translate(-50%, 0);
         padding: 20px;
         font-size: 22px;
         border-radius: 5px;

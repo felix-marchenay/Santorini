@@ -14,6 +14,7 @@ import { Interface } from "./ihm/Interface";
 import { AutoDistant } from "./steps/AutoDistant";
 import { Server } from "./Server";
 import { Victoire } from "./Victoire";
+import { SpotLight, Vector3, MeshBuilder } from "babylonjs";
 
 export class Game
 {
@@ -25,13 +26,16 @@ export class Game
      */
     constructor (scene, ihm, joueurs, server) {
         this.emitter = new Emitter;
+        console.log(2);
         this.plateau = new Plateau(scene);
         this.joueurs = joueurs;
         this.scene = scene;
+        console.log(25);
         this.ihm = ihm;
         this.stepper = new Stepper;
         this.server = server;
         this.setStepsFromPlayers();
+        console.log(26);
     }
 
     get pions () {
@@ -57,7 +61,15 @@ export class Game
 
     setStepsFromPlayers() {
 
-        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+
+        //////////
+        this.stepper.addSteps(
+            new RandomBuild(this, this.joueurs),
+            new AutoPreparation(this, this.joueurs),
+        );
+
+
+        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {

@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight, Scene, PointerEventTypes } from "babylonjs";
+import { ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, ShadowGenerator, PointLight, Scene, PointerEventTypes, SpotLight } from "babylonjs";
 import { Game } from "./Game";
 import { DirectionalLight } from "@babylonjs/core";
 
@@ -77,28 +77,48 @@ export class SantoriniScene
         camera.attachControl(this.canvas, true);
 
         return camera;
-    }   
+    }
 
     hemisphericLights() {
         const lightPosition1 = new Vector3(0, 20, 2);
         const light1 = new HemisphericLight("light", lightPosition1, this.scene);
-        light1.intensity = 0.12;
+        light1.intensity = 0.5;
         // const lightBox = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         // lightBox.position = lightPosition1;
         
         const lightPosition2 = new Vector3(1, 15, 0);
         const light2 = new PointLight("light", lightPosition2, this.scene);
-        light2.intensity = 200;
+        light2.intensity = 5;
         // const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         // lightBox2.position = lightPosition2;
     
         const lightPosition3 = new Vector3(4, 15, 10);
         const light3 = new PointLight("light", lightPosition3, this.scene);
-        light3.intensity = 100;
+        light3.intensity = 3;
         // const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
         // lightBox3.position = lightPosition3;
 
+        const lightPosition4 = new Vector3(4, 15, 10);
+        const light4 = new PointLight("light", lightPosition4, this.scene);
+        light4.intensity = 4;
+
         return [light1, light2, light3];
+    }
+
+    showFPS(engine) {
+        if (!this.fps) {
+            this.fps = [];
+        }
+
+        const fps = engine.getFps().toFixed();
+        if (fps !== "Infinity") {
+            this.fps.push(parseInt(fps));
+        }
+
+        if (this.fps.length > 30) {
+            this.fps = this.fps.slice(1);
+            console.log(this.fps.reduce((a,b) => a+b) / this.fps.length);
+        }
     }
 
     render() {

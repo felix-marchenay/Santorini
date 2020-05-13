@@ -82,6 +82,11 @@ export class Plateau {
         cases.map(cas => cas.showBuildHintDome());
     }
 
+    refreshBuildHint(caze) {
+        caze.hideBuildHint();
+        caze.showBuildHint();
+    }
+
     showMoveHintAround(caze) {
         this.showMoveHint(
             this.casesAvoisinantes(caze)

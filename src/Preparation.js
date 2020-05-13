@@ -56,12 +56,12 @@ export class Preparation
                 };
 
                 const joueurs = room.joueurs.map((p, i) => 
-                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene, p.id, (p.id !== this.id), p.pions)
+                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, p.id, (p.id !== this.id), p.pions)
                 );
 
                 this.ihm.letsGo(joueurs);
 
-                resolve(new Game(this.scene, this.ihm, joueurs, this.server));
+                resolve(new Game(this.scene.scene, this.ihm, joueurs, this.server));
             });
 
             this.ihm.emitter.on('goSingleplayer', players => {
@@ -76,12 +76,41 @@ export class Preparation
                 };
 
                 const joueurs = players.map((p, i) => 
-                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene, i, false, [{id:0},{id:1}])
+                    new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
                 );
 
                 this.ihm.letsGo(joueurs);
-                resolve(new Game(this.scene, this.ihm, joueurs));
+                resolve(new Game(this.scene.scene, this.ihm, joueurs));
             });
+
+            ///////////////////////
+            const divinites = {
+                pan: new Pan,
+                atlas: new Atlas,
+                demeter: new Demeter,
+                poseidon: new Poseidon,
+                athena: new Athena,
+                no: new NoDivinite,
+            };
+
+            const players = [
+                {
+                    name: 'xx-kevin',
+                    divinite: 'pan',
+                },
+                {
+                    name: 'Michelinho',
+                    divinite: 'poseidon',
+                },
+            ];
+
+            const joueurs = players.map((p, i) => 
+                new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
+            );
+
+            
+            this.ihm.letsGo(joueurs);
+            resolve(new Game(this.scene.scene, this.ihm, joueurs));
         }
         return new Promise(fn);
     }

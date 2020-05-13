@@ -7,44 +7,57 @@ export class BuildHint
 {
     constructor(scene, caze) {
         this.emitter = new Emitter;
-        
+        this.scene = scene;
         this.case = caze;
-        
-        this.etages =  {
-            "1" : scene.container.meshes.find(mesh => mesh.id === 'etage-1').clone(),
-            "1-dome" : scene.container.meshes.find(mesh => mesh.id === 'etage-dome').clone(),
-            "2" : scene.container.meshes.find(mesh => mesh.id === 'etage-2').clone(),
-            "2-dome" : scene.container.meshes.find(mesh => mesh.id === 'etage-dome').clone(),
-            "3" : scene.container.meshes.find(mesh => mesh.id === 'etage-3').clone(),
-            "3-dome" : scene.container.meshes.find(mesh => mesh.id === 'etage-dome').clone(),
-            "dome" : scene.container.meshes.find(mesh => mesh.id === 'etage-dome').clone(),
+        this.built = {};
+    }
+
+    show(niveau) {
+        if (this.built[niveau] === undefined) {
+            this.built[niveau] = this.createMesh(niveau);
+        }
+
+        this.built[niveau].setEnabled(true);
+    }
+
+    createMesh(niveau) {
+
+        const map = {
+            "1" : 'etage-1',
+            "1-dome" : 'etage-dome',
+            "2" : 'etage-2',
+            "2-dome" : 'etage-dome',
+            "3" : 'etage-3',
+            "3-dome" : 'etage-dome',
+            "dome" : 'etage-dome'
         };
-        
-        Object.values(this.etages).forEach(etage => {
-            etage.material = new StandardMaterial("", scene);
-            etage.material.alpha = .2;
-            etage.material.diffuseColor = new Color3(0.9, 0.25, 0.9);
-            etage.position = this.case.mesh.position.clone();
-            etage.setEnabled(false);
-            etage.pointerPicked = () => {
-                this.emitter.emit('pointerPicked');
-            }
-            etage.renderOutline = true;
-            etage.outlineColor = new Color3(.8, .2, .85);
-            etage.outlineWidth = .08;
-        });
 
-        this.etages["2-dome"].position.y = 1;
-        this.etages["3-dome"].position.y = 1.8;
+        const mesh = this.scene.container.meshes.find(mesh => mesh.id === map[niveau]).clone();
+
+        mesh.freezeWorldMatrix();
+        mesh.convertToUnIndexedMesh();
+        mesh.material = new StandardMaterial("", this.scene);
+        mesh.material.alpha = .2;
+        mesh.material.diffuseColor = new Color3(0.9, 0.25, 0.9);
+        mesh.position = this.case.mesh.position.clone();
+        mesh.setEnabled(false);
+        mesh.pointerPicked = () => {
+            this.emitter.emit('pointerPicked');
+        }
+        mesh.renderOutline = true;
+        mesh.outlineColor = new Color3(.8, .2, .85);
+        mesh.outlineWidth = .08;
+
+        if (niveau == '2-dome') {
+            mesh.position.y = 1;
+        } else if (niveau == '3-dome') {
+            mesh.position.y = 1.8;
+        }
+
+        return mesh;
     }
 
-    show(...niveaux) {
-        Object.keys(this.etages)
-            .filter(key => niveaux.includes(key))
-            .forEach(key => this.etages[key].setEnabled(true));
-    }
-
-    hide(niveaux) {
-        Object.values(this.etages).forEach(etage => etage.setEnabled(false));
+    hide() {
+        Object.values(this.built).forEach(etage => etage.setEnabled(false));
     }
 }
