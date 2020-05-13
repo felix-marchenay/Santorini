@@ -9,6 +9,7 @@ import { Athena } from "./divinite/Athena";
 import { NoDivinite } from "./divinite/NoDivinite";
 import { PreparationUnSeulJoueur } from "./steps/PreparationUnJoueur";
 import { Triton } from "./divinite/Triton";
+import { Zeus } from "./divinite/Zeus";
 
 export class Preparation
 {
@@ -92,17 +93,18 @@ export class Preparation
                 poseidon: new Poseidon,
                 athena: new Athena,
                 no: new NoDivinite,
-                triton: new Triton
+                triton: new Triton,
+                zeus: new Zeus
             };
 
             const players = [
                 {
                     name: 'xx-kevin',
-                    divinite: 'triton',
+                    divinite: 'zeus',
                 },
                 {
                     name: 'Michelinho',
-                    divinite: 'poseidon',
+                    divinite: 'triton',
                 },
             ];
 
