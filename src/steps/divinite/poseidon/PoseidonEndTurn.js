@@ -13,14 +13,14 @@ export class PoseidonEndTurn extends Step
             this.game.ihm.tour('construire sur le personnage immobile');
             this.game.ihm.showSkip();
             this.game.ihm.emitter.on('skip', () => {
-                this.game.sendEndTurn();
+                this.game.endTurn();
                 resolve();
             });
 
             const pionImmobile = this.joueur.pions.find(p => p != this.joueur.lastMovedPion);
 
             if (pionImmobile.case.niveau() !== 0) {
-                this.game.sendEndTurn();
+                this.game.endTurn();
                 resolve();
             }
 
@@ -39,7 +39,7 @@ export class PoseidonEndTurn extends Step
                 }
 
                 if (nbConstructions >= 3) {
-                    this.game.sendEndTurn();
+                    this.game.endTurn();
                     resolve();
                 }
             });

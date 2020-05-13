@@ -82,8 +82,18 @@ export class Game
         this.stepper.addInfiniteSubsetSteps(...steps);
     }
 
+    endTurn() {
+        this.pions.forEach(p => p.idle = false);
+        this.sendEndTurn();
+    }
+
     sendEndTurn() {
         this.sendServer('endTurn');
+    }
+
+    toggleIdle(pion) {
+        this.pions.filter(p => p!= pion).forEach(p => p.idle = false);
+        pion.toggleIdle();
     }
 
     idlePion() {
@@ -136,7 +146,7 @@ export class Game
     victory(joueur) {
         this.ihm.victory(joueur);
         setTimeout(() => {
-            joueur.lastPionMoved.forEach(p => p.animateVictory());
+            joueur.lastPionMoved.animateVictory();
         }, 1100);
     }
 

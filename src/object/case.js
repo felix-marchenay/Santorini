@@ -67,6 +67,10 @@ export class Case
         this.pion = null;
     }
 
+    estDuPerimetre() {
+        return this.coordinates.x == 0 || this.coordinates.x == 4 || this.coordinates.y == 4 || this.coordinates.y == 0;
+    }
+
     showBuildHint() {
         this.buildHint.show(this.nextLevelToBuild());
     }

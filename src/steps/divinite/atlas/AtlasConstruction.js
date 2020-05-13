@@ -42,7 +42,7 @@ export class AtlasConstruction extends Step
                                 this.game.sendServer('constructDome', caze.export());
                             }
 
-                            this.game.sendEndTurn();
+                            this.game.endTurn();
                             resolve();
                         }
                     } catch (e) {

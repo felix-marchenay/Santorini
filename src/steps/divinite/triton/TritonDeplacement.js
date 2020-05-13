@@ -1,20 +1,21 @@
-import { Step } from "./Step";
-import { Victoire } from "../Victoire";
+import { Step } from "../../Step";
+import { Victoire } from "../../../Victoire";
 
-export class Deplacement extends Step
+export class TritonDeplacement extends Step
 {
     run () {
         return super.run((resolve, reject) => {
 
             this.game.ihm.tour('se déplacer');
 
-            this.joueur.pions.forEach(pion => {
-                pion.emitter.on('picked', pion => {
-                    this.joueur.pions.filter(p => p != pion).forEach(p => {
-                        p.stopIdle();
-                    });
-                    pion.toggleIdle();
-                    
+            this.game.ihm.emitter.on('skip', () => {
+                this.game.endTurn();
+                resolve();
+            });
+
+            const eventsMove = this.joueur.pions.map(pion => {
+                return pion.emitter.on('picked', pion => {
+                    this.game.toggleIdle(pion);                    
                     this.game.plateau.showMoveHint(
                         this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
                     );
@@ -33,7 +34,13 @@ export class Deplacement extends Step
                                 throw "La case doit être vide pour s'y rendre";
                             }
 
+                            eventsMove.forEach(ev => {
+                                this.joueur.pions.filter(p => p.emitter.off(ev));
+                            });
+
                             caze.poserPion(this.game.idlePion());
+                            
+                            this.game.ihm.showSkip();
 
                             this.game.sendServer('pionMove', this.game.idlePion().export());
 
@@ -43,9 +50,18 @@ export class Deplacement extends Step
                                 this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }
-                            
-                            this.game.endTurn();
-                            resolve();
+
+                            if (!caze.estDuPerimetre()) {
+                                this.game.endTurn();
+                                resolve();
+                            } 
+
+                            this.game.plateau.allCases().forEach(cas => {
+                                cas.hideMoveHint();
+                            });
+                            this.game.plateau.showMoveHint(
+                                this.game.plateau.casesAvoisinantes(this.game.idlePion().case).filter(caze => this.game.idlePion().canGo(caze))
+                            );
                         } catch (e) {
                             console.log(e);
                             this.game.ihm.error(e);
@@ -62,5 +78,6 @@ export class Deplacement extends Step
             cas.emitter.flush();
             cas.hideMoveHint();
         });
+        this.game.ihm.hideSkip();
     }
 }

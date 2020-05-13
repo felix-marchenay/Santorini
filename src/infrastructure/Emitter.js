@@ -14,6 +14,10 @@ export class Emitter
     }
 
     off (event, f) {
+        if (this.listeners[event] === undefined) {
+            return;
+        }
+        
         this.listeners[event].forEach((fn, i) => {
             if (f === fn) {
                 delete this.listeners[event][i];
