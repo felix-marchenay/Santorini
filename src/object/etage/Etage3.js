@@ -1,5 +1,5 @@
 import { MeshBuilder, StandardMaterial, Color3 } from "@babylonjs/core";
-import { Emitter } from "../../infrastructure/emitter";
+import { Emitter } from "../../infrastructure/Emitter";
 import { Etage } from "./Etage";
 
 export class Etage3 extends Etage {

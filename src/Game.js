@@ -1,87 +1,38 @@
 import { Plateau } from "./object/plateau";
 import { Joueur } from "./joueur";
-import { Color3, KeyboardEventTypes, PointerEventTypes, Color4 } from "@babylonjs/core";
+import { Color3, KeyboardEventTypes, PointerEventTypes, Color4, Scene } from "@babylonjs/core";
 import { Pion } from "./object/pion";
-import { Vector3, MeshBuilder } from "babylonjs";
 import { Stepper } from "./infrastructure/Stepper";
 import { Preparation } from "./steps/Preparation";
 import { ChoixNoms } from "./steps/ChoixNom";
 import { AutoChoixNoms } from "./steps/AutoChoixNoms";
 import { AutoPreparation } from "./steps/AutoPreparation";
-import { Deplacement } from "./steps/Deplacement";
-import { Construction } from "./steps/Construction";
-import { Interface } from "./ihm/Interface";
 import { RandomBuild } from "./steps/RandomBuild";
-import { Victoire } from "./Victoire";
-import { Poseidon } from "./divinite/Poseidon";
-import { Atlas } from "./divinite/Atlas";
 import { Unsplash } from "./steps/Unsplash";
-import { Emitter } from "./infrastructure/emitter";
+import { Emitter } from "./infrastructure/Emitter";
+import { Interface } from "./ihm/Interface";
+import { AutoDistant } from "./steps/AutoDistant";
+import { Server } from "./Server";
+import { Victoire } from "./Victoire";
+import { SpotLight, Vector3, MeshBuilder } from "babylonjs";
 
 export class Game
 {
-    constructor (scene, nbJoueurs) {
+    /**
+     * 
+     * @param {Scene} scene 
+     * @param {Interface} ihm 
+     * @param {Server} server 
+     */
+    constructor (scene, ihm, joueurs, server) {
         this.emitter = new Emitter;
         this.plateau = new Plateau(scene);
-        this.joueurs = [];
+        this.joueurs = joueurs;
         this.scene = scene;
-        
-        this.ihm = new Interface();
-        this.ihm.emitter.on('replay', () => {
-            this.emitter.emit('replay');
-        });
-
-        this.couleursJoueur = [
-            scene.container.materials.find(mat => mat.id == 'pion-vert'),
-            scene.container.materials.find(mat => mat.id == 'pion-bleu'),
-            scene.container.materials.find(mat => mat.id == 'pion-blanc'),
-        ];
-        
-        scene.onPointerObservable.add(pointerInfo => {
-            switch (pointerInfo.type) {
-                case PointerEventTypes.POINTERPICK:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERDOWN:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerDown === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerDown(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERUP:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerUp === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerUp(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERMOVE:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-            }
-        });
-
-        scene.onKeyboardObservable.add(keyInfo => {
-            switch (keyInfo.type) {
-                case BABYLON.KeyboardEventTypes.KEYDOWN:
-                    this.emitter.emit('keyDown', keyInfo.event);
-                    this.emitter.emit('keyDown-'+keyInfo.event.code);
-                    break;
-                case BABYLON.KeyboardEventTypes.KEYUP:
-                    this.emitter.emit('keyUp', keyInfo.event);
-                    this.emitter.emit('keyUp-'+keyInfo.event.code);
-                    break;
-            }
-        });
+        this.ihm = ihm;
+        this.stepper = new Stepper;
+        this.server = server;
+        this.setStepsFromPlayers();
     }
 
     get pions () {
@@ -91,54 +42,122 @@ export class Game
         }, []);
     }
 
-    idlePion() {
-        const idling = this.pions.filter(pion => pion.idle);
-        return idling.length > 0 ? idling[0] : null;
+    sendServer(event, data) {
+        if (this.server) {
+            console.log('emitting: ', event, data);
+            this.server.emit(event, data);
+        }
     }
 
-    nextPlayerActive() {
-        const inactives = this.joueurs.filter(player => player != this.activePlayer());
-        this.joueurs = [...inactives, this.activePlayer()];
+    sendVictory(joueur) {
+        this.sendServer('victory', {
+            joueur: joueur.export(),
+            pion: this.idlePion().export()
+        });
     }
 
-    activePlayer() {
-        return this.joueurs[0];
-    }
+    setStepsFromPlayers() {
 
-    inactivePlayer() {
-        return this.joueurs.filter();
-    }
 
-    setPlayers(active, ...players) {
-        this.joueurs = [active, ...players];
-    }
-
-    async play() {
-        this.stepper = new Stepper();
-        
+        //////////
         this.stepper.addSteps(
-            new Unsplash(this),
-            new ChoixNoms(this),
-            new Preparation(this)
+            new RandomBuild(this, this.joueurs),
+            new AutoPreparation(this, this.joueurs),
         );
 
-        await this.stepper.run();
 
-        const playSteps = [...this.joueurs.reduce(
+        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+
+        const steps = [...this.joueurs.reduce(
             (steps, joueur) => {
                 steps.push(
-                    joueur.getDeplacementStep(this), 
-                    joueur.getConstructionStep(this),
+                    ...joueur.getDeplacementStep(this), 
+                    ...joueur.getConstructionStep(this),
                 );
                 return steps;
             },
             []
         )];
 
-        this.stepper = new Stepper();
-        this.stepper.addInfiniteSubsetSteps(...playSteps);
+        this.stepper.addInfiniteSubsetSteps(...steps);
+    }
+
+    endTurn() {
+        this.pions.forEach(p => p.idle = false);
+        this.sendEndTurn();
+    }
+
+    sendEndTurn() {
+        this.sendServer('endTurn');
+    }
+
+    toggleIdle(pion) {
+        this.pions.filter(p => p!= pion).forEach(p => p.idle = false);
+        pion.toggleIdle();
+    }
+
+    idlePion() {
+        const idling = this.pions.filter(pion => pion.idle);
+        return idling.length > 0 ? idling[0] : null;
+    }
+
+    activePlayer() {
+        return this.joueurs[0];
+    }
+
+    setPlayers(active, ...players) {
+        this.joueurs = [active, ...players];
+    }
+
+    onClickCaseAvoisinantes(pion, fn) {
+        this.plateau.casesAvoisinantes(pion.case).forEach(cas => {
+            cas.emitter.on('pointerPicked', () => { fn(cas) });
+        });
+    }
+
+    flushEventsCases() {
+        this.plateau.allCases().forEach(cas => cas.emitter.flush());
+    }
+
+    hideAllBuildHint() {
+        this.plateau.allCases().forEach(cas => cas.hideBuildHint());
+    }
+
+    findPionById(id) {
+        let pionFound = null;
+        this.joueurs.forEach(j => {
+            const pion = j.pions.find(p => p.id == id);
+            if (pion) {
+                pionFound = pion;
+            }
+        });
+        
+        return pionFound;
+    }
+
+    findJoueurById(id) {
+        return this.joueurs.find(j => j.id == id);
+    }
+
+    findCaseByCoordinates(coordinates) {
+        return this.plateau.cases[coordinates.x][coordinates.y];
+    }
+
+    victory(joueur) {
+        this.ihm.victory(joueur);
+        setTimeout(() => {
+            joueur.lastPionMoved.animateVictory();
+        }, 1100);
+    }
+
+    async play() {
         this.stepper.run().catch(e => {
-            this.ihm.victory(e);
+            if (e instanceof Victoire) {
+                console.log(e);
+                this.victory(e.joueur);
+            } else {
+                console.error(e);
+            }
         });
     }
 

@@ -16,7 +16,7 @@ import {
 
 import { Pion } from "./pion";
 import { Case } from "./case";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 
 export class Plateau {
 
@@ -80,6 +80,11 @@ export class Plateau {
 
     showBuildHintDome (cases) {
         cases.map(cas => cas.showBuildHintDome());
+    }
+
+    refreshBuildHint(caze) {
+        caze.hideBuildHint();
+        caze.showBuildHint();
     }
 
     showMoveHintAround(caze) {

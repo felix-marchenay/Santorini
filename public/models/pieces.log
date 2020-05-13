@@ -13,7 +13,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of mesh:  case
-		processing begun of material:  white cement
+		processing begun of material:  blanc
 		num positions      :  452
 		num normals        :  452
 		num tangents       :  0
@@ -24,6 +24,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		WARNING: # of 0 area faces found:  40
 	processing begun of mesh:  case.002
 		processing begun of material:  blanc
+		registered as also a user of material:  blanc
 		num positions      :  452
 		num normals        :  452
 		num tangents       :  0
@@ -33,7 +34,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  2700
 		WARNING: # of 0 area faces found:  40
 	processing begun of mesh:  etage-1
-		processing begun of material:  pion-blanc
+		processing begun of material:  white cement
 		num positions      :  3071
 		num normals        :  3071
 		num tangents       :  0
@@ -43,8 +44,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num indices        :  5898
 		WARNING: # of 0 area faces found:  36
 	processing begun of mesh:  etage-2
-		processing begun of material:  pion-blanc
-		registered as also a user of material:  pion-blanc
+		processing begun of material:  white cement
+		registered as also a user of material:  white cement
 		num positions      :  4052
 		num normals        :  4052
 		num tangents       :  0
@@ -53,8 +54,8 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		num colors         :  0
 		num indices        :  4464
 	processing begun of mesh:  etage-3
-		processing begun of material:  pion-blanc
-		registered as also a user of material:  pion-blanc
+		processing begun of material:  white cement
+		registered as also a user of material:  white cement
 		num positions      :  445
 		num normals        :  445
 		num tangents       :  0
@@ -98,7 +99,6 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 	WARNING: mesh, case.001, has 0 vertices; ignored
 	processing begun of mesh:  colonnes
 		processing begun of material:  pion-blanc
-		registered as also a user of material:  pion-blanc
 		num positions      :  25438
 		num normals        :  25438
 		num tangents       :  0
@@ -171,4 +171,4 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 	writing mesh:  pion-f
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 5.5157 secs
+elapsed time:  0 min, 5.2408 secs

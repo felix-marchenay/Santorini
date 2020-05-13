@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "serve": "webpack-dev-server",
+    "serve": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack"
   },
   "author": "",
@@ -24,7 +24,15 @@
     "@babylonjs/materials": "^4.1.0",
     "babylonjs": "^4.1.0",
     "css-loader": "^3.5.3",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "style-loader": "^1.2.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "uuid": "^8.0.0",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "vuex": "^3.3.0"
   }
 }

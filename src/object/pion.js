@@ -7,23 +7,25 @@ import {
     Animation,
     SceneLoader
 } from "@babylonjs/core";
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 import { CircleEase, EasingFunction } from "babylonjs";
 
 export class Pion {
-    constructor (scene, material, gender) {
+    constructor (scene, material, gender, id) {
         this.emitter = new Emitter;
         this.idle = false;
-        this.idleAnimation = null;
+        this.animations = null;
         this.scene = scene;
         this.gender = gender;
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'pion-'+gender).clone();
         this.mesh.material = material;
         this.initRotation = this.mesh.rotation;
+        this.id = id;
 
-        this.scene.shadow.getShadowMap().renderList.push(this.mesh);
+        
+        this.scene.shadows.forEach(sh => sh.getShadowMap().renderList.push(this.mesh));
         this.mesh.receiveShadows = true;
-
+        
         this.mesh.actionManager = new ActionManager(scene);
         this.mesh.animations = [];
         this.case = null;
@@ -72,6 +74,46 @@ export class Pion {
         return animation;
     }
 
+    animateVictory() {
+        const frames = 80;
+        const animation = new Animation('anim', "rotation", 60, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CYCLE);
+
+        const initPos = this.mesh.position.clone();
+        initPos.y += 1;
+        const endPos = initPos.clone();
+        endPos.y += 2;
+
+        animation.setKeys([
+            {
+                frame: 0,
+                value: new Vector3(-Math.PI/2, -Math.PI/2, 0)
+            },
+            {
+                frame: frames,
+                value: new Vector3(-Math.PI/2, 3*Math.PI/2, 0)
+            },
+        ]);
+
+        const animationTranslate = new Animation('anim', "position", 60, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CYCLE);
+        animationTranslate.setKeys([
+            {
+                frame: 0,
+                value: initPos
+            },
+            {
+                frame: frames/3,
+                value: endPos
+            },
+            {
+                frame: frames,
+                value: initPos
+            },
+        ]);
+
+        this.mesh.animations.push(animation, animationTranslate);
+        this.animations = this.scene.beginAnimation(this.mesh, 0, frames, true);
+    }
+
     canGo(caze) {
         return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
@@ -91,8 +133,8 @@ export class Pion {
 
     stopIdle() {
         this.idle = false;
-        if (this.idleAnimation) {
-            this.idleAnimation.stop();
+        if (this.animations) {
+            this.animations.stop();
         }
         this.mesh.animations = [];
         this.mesh.rotation = this.initRotation;
@@ -112,7 +154,7 @@ export class Pion {
             },
         ]);
         this.mesh.animations.push(animation);
-        this.idleAnimation = this.scene.beginAnimation(this.mesh, 0, frames, true);
+        this.animations = this.scene.beginAnimation(this.mesh, 0, frames, true);
     }
 
     resetPosition() {
@@ -132,7 +174,13 @@ export class Pion {
         this.mesh.material.diffuseColor = this.baseColor;
     }
 
-    static VectorXY(x, y) {
-        return new Vector3(x, 1.1, y);
+    export () {
+        return {
+            id: this.id,
+            position: {
+                x: this.case ? this.case.coordinates.x : null,
+                y: this.case ? this.case.coordinates.y : null,
+            }
+        };
     }
 }

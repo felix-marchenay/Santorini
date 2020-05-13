@@ -1,4 +1,4 @@
-import { Emitter } from "../infrastructure/emitter";
+import { Emitter } from "../infrastructure/Emitter";
 
 export class DivinitePicker
 {

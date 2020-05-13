@@ -3,15 +3,10 @@ import { Victoire } from "../Victoire";
 
 export class Deplacement extends Step
 {
-    constructor(game, joueur) {
-        super(game);
-        this.joueur = joueur;
-    }
-
     run () {
         return super.run((resolve, reject) => {
 
-            this.game.ihm.tour(this.joueur, 'se déplacer');
+            this.game.ihm.tour('se déplacer');
 
             this.joueur.pions.forEach(pion => {
                 pion.emitter.on('picked', pion => {
@@ -19,6 +14,7 @@ export class Deplacement extends Step
                         p.stopIdle();
                     });
                     pion.toggleIdle();
+                    
                     this.game.plateau.showMoveHint(
                         this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
                     );
@@ -39,13 +35,16 @@ export class Deplacement extends Step
 
                             caze.poserPion(this.game.idlePion());
 
+                            this.game.sendServer('pionMove', this.game.idlePion().export());
+
                             this.joueur.lastMovedPion = this.game.idlePion();
     
                             if (this.joueur.isVictorious()) {
+                                this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }
-                            this.game.idlePion().stopIdle();
-    
+                            
+                            this.game.endTurn();
                             resolve();
                         } catch (e) {
                             console.log(e);

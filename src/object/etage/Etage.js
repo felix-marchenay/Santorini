@@ -1,4 +1,4 @@
-import { Emitter } from "../../infrastructure/emitter";
+import { Emitter } from "../../infrastructure/Emitter";
 import { StandardMaterial, Color3, Texture, HighlightLayer, Animation, Vector3 } from "babylonjs";
 
 export class Etage
@@ -10,8 +10,11 @@ export class Etage
         this.emitter = new Emitter;
         
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'etage-'+niveau).clone();
-        this.scene.shadow.getShadowMap().renderList.push(this.mesh);
+        this.scene.shadows.forEach(sh => sh.getShadowMap().renderList.push(this.mesh));
         this.mesh.receiveShadows = true;
+        this.mesh.material.freeze();
+        this.mesh.convertToUnIndexedMesh();
+        this.mesh.freezeWorldMatrix();
         
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked');

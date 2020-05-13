@@ -14,7 +14,6 @@ export class ChoixNoms extends Step
         return super.run(resolve => {
             this.game.ihm.show('name');
             this.picking = this.game.ihm.emitter.on('namesPicked', joueurs => {
-                console.log('damn fuck');
                 const filtered = joueurs.filter(joueur => joueur.name.length > 0);
 
                 if (filtered.length < 2) {
@@ -32,7 +31,7 @@ export class ChoixNoms extends Step
 
                 filtered.forEach((info, i) => {
                     this.game.joueurs.push(
-                        new Joueur(i+1, info.name, this.game.couleursJoueur[i], divinites[info.divinite], this.game.scene)
+                        new Joueur(i+1, info.name, this.game.couleursJoueur[i], divinites[info.divinite], this.game.scene, this.game.couleursHex[i])
                     );
                 });
 

@@ -9,24 +9,22 @@ export class AtlasConstruction extends Step
     
     run () {
         return super.run(resolve => {
-            this.game.ihm.tour(this.joueur, 'construire');
-
-            this.game.ihm.show('action-atlas');
+            this.game.ihm.tour('construire');
 
             const pion = this.joueur.lastMovedPion;
-            
-            this.game.ihm.emitter.on('modeSelected', mode => {
-                this.game.plateau.hideBuildHint();
-                if (mode == 'dome') {
-                    this.game.plateau.showBuildHintDomeAround(pion.case);
-                } else {
-                    this.game.plateau.showBuildHintAround(pion.case);
-                }
-            });
 
             this.keydownspace = this.game.emitter.on('keyDown-Space', () => {this.game.ihm.switchAtlasMode()});
 
-            if (this.game.ihm.atlasActionMode == 'etage') {
+            this.game.ihm.emitter.on('switchAtlasMode', mode => {
+                this.game.plateau.hideBuildHint();
+                if (mode == 'etage') {
+                    this.game.plateau.showBuildHintAround(pion.case);
+                } else {
+                    this.game.plateau.showBuildHintDomeAround(pion.case);
+                }
+            });
+
+            if (this.game.ihm.atlasBuildMode == 'etage') {
                 this.game.plateau.showBuildHintAround(pion.case);
             } else {
                 this.game.plateau.showBuildHintDomeAround(pion.case);
@@ -36,13 +34,15 @@ export class AtlasConstruction extends Step
                 caze.emitter.on('pointerPicked', () => {
                     try {
                         if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
-
-                            if (this.game.ihm.atlasActionMode == 'etage') {
+                            if (this.game.ihm.atlasBuildMode == 'etage') {
                                 caze.build();
+                                this.game.sendServer('construct', caze.export());
                             } else {
                                 caze.AtlasBuildDome();
+                                this.game.sendServer('constructDome', caze.export());
                             }
 
+                            this.game.endTurn();
                             resolve();
                         }
                     } catch (e) {
@@ -55,12 +55,11 @@ export class AtlasConstruction extends Step
     }
 
     after () {
-        this.game.nextPlayerActive();
         this.game.plateau.hideBuildHint();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
         });
+        this.game.ihm.emitter.flush();
         this.game.emitter.off('keyDown-Space', this.keydownspace);
-        this.game.ihm.hide('action-atlas');
     }
 }

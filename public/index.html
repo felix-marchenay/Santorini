@@ -3,22 +3,54 @@
 
 <head>
     <title>SANTORINI - by Félix</title>
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            font-size: 0;
+        }
+    </style>
 <body>
     <canvas id="render" touch-action="none"></canvas>
 
-    <div id="gui">
+    <div id="gui"></div>
+
+    <div id="gui_old" style="display: none;">
         <div id="splash" class="active"></div>
+        <div step="main-menu">
+            <div class="line online">
+                <h3>Jouer en ligne</h3>
+                <div class="connection">
+                    <input type="text" class="room" placeholder="Nom de la partie">
+                    <button class="">Rechercher</button>
+                </div>
+            </div>
+            <div class="line offline">
+                <h3>Jouer en local</h3>
+            </div>
+        </div>
         <div step="name">
+            <div class="online">
+                <input type="text" name="room">
+                <button class="join-room">join</button>
+            </div>
             <div class="players">
                 <div class="player">
                     <div class="divinite">
                         <div class="pick-divinite">
-                            <div class="proposal" name="demeter">
-                                <img class="img-divinite" src="image/divinite/demeter.jpg" alt="">
-                            </div>  
-                            <div class="proposal" name="athena">
-                                <img class="img-divinite" src="image/divinite/athena.jpg" alt="">
-                            </div>
                             <div class="proposal" name="atlas">
                                 <img class="img-divinite" src="image/divinite/atlas.jpg" alt="">
                             </div>
@@ -44,12 +76,6 @@
                 <div class="player">
                     <div class="divinite">
                         <div class="pick-divinite">
-                            <div class="proposal" name="demeter">
-                                <img class="img-divinite" src="image/divinite/demeter.jpg" alt="">
-                            </div>  
-                            <div class="proposal" name="athena">
-                                <img class="img-divinite" src="image/divinite/athena.jpg" alt="">
-                            </div>
                             <div class="proposal" name="atlas">
                                 <img class="img-divinite" src="image/divinite/atlas.jpg" alt="">
                             </div>
@@ -83,28 +109,14 @@
                 Rejouer
             </button>
         </div>
-        <div step="joueurs">
-            <div class="joueur" joueur="1">
-                <div class="image">
-                    <img class="img-divinite" src="image/divinite/athena.jpg" alt="">
-                </div>
-                <div class="infos">
-                    <div class="divinite-name">Athéna</div>
-                    <div class="name">Jacques</div>
-                </div>
+        
+        <div step="action-joueur">
+            <div joueur="atlas">
+                <button></button>
             </div>
-            <div class="joueur" joueur="2">
-                <div class="image">
-                    <img class="img-divinite" src="image/divinite/atlas.jpg" alt="">
-                </div>
-                <div class="infos">
-                    <div class="divinite-name">Atlas</div>
-                    <div class="name">xx-ti-keum-du-49</div>
-                </div>
+            <div id="skip">
+                <button>Passer</button>
             </div>
-        </div>
-        <div step="action-atlas">
-            <button></button>
         </div>
         <div step="info"></div>
         <div step="tour">

@@ -4,10 +4,12 @@ import { AtlasConstruction } from "../steps/divinite/atlas/AtlasConstruction";
 export class Atlas extends Divinite
 {
     constructor() {
-        super('Atlas');
+        super();
+        this.name = 'Atlas';
+        this.slug = 'atlas';
     }
 
     getConstructionStep(game, joueur) {
-        return new AtlasConstruction(game, joueur);
+        return [new AtlasConstruction(game, joueur)];
     }
 }

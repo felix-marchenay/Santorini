@@ -1,34 +1,7 @@
-import {
-    Engine,
-    Scene,
-    Camera,
-    Vector3,
-    HemisphericLight,
-    Color3,
-    MeshBuilder,
-    FlyCamera,
-    Mesh,
-    DynamicTexture,
-    StandardMaterial,
-    Color4,
-    DirectionalLight,
-    Animation,
-    PointerEventTypes,
-    KeyboardEventTypes,
-    ArcRotateCamera,
-    ShadowGenerator,
-    SpotLight,
-    PointLight,
-    SceneLoader
-} from "@babylonjs/core";
-
-import '../public/css/style.scss';
-
-import {
-    NormalMaterial
-} from "@babylonjs/materials";
-
 import { SantoriniScene } from "./SantoriniScene";
+import { Santorini } from "./Santorini";
+
+import { Vector3, Color4, MeshBuilder } from "babylonjs";
 
 function drawAxis(scene) {
     MeshBuilder.CreateLines("axisX", {
@@ -95,32 +68,12 @@ function drawAxis(scene) {
     }
 }
 
-export function info(string) {
-    document.getElementById('info').textContent = string;
+try {
+    const santorini = new Santorini();
+
+    santorini.emitter.on('ready', () => {
+        santorini.ignition();
+    });
+} catch (e) {
+    console.error(e);
 }
-
-const canvas = document.getElementById("render");
-const engine = new Engine(canvas);
-const scene = new Scene(engine);
-
-SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", scene, function(container) {    
-    try {
-        console.log(container);
-        scene.container = container;
-
-        const santoScene = new SantoriniScene(scene, canvas);
-        
-        santoScene.game.play();
-
-        console.log('register replay');
-        santoScene.game.emitter.on('replay', () => {
-            santoScene.game.replay();
-        });
-
-        engine.runRenderLoop(() => {
-            santoScene.render();
-        });
-    } catch (e) {
-        console.error(e);
-    }
-});

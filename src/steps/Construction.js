@@ -1,16 +1,11 @@
 import { Step } from "./Step";
 
 export class Construction extends Step
-{
-    constructor(game, joueur) {
-        super(game);
-        this.joueur = joueur;
-    }
-    
+{    
     run () {
         return super.run(resolve => {
             
-            this.game.ihm.tour(this.joueur, 'construire');
+            this.game.ihm.tour('construire');
 
             const pion = this.joueur.lastMovedPion;
 
@@ -22,6 +17,9 @@ export class Construction extends Step
                         if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                             caze.build();
 
+                            this.game.sendServer('construct', caze.export());
+
+                            this.game.endTurn();
                             resolve();
                         }
                     } catch (e) {
@@ -34,11 +32,9 @@ export class Construction extends Step
     }
 
     after () {
-        this.game.nextPlayerActive();
         this.game.plateau.allCases().forEach(cas => {
             cas.emitter.flush();
             cas.hideBuildHint();
         });
-        this.game.ihm.hide('info');
     }
 }
