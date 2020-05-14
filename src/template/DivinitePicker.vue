@@ -12,6 +12,7 @@
 
 <script>
 import DiviniteCard from './DiviniteCard';
+import { Game } from '../Game';
 
 export default {
     components: { DiviniteCard },
@@ -23,7 +24,7 @@ export default {
     data() {
         return {
             diviniteSelected: null,
-            divinites: ['atlas', 'poseidon', 'pan', 'no', 'zeus', 'triton']
+            divinites: Game.allDivinites()
         };
     },
     methods: {

@@ -1,13 +1,11 @@
 import Vue from 'vue';
 import App from '../template/App';
 import { Emitter } from "../infrastructure/Emitter";
-import { DivinitePicker } from "./DivinitePicker";
 
 export class Interface 
 {
     constructor() {
         this.emitter = new Emitter;
-        this.divinitePickers = [];
         this.atlasBuildMode = 'etage';
         
         this.vue = new Vue({

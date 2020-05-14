@@ -15,6 +15,13 @@ import { AutoDistant } from "./steps/AutoDistant";
 import { Server } from "./Server";
 import { Victoire } from "./Victoire";
 import { SpotLight, Vector3, MeshBuilder } from "babylonjs";
+import { Minotaur } from "./divinite/Minotaur";
+import { Pan } from "./divinite/Pan";
+import { Atlas } from "./divinite/Atlas";
+import { Poseidon } from "./divinite/Poseidon";
+import { NoDivinite } from "./divinite/NoDivinite";
+import { Triton } from "./divinite/Triton";
+import { Zeus } from "./divinite/Zeus";
 
 export class Game
 {
@@ -171,5 +178,23 @@ export class Game
         this.joueurs = [];
 
         this.play();
+    }
+
+    static allDivinites() {
+        return Object.keys(Game.diviniteFromString());
+    }
+
+    static diviniteFromString() {
+        return {
+            pan: new Pan,
+            atlas: new Atlas,
+            // demeter: new Demeter,
+            poseidon: new Poseidon,
+            // athena: new Athena,
+            no: new NoDivinite,
+            triton: new Triton,
+            zeus: new Zeus,
+            minotaur: new Minotaur
+        };
     }
 }
