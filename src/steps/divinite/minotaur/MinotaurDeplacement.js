@@ -30,8 +30,8 @@ export class MinotaurDeplacement extends Step
                             }
                             
                             if (caseCible.pion !== null) {
-                                this.game.plateau.caseSuivante(this.game.idlePion().case, caseCible).poserPionForce(caseCible.pion);
                                 this.game.sendServer('pionMoveForce', caseCible.pion.export());
+                                this.game.plateau.caseSuivante(this.game.idlePion().case, caseCible).poserPionForce(caseCible.pion);
                             }
 
                             caseCible.poserPion(this.game.idlePion());

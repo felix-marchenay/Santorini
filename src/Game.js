@@ -181,10 +181,10 @@ export class Game
     }
 
     static allDivinites() {
-        return Object.keys(Game.diviniteFromString());
+        return Object.keys(Game.divinitesStringMapping());
     }
 
-    static diviniteFromString() {
+    static divinitesStringMapping() {
         return {
             pan: new Pan,
             atlas: new Atlas,
@@ -196,5 +196,9 @@ export class Game
             zeus: new Zeus,
             minotaur: new Minotaur
         };
+    }
+
+    static diviniteFromString(string) {
+        return Game.divinitesStringMapping()[string];
     }
 }
