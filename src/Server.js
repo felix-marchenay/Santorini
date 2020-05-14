@@ -15,7 +15,7 @@ export class Server
 
     connect (roomName) {
         const fn = (resolve, reject) => {
-            this.socket = io('http://' + this.host + ':' + this.port);
+            this.socket = io('https://' + this.host + ':' + this.port);
     
             this.socket.on('connected', () => {
                 this.socket.emit('register', roomName);
