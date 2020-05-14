@@ -8,11 +8,6 @@ export class TritonDeplacement extends Step
 
             this.game.ihm.tour('se déplacer');
 
-            this.game.ihm.emitter.on('skip', () => {
-                this.game.endTurn();
-                resolve();
-            });
-
             const eventsMove = this.joueur.pions.map(pion => {
                 return pion.emitter.on('picked', pion => {
                     this.game.toggleIdle(pion);                    
@@ -40,7 +35,7 @@ export class TritonDeplacement extends Step
 
                             caze.poserPion(this.game.idlePion());
                             
-                            this.game.ihm.showSkip();
+                            this.game.displaySkip(resolve);
 
                             this.game.sendServer('pionMove', this.game.idlePion().export());
 
@@ -78,6 +73,6 @@ export class TritonDeplacement extends Step
             cas.emitter.flush();
             cas.hideMoveHint();
         });
-        this.game.ihm.hideSkip();
+        this.game.hideSkip();
     }
 }

@@ -168,6 +168,19 @@ export class Game
         });
     }
 
+    displaySkip(resolve) {
+        this.ihm.showSkip();
+        this.skipEvent = this.ihm.emitter.on('skip', () => {
+            this.endTurn();
+            resolve();
+        });
+    }
+
+    hideSkip() {
+        this.ihm.hideSkip();
+        this.ihm.emitter.off(this.skipEvent);
+    }
+
     replay () {
         this.ihm.hideAll();
 
@@ -194,7 +207,8 @@ export class Game
             no: new NoDivinite,
             triton: new Triton,
             zeus: new Zeus,
-            minotaur: new Minotaur
+            minotaur: new Minotaur,
+            charon: new Charon
         };
     }
 

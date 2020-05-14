@@ -11,11 +11,8 @@ export class PoseidonEndTurn extends Step
         return super.run(resolve => {
 
             this.game.ihm.tour('construire sur le personnage immobile');
-            this.game.ihm.showSkip();
-            this.game.ihm.emitter.on('skip', () => {
-                this.game.endTurn();
-                resolve();
-            });
+
+            this.game.displaySkip(resolve);
 
             const pionImmobile = this.joueur.pions.find(p => p != this.joueur.lastMovedPion);
 
@@ -48,8 +45,7 @@ export class PoseidonEndTurn extends Step
 
     after() {
         this.game.flushEventsCases();
-        this.game.hideAllBuildHint();
-        this.game.ihm.hideSkip();
+        this.game.hideAllBuildHint();this.game.hideSkip();
         this.game.ihm.emitter.flush();
     }
 }
