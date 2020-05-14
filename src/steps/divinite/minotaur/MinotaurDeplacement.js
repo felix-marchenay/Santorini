@@ -28,10 +28,12 @@ export class MinotaurDeplacement extends Step
                             if (!this.game.idlePion().case.estAvoisinante(caseCible)) {
                                 throw "La case est trop loin pour s'y rendre";
                             }
+
+                            const pionCible = caseCible.pion;
                             
-                            if (caseCible.pion !== null) {
-                                this.game.sendServer('pionMoveForce', caseCible.pion.export());
-                                this.game.plateau.caseSuivante(this.game.idlePion().case, caseCible).poserPionForce(caseCible.pion);
+                            if (pionCible !== null) {
+                                this.game.plateau.caseSuivante(this.game.idlePion().case, caseCible).poserPionForce(pionCible);
+                                this.game.sendServer('pionMoveForce', pionCible.export());
                             }
 
                             caseCible.poserPion(this.game.idlePion());
@@ -54,14 +56,6 @@ export class MinotaurDeplacement extends Step
                     }
                 });
             });
-        });
-    }
-
-    after () {
-        this.game.pions.forEach(pion => {pion.emitter.flush()});
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideMoveHint();
         });
     }
 }

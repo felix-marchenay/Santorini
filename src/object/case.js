@@ -33,26 +33,29 @@ export class Case
     }
 
     poserPion(pion) {
-        if (this.dernierEtage()) {
-            if (this.dernierEtage().niveau == 'dome') {
-                throw "Impossible de se déplacer sur un dome";
-            }
+        if (this.dernierEtage() && this.dernierEtage().niveau == 'dome') {
+            throw "Impossible de se déplacer sur un dome";
         }
+
         if (pion.case) {
             if (this.differenceNiveau(pion.case) > 1) {
                 throw "Etage trop haut pour y monter";
             }
         }
+        
         pion.moveTo(this);
         this.pion = pion;
     }
 
     poserPionForce(pion) {
-        if (this.dernierEtage()) {
-            if (this.dernierEtage().niveau == 'dome') {
-                throw "Impossible de se déplacer sur un dome";
-            }
+        if (this.dernierEtage() && this.dernierEtage().niveau == 'dome') {
+            throw "Impossible de se déplacer sur un dome";
         }
+
+        if (this.pion !== null) {
+            throw "Case occupée";
+        }
+
         pion.moveTo(this);
         this.pion = pion;
     }

@@ -68,13 +68,13 @@ export class Game
 
 
         //////////
-        this.stepper.addSteps(
-            new RandomBuild(this, this.joueurs),
-            new AutoPreparation(this, this.joueurs),
-        );
+        // this.stepper.addSteps(
+        //     new RandomBuild(this, this.joueurs),
+        //     new AutoPreparation(this, this.joueurs),
+        // );
 
 
-        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {
@@ -158,14 +158,14 @@ export class Game
     victory(joueur) {
         this.ihm.victory(joueur);
         setTimeout(() => {
-            joueur.lastPionMoved.animateVictory();
+            joueur.lastMovedPion.animateVictory();
         }, 1100);
     }
 
     async play() {
         this.stepper.run().catch(e => {
             if (e instanceof Victoire) {
-                console.log(e);
+                console.log(e, e.joueur.lastMovedPion);
                 this.victory(e.joueur);
             } else {
                 console.error(e);

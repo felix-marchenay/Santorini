@@ -66,13 +66,4 @@ export class TritonDeplacement extends Step
             });
         });
     }
-
-    after () {
-        this.game.pions.forEach(pion => {pion.emitter.flush()});
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideMoveHint();
-        });
-        this.game.hideSkip();
-    }
 }

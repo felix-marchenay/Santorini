@@ -23,9 +23,10 @@ export class Deplacement extends Step
 
             this.game.plateau.allCases().forEach(caze => {
                 caze.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
+                    const pion = this.game.idlePion();
+                    if (pion) {
                         try  {
-                            if (!this.game.idlePion().case.estAvoisinante(caze)) {
+                            if (!pion.case.estAvoisinante(caze)) {
                                 throw "La case est trop loin pour s'y rendre";
                             }
                             
@@ -33,11 +34,11 @@ export class Deplacement extends Step
                                 throw "La case doit être vide pour s'y rendre";
                             }
 
-                            caze.poserPion(this.game.idlePion());
+                            caze.poserPion(pion);
 
-                            this.game.sendServer('pionMove', this.game.idlePion().export());
+                            this.game.sendServer('pionMove', pion.export());
 
-                            this.joueur.lastMovedPion = this.game.idlePion();
+                            this.joueur.lastMovedPion = pion;
     
                             if (this.joueur.isVictorious()) {
                                 this.game.sendVictory(this.joueur);
@@ -53,14 +54,6 @@ export class Deplacement extends Step
                     }
                 });
             });
-        });
-    }
-
-    after () {
-        this.game.pions.forEach(pion => {pion.emitter.flush()});
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideMoveHint();
         });
     }
 }

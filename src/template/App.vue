@@ -46,7 +46,7 @@ export default {
     },
     
     created() {
-        this.page = 'game';
+        this.page = 'main-menu';
 
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';

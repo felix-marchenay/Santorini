@@ -42,10 +42,4 @@ export class PoseidonEndTurn extends Step
             });
         });
     }
-
-    after() {
-        this.game.flushEventsCases();
-        this.game.hideAllBuildHint();this.game.hideSkip();
-        this.game.ihm.emitter.flush();
-    }
 }

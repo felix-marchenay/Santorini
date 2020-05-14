@@ -10,6 +10,9 @@ export class DistantConstruction extends Step
             this.game.server.emitter.on('construct', data => {
                 const caze = this.game.findCaseByCoordinates(data);
                 caze.build();
+                if (caze.pion) {
+                    caze.poserPion(caze.pion);
+                }
             });
 
             this.game.server.emitter.on('constructDome', data => {

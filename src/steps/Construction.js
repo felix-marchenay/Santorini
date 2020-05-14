@@ -30,11 +30,4 @@ export class Construction extends Step
             });
         });
     }
-
-    after () {
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideBuildHint();
-        });
-    }
 }

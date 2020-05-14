@@ -23,6 +23,7 @@ export class CharonDebutTour extends Step
                 console.log(pionsProcheAdversaires);
 
                 if (pionsProcheAdversaires.length < 1) {
+                    this.game.endTurn();
                     resolve();
                 }
                 
@@ -57,8 +58,5 @@ export class CharonDebutTour extends Step
                 });
             });
         });
-    }
-
-    after() {
     }
 }
