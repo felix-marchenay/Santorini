@@ -5,7 +5,7 @@ export class Server
 {
     constructor() {
         this.emitter = new Emitter;
-        this.host = '192.168.1.14';
+        this.host = '51.15.128.27';
         this.port = '4949'
         this.socket = null;
         this.transitEvents = [
