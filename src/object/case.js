@@ -109,8 +109,15 @@ export class Case
         this.buildHint.hide();
     }
 
+    distanceDe(case2) {
+        return Math.max(
+            Math.abs(case2.coordinates.x - this.coordinates.x),
+            Math.abs(case2.coordinates.y - this.coordinates.y)
+        );
+    }
+
     estAvoisinante(case2) {
-        return Math.abs(case2.coordinates.x - this.coordinates.x) <= 1 && Math.abs(case2.coordinates.y - this.coordinates.y) <= 1;
+        return this.distanceDe(case2) === 1;
     }
 
     pick() {

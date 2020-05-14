@@ -86,20 +86,20 @@ export class SantoriniScene
         const lightPosition2 = new Vector3(-6, 15, -10);
         const light2 = new PointLight("light", lightPosition2, this.scene);
         light2.intensity = 500;
-        const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        lightBox2.position = lightPosition2;
+        // const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        // lightBox2.position = lightPosition2;
     
         const lightPosition3 = new Vector3(7, 15, -15);
         const light3 = new PointLight("light", lightPosition3, this.scene);
         light3.intensity = 600;
-        const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        lightBox3.position = lightPosition3;
+        // const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        // lightBox3.position = lightPosition3;
 
         const lightPosition4 = new Vector3(-8, 20, 10);
         const light4 = new PointLight("light", lightPosition4, this.scene);
         light4.intensity = 500;
-        const lightBox4 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        lightBox4.position = lightPosition4;
+        // const lightBox4 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
+        // lightBox4.position = lightPosition4;
 
         return [light4, light2, light3];
     }

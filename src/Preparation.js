@@ -71,7 +71,7 @@ export class Preparation
             const players = [
                 {
                     name: 'xx-kevin',
-                    divinite: 'minotaur',
+                    divinite: 'charon',
                 },
                 {
                     name: 'Michelinho',

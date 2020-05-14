@@ -107,6 +107,7 @@ export default {
         position: absolute;
         right: 0;
         bottom: 60px;
+        padding: 15px;
         pointer-events: all;
 
         .skip {

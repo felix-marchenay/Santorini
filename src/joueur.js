@@ -72,6 +72,10 @@ export class Joueur
         return this.divinite.isVictorious(this.lastMovedPion);
     }
 
+    hasPion(pion) {
+        return this.pions.filter(p => p == pion).length > 0;
+    }
+
     export () {
         return {
             name: this.name,

@@ -75,6 +75,17 @@ export class Plateau {
         );
     }
 
+    caseEntre(case1, case2) {
+        if (case1.distanceDe(case2) != 2) {
+            throw "Case trop distante"
+        }
+
+        return this.getCase(
+            (case2.coordinates.x - case1.coordinates.x)/2 + case1.coordinates.x,
+            (case2.coordinates.y - case1.coordinates.y)/2 + case1.coordinates.y,
+        );
+    }
+
     hideBuildHint() {
         this.allCases().forEach(cas => {
             cas.hideBuildHint();

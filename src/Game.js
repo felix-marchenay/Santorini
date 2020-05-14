@@ -22,6 +22,7 @@ import { Poseidon } from "./divinite/Poseidon";
 import { NoDivinite } from "./divinite/NoDivinite";
 import { Triton } from "./divinite/Triton";
 import { Zeus } from "./divinite/Zeus";
+import { Charon } from "./divinite/Charon";
 
 export class Game
 {
@@ -146,6 +147,10 @@ export class Game
         return this.joueurs.find(j => j.id == id);
     }
 
+    joueursAdverses(joueur) {
+        return this.joueurs.filter(j => j.id != joueur.id);
+    }
+
     findCaseByCoordinates(coordinates) {
         return this.plateau.cases[coordinates.x][coordinates.y];
     }
@@ -208,7 +213,7 @@ export class Game
             triton: new Triton,
             zeus: new Zeus,
             minotaur: new Minotaur,
-            charon: new Charon
+            charon: new Charon  
         };
     }
 
