@@ -10,6 +10,7 @@ import { NoDivinite } from "./divinite/NoDivinite";
 import { PreparationUnSeulJoueur } from "./steps/PreparationUnJoueur";
 import { Triton } from "./divinite/Triton";
 import { Zeus } from "./divinite/Zeus";
+import { Minotaur } from "./divinite/Minotaur";
 
 export class Preparation
 {
@@ -54,7 +55,8 @@ export class Preparation
                 athena: new Athena,
                 no: new NoDivinite,
                 triton: new Triton,
-                zeus: new Zeus
+                zeus: new Zeus,
+                minotaur: new Minotaur
             };
 
             this.server.emitter.on('letsgo', room => {
@@ -81,7 +83,7 @@ export class Preparation
             const players = [
                 {
                     name: 'xx-kevin',
-                    divinite: 'zeus',
+                    divinite: 'minotaur',
                 },
                 {
                     name: 'Michelinho',
@@ -89,13 +91,13 @@ export class Preparation
                 },
             ];
 
-            // const joueurs = players.map((p, i) => 
-            //     new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
-            // );
+            const joueurs = players.map((p, i) => 
+                new Joueur(i+1, p.name, divinites[p.divinite], this.scene.scene, i, false, [{id:0},{id:1}])
+            );
 
             
-            // this.ihm.letsGo(joueurs);
-            // resolve(new Game(this.scene.scene, this.ihm, joueurs));
+            this.ihm.letsGo(joueurs);
+            resolve(new Game(this.scene.scene, this.ihm, joueurs));
         }
         return new Promise(fn);
     }

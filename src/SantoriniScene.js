@@ -13,7 +13,6 @@ export class SantoriniScene
         this.shadows = [this.lights[1]].map(l => new ShadowGenerator(512, l));
         this.shadows.forEach(sh => {
             sh.usePercentageCloserFiltering = true;
-            sh.filteringQuality = ShadowGenerator.QUALITY_HIGH;
         });
         this.scene.shadows = this.shadows;
 

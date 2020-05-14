@@ -118,6 +118,21 @@ export class Plateau {
         });
     }
 
+    caseSuivante(case1, case2) {
+        if (!case2.estAvoisinante(case1)) {
+            throw "Les cases doivent être avoisinantes";
+        }
+
+        const x = case1.coordinates.x + 2*(case2.coordinates.x - case1.coordinates.x);
+        const y = case1.coordinates.y + 2*(case2.coordinates.y - case1.coordinates.y);
+
+        if (x > 4 || y > 4) {
+            throw "Pas de case suivante";
+        }
+
+        return this.getCase(x, y);
+    }
+
     getCase(x, y) {
         return this.allCases().find(cas => cas.coordinates.x == x && cas.coordinates.y == y);
     }

@@ -47,6 +47,16 @@ export class Case
         this.pion = pion;
     }
 
+    poserPionForce(pion) {
+        if (this.dernierEtage()) {
+            if (this.dernierEtage().niveau == 'dome') {
+                throw "Impossible de se déplacer sur un dome";
+            }
+        }
+        pion.moveTo(this);
+        this.pion = pion;
+    }
+
     differenceNiveau (caze) {
         if (this.dernierEtage()) {
             return this.dernierEtage().difference(caze.dernierEtage());

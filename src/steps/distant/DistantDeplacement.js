@@ -14,8 +14,14 @@ export class DistantDeplacement extends Step
                 const caze = this.game.findCaseByCoordinates(data.data.position);
 
                 caze.poserPion(pion);
+            });
 
-                const joueur = this.game.joueurs.find(j => j.id == data.joueur);
+            this.game.server.emitter.on('pionMoveForce', data => {
+                const pion = this.game.findPionById(data.data.id);
+
+                const caze = this.game.findCaseByCoordinates(data.data.position);
+
+                caze.poserPionForce(pion);
             });
 
             this.game.server.emitter.on('endTurn', () => {
