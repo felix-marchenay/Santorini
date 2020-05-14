@@ -40,6 +40,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({ template: './public/index.html' }),
         new CopyWebpackPlugin([{ from: './public/models', to: 'models' }]),
+        new CopyWebpackPlugin([{ from: './public/image', to: 'image' }]),
         new VueLoaderPlugin()
     ],
 };
