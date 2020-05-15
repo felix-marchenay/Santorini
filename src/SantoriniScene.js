@@ -16,6 +16,8 @@ export class SantoriniScene
         });
         this.scene.shadows = this.shadows;
 
+        this.hoverMeshes = [];
+
         scene.onPointerObservable.add(pointerInfo => {
             switch (pointerInfo.type) {
                 case PointerEventTypes.POINTERPICK:
@@ -41,10 +43,8 @@ export class SantoriniScene
                     break;
                 case PointerEventTypes.POINTERMOVE:
                     if (pointerInfo.pickInfo.pickedMesh) {
-                        console.log(typeof pointerInfo.pickInfo.pickedMesh.onHover);
                         if (typeof pointerInfo.pickInfo.pickedMesh.onHover === 'function') {
                             document.body.style.cursor = 'pointer';
-                            pointerInfo.pickInfo.pickedMesh.onHover();
                         } else {
                             document.body.style.cursor = 'auto';
                         }

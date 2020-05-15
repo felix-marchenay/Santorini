@@ -135,10 +135,10 @@ export class Game
     }
 
     pionsPickables(pions, fn) {
-        pions.forEach(p => {
+        return pions.map(p => {
             p.enableHover();
             p.lightGlow();
-            p.emitter.on('picked', fn);
+            return p.emitter.on('picked', fn);
         });
     }
 

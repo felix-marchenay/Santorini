@@ -19,21 +19,17 @@ export class CharonDebutTour extends Step
                     }
                     return false;
                 });
-
-                console.log(pionsProcheAdversaires);
-
+                
                 if (pionsProcheAdversaires.length < 1) {
                     this.game.endTurn();
                     resolve();
                 }
                 
-                pionsProcheAdversaires.forEach(p => {
-                    p.emitter.on('picked', pion => {
-                        this.game.pions.filter(p => p != pion).forEach(p => {
-                            p.stopIdle();
-                        });
-                        pion.toggleIdle();
+                this.game.pionsPickables(pionsProcheAdversaires, pion => {
+                    this.game.pions.filter(p => p != pion).forEach(p => {
+                        p.stopIdle();
                     });
+                    pion.toggleIdle();
                 });
             });
 

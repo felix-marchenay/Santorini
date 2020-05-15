@@ -8,7 +8,7 @@ import {
     SceneLoader
 } from "@babylonjs/core";
 import { Emitter } from "../infrastructure/Emitter";
-import { CircleEase, EasingFunction, HighlightLayer } from "babylonjs";
+import { CircleEase, EasingFunction, HighlightLayer, ExecuteCodeAction } from "babylonjs";
 
 export class Pion {
     constructor (scene, material, gender, id) {
@@ -29,26 +29,41 @@ export class Pion {
         this.mesh.actionManager = new ActionManager(scene);
         this.mesh.animations = [];
         this.case = null;
+        
+        this.mesh.actionManager.registerAction(new ExecuteCodeAction(
+            ActionManager.OnPointerOverTrigger,
+            (a) => {
+                if (this.hoverable) {
+                    this.glow();
+                }
+            }
+        ));
+        this.mesh.actionManager.registerAction(new ExecuteCodeAction(
+            ActionManager.OnPointerOutTrigger,
+            (a) => {
+                if (this.hoverable) {
+                    this.lightGlow();
+                } else {
+                    this.unGlow();
+                }
+            }
+        ));
 
         this.mesh.pointerPicked = () => {
             this.emitter.emit('picked', this);
         }
     }
 
-    hoverFn() {
-        this.glow();
-    }
-
     enableHover() {
-        this.mesh.onHover = this.hoverFn;
+        this.hoverable = true;
     }
 
     disableHover() {
-        this.mesh.onHover = null;
+        this.hoverable = false;
     }
 
     lightGlow() {
-        this.highlight.addMesh(this.mesh, new Color3(0.2, 0.2, 0.2));
+        this.highlight.addMesh(this.mesh, new Color3(0.9, 0.9, 0.8));
         this.highlight.blurHorizontalSize = 0.1;
         this.highlight.blurVerticalSize = 0.1;
     }
