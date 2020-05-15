@@ -9,6 +9,7 @@ export class Poseidon extends Divinite
         super();
         this.name = 'Poséidon';
         this.slug = 'poseidon';
+        this.description = "Si votre ouvrier immobile se trouve au niveau du sol, il peut effectuer jusqu'à 3 constructions";
     }
 
     getConstructionStep(game, joueur) {

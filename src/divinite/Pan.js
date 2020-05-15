@@ -7,6 +7,7 @@ export class Pan extends Divinite
         super();
         this.name = 'Pan';
         this.slug = 'pan';
+        this.description = "Si votre ouvrier descend d'au moins 2 étages, vous gagnez la partie";
     }
 
     getDeplacementStep (game, joueur) {

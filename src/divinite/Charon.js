@@ -9,6 +9,7 @@ export class Charon extends Divinite
         super();
         this.name = 'Charon';
         this.slug = 'charon';
+        this.description = 'Lors de votre déplacement : peut expulser ses adversaires proches';
     }
 
     getDeplacementStep(game, joueur) {

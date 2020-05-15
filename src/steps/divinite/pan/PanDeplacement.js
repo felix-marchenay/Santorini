@@ -42,7 +42,7 @@ export class PanDeplacement extends Step {
 
                             this.game.sendServer('pionMove', this.game.idlePion().export());
 
-                            if (caseDepart.differenceNiveau(caze) === 2) {
+                            if (caseDepart.differenceNiveau(caze) >= 2) {
                                 this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }

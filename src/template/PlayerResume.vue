@@ -1,7 +1,7 @@
 <template>
   <div class="joueur" :class="{ current: active }" joueur="1">
     <div class="image">
-      <DiviniteCard :divinite="player.divinite"/>
+      <DiviniteCard :divinite="player.divinite" :showDescriptionOnClick="true"/>
     </div>
     <div class="infos">
       <div class="color" :style="'background-color: #' + player.couleursHex"></div>
@@ -45,6 +45,10 @@ export default {
   &.current {
     .divinite-card {
       transform: rotateZ(-4deg) translate3d(10px, 50px, 0px);
+
+      &:hover {
+        transform: rotateZ(-2deg) translate3d(10px, 45px, 0px);
+      }
     }
   }
 
@@ -58,7 +62,7 @@ export default {
     box-shadow: 1px 1px 4px 5px rgba(0, 0, 0, 0.5);
 
     &:hover {
-      transform: rotateZ(-7deg) translateY(100px);
+      transform: rotateZ(-7deg) translateY(140px);
     }
   }
 

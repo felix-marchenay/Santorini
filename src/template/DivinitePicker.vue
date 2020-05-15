@@ -5,6 +5,7 @@
                 v-for="divinite in divinites" v-bind:key="divinite.slug" 
                 :divinite="divinite"
                 @click.native="select(divinite)"
+                :showDescriptionOnHover="true"
             />
         </div>
     </div>

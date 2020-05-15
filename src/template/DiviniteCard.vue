@@ -1,6 +1,7 @@
 <template>
-    <div class="divinite-card">
+    <div class="divinite-card" @click="click" :class="{clicked : clicked, onClick: showDescriptionOnClick}">
         <img :src="src">
+        <div class="description" :class="{ onHover: showDescriptionOnHover }" v-if="showDescription">{{ divinite.description }}</div>
         <div class="name">{{ divinite.name }}</div>
     </div>
 </template>
@@ -10,11 +11,30 @@ export default {
     props: {
         divinite: {
             type: Object,
+        },
+        showDescriptionOnHover: {
+            type: Boolean
+        },
+        showDescriptionOnClick: {
+            type: Boolean
         }
+    },
+    data() {
+        return {
+            clicked : false
+        };
     },
     computed: {
         src() {
             return '/image/divinite/' + this.divinite.slug + '.jpg';
+        },
+        showDescription() {
+            return this.showDescriptionOnHover || this.showDescriptionOnClick;
+        }
+    },
+    methods: {
+        click() {
+            this.clicked = !this.clicked;
         }
     }
 }
@@ -36,13 +56,43 @@ export default {
         width: 100%;
     }
 
+    &.onClick {
+        
+        &.clicked {
+            transform: none;
+
+            .description {
+                opacity: 1;
+            }
+
+            &:hover {
+                transform: translate(0);
+            }
+        }
+    }
+
+    .description {
+        transition: 150ms ease-out;
+        position: absolute;
+        padding: 3px 4px;
+        top: 0;
+        left: 0;
+        right: 0;
+        font-size: 16px;
+        opacity: 0;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
     &:hover {
+        .description.onHover {
+            opacity: 1;
+        }
         .name {
             border-top: 2px solid cornflowerblue;
             border-bottom: 2px solid cornflowerblue;
             background: rgba(255, 255, 255, 0.95);
             color: rgb(10, 36, 124, 0.9);
-            bottom: 12px;
+            bottom: 0px;
         }
     }
 

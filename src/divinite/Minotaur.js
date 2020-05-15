@@ -7,6 +7,7 @@ export class Minotaur extends Divinite
         super();
         this.name = 'Minotaur';
         this.slug = 'minotaur';
+        this.description = "Lors de son déplacement : peut expulser un ouvrier adverse sur la case suivante";
     }
 
     getDeplacementStep(game, joueur) {

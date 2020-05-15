@@ -7,6 +7,7 @@ export class Atlas extends Divinite
         super();
         this.name = 'Atlas';
         this.slug = 'atlas';
+        this.description = 'Il peut construire un dôme à n\'importe quel étage';
     }
 
     getConstructionStep(game, joueur) {

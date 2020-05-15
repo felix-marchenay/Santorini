@@ -6,5 +6,6 @@ export class Demeter extends Divinite
         super();
         this.name = 'Demeter';
         this.slug = 'demeter';
+        this.description = "Peut construire une deuxième fois, mais pas sur la même case";
     }
 }

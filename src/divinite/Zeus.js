@@ -7,6 +7,7 @@ export class Zeus extends Divinite
         super();
         this.name = 'Zeus';
         this.slug = 'zeus';
+        this.description = "Peut construire sur la case où il se trouve, mais ne peut pas l'emporter comme ça.";
     }
 
     getConstructionStep(game, joueur) {

@@ -23,6 +23,10 @@ export class Santorini
             this.emitter.emit('ready');
         });
 
+        window.addEventListener('resize', () => {
+            this.engine.resize();
+        });
+
         this.server = new Server();
         this.stepper = new Stepper;
         this.ihm = new Interface;
