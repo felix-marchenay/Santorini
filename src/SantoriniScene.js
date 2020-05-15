@@ -41,9 +41,18 @@ export class SantoriniScene
                     break;
                 case PointerEventTypes.POINTERMOVE:
                     if (pointerInfo.pickInfo.pickedMesh) {
+                        console.log(typeof pointerInfo.pickInfo.pickedMesh.onHover);
+                        if (typeof pointerInfo.pickInfo.pickedMesh.onHover === 'function') {
+                            document.body.style.cursor = 'pointer';
+                            pointerInfo.pickInfo.pickedMesh.onHover();
+                        } else {
+                            document.body.style.cursor = 'auto';
+                        }
                         if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
                             pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
                         }
+                    } else {
+                        document.body.style.cursor = 'auto';
                     }
                     break;
             }

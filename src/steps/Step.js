@@ -21,7 +21,7 @@ export class Step
             cas.emitter.flush();
             cas.hideMoveHint();
         });
-        this.game.pions.forEach(pion => {pion.emitter.flush()});
+        this.game.pionsUnpickables(this.game.pions);
         this.game.hideSkip();
         this.game.ihm.emitter.flush();
     }

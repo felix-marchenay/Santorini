@@ -13,7 +13,7 @@ export class Santorini
     constructor(container) {
         this.emitter = new Emitter();
         const canvas = document.querySelector('#render');
-        this.engine = new Engine(canvas);
+        this.engine = new Engine(canvas, true, { stencil: true});
         const scene = new Scene(this.engine);
         this.scene = new SantoriniScene(scene, canvas);
         this.server = null;
@@ -43,7 +43,6 @@ export class Santorini
         
         this.engine.runRenderLoop(() => {
             this.scene.render();
-            // this.scene.showFPS(this.engine);
         });
     }
 }

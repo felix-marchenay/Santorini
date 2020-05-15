@@ -65,15 +65,6 @@ export class Game
     }
 
     setStepsFromPlayers() {
-
-
-        //////////
-        // this.stepper.addSteps(
-        //     new RandomBuild(this, this.joueurs),
-        //     new AutoPreparation(this, this.joueurs),
-        // );
-
-
         this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
         const steps = [...this.joueurs.reduce(
@@ -141,6 +132,23 @@ export class Game
         });
         
         return pionFound;
+    }
+
+    pionsPickables(pions, fn) {
+        pions.forEach(p => {
+            p.enableHover();
+            p.lightGlow();
+            p.emitter.on('picked', fn);
+        });
+    }
+
+    pionsUnpickables(pions) {
+        pions.forEach(p => {
+            p.disableHover();
+            p.unGlow();
+            p.emitter.flush();
+            p.mesh.pointerOnHover = false;
+        });
     }
 
     findJoueurById(id) {

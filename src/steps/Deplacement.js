@@ -8,17 +8,15 @@ export class Deplacement extends Step
 
             this.game.ihm.tour('se déplacer');
 
-            this.joueur.pions.forEach(pion => {
-                pion.emitter.on('picked', pion => {
-                    this.joueur.pions.filter(p => p != pion).forEach(p => {
-                        p.stopIdle();
-                    });
-                    pion.toggleIdle();
-                    
-                    this.game.plateau.showMoveHint(
-                        this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
-                    );
+            this.game.pionsPickables(this.joueur.pions, pion => {
+                this.joueur.pions.filter(p => p != pion).forEach(p => {
+                    p.stopIdle();
                 });
+                pion.toggleIdle();
+                
+                this.game.plateau.showMoveHint(
+                    this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
+                );
             });
 
             this.game.plateau.allCases().forEach(caze => {

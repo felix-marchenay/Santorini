@@ -7,17 +7,27 @@ export class PreparationUnSeulJoueur extends Step
             
             this.game.ihm.tour('placer ses pions');
             
-            this.joueur.pions.forEach(pion => {
-                pion.emitter.on('picked', pion => {
-                    this.game.pions.filter(p => p != pion).forEach(p => {
-                        p.stopIdle();
-                    });
-                    if (pion.case === null) {
-                        pion.toggleIdle();
-                        this.game.sendServer('idlePion', pion.export());
-                    }
+            this.game.pionsPickables(this.joueur.pions, pion => {
+                this.game.pions.filter(p => p != pion).forEach(p => {
+                    p.stopIdle();
                 });
+                if (pion.case === null) {
+                    pion.toggleIdle();
+                    this.game.sendServer('idlePion', pion.export());
+                }
             });
+
+            // this.joueur.pions.forEach(pion => {
+            //     pion.emitter.on('picked', pion => {
+            //         this.game.pions.filter(p => p != pion).forEach(p => {
+            //             p.stopIdle();
+            //         });
+            //         if (pion.case === null) {
+            //             pion.toggleIdle();
+            //             this.game.sendServer('idlePion', pion.export());
+            //         }
+            //     });
+            // });
 
             this.game.plateau.allCases().forEach(cas => {
                 cas.emitter.on('pointerPicked', () => {
