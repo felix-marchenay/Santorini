@@ -31,7 +31,7 @@ export default {
 
     data: function() {
         return {
-            page: 'singleplayer',
+            page: 'main-menu',
             players: []
         }
     },
