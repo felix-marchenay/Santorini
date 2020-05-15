@@ -61,7 +61,7 @@ export class Preparation
             this.ihm.emitter.on('goSingleplayer', players => {
 
                 const joueurs = players.map((p, i) => 
-                    new Joueur(i+1, p.name, Game.diviniteFromString(p.divinite), this.scene.scene, i, false, [{id:0},{id:1}])
+                    new Joueur(i+1, p.name, p.divinite, this.scene.scene, i, false, [{id:0},{id:1}])
                 );
 
                 this.ihm.letsGo(joueurs);

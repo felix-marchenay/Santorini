@@ -31,7 +31,7 @@ export default {
 
     data: function() {
         return {
-            page: 'main-menu',
+            page: 'singleplayer',
             players: []
         }
     },
@@ -46,8 +46,6 @@ export default {
     },
     
     created() {
-        this.page = 'main-menu';
-
         this.$root.$on('letsgo', joueurs => {
             this.page = 'game';
             this.players = joueurs;
@@ -90,15 +88,6 @@ export default {
             bottom: 0;
             left: 0;
             right: 0;
-        }
-
-        .img-divinite {
-            border: 5px solid rgba(110, 110, 110, 0.3);
-            box-shadow: 2px 3px 9px 4px rgba(0, 0, 0, 0.7);
-            display: inline-block;
-            border-radius: 5px;
-            position: relative;
-            transition: 100ms ease-out;
         }
     }
 

@@ -36,6 +36,7 @@ import Button from "../Button";
 import PlayerPicker from "../PlayerPicker";
 import DiviniteCard from "../DiviniteCard";
 import DivinitePicker from "../DivinitePicker";
+import { NoDivinite } from '../../divinite/NoDivinite';
 
 export default {
   components: {
@@ -50,7 +51,7 @@ export default {
       room: null,
       serverId: null,
       playerName: "",
-      divinite: "no",
+      divinite: new NoDivinite,
       amReady: false,
       othersPlayers: [],
       divinitePickerActive: false
@@ -91,7 +92,7 @@ export default {
         this.amReady = !this.amReady;
         this.$root.$emit("ready", {
             name: this.playerName,
-            divinite: this.divinite,
+            divinite: this.divinite.slug,
             ready: this.amReady
         });
     },

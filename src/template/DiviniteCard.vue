@@ -1,6 +1,7 @@
 <template>
     <div class="divinite-card">
         <img :src="src">
+        <div class="name">{{ divinite.name }}</div>
     </div>
 </template>
 
@@ -8,12 +9,12 @@
 export default {
     props: {
         divinite: {
-            type: String,
+            type: Object,
         }
     },
     computed: {
         src() {
-            return '/image/divinite/' + this.divinite + '.jpg';
+            return '/image/divinite/' + this.divinite.slug + '.jpg';
         }
     }
 }
@@ -33,6 +34,31 @@ export default {
 
     img {
         width: 100%;
+    }
+
+    &:hover {
+        .name {
+            border-top: 2px solid cornflowerblue;
+            border-bottom: 2px solid cornflowerblue;
+            background: rgba(255, 255, 255, 0.95);
+            color: rgb(10, 36, 124, 0.9);
+            bottom: 12px;
+        }
+    }
+
+    .name {
+        transition: 100ms ease-out;
+        position: absolute;
+        bottom: 6px;
+        left: 0;
+        right:0;
+        color: rgb(10, 36, 124, 0.7);
+        border-top: 2px solid cornflowerblue;
+        border-bottom: 2px solid cornflowerblue;
+        background: rgba(255, 255, 255, 0.6);
+        font-weight: 800;
+        padding: 6px;
+        text-align: center;
     }
 }
 </style>

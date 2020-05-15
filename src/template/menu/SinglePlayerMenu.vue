@@ -23,6 +23,7 @@
 import Button from '../Button';
 import DiviniteCard from '../DiviniteCard';
 import DivinitePicker from '../DivinitePicker';
+import { NoDivinite } from '../../divinite/NoDivinite';
 
 export default {
     components: {
@@ -35,12 +36,12 @@ export default {
             players: [
                 {
                     name: '',
-                    divinite: 'no',
+                    divinite: new NoDivinite,
                     divinitePickerActive: false
                 },
                 {
                     name: '',
-                    divinite: 'no',
+                    divinite: new NoDivinite,
                     divinitePickerActive: false
                 },
             ],
@@ -83,6 +84,15 @@ export default {
             border: 1px solid rgba(0, 0, 0, 0.4);
             border-radius: 3px;
             text-align: center;
+        }
+
+        .divinite-card {
+            transition: 105ms ease-out;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale3d(1.06, 1.06, 1);
+            }
         }
     }
 }

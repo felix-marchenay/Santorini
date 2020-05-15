@@ -1,7 +1,7 @@
 <template>
   <div class="joueur" :class="{ current: active }" joueur="1">
     <div class="image">
-      <DiviniteCard :divinite="player.divinite.slug"/>
+      <DiviniteCard :divinite="player.divinite"/>
     </div>
     <div class="infos">
       <div class="color" :style="'background-color: #' + player.couleursHex"></div>

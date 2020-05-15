@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { Emitter } from './infrastructure/Emitter';
+import { Game } from './Game';
 
 export class Server
 {
@@ -25,7 +26,8 @@ export class Server
                 this.emitter.emit('entered', room);
             });
 
-            this.socket.on('someoneEnteredRoom', newPlayer => {
+            this.socket.on('newPlayer', newPlayer => {
+                newPlayer.divinite = Game.diviniteFromString(newPlayer.divinite);
                 this.emitter.emit('newPlayer', newPlayer);
             });
 

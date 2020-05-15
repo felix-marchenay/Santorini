@@ -2,7 +2,7 @@
     <div class="divinite-picker" :class="{'active': active}">
         <div class="divinites">
             <DiviniteCard 
-                v-for="divinite in divinites" v-bind:key="divinite" 
+                v-for="divinite in divinites" v-bind:key="divinite.slug" 
                 :divinite="divinite"
                 @click.native="select(divinite)"
             />
@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             diviniteSelected: null,
-            divinites: Game.allDivinites()
+            divinites: Game.divinitesStringMapping()
         };
     },
     methods: {
