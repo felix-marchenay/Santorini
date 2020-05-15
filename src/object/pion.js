@@ -36,7 +36,6 @@ export class Pion {
     }
 
     hoverFn() {
-        console.log('?');
         this.glow();
     }
 
