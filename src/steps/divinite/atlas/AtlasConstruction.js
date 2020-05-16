@@ -29,7 +29,10 @@ export class AtlasConstruction extends Step
             } else {
                 this.game.plateau.showBuildHintDomeAround(pion.case);
             }
-            this.game.casesPickables(caze => {
+            
+            this.game.casesPickables(
+                this.game.plateau.casesAvoisinantes(pion.case),
+                caze => {
                 try {
                     if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                         if (this.game.ihm.atlasBuildMode == 'etage') {

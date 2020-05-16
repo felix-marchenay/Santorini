@@ -80,6 +80,10 @@ export class Case
             throw "Impossible de se déplacer sur un dome";
         }
 
+        if (this.pion !== null) {
+            throw "Case occupée";
+        }
+
         if (pion.case) {
             if (this.differenceNiveau(pion.case) > 1) {
                 throw "Etage trop haut pour y monter";
@@ -93,10 +97,6 @@ export class Case
     poserPionForce(pion) {
         if (this.dernierEtage() && this.dernierEtage().niveau == 'dome') {
             throw "Impossible de se déplacer sur un dome";
-        }
-
-        if (this.pion !== null) {
-            throw "Case occupée";
         }
 
         pion.moveTo(this);

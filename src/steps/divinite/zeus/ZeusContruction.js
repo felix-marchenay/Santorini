@@ -8,15 +8,17 @@ export class ZeusConstruction extends Step
             this.game.ihm.tour('construire');
 
             const pion = this.joueur.lastMovedPion;
-
+            
             this.game.plateau.showBuildHintZeusAround(pion.case);
 
-            this.game.casesPickables(caze => {
+            this.game.casesPickables(
+                this.game.plateau.casesAvoisinantesEtElleMeme(pion.case),
+                caze => {
                 try {
-                    if (caze.isBuildable() && caze.estAvoisinante(pion.case) || caze == pion.case) {
+                    if (caze.isBuildable() || caze == pion.case) {
                         caze.build();
                         if (caze == pion.case) {
-                            caze.poserPion(pion);
+                            caze.poserPionForce(pion);
                         }
     
                         this.game.sendServer('construct', caze.export());
@@ -29,13 +31,6 @@ export class ZeusConstruction extends Step
                     this.game.ihm.error(e);
                 }
             });
-        });
-    }
-
-    after () {
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideBuildHint();
         });
     }
 }

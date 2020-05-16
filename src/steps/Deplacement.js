@@ -10,10 +10,7 @@ export class Deplacement extends Step
 
             this.game.pionsPickables(this.joueur.pions, pion => {
                 this.game.casesUnpickables();
-                this.joueur.pions.filter(p => p != pion).forEach(p => {
-                    p.stopIdle();
-                });
-                pion.toggleIdle();
+                this.game.toggleIdle(pion);
 
                 pion = this.game.idlePion();
 

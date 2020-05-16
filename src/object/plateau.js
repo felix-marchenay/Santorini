@@ -53,7 +53,11 @@ export class Plateau {
     }
 
     casesAvoisinantes(caseA) {
-        return this.allCases().filter(caseB => caseB.estAvoisinante(caseA) && caseB != caseA);
+        return this.allCases().filter(caseB => caseB.estAvoisinante(caseA));
+    }
+    
+    casesAvoisinantesEtElleMeme(caseA) {
+        return [...this.allCases().filter(caseB => caseB.estAvoisinante(caseA)), caseA];
     }
 
     showBuildHintAround (caze) {

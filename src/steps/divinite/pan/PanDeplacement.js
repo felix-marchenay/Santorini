@@ -13,10 +13,7 @@ export class PanDeplacement extends Step {
             this.game.ihm.tour('se déplacer');
 
             this.game.pionsPickables(this.joueur.pions, pion => {
-                this.joueur.pions.filter(p => p != pion).forEach(p => {
-                    p.stopIdle();
-                });
-                pion.toggleIdle();
+                this.game.toggleIdle(pion);
             });
     
 

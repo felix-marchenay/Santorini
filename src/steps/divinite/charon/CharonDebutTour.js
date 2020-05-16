@@ -12,12 +12,13 @@ export class CharonDebutTour extends Step
             this.game.joueursAdverses(this.joueur).forEach(adversaire => {
                 
                 const pionsProcheAdversaires = adversaire.pions.filter(p => {
-                    for (const caseProche of this.game.plateau.casesAvoisinantes(p.case)) {
-                        if (caseProche.pion && this.joueur.hasPion(caseProche.pion)) {
+                    const cases = this.game.plateau.casesDistanceDe(p.case, 2).filter(c => {
+                        const caseEntre = this.game.plateau.caseEntre(c, p.case);
+                        if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
                             return true;
                         }
-                    }
-                    return false;
+                    });
+                    return cases.length > 0;
                 });
                 
                 if (pionsProcheAdversaires.length < 1) {
@@ -26,9 +27,6 @@ export class CharonDebutTour extends Step
                 }
                 
                 this.game.pionsPickables(pionsProcheAdversaires, pion => {
-                    this.game.pions.filter(p => p != pion).forEach(p => {
-                        p.stopIdle();
-                    });
                     pion.toggleIdle();
 
                     pion = this.game.idlePion();
@@ -37,12 +35,24 @@ export class CharonDebutTour extends Step
                         return;
                     }
 
+                    const cases = this.game.plateau.casesDistanceDe(pion.case, 2).filter(c => {
+                        const caseEntre = this.game.plateau.caseEntre(c, pion.case);
+                        if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
+                            return true;
+                        }
+                    });
+
                     this.game.casesPickables(
-                        this.game.plateau.casesDistanceDe(pion.case, 2),
+                        cases,
                         caze => {
                             try {
                                 const caseEntre = this.game.plateau.caseEntre(pion.case, caze);
                                 if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
+
+                                        if (caze.pion !== null) {
+                                            throw "Case occupée";
+                                        }
+
                                         caze.poserPionForce(pion);
                                         this.game.sendServer('pionMoveForce', pion.export());
                                         

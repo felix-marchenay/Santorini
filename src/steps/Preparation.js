@@ -8,14 +8,10 @@ export class Preparation extends Step
             this.game.ihm.tour('préparer ses pions');
             
             this.game.pionsPickables(this.game.pions, pion => {
-                this.game.pions.filter(p => p != pion).forEach(p => {
-                    p.stopIdle();
-                });
                 if (pion.case === null) {
-                    pion.toggleIdle();
+                    this.game.toggleIdle(pion);
                 }
             });
-
 
             this.game.casesPickables(caze => {
                 if (this.game.idlePion() && this.game.idlePion().canGo(caze)) {

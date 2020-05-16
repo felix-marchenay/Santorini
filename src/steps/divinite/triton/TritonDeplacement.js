@@ -19,68 +19,43 @@ export class TritonDeplacement extends Step
                     return;
                 }
 
-                this.game.casesPickables(
-                    // this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)), 
-                    caze => {
-                        try  {
-                            eventsMove.forEach(ev => {
-                                this.joueur.pions.forEach(p => p.emitter.off(ev));
-                            });
-        
-                            caze.poserPion(pion);
-                            
-                            this.game.displaySkip(resolve);
-        
-                            this.game.sendServer('pionMove', pion.export());
-        
-                            this.joueur.lastMovedPion = pion;
-        
-                            if (this.joueur.isVictorious()) {
-                                this.game.sendVictory(this.joueur);
-                                reject(new Victoire(this.joueur));
-                            }
-        
-                            if (!caze.estDuPerimetre()) {
-                                this.game.endTurn();
-                                resolve();
-                            } 
-                        } catch (e) {
-                            console.log(e);
-                            this.game.ihm.error(e);
-                        }
-                });
+                this.casesAvoisinantesClickables(pion, resolve, reject);
             });
-            
-            
         });
     }
 
-    clickCase(caze) {
-        try  {
-            eventsMove.forEach(ev => {
-                this.joueur.pions.forEach(p => p.emitter.off(ev));
-            });
+    casesAvoisinantesClickables(pion, resolve, reject) {
+        this.game.casesPickables(
+            this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
+            caze => {
+                try  {
+                    this.game.pionsUnpickables(this.game.pions);
+                    caze.poserPion(pion);
+                    
+                    this.game.displaySkip(resolve);
 
-            caze.poserPion(pion);
-            
-            this.game.displaySkip(resolve);
+                    this.game.sendServer('pionMove', pion.export());
 
-            this.game.sendServer('pionMove', pion.export());
+                    this.joueur.lastMovedPion = pion;
 
-            this.joueur.lastMovedPion = pion;
+                    if (this.joueur.isVictorious()) {
+                        this.game.sendVictory(this.joueur);
+                        reject(new Victoire(this.joueur));
+                    }
 
-            if (this.joueur.isVictorious()) {
-                this.game.sendVictory(this.joueur);
-                reject(new Victoire(this.joueur));
+                    if (!caze.estDuPerimetre()) {
+                        this.game.endTurn();
+                        resolve();
+                    }
+
+                    this.game.casesUnpickables();
+
+                    this.casesAvoisinantesClickables(pion, resolve, reject);
+                } catch (e) {
+                    console.log(e);
+                    this.game.ihm.error(e);
+                }
             }
-
-            if (!caze.estDuPerimetre()) {
-                this.game.endTurn();
-                resolve();
-            } 
-        } catch (e) {
-            console.log(e);
-            this.game.ihm.error(e);
-        }
+        );
     }
 }

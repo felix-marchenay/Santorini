@@ -11,7 +11,9 @@ export class Construction extends Step
 
             this.game.plateau.showBuildHintAround(pion.case);
 
-            this.game.casesPickables(caze => {
+            this.game.casesPickables(
+                this.game.plateau.casesAvoisinantes(pion.case),
+                caze => {
                 try {
                     if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                         caze.build();

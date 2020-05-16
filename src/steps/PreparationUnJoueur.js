@@ -8,11 +8,8 @@ export class PreparationUnSeulJoueur extends Step
             this.game.ihm.tour('placer ses pions');
             
             this.game.pionsPickables(this.joueur.pions, pion => {
-                this.game.pions.filter(p => p != pion).forEach(p => {
-                    p.stopIdle();
-                });
                 if (pion.case === null) {
-                    pion.toggleIdle();
+                    this.game.toggleIdle(pion);
                     this.game.sendServer('idlePion', pion.export());
                 }
             });

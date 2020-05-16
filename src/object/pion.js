@@ -159,6 +159,10 @@ export class Pion {
         return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
 
+    minotaurCanGo(caze) {
+        return (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
+    }
+
     toggleIdle() {
         if (this.idle) {
             this.stopIdle();
