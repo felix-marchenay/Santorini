@@ -26,8 +26,4 @@ export class DistantConstruction extends Step
 
         });
     }
-
-    after () {
-        this.game.server.emitter.flush();
-    }
 }

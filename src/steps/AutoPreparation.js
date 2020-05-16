@@ -35,8 +35,4 @@ export class AutoPreparation extends Step
             resolve();
         });
     }
-
-    after() {
-        this.game.plateau.allCases().forEach(cas => {cas.emitter.flush()});
-    }
 }

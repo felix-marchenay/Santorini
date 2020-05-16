@@ -7,8 +7,4 @@ export class DistantStep extends Step
 
         });
     }
-
-    after () {
-        this.game.server.emitter.flush();
-    }
 }

@@ -75,17 +75,17 @@ export class Preparation
                 },
                 {
                     name: 'xx-kevin',
-                    divinite: 'minotaur',
+                    divinite: 'atlas',
                 },
             ];
 
-            const joueurs = players.map((p, i) => 
-                new Joueur(i+1, p.name, Game.diviniteFromString(p.divinite), this.scene.scene, i, false, [{id:0},{id:1}])
-            );
+            // const joueurs = players.map((p, i) => 
+            //     new Joueur(i+1, p.name, Game.diviniteFromString(p.divinite), this.scene.scene, i, false, [{id:0},{id:1}])
+            // );
 
             
-            this.ihm.letsGo(joueurs);
-            resolve(new Game(this.scene.scene, this.ihm, joueurs));
+            // this.ihm.letsGo(joueurs);
+            // resolve(new Game(this.scene.scene, this.ihm, joueurs));
         }
         return new Promise(fn);
     }

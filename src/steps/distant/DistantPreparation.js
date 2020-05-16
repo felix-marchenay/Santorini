@@ -30,9 +30,4 @@ export class DistantPreparation extends Step
 
         });
     }
-
-    after () {
-        this.game.pions.forEach(p => p.stopIdle());
-        this.game.server.emitter.flush();
-    }
 }

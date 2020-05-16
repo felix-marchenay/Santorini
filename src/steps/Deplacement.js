@@ -9,7 +9,7 @@ export class Deplacement extends Step
             this.game.ihm.tour('se déplacer');
 
             this.game.pionsPickables(this.joueur.pions, pion => {
-                this.game.casesUnpickables();
+
                 this.game.toggleIdle(pion);
 
                 pion = this.game.idlePion();
@@ -22,13 +22,6 @@ export class Deplacement extends Step
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
                     caze => {
                         try  {
-                            if (!pion.case.estAvoisinante(caze)) {
-                                throw "La case est trop loin pour s'y rendre";
-                            }
-                            
-                            if (caze.pion !== null) {
-                                throw "La case doit être vide pour s'y rendre";
-                            }
         
                             caze.poserPion(pion);
         

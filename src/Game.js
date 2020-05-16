@@ -4,14 +4,11 @@ import { Color3, KeyboardEventTypes, PointerEventTypes, Color4, Scene } from "@b
 import { Pion } from "./object/pion";
 import { Stepper } from "./infrastructure/Stepper";
 import { Preparation } from "./steps/Preparation";
-import { ChoixNoms } from "./steps/ChoixNom";
-import { AutoChoixNoms } from "./steps/AutoChoixNoms";
 import { AutoPreparation } from "./steps/AutoPreparation";
 import { RandomBuild } from "./steps/RandomBuild";
 import { Unsplash } from "./steps/Unsplash";
 import { Emitter } from "./infrastructure/Emitter";
 import { Interface } from "./ihm/Interface";
-import { AutoDistant } from "./steps/AutoDistant";
 import { Server } from "./Server";
 import { Victoire } from "./Victoire";
 import { SpotLight, Vector3, MeshBuilder } from "babylonjs";
