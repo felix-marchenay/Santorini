@@ -16,17 +16,16 @@ export class Preparation extends Step
                 }
             });
 
-            this.game.plateau.allCases().forEach(cas => {
-                cas.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion() && this.game.idlePion().canGo(cas)) {
-                        cas.poserPion(this.game.idlePion());
-                        this.game.idlePion().stopIdle();
-                    }
 
-                    if (this.game.pions.filter(p => p.case === null).length === 0) {
-                        resolve();
-                    }
-                });
+            this.game.casesPickables(caze => {
+                if (this.game.idlePion() && this.game.idlePion().canGo(caze)) {
+                    caze.poserPion(this.game.idlePion());
+                    this.game.idlePion().stopIdle();
+                }
+    
+                if (this.game.pions.filter(p => p.case === null).length === 0) {
+                    resolve();
+                }
             });
         });
     }

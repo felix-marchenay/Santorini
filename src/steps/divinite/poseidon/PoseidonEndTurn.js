@@ -25,7 +25,6 @@ export class PoseidonEndTurn extends Step
 
             let nbConstructions = 0;
             this.game.onClickCaseAvoisinantes(pionImmobile, cas => {
-
                 if (cas.isBuildable()) {
                     cas.build();
 

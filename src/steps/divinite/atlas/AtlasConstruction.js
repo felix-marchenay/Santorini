@@ -29,27 +29,24 @@ export class AtlasConstruction extends Step
             } else {
                 this.game.plateau.showBuildHintDomeAround(pion.case);
             }
-
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    try {
-                        if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
-                            if (this.game.ihm.atlasBuildMode == 'etage') {
-                                caze.build();
-                                this.game.sendServer('construct', caze.export());
-                            } else {
-                                caze.AtlasBuildDome();
-                                this.game.sendServer('constructDome', caze.export());
-                            }
-
-                            this.game.endTurn();
-                            resolve();
+            this.game.casesPickables(caze => {
+                try {
+                    if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
+                        if (this.game.ihm.atlasBuildMode == 'etage') {
+                            caze.build();
+                            this.game.sendServer('construct', caze.export());
+                        } else {
+                            caze.AtlasBuildDome();
+                            this.game.sendServer('constructDome', caze.export());
                         }
-                    } catch (e) {
-                        console.log(e);
-                        this.game.ihm.error(e);
+    
+                        this.game.endTurn();
+                        resolve();
                     }
-                });
+                } catch (e) {
+                    console.log(e);
+                    this.game.ihm.error(e);
+                }
             });
         });
     }

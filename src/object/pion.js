@@ -29,50 +29,43 @@ export class Pion {
         this.mesh.actionManager = new ActionManager(scene);
         this.mesh.animations = [];
         this.case = null;
-        
-        this.mesh.actionManager.registerAction(new ExecuteCodeAction(
-            ActionManager.OnPointerOverTrigger,
-            (a) => {
-                if (this.hoverable) {
-                    this.glow();
-                }
-            }
-        ));
-        this.mesh.actionManager.registerAction(new ExecuteCodeAction(
-            ActionManager.OnPointerOutTrigger,
-            (a) => {
-                if (this.hoverable) {
-                    this.lightGlow();
-                } else {
-                    this.unGlow();
-                }
-            }
-        ));
 
         this.mesh.pointerPicked = () => {
             this.emitter.emit('picked', this);
         }
+        this.onHoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOverTrigger,
+            () => {
+                this.glow();
+            }
+        );
+        this.onUnhoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOutTrigger,
+            () => {
+                this.lightGlow();
+            }
+        );
     }
 
     enableHover() {
-        this.hoverable = true;
+        this.mesh.actionManager.registerAction(this.onHoverAction);
+        this.mesh.actionManager.registerAction(this.onUnhoverAction);
+        this.lightGlow();
     }
 
     disableHover() {
-        this.hoverable = false;
+        this.mesh.actionManager.unregisterAction(this.onHoverAction);
+        this.mesh.actionManager.unregisterAction(this.onUnhoverAction);
     }
 
     lightGlow() {
-        this.highlight.addMesh(this.mesh, new Color3(0.9, 0.9, 0.8));
+        this.highlight.addMesh(this.mesh, new Color3(0.3, 0.6, 0.88));
         this.highlight.blurHorizontalSize = 0.1;
         this.highlight.blurVerticalSize = 0.1;
     }
 
-    glow (color) {
-        if (color === undefined) {
-            color = new Color3(0.1, 0.9, 0.6);
-        }
-        this.highlight.addMesh(this.mesh, color);
+    glow () {
+        this.highlight.addMesh(this.mesh, new Color3(0.3, 0.6, 0.88));
         this.highlight.blurHorizontalSize = 1;
         this.highlight.blurVerticalSize = 1;
     }

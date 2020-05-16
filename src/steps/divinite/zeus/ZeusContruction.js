@@ -11,25 +11,23 @@ export class ZeusConstruction extends Step
 
             this.game.plateau.showBuildHintZeusAround(pion.case);
 
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    try {
-                        if (caze.isBuildable() && caze.estAvoisinante(pion.case) || caze == pion.case) {
-                            caze.build();
-                            if (caze == pion.case) {
-                                caze.poserPion(pion);
-                            }
-
-                            this.game.sendServer('construct', caze.export());
-
-                            this.game.endTurn();
-                            resolve();
+            this.game.casesPickables(caze => {
+                try {
+                    if (caze.isBuildable() && caze.estAvoisinante(pion.case) || caze == pion.case) {
+                        caze.build();
+                        if (caze == pion.case) {
+                            caze.poserPion(pion);
                         }
-                    } catch (e) {
-                        console.log(e);
-                        this.game.ihm.error(e);
+    
+                        this.game.sendServer('construct', caze.export());
+    
+                        this.game.endTurn();
+                        resolve();
                     }
-                });
+                } catch (e) {
+                    console.log(e);
+                    this.game.ihm.error(e);
+                }
             });
         });
     }

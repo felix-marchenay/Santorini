@@ -109,9 +109,7 @@ export class Game
     }
 
     onClickCaseAvoisinantes(pion, fn) {
-        this.plateau.casesAvoisinantes(pion.case).forEach(cas => {
-            cas.emitter.on('pointerPicked', () => { fn(cas) });
-        });
+        this.game.casesPickables(this.plateau.casesAvoisinantes(pion.case), fn);
     }
 
     flushEventsCases() {
@@ -137,7 +135,6 @@ export class Game
     pionsPickables(pions, fn) {
         return pions.map(p => {
             p.enableHover();
-            p.lightGlow();
             return p.emitter.on('picked', fn);
         });
     }
@@ -147,7 +144,29 @@ export class Game
             p.disableHover();
             p.unGlow();
             p.emitter.flush();
-            p.mesh.pointerOnHover = false;
+        });
+    }
+
+    casesPickables(cases, fn) {
+        if (typeof cases === 'function') {
+            fn = cases;
+            cases = this.plateau.allCases();
+        }
+        return cases.map(c => {
+            c.showMoveHint();
+            c.enableHover();
+            return c.emitter.on('pointerPicked', fn);
+        });
+    }
+
+    casesUnpickables(cases) {
+        if (cases === undefined) {
+            cases = this.plateau.allCases();
+        }
+        cases.forEach(c => {
+            c.hideMoveHint();
+            c.disableHover();
+            c.emitter.flush();
         });
     }
 

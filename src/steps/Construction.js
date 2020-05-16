@@ -11,22 +11,20 @@ export class Construction extends Step
 
             this.game.plateau.showBuildHintAround(pion.case);
 
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    try {
-                        if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
-                            caze.build();
-
-                            this.game.sendServer('construct', caze.export());
-
-                            this.game.endTurn();
-                            resolve();
-                        }
-                    } catch (e) {
-                        console.log(e);
-                        this.game.ihm.error(e);
+            this.game.casesPickables(caze => {
+                try {
+                    if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
+                        caze.build();
+    
+                        this.game.sendServer('construct', caze.export());
+    
+                        this.game.endTurn();
+                        resolve();
                     }
-                });
+                } catch (e) {
+                    console.log(e);
+                    this.game.ihm.error(e);
+                }
             });
         });
     }

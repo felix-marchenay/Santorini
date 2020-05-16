@@ -6,7 +6,7 @@ import { Dome } from "./etage/Dome";
 import { BuildHint } from "./BuildHint";
 import { Emitter } from "../infrastructure/Emitter";
 import { Etage } from "./etage/Etage";
-import { HighlightLayer } from "babylonjs";
+import { HighlightLayer, ExecuteCodeAction, ActionManager } from "babylonjs";
 import { MoveHint } from "./MoveHint";
 
 export class Case
@@ -23,13 +23,49 @@ export class Case
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
         this.mesh.pointerPicked = () => {
-            this.emitter.emit('pointerPicked');
+            this.emitter.emit('pointerPicked', this);
         }
+        this.mesh.material.emissiveColor = new Color3(0, 0, 0);
         this.buildHint = new BuildHint(scene, this);
         this.buildHint.emitter.on('pointerPicked', () => {
-            this.emitter.emit('pointerPicked');
+            this.emitter.emit('pointerPicked', this);
         });
         this.moveHint = new MoveHint(scene, this);
+
+        this.highlight = new HighlightLayer('', scene);
+        this.mesh.actionManager = new ActionManager(scene);
+        this.onHoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOverTrigger,
+            () => {
+                this.glow();
+            }
+        );
+        this.onUnhoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOutTrigger,
+            () => {
+                this.unGlow();
+            }
+        );
+    }
+
+    enableHover() {
+        this.mesh.actionManager.registerAction(this.onHoverAction);
+        this.mesh.actionManager.registerAction(this.onUnhoverAction);
+    }
+
+    disableHover() {
+        this.mesh.actionManager.unregisterAction(this.onHoverAction);
+        this.mesh.actionManager.unregisterAction(this.onUnhoverAction);
+    }
+
+    glow () {
+        // this.highlight.addMesh(this.mesh, new Color3(0.3, 0.8, 0.6));
+        // this.highlight.blurHorizontalSize = 1;
+        // this.highlight.blurVerticalSize = 1;
+    }
+
+    unGlow() {
+        // this.highlight.removeMesh(this.mesh);
     }
 
     poserPion(pion) {
@@ -142,22 +178,22 @@ export class Case
         if (this.constructions.etage1 === null) {
             this.constructions.etage1 = new Etage1(this.scene, this);
             this.constructions.etage1.emitter.on('pointerPicked', () => {
-                this.emitter.emit('pointerPicked')
+                this.emitter.emit('pointerPicked', this)
             });
         } else if(this.constructions.etage2 === null) {
             this.constructions.etage2 = new Etage2(this.scene, this);
             this.constructions.etage2.emitter.on('pointerPicked', () => {
-                this.emitter.emit('pointerPicked')
+                this.emitter.emit('pointerPicked', this)
             });
         } else if(this.constructions.etage3 === null) {
             this.constructions.etage3 = new Etage3(this.scene, this);
             this.constructions.etage3.emitter.on('pointerPicked', () => {
-                this.emitter.emit('pointerPicked')
+                this.emitter.emit('pointerPicked', this)
             });
         } else if(this.constructions.dome === null) {
             this.constructions.dome = new Dome(this.scene, this);
             this.constructions.dome.emitter.on('pointerPicked', () => {
-                this.emitter.emit('pointerPicked')
+                this.emitter.emit('pointerPicked', this)
             });
         }
     }
@@ -169,7 +205,7 @@ export class Case
 
         this.constructions.dome = new Dome(this.scene, this);
         this.constructions.dome.emitter.on('pointerPicked', () => {
-            this.emitter.emit('pointerPicked')
+            this.emitter.emit('pointerPicked', this)
         });
     }
 

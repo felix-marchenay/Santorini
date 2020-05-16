@@ -75,6 +75,10 @@ export class Plateau {
         );
     }
 
+    casesDistanceDe(caze, nb) {
+        return this.allCases().filter(case1 => case1.distanceDe(caze) === 2);
+    }
+
     caseEntre(case1, case2) {
         if (case1.distanceDe(case2) != 2) {
             throw "Case trop distante"

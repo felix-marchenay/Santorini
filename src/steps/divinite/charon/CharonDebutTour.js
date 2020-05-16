@@ -30,27 +30,31 @@ export class CharonDebutTour extends Step
                         p.stopIdle();
                     });
                     pion.toggleIdle();
-                });
-            });
 
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
-                        
-                        const pion = this.game.idlePion();
-                        try {
-                            const caseEntre = this.game.plateau.caseEntre(pion.case, caze);
-                            if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
-                                    caze.poserPionForce(pion);
-                                    this.game.sendServer('pionMoveForce', pion.export());
-                                    
-                                    this.game.endTurn();
-                                    resolve();
-                            }
-                        } catch (e) {
-                            console.error(e);
-                        }
+                    pion = this.game.idlePion();
+
+                    if (!pion) {
+                        return;
                     }
+
+                    this.game.casesPickables(
+                        this.game.plateau.casesDistanceDe(pion.case, 2),
+                        caze => {
+                            try {
+                                const caseEntre = this.game.plateau.caseEntre(pion.case, caze);
+                                if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
+                                        caze.poserPionForce(pion);
+                                        this.game.sendServer('pionMoveForce', pion.export());
+                                        
+                                        this.game.endTurn();
+                                        resolve();
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        }
+                    );
+
                 });
             });
         });

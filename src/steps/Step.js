@@ -22,6 +22,7 @@ export class Step
             cas.hideMoveHint();
         });
         this.game.pionsUnpickables(this.game.pions);
+        this.game.casesUnpickables();
         this.game.hideSkip();
         this.game.ihm.emitter.flush();
     }
