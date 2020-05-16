@@ -18,7 +18,7 @@
             <div class="my player">
                 <DivinitePicker @selected="setDivinite" :active="divinitePickerActive"/>
                 <DiviniteCard :divinite="divinite" @click.native="divinitePickerActive = true"/>
-                <input type="text" v-model="playerName" placeholder="Nom" />
+                <input type="text" @input="inputTyped" v-model="playerName" placeholder="Nom" />
                 <Button :class="{active: amReady}" @click="ready">{{ amReady ? 'Ready!': 'not ready' }}</Button>
             </div>
             <div v-for="(player, k) in othersPlayers" :key="k" class="other player">
@@ -36,7 +36,9 @@ import Button from "../Button";
 import PlayerPicker from "../PlayerPicker";
 import DiviniteCard from "../DiviniteCard";
 import DivinitePicker from "../DivinitePicker";
+import { Game } from "../../Game";
 import { NoDivinite } from '../../divinite/NoDivinite';
+import { debounce } from "debounce";
 
 export default {
   components: {
@@ -60,6 +62,10 @@ export default {
   created() {
     this.$root.$on("enteredRoom", (data) => {
       this.room = data.room.name;
+      data.room.joueurs = data.room.joueurs.map(j => {
+          j.divinite = Game.diviniteFromString(j.divinite);
+          return j;
+      });
       this.serverId = data.you;
       this.othersPlayers.push(
         ...data.room.joueurs.filter((j) => j.id !== this.serverId)
@@ -80,6 +86,19 @@ export default {
     this.$root.$on('removePlayer', player => {
         this.othersPlayers = this.othersPlayers.filter(p => p.id !== player.id);
     });
+
+    this.debounceType = debounce(() => {
+        this.$root.$emit('refreshPlayer', this.infos);
+    }, 500);
+  },
+  computed: {
+      infos() {
+            return {
+                name: this.playerName,
+                divinite: this.divinite.slug,
+                ready: this.amReady
+            }
+      }
   },
   methods: {
     search() {
@@ -90,15 +109,16 @@ export default {
     },
     ready() {
         this.amReady = !this.amReady;
-        this.$root.$emit("ready", {
-            name: this.playerName,
-            divinite: this.divinite.slug,
-            ready: this.amReady
-        });
+        this.$root.$emit("refreshPlayer", this.infos);
     },
     setDivinite(divinite) {
+        console.log(divinite);
         this.divinite = divinite;
         this.divinitePickerActive = false;
+        this.$root.$emit('refreshPlayer', this.infos);
+    },
+    inputTyped() {
+        this.debounceType();
     }
   },
 };

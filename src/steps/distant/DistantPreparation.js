@@ -11,7 +11,7 @@ export class DistantPreparation extends Step
 
                 const pion = this.game.findPionById(data.data.id);
 
-                this.game.ildePion(pion);
+                this.game.idlePion(pion);
             });
 
             this.game.server.emitter.on('pionMove', data => {

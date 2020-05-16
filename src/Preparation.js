@@ -35,8 +35,8 @@ export class Preparation
                 this.ihm.enteredRoom(room);
             });
     
-            this.ihm.emitter.on('ready', data => {
-                this.server.emit('ready', data);
+            this.ihm.emitter.on('refreshPlayer', data => {
+                this.server.emit('refreshPlayer', data);
             });
 
             this.server.emitter.on('newPlayer', player => {

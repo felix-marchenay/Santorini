@@ -128,7 +128,11 @@ export class Case
     }
 
     showBuildHint() {
-        this.buildHint.show(this.nextLevelToBuild());
+        try {
+            this.buildHint.show(this.nextLevelToBuild());
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     showBuildHintDome() {

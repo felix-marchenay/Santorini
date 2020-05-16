@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             diviniteSelected: null,
-            divinites: Game.divinitesStringMapping()
+            divinites: Object.values(Game.divinitesStringMapping())
         };
     },
     methods: {

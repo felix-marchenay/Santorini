@@ -15,8 +15,9 @@ export class Interface
         this.vue.$on('roomSearch', roomName => {
             this.emitter.emit('roomSearch', roomName);
         });
-        this.vue.$on('ready', data => {
-            this.emitter.emit('ready', data);
+        this.vue.$on('refreshPlayer', data => {
+            console.log('rereshiiing', data);
+            this.emitter.emit('refreshPlayer', data);
         });
         this.vue.$on('skip', () => {
             this.emitter.emit('skip');
