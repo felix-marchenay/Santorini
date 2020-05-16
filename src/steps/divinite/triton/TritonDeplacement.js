@@ -9,10 +9,7 @@ export class TritonDeplacement extends Step
             this.game.ihm.tour('se déplacer');
 
             const eventsMove = this.game.pionsPickables(this.joueur.pions, pion => {
-                this.game.toggleIdle(pion);                    
-                this.game.plateau.showMoveHint(
-                    this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
-                );
+                this.game.toggleIdle(pion);
             });
             
             this.game.casesPickables(caze => {

@@ -25,7 +25,7 @@ export class Case
         this.mesh.pointerPicked = () => {
             this.emitter.emit('pointerPicked', this);
         }
-        this.mesh.material.emissiveColor = new Color3(0, 0, 0);
+        this.mesh.material = this.mesh.material.clone();
         this.buildHint = new BuildHint(scene, this);
         this.buildHint.emitter.on('pointerPicked', () => {
             this.emitter.emit('pointerPicked', this);
