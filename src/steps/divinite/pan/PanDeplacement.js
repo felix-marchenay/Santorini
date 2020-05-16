@@ -17,9 +17,6 @@ export class PanDeplacement extends Step {
                     p.stopIdle();
                 });
                 pion.toggleIdle();
-                this.game.plateau.showMoveHint(
-                    this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
-                );
             });
     
 

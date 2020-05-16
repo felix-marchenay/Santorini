@@ -7,7 +7,6 @@ import { BuildHint } from "./BuildHint";
 import { Emitter } from "../infrastructure/Emitter";
 import { Etage } from "./etage/Etage";
 import { HighlightLayer, ExecuteCodeAction, ActionManager } from "babylonjs";
-import { MoveHint } from "./MoveHint";
 
 export class Case
 {
@@ -22,15 +21,11 @@ export class Case
 
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
-        this.mesh.pointerPicked = () => {
-            this.emitter.emit('pointerPicked', this);
-        }
         this.mesh.material = this.mesh.material.clone();
         this.buildHint = new BuildHint(scene, this);
         this.buildHint.emitter.on('pointerPicked', () => {
             this.emitter.emit('pointerPicked', this);
         });
-        this.moveHint = new MoveHint(scene, this);
 
         this.highlight = new HighlightLayer('', scene);
         this.mesh.actionManager = new ActionManager(scene);
@@ -43,29 +38,41 @@ export class Case
         this.onUnhoverAction = new ExecuteCodeAction(
             ActionManager.OnPointerOutTrigger,
             () => {
-                this.unGlow();
+                this.lightGlow();
+            }
+        );
+        this.onPickAction = new ExecuteCodeAction(
+            ActionManager.OnPickDownTrigger,
+            () => {
+                this.emitter.emit('pointerPicked', this);
             }
         );
     }
 
-    enableHover() {
+    enableClickable() {
         this.mesh.actionManager.registerAction(this.onHoverAction);
         this.mesh.actionManager.registerAction(this.onUnhoverAction);
+        this.mesh.actionManager.registerAction(this.onPickAction);
+        this.lightGlow();
     }
 
-    disableHover() {
+    disableClickable() {
         this.mesh.actionManager.unregisterAction(this.onHoverAction);
         this.mesh.actionManager.unregisterAction(this.onUnhoverAction);
+        this.mesh.actionManager.unregisterAction(this.onPickAction);
+        this.unGlow();
+    }
+
+    lightGlow () {
+        this.mesh.material.emissiveColor.b = 0.12;
     }
 
     glow () {
-        // this.highlight.addMesh(this.mesh, new Color3(0.3, 0.8, 0.6));
-        // this.highlight.blurHorizontalSize = 1;
-        // this.highlight.blurVerticalSize = 1;
+        this.mesh.material.emissiveColor.b = 0.3;
     }
 
     unGlow() {
-        // this.highlight.removeMesh(this.mesh);
+        this.mesh.material.emissiveColor.b = 0;
     }
 
     poserPion(pion) {
@@ -130,14 +137,6 @@ export class Case
 
     isBuildable() {
         return this.pion == null && !this.hasDome();
-    }
-
-    showMoveHint() {
-        this.moveHint.on();
-    }
-
-    hideMoveHint() {
-        this.moveHint.off();
     }
 
     nextLevelToBuild() {

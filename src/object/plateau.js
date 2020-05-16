@@ -109,16 +109,6 @@ export class Plateau {
         caze.showBuildHint();
     }
 
-    showMoveHintAround(caze) {
-        this.showMoveHint(
-            this.casesAvoisinantes(caze)
-        );
-    }
-
-    showMoveHint(cases) {
-        cases.map(cas => cas.showMoveHint());
-    }
-
     allCases() {
         return this.cases.reduce((carry, ligne) => {
             carry.push(...ligne);

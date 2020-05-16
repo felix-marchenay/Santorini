@@ -91,7 +91,7 @@ export class Game
     }
 
     toggleIdle(pion) {
-        this.pions.filter(p => p!= pion).forEach(p => p.idle = false);
+        this.pions.filter(p => p!= pion).forEach(p => p.stopIdle());
         pion.toggleIdle();
     }
 
@@ -134,15 +134,14 @@ export class Game
 
     pionsPickables(pions, fn) {
         return pions.map(p => {
-            p.enableHover();
+            p.enableClickable();
             return p.emitter.on('picked', fn);
         });
     }
 
     pionsUnpickables(pions) {
         pions.forEach(p => {
-            p.disableHover();
-            p.unGlow();
+            p.disableClickable();
             p.emitter.flush();
         });
     }
@@ -153,8 +152,7 @@ export class Game
             cases = this.plateau.allCases();
         }
         return cases.map(c => {
-            c.showMoveHint();
-            c.enableHover();
+            c.enableClickable();
             return c.emitter.on('pointerPicked', fn);
         });
     }
@@ -164,8 +162,7 @@ export class Game
             cases = this.plateau.allCases();
         }
         cases.forEach(c => {
-            c.hideMoveHint();
-            c.disableHover();
+            c.disableClickable();
             c.emitter.flush();
         });
     }

@@ -1,5 +1,5 @@
 import { Emitter } from "../../infrastructure/Emitter";
-import { StandardMaterial, Color3, Texture, HighlightLayer, Animation, Vector3 } from "babylonjs";
+import { StandardMaterial, Color3, Texture, HighlightLayer, Animation, Vector3, ActionManager, ExecuteCodeAction } from "babylonjs";
 
 export class Etage
 {
@@ -15,10 +15,16 @@ export class Etage
         this.mesh.material.freeze();
         this.mesh.convertToUnIndexedMesh();
         this.mesh.freezeWorldMatrix();
+        this.mesh.actionManager = new ActionManager(this.scene);
         
-        this.mesh.pointerPicked = () => {
-            this.emitter.emit('pointerPicked');
-        }
+        this.mesh.actionManager.registerAction(
+            new ExecuteCodeAction(
+                ActionManager.OnPickDownTrigger,
+                () => {
+                    this.emitter.emit('pointerPicked', this);
+                }
+            )
+        );
     }
 
     difference (etage) {

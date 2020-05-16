@@ -18,39 +18,6 @@ export class SantoriniScene
 
         this.hoverMeshes = [];
 
-        scene.onPointerObservable.add(pointerInfo => {
-            switch (pointerInfo.type) {
-                case PointerEventTypes.POINTERPICK:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERDOWN:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerDown === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerDown(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERUP:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerUp === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerUp(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERMOVE:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-            }
-        });
-
         // scene.onKeyboardObservable.add(keyInfo => {
         //     switch (keyInfo.type) {
         //         case BABYLON.KeyboardEventTypes.KEYDOWN:

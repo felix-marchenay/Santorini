@@ -18,7 +18,7 @@ export class Pion {
         this.scene = scene;
         this.gender = gender;
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'pion-'+gender).clone();
-        this.mesh.material = material;
+        this.mesh.material = material.clone();
         this.initRotation = this.mesh.rotation;
         this.id = id;
         this.highlight = new HighlightLayer('', scene);
@@ -30,9 +30,12 @@ export class Pion {
         this.mesh.animations = [];
         this.case = null;
 
-        this.mesh.pointerPicked = () => {
-            this.emitter.emit('picked', this);
-        }
+        this.onPickAction = new ExecuteCodeAction(
+            ActionManager.OnPickDownTrigger,
+            () => {
+                this.emitter.emit('picked', this);
+            }
+        );
         this.onHoverAction = new ExecuteCodeAction(
             ActionManager.OnPointerOverTrigger,
             () => {
@@ -47,31 +50,30 @@ export class Pion {
         );
     }
 
-    enableHover() {
+    enableClickable() {
         this.mesh.actionManager.registerAction(this.onHoverAction);
         this.mesh.actionManager.registerAction(this.onUnhoverAction);
+        this.mesh.actionManager.registerAction(this.onPickAction);
         this.lightGlow();
     }
 
-    disableHover() {
+    disableClickable() {
         this.mesh.actionManager.unregisterAction(this.onHoverAction);
         this.mesh.actionManager.unregisterAction(this.onUnhoverAction);
+        this.mesh.actionManager.unregisterAction(this.onPickAction);
+        this.unGlow();
     }
 
     lightGlow() {
-        this.highlight.addMesh(this.mesh, new Color3(0.3, 0.6, 0.88));
-        this.highlight.blurHorizontalSize = 0.1;
-        this.highlight.blurVerticalSize = 0.1;
+        this.mesh.material.emissiveColor.b = 0.15;
     }
 
     glow () {
-        this.highlight.addMesh(this.mesh, new Color3(0.3, 0.6, 0.88));
-        this.highlight.blurHorizontalSize = 1;
-        this.highlight.blurVerticalSize = 1;
+        this.mesh.material.emissiveColor.b = 0.5;
     }
 
     unGlow() {
-        this.highlight.removeMesh(this.mesh);
+        this.mesh.material.emissiveColor.b = 0;
     }
 
     moveTo (caseCible) {
