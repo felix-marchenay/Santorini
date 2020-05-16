@@ -9,10 +9,6 @@ export class Dome extends Etage {
 
         const position = caseFrom.mesh.position.clone();
         this.mesh.position.set(position.x, caseFrom.YHighest() - 0.08, position.z);
-        
-        this.mesh.pointerPicked = () => {
-            this.emitter.emit('pointerPicked');
-        }
 
         this.animateBuild();
     }

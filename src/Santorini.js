@@ -32,8 +32,6 @@ export class Santorini
         this.ihm = new Interface;
         this.preparation = new Preparation(this.ihm, this.server, this.scene);
         this.game = null;
-
-        console.log(this.scene);
     }
 
     async ignition() {
@@ -43,6 +41,7 @@ export class Santorini
         
         this.engine.runRenderLoop(() => {
             this.scene.render();
+            this.scene.showFPS(this.engine);
         });
     }
 }

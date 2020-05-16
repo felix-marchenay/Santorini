@@ -16,47 +16,7 @@ export class SantoriniScene
         });
         this.scene.shadows = this.shadows;
 
-        scene.onPointerObservable.add(pointerInfo => {
-            switch (pointerInfo.type) {
-                case PointerEventTypes.POINTERPICK:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerPicked === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerPicked(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERDOWN:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerDown === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerDown(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERUP:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerUp === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerUp(pointerInfo.pickInfo);
-                        }
-                    }
-                    break;
-                case PointerEventTypes.POINTERMOVE:
-                    if (pointerInfo.pickInfo.pickedMesh) {
-                        console.log(typeof pointerInfo.pickInfo.pickedMesh.onHover);
-                        if (typeof pointerInfo.pickInfo.pickedMesh.onHover === 'function') {
-                            document.body.style.cursor = 'pointer';
-                            pointerInfo.pickInfo.pickedMesh.onHover();
-                        } else {
-                            document.body.style.cursor = 'auto';
-                        }
-                        if (typeof pointerInfo.pickInfo.pickedMesh.pointerMove === 'function') {
-                            pointerInfo.pickInfo.pickedMesh.pointerMove(pointerInfo.pickInfo);
-                        }
-                    } else {
-                        document.body.style.cursor = 'auto';
-                    }
-                    break;
-            }
-        });
+        this.hoverMeshes = [];
 
         // scene.onKeyboardObservable.add(keyInfo => {
         //     switch (keyInfo.type) {
@@ -125,7 +85,7 @@ export class SantoriniScene
 
         if (this.fps.length > 30) {
             this.fps = this.fps.slice(1);
-            console.log(this.fps.reduce((a,b) => a+b) / this.fps.length);
+            document.querySelector('.fps').innerHTML = Math.floor(this.fps.reduce((a,b) => a+b) / this.fps.length);
         }
     }
 

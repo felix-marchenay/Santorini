@@ -11,11 +11,7 @@ export class DistantPreparation extends Step
 
                 const pion = this.game.findPionById(data.data.id);
 
-                this.game.pions.filter(p => p != pion).forEach(p => {
-                    p.stopIdle();
-                });
-
-                pion.toggleIdle();
+                this.game.ildePion(pion);
             });
 
             this.game.server.emitter.on('pionMove', data => {
@@ -33,10 +29,5 @@ export class DistantPreparation extends Step
             });
 
         });
-    }
-
-    after () {
-        this.game.pions.forEach(p => p.stopIdle());
-        this.game.server.emitter.flush();
     }
 }

@@ -8,62 +8,54 @@ export class TritonDeplacement extends Step
 
             this.game.ihm.tour('se déplacer');
 
-            const eventsMove = this.joueur.pions.map(pion => {
-                return pion.emitter.on('picked', pion => {
-                    this.game.toggleIdle(pion);                    
-                    this.game.plateau.showMoveHint(
-                        this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
-                    );
-                });
-            });
+            const eventsMove = this.game.pionsPickables(this.joueur.pions, pion => {
+                this.game.toggleIdle(pion);
 
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
-                        try  {
-                            if (!this.game.idlePion().case.estAvoisinante(caze)) {
-                                throw "La case est trop loin pour s'y rendre";
-                            }
-                            
-                            if (caze.pion !== null) {
-                                throw "La case doit être vide pour s'y rendre";
-                            }
+                pion = this.game.idlePion();
 
-                            eventsMove.forEach(ev => {
-                                this.joueur.pions.filter(p => p.emitter.off(ev));
-                            });
+                this.game.casesUnpickables();
 
-                            caze.poserPion(this.game.idlePion());
-                            
-                            this.game.displaySkip(resolve);
+                if (!pion) {
+                    return;
+                }
 
-                            this.game.sendServer('pionMove', this.game.idlePion().export());
-
-                            this.joueur.lastMovedPion = this.game.idlePion();
-    
-                            if (this.joueur.isVictorious()) {
-                                this.game.sendVictory(this.joueur);
-                                reject(new Victoire(this.joueur));
-                            }
-
-                            if (!caze.estDuPerimetre()) {
-                                this.game.endTurn();
-                                resolve();
-                            } 
-
-                            this.game.plateau.allCases().forEach(cas => {
-                                cas.hideMoveHint();
-                            });
-                            this.game.plateau.showMoveHint(
-                                this.game.plateau.casesAvoisinantes(this.game.idlePion().case).filter(caze => this.game.idlePion().canGo(caze))
-                            );
-                        } catch (e) {
-                            console.log(e);
-                            this.game.ihm.error(e);
-                        }
-                    }
-                });
+                this.casesAvoisinantesClickables(pion, resolve, reject);
             });
         });
+    }
+
+    casesAvoisinantesClickables(pion, resolve, reject) {
+        this.game.casesPickables(
+            this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
+            caze => {
+                try  {
+                    this.game.pionsUnpickables(this.game.pions);
+                    caze.poserPion(pion);
+                    
+                    this.game.displaySkip(resolve);
+
+                    this.game.sendServer('pionMove', pion.export());
+
+                    this.joueur.lastMovedPion = pion;
+
+                    if (this.joueur.isVictorious()) {
+                        this.game.sendVictory(this.joueur);
+                        reject(new Victoire(this.joueur));
+                    }
+
+                    if (!caze.estDuPerimetre()) {
+                        this.game.endTurn();
+                        resolve();
+                    }
+
+                    this.game.casesUnpickables();
+
+                    this.casesAvoisinantesClickables(pion, resolve, reject);
+                } catch (e) {
+                    console.log(e);
+                    this.game.ihm.error(e);
+                }
+            }
+        );
     }
 }

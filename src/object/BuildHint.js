@@ -1,7 +1,7 @@
 import { MeshBuilder, StandardMaterial, Color3, HighlightLayer } from "@babylonjs/core";
 import { Emitter } from "../infrastructure/Emitter";
 import { Etage } from "./etage/Etage";
-import { Color4 } from "babylonjs";
+import { Color4, ExecuteCodeAction, ActionManager } from "babylonjs";
 
 export class BuildHint
 {
@@ -41,9 +41,15 @@ export class BuildHint
         mesh.material.diffuseColor = new Color3(0.9, 0.25, 0.9);
         mesh.position = this.case.mesh.position.clone();
         mesh.setEnabled(false);
-        mesh.pointerPicked = () => {
-            this.emitter.emit('pointerPicked');
-        }
+        mesh.actionManager = new ActionManager(this.scene);
+        mesh.actionManager.registerAction(
+            new ExecuteCodeAction(
+                ActionManager.OnPickDownTrigger,
+                () => {
+                    this.emitter.emit('pointerPicked', this);
+                }
+            )
+        );
         mesh.renderOutline = true;
         mesh.outlineColor = new Color3(.8, .2, .85);
         mesh.outlineWidth = .08;

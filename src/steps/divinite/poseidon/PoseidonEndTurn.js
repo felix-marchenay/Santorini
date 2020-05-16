@@ -24,22 +24,24 @@ export class PoseidonEndTurn extends Step
             this.game.plateau.showBuildHintAround(pionImmobile.case);
 
             let nbConstructions = 0;
-            this.game.onClickCaseAvoisinantes(pionImmobile, cas => {
-
-                if (cas.isBuildable()) {
-                    cas.build();
-
-                    this.game.plateau.refreshBuildHint(cas);
-                    nbConstructions ++;
-                    
-                    this.game.sendServer('construct', cas.export());
+            this.game.casesPickables(
+                this.game.plateau.casesAvoisinantes(pionImmobile.case),
+                cas => {
+                    if (cas.isBuildable()) {
+                        cas.build();
+    
+                        this.game.plateau.refreshBuildHint(cas);
+                        nbConstructions ++;
+                        
+                        this.game.sendServer('construct', cas.export());
+                    }
+    
+                    if (nbConstructions >= 3) {
+                        this.game.endTurn();
+                        resolve();
+                    }
                 }
-
-                if (nbConstructions >= 3) {
-                    this.game.endTurn();
-                    resolve();
-                }
-            });
+            );
         });
     }
 }

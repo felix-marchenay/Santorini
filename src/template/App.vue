@@ -17,6 +17,7 @@
             v-show="page == 'game'"
             :players="players"
         />
+        <div class="fps"></div>
     </div>
 </template>
 
@@ -64,6 +65,15 @@ export default {
         right: 0;
         font-family: sans-serif;
         pointer-events: none;
+
+        .fps {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: black;
+            color: white;
+            padding: 3px;
+        }
 
         .menu {
             pointer-events: all;

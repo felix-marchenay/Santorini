@@ -12,44 +12,33 @@ export class PanDeplacement extends Step {
         return super.run((resolve, reject) => {
             this.game.ihm.tour('se déplacer');
 
-            this.joueur.pions.forEach(pion => {
-                pion.emitter.on('picked', pion => {
-                    this.joueur.pions.filter(p => p != pion).forEach(p => {
-                        p.stopIdle();
-                    });
-                    pion.toggleIdle();
-                    this.game.plateau.showMoveHint(
-                        this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze))
-                    );
-                });
-            });
-    
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
+            this.game.pionsPickables(this.joueur.pions, pion => {
+                this.game.toggleIdle(pion);
+
+                pion = this.game.idlePion();
+
+                if (!pion) {
+                    return;
+                }
+                
+                this.game.casesPickables(
+                    this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
+                    caze => {
                         try {
-                            if (!this.game.idlePion().case.estAvoisinante(caze)) {
-                                throw "La case est trop loin pour s'y rendre";
-                            }
+                            const caseDepart = pion.case;
     
-                            if (caze.pion !== null) {
-                                throw "La case doit être vide pour s'y rendre";
-                            }
-
-                            const caseDepart = this.game.idlePion().case;
-    
-                            caze.poserPion(this.game.idlePion());
-
-                            this.game.sendServer('pionMove', this.game.idlePion().export());
-
-                            if (caseDepart.differenceNiveau(caze) >= 2) {
+                            caze.poserPion(pion);
+            
+                            this.game.sendServer('pionMove', pion.export());
+        
+                            this.joueur.lastMovedPion = pion;
+        
+                            if (this.joueur.isVictorious()) {
                                 this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }
-    
-                            this.joueur.lastMovedPion = this.game.idlePion();
-        
-                            if (this.joueur.isVictorious()) {
+                            
+                            if (caseDepart.differenceNiveau(caze) >= 2) {
                                 this.game.sendVictory(this.joueur);
                                 reject(new Victoire(this.joueur));
                             }
@@ -57,11 +46,10 @@ export class PanDeplacement extends Step {
                             this.game.endTurn();
                             resolve();
                         } catch (e) {
-                            console.log(e);
-                            this.game.ihm.error(e);
+                            console.error(e);
                         }
                     }
-                });
+                );
             });
         });
     }

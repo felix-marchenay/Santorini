@@ -11,20 +11,22 @@ export class MoveHint
     }
 
     on() {
-        if (this.case.dernierEtage()) {
-            this.meshes.push(this.case.dernierEtage().mesh);
-        } else {
-            this.meshes.push(this.case.mesh);
-        }
-        this.addAll();
+        this.case.mesh.material.emissiveColor.b = 0.3;
+        // if (this.case.dernierEtage()) {
+        //     this.meshes.push(this.case.dernierEtage().mesh);
+        // } else {
+        //     this.meshes.push(this.case.mesh);
+        // }
+        // this.addAll();
     }
 
     off() {
-        this.meshes.forEach(mesh => {
-            this.highlightLayer.removeMesh(mesh);
-        });
+        this.case.mesh.material.emissiveColor.b = 0;
+        // this.meshes.forEach(mesh => {
+        //     this.highlightLayer.removeMesh(mesh);
+        // });
 
-        this.meshes = [];
+        // this.meshes = [];
     }
 
     addAll() {

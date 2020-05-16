@@ -17,11 +17,8 @@ export class Step
             this.game.server.emitter.flush();
         }
         this.game.hideAllBuildHint();
-        this.game.plateau.allCases().forEach(cas => {
-            cas.emitter.flush();
-            cas.hideMoveHint();
-        });
         this.game.pionsUnpickables(this.game.pions);
+        this.game.casesUnpickables();
         this.game.hideSkip();
         this.game.ihm.emitter.flush();
     }

@@ -8,7 +8,7 @@ import {
     SceneLoader
 } from "@babylonjs/core";
 import { Emitter } from "../infrastructure/Emitter";
-import { CircleEase, EasingFunction, HighlightLayer } from "babylonjs";
+import { CircleEase, EasingFunction, HighlightLayer, ExecuteCodeAction } from "babylonjs";
 
 export class Pion {
     constructor (scene, material, gender, id) {
@@ -18,7 +18,7 @@ export class Pion {
         this.scene = scene;
         this.gender = gender;
         this.mesh = scene.container.meshes.find(mesh => mesh.id === 'pion-'+gender).clone();
-        this.mesh.material = material;
+        this.mesh.material = material.clone();
         this.initRotation = this.mesh.rotation;
         this.id = id;
         this.highlight = new HighlightLayer('', scene);
@@ -30,40 +30,50 @@ export class Pion {
         this.mesh.animations = [];
         this.case = null;
 
-        this.mesh.pointerPicked = () => {
-            this.emitter.emit('picked', this);
-        }
+        this.onPickAction = new ExecuteCodeAction(
+            ActionManager.OnPickDownTrigger,
+            () => {
+                this.emitter.emit('picked', this);
+            }
+        );
+        this.onHoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOverTrigger,
+            () => {
+                this.glow();
+            }
+        );
+        this.onUnhoverAction = new ExecuteCodeAction(
+            ActionManager.OnPointerOutTrigger,
+            () => {
+                this.lightGlow();
+            }
+        );
     }
 
-    hoverFn() {
-        this.glow();
+    enableClickable() {
+        this.mesh.actionManager.registerAction(this.onHoverAction);
+        this.mesh.actionManager.registerAction(this.onUnhoverAction);
+        this.mesh.actionManager.registerAction(this.onPickAction);
+        this.lightGlow();
     }
 
-    enableHover() {
-        this.mesh.onHover = this.hoverFn;
-    }
-
-    disableHover() {
-        this.mesh.onHover = null;
+    disableClickable() {
+        this.mesh.actionManager.unregisterAction(this.onHoverAction);
+        this.mesh.actionManager.unregisterAction(this.onUnhoverAction);
+        this.mesh.actionManager.unregisterAction(this.onPickAction);
+        this.unGlow();
     }
 
     lightGlow() {
-        this.highlight.addMesh(this.mesh, new Color3(0.2, 0.2, 0.2));
-        this.highlight.blurHorizontalSize = 0.1;
-        this.highlight.blurVerticalSize = 0.1;
+        this.mesh.material.emissiveColor.b = 0.15;
     }
 
-    glow (color) {
-        if (color === undefined) {
-            color = new Color3(0.1, 0.9, 0.6);
-        }
-        this.highlight.addMesh(this.mesh, color);
-        this.highlight.blurHorizontalSize = 1;
-        this.highlight.blurVerticalSize = 1;
+    glow () {
+        this.mesh.material.emissiveColor.b = 0.5;
     }
 
     unGlow() {
-        this.highlight.removeMesh(this.mesh);
+        this.mesh.material.emissiveColor.b = 0;
     }
 
     moveTo (caseCible) {
@@ -147,6 +157,10 @@ export class Pion {
 
     canGo(caze) {
         return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
+    }
+
+    minotaurCanGo(caze) {
+        return (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
 
     toggleIdle() {

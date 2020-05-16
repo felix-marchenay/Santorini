@@ -4,14 +4,11 @@ import { Color3, KeyboardEventTypes, PointerEventTypes, Color4, Scene } from "@b
 import { Pion } from "./object/pion";
 import { Stepper } from "./infrastructure/Stepper";
 import { Preparation } from "./steps/Preparation";
-import { ChoixNoms } from "./steps/ChoixNom";
-import { AutoChoixNoms } from "./steps/AutoChoixNoms";
 import { AutoPreparation } from "./steps/AutoPreparation";
 import { RandomBuild } from "./steps/RandomBuild";
 import { Unsplash } from "./steps/Unsplash";
 import { Emitter } from "./infrastructure/Emitter";
 import { Interface } from "./ihm/Interface";
-import { AutoDistant } from "./steps/AutoDistant";
 import { Server } from "./Server";
 import { Victoire } from "./Victoire";
 import { SpotLight, Vector3, MeshBuilder } from "babylonjs";
@@ -65,7 +62,10 @@ export class Game
     }
 
     setStepsFromPlayers() {
-        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+
+        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+
+        this.stepper.addSteps(new AutoPreparation(this));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {
@@ -91,7 +91,7 @@ export class Game
     }
 
     toggleIdle(pion) {
-        this.pions.filter(p => p!= pion).forEach(p => p.idle = false);
+        this.pions.filter(p => p!= pion).forEach(p => p.stopIdle());
         pion.toggleIdle();
     }
 
@@ -109,9 +109,7 @@ export class Game
     }
 
     onClickCaseAvoisinantes(pion, fn) {
-        this.plateau.casesAvoisinantes(pion.case).forEach(cas => {
-            cas.emitter.on('pointerPicked', () => { fn(cas) });
-        });
+        this.game.casesPickables(this.plateau.casesAvoisinantes(pion.case), fn);
     }
 
     flushEventsCases() {
@@ -135,19 +133,37 @@ export class Game
     }
 
     pionsPickables(pions, fn) {
-        pions.forEach(p => {
-            p.enableHover();
-            p.lightGlow();
-            p.emitter.on('picked', fn);
+        return pions.map(p => {
+            p.enableClickable();
+            return p.emitter.on('picked', fn);
         });
     }
 
     pionsUnpickables(pions) {
         pions.forEach(p => {
-            p.disableHover();
-            p.unGlow();
+            p.disableClickable();
             p.emitter.flush();
-            p.mesh.pointerOnHover = false;
+        });
+    }
+
+    casesPickables(cases, fn) {
+        if (typeof cases === 'function') {
+            fn = cases;
+            cases = this.plateau.allCases();
+        }
+        return cases.map(c => {
+            c.enableClickable();
+            return c.emitter.on('pointerPicked', fn);
+        });
+    }
+
+    casesUnpickables(cases) {
+        if (cases === undefined) {
+            cases = this.plateau.allCases();
+        }
+        cases.forEach(c => {
+            c.disableClickable();
+            c.emitter.flush();
         });
     }
 

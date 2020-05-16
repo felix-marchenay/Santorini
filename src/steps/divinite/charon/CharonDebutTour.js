@@ -12,49 +12,59 @@ export class CharonDebutTour extends Step
             this.game.joueursAdverses(this.joueur).forEach(adversaire => {
                 
                 const pionsProcheAdversaires = adversaire.pions.filter(p => {
-                    for (const caseProche of this.game.plateau.casesAvoisinantes(p.case)) {
-                        if (caseProche.pion && this.joueur.hasPion(caseProche.pion)) {
+                    const cases = this.game.plateau.casesDistanceDe(p.case, 2).filter(c => {
+                        const caseEntre = this.game.plateau.caseEntre(c, p.case);
+                        if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
                             return true;
                         }
-                    }
-                    return false;
+                    });
+                    return cases.length > 0;
                 });
-
-                console.log(pionsProcheAdversaires);
-
+                
                 if (pionsProcheAdversaires.length < 1) {
                     this.game.endTurn();
                     resolve();
                 }
                 
-                pionsProcheAdversaires.forEach(p => {
-                    p.emitter.on('picked', pion => {
-                        this.game.pions.filter(p => p != pion).forEach(p => {
-                            p.stopIdle();
-                        });
-                        pion.toggleIdle();
-                    });
-                });
-            });
+                this.game.pionsPickables(pionsProcheAdversaires, pion => {
+                    pion.toggleIdle();
 
-            this.game.plateau.allCases().forEach(caze => {
-                caze.emitter.on('pointerPicked', () => {
-                    if (this.game.idlePion()) {
-                        
-                        const pion = this.game.idlePion();
-                        try {
-                            const caseEntre = this.game.plateau.caseEntre(pion.case, caze);
-                            if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
-                                    caze.poserPionForce(pion);
-                                    this.game.sendServer('pionMoveForce', pion.export());
-                                    
-                                    this.game.endTurn();
-                                    resolve();
-                            }
-                        } catch (e) {
-                            console.error(e);
-                        }
+                    pion = this.game.idlePion();
+
+                    if (!pion) {
+                        return;
                     }
+
+                    const cases = this.game.plateau.casesDistanceDe(pion.case, 2).filter(c => {
+                        const caseEntre = this.game.plateau.caseEntre(c, pion.case);
+                        if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
+                            return true;
+                        }
+                    });
+
+                    this.game.casesPickables(
+                        cases,
+                        caze => {
+                            try {
+                                const caseEntre = this.game.plateau.caseEntre(pion.case, caze);
+                                if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {
+
+                                        if (caze.pion !== null) {
+                                            throw "Case occupée";
+                                        }
+
+                                        caze.poserPionForce(pion);
+                                        this.game.sendServer('pionMoveForce', pion.export());
+                                        
+                                        this.game.endTurn();
+                                        resolve();
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        }
+                    );
+
                 });
             });
         });

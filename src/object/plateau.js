@@ -53,7 +53,11 @@ export class Plateau {
     }
 
     casesAvoisinantes(caseA) {
-        return this.allCases().filter(caseB => caseB.estAvoisinante(caseA) && caseB != caseA);
+        return this.allCases().filter(caseB => caseB.estAvoisinante(caseA));
+    }
+    
+    casesAvoisinantesEtElleMeme(caseA) {
+        return [...this.allCases().filter(caseB => caseB.estAvoisinante(caseA)), caseA];
     }
 
     showBuildHintAround (caze) {
@@ -73,6 +77,10 @@ export class Plateau {
         this.showBuildHintDome(
             this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())
         );
+    }
+
+    casesDistanceDe(caze, nb) {
+        return this.allCases().filter(case1 => case1.distanceDe(caze) === 2);
     }
 
     caseEntre(case1, case2) {
@@ -103,16 +111,6 @@ export class Plateau {
     refreshBuildHint(caze) {
         caze.hideBuildHint();
         caze.showBuildHint();
-    }
-
-    showMoveHintAround(caze) {
-        this.showMoveHint(
-            this.casesAvoisinantes(caze)
-        );
-    }
-
-    showMoveHint(cases) {
-        cases.map(cas => cas.showMoveHint());
     }
 
     allCases() {

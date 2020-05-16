@@ -70,12 +70,12 @@ export class Preparation
 
             const players = [
                 {
-                    name: 'xx-kevin',
-                    divinite: 'charon',
+                    name: 'Michelinho',
+                    divinite: 'zeus',
                 },
                 {
-                    name: 'Michelinho',
-                    divinite: 'triton',
+                    name: 'xx-kevin',
+                    divinite: 'atlas',
                 },
             ];
 

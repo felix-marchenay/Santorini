@@ -32,8 +32,4 @@ export class DistantDeplacement extends Step
 
         });
     }
-
-    after () {
-        this.game.server.emitter.flush();
-    }
 }
