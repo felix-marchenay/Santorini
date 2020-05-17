@@ -217,7 +217,6 @@ export class Game
     }
 
     replay () {
-        console.log('replay');
         this.pionsUnpickables();
         this.casesUnpickables();
         this.reinitialiser();
