@@ -18,7 +18,7 @@ export class Eros extends Divinite
 
     isVictorious(joueur) {
         return joueur.lastMovedPion.case.niveau() === 3 || (
-            joueur.lastMovedPion.case.niveau() === 1 && joueur.pionImmobile().case.niveau() === 1
+            joueur.lastMovedPion.case.niveau() === 1 && joueur.pionImmobile().case.niveau() === 1 && joueur.lastMovedPion.case.distanceDe(joueur.pionImmobile().case) < 2
         );
     }
 }

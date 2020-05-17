@@ -12,19 +12,25 @@ export class PreparationUnSeulJoueur extends Step
                     this.game.toggleIdle(pion);
                     this.game.sendServer('idlePion', pion.export());
                 }
-            });
+
+                pion = this.game.idlePion();
+                
+                if (!pion) {
+                    return;
+                }
             
-            this.game.casesPickables(caze => {
-                if (this.game.idlePion() && this.game.idlePion().canGo(caze)) {
-                    caze.poserPion(this.game.idlePion());
-
-                    this.game.sendServer('pionMove', this.game.idlePion().export());
-                    this.game.idlePion().stopIdle();
-                }
-
-                if (this.joueur.pions.filter(p => p.case === null).length === 0) {
-                    resolve();
-                }
+                this.game.casesPickables(caze => {
+                    if (this.game.idlePion().canGo(caze)) {
+                        caze.poserPion(this.game.idlePion());
+    
+                        this.game.sendServer('pionMove', this.game.idlePion().export());
+                        this.game.idlePion().stopIdle();
+                    }
+    
+                    if (this.joueur.pions.filter(p => p.case === null).length === 0) {
+                        resolve();
+                    }
+                });
             });
         });
     }

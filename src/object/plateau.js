@@ -103,6 +103,14 @@ export class Plateau {
     casesDuPerimetre() {
         return this.allCases().filter(c => c.estDuPerimetre());
     }
+
+    casesOpposeesA(caze) {
+        if (!caze.estDuPerimetre()) {
+            throw "La case doit être sur le périmetre";
+        }
+
+        return this.allCases().filter(c => c.distanceDe(caze) === 4);
+    }
     
     showBuildHint (cases) {
         cases.map(cas => cas.showBuildHint());
