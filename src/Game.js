@@ -22,6 +22,7 @@ import { Zeus } from "./divinite/Zeus";
 import { Charon } from "./divinite/Charon";
 import { Eros } from "./divinite/Eros";
 import { Chronos } from "./divinite/Chronos";
+import { Demeter } from "./divinite/Demeter";
 
 export class Game
 {
@@ -250,7 +251,6 @@ export class Game
         return {
             pan: new Pan,
             atlas: new Atlas,
-            // demeter: new Demeter,
             poseidon: new Poseidon,
             // athena: new Athena,
             no: new NoDivinite,
@@ -259,7 +259,8 @@ export class Game
             minotaur: new Minotaur,
             charon: new Charon,
             eros: new Eros,
-            chronos: new Chronos
+            chronos: new Chronos,
+            demeter: new Demeter
         };
     }
 
