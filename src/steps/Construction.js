@@ -3,7 +3,7 @@ import { Step } from "./Step";
 export class Construction extends Step
 {    
     run () {
-        return super.run(resolve => {
+        return super.run((resolve, reject) => {
             
             this.game.ihm.tour('construire');
 
@@ -17,6 +17,8 @@ export class Construction extends Step
                 try {
                     if (caze.isBuildable() && caze.estAvoisinante(pion.case)) {
                         caze.build();
+
+                        this.game.checkVictoryAfterBuild(reject);
     
                         this.game.sendServer('construct', caze.export());
     

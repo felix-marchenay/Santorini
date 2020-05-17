@@ -3,7 +3,7 @@ import { Step } from "../Step";
 export class DistantConstruction extends Step
 {
     run () {
-        return super.run(resolve => {
+        return super.run((resolve, reject) => {
             
             this.game.ihm.tour('construire');
 
@@ -19,6 +19,8 @@ export class DistantConstruction extends Step
                 const caze = this.game.findCaseByCoordinates(data);
                 caze.AtlasBuildDome();
             });
+
+            this.game.checkVictoryAfterBuild(reject);
 
             this.game.server.emitter.on('endTurn', () => {
                 resolve();

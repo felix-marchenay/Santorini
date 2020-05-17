@@ -22,7 +22,6 @@ export class Deplacement extends Step
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
                     caze => {
                         try  {
-        
                             caze.poserPion(pion);
         
                             this.game.sendServer('pionMove', pion.export());

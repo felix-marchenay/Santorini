@@ -94,6 +94,10 @@ export class Case
         this.pion = pion;
     }
 
+    estComplete() {
+        return Object.values(this.constructions).filter(e => e !== null).length === 4;
+    }
+
     poserPionForce(pion) {
         if (this.dernierEtage() && this.dernierEtage().niveau == 'dome') {
             throw "Impossible de se déplacer sur un dome";

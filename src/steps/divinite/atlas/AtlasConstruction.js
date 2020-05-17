@@ -3,7 +3,7 @@ import { Step } from "../../Step";
 export class AtlasConstruction extends Step
 {    
     run () {
-        return super.run(resolve => {
+        return super.run((resolve, reject) => {
             this.game.ihm.tour('construire');
 
             const pion = this.joueur.lastMovedPion;
@@ -35,6 +35,8 @@ export class AtlasConstruction extends Step
                                 caze.AtlasBuildDome();
                                 this.game.sendServer('constructDome', caze.export());
                             }
+
+                            this.game.checkVictoryAfterBuild(reject);
         
                             this.game.endTurn();
                             resolve();

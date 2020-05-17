@@ -72,6 +72,10 @@ export class Joueur
         return this.divinite.isVictorious(this);
     }
 
+    isVictoriousAfterBuild(game) {
+        return this.divinite.isVictoriousAfterBuild(game);
+    }
+
     hasPion(pion) {
         return this.pions.filter(p => p == pion).length > 0;
     }

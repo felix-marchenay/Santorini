@@ -13,6 +13,8 @@ export class PreparationUnSeulJoueur extends Step
                     this.game.sendServer('idlePion', pion.export());
                 }
 
+                this.game.casesUnpickables();
+
                 pion = this.game.idlePion();
                 
                 if (!pion) {
@@ -20,11 +22,11 @@ export class PreparationUnSeulJoueur extends Step
                 }
             
                 this.game.casesPickables(caze => {
-                    if (this.game.idlePion().canGo(caze)) {
-                        caze.poserPion(this.game.idlePion());
+                    if (pion.canGo(caze)) {
+                        caze.poserPion(pion);
     
-                        this.game.sendServer('pionMove', this.game.idlePion().export());
-                        this.game.idlePion().stopIdle();
+                        this.game.sendServer('pionMove', pion.export());
+                        pion.stopIdle();
                     }
     
                     if (this.joueur.pions.filter(p => p.case === null).length === 0) {

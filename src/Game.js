@@ -21,6 +21,7 @@ import { Triton } from "./divinite/Triton";
 import { Zeus } from "./divinite/Zeus";
 import { Charon } from "./divinite/Charon";
 import { Eros } from "./divinite/Eros";
+import { Chronos } from "./divinite/Chronos";
 
 export class Game
 {
@@ -171,6 +172,14 @@ export class Game
         });
     }
 
+    checkVictoryAfterBuild(reject) {
+        this.joueurs.forEach(j => {
+            if (j.isVictoriousAfterBuild(this)) {
+                reject(new Victoire(j));
+            }
+        });
+    }
+
     findJoueurById(id) {
         return this.joueurs.find(j => j.id == id);
     }
@@ -249,7 +258,8 @@ export class Game
             zeus: new Zeus,
             minotaur: new Minotaur,
             charon: new Charon,
-            eros: new Eros
+            eros: new Eros,
+            chronos: new Chronos
         };
     }
 

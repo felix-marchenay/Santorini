@@ -29,6 +29,8 @@ export class PoseidonEndTurn extends Step
                 cas => {
                     if (cas.isBuildable()) {
                         cas.build();
+                        
+                        this.game.checkVictoryAfterBuild(reject);
     
                         this.game.plateau.refreshBuildHint(cas);
                         nbConstructions ++;

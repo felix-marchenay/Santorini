@@ -35,4 +35,8 @@ export class Divinite
     isVictorious(joueur) {
         return joueur.lastMovedPion.case.niveau() == 3;
     }
+
+    isVictoriousAfterBuild(game) {
+        return false;
+    }
 }
