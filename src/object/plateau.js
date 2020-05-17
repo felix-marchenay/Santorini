@@ -99,6 +99,10 @@ export class Plateau {
             cas.hideBuildHint();
         });
     }
+
+    casesDuPerimetre() {
+        return this.allCases().filter(c => c.estDuPerimetre());
+    }
     
     showBuildHint (cases) {
         cases.map(cas => cas.showBuildHint());

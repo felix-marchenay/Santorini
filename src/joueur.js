@@ -69,11 +69,15 @@ export class Joueur
     }
 
     isVictorious() {
-        return this.divinite.isVictorious(this.lastMovedPion);
+        return this.divinite.isVictorious(this);
     }
 
     hasPion(pion) {
         return this.pions.filter(p => p == pion).length > 0;
+    }
+
+    pionImmobile() {
+        return this.pions.find(p => p != this.joueur.lastMovedPion);
     }
 
     export () {

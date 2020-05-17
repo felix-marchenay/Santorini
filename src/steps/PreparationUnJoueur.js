@@ -15,7 +15,6 @@ export class PreparationUnSeulJoueur extends Step
             });
             
             this.game.casesPickables(caze => {
-                console.log(caze);
                 if (this.game.idlePion() && this.game.idlePion().canGo(caze)) {
                     caze.poserPion(this.game.idlePion());
 

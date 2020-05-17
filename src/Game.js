@@ -20,6 +20,7 @@ import { NoDivinite } from "./divinite/NoDivinite";
 import { Triton } from "./divinite/Triton";
 import { Zeus } from "./divinite/Zeus";
 import { Charon } from "./divinite/Charon";
+import { Eros } from "./divinite/Eros";
 
 export class Game
 {
@@ -237,7 +238,8 @@ export class Game
             triton: new Triton,
             zeus: new Zeus,
             minotaur: new Minotaur,
-            charon: new Charon  
+            charon: new Charon,
+            eros: new Eros
         };
     }
 

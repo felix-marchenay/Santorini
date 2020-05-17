@@ -51,8 +51,8 @@ export class BuildHint
             )
         );
         mesh.renderOutline = true;
-        mesh.outlineColor = new Color3(.8, .2, .85);
-        mesh.outlineWidth = .08;
+        mesh.outlineColor = new Color3(.8, .2, .7);
+        mesh.outlineWidth = .1;
 
         if (niveau == '2-dome') {
             mesh.position.y = 1;

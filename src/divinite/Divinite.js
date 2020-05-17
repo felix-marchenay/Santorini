@@ -32,7 +32,7 @@ export class Divinite
         return [new DistantPreparation(game, joueur)];
     }
 
-    isVictorious(pion) {
-        return pion.case.niveau() == 3;
+    isVictorious(joueur) {
+        return joueur.lastMovedPion.case.niveau() == 3;
     }
 }

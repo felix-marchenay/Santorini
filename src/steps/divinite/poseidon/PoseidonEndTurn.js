@@ -14,7 +14,7 @@ export class PoseidonEndTurn extends Step
 
             this.game.displaySkip(resolve);
 
-            const pionImmobile = this.joueur.pions.find(p => p != this.joueur.lastMovedPion);
+            const pionImmobile = this.joueur.pionImmobile();
 
             if (pionImmobile.case.niveau() !== 0) {
                 this.game.endTurn();
