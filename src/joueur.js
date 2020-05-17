@@ -77,7 +77,7 @@ export class Joueur
     }
 
     pionImmobile() {
-        return this.pions.find(p => p != this.joueur.lastMovedPion);
+        return this.pions.find(p => p != this.lastMovedPion);
     }
 
     export () {
