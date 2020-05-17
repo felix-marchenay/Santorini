@@ -1,7 +1,8 @@
 <template>
     <div class="main-menu menu">
-        <Button @click="single">Single player</Button>
-        <Button @click="multi">Multiplayer</Button>
+        <Button @click="goto('singleplayer')">Single player</Button>
+        <Button @click="goto('multiplayer')">Multiplayer</Button>
+        <Button @click="goto('rules')">Règles</Button>
     </div>
 </template>
 
@@ -13,12 +14,9 @@ export default {
         Button
     },
     methods: {
-        single() {
-            this.$emit('single');
+        goto(menu) {
+            this.$emit('goto', menu);
         },
-        multi() {
-            this.$emit('multi');
-        }
     }
 }
 </script>

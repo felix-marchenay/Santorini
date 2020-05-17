@@ -1,8 +1,7 @@
 <template>
     <div id="app">
         <MainMenu 
-            @single="single" 
-            @multi="multi"
+            @goto="goto"
             v-show="page == 'main-menu'"
         />
         <SinglePlayerMenu 
@@ -17,6 +16,10 @@
             v-show="page == 'game'"
             :players="players"
         />
+        <Rules 
+            v-show="page == 'rules'" 
+            @back="page = 'main-menu'" 
+        />
         <div class="fps"></div>
     </div>
 </template>
@@ -25,10 +28,11 @@
 import MainMenu from "./menu/MainMenu";
 import SinglePlayerMenu from "./menu/SinglePlayerMenu";
 import MultiPlayerMenu from "./menu/MultiplayerMenu";
+import Rules from "./menu/Rules";
 import GamePage from "./GamePage";
 
 export default {
-    components: { MainMenu, MultiPlayerMenu, SinglePlayerMenu, GamePage },
+    components: { MainMenu, MultiPlayerMenu, SinglePlayerMenu, GamePage, Rules },
 
     data: function() {
         return {
@@ -38,11 +42,8 @@ export default {
     },
 
     methods: {
-        single() {
-            this.page = 'singleplayer';
-        },
-        multi() {
-            this.page = 'multiplayer';
+        goto (menu) {
+            this.page = menu;
         }
     },
     

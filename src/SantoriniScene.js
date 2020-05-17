@@ -17,19 +17,6 @@ export class SantoriniScene
         this.scene.shadows = this.shadows;
 
         this.hoverMeshes = [];
-
-        // scene.onKeyboardObservable.add(keyInfo => {
-        //     switch (keyInfo.type) {
-        //         case BABYLON.KeyboardEventTypes.KEYDOWN:
-        //             this.emitter.emit('keyDown', keyInfo.event);
-        //             this.emitter.emit('keyDown-'+keyInfo.event.code);
-        //             break;
-        //         case BABYLON.KeyboardEventTypes.KEYUP:
-        //             this.emitter.emit('keyUp', keyInfo.event);
-        //             this.emitter.emit('keyUp-'+keyInfo.event.code);
-        //             break;
-        //     }
-        // });
     }
 
     arcCamera() {
