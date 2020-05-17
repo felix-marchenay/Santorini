@@ -91,6 +91,14 @@ export class Pion {
         this.emitter.emit('moved', this);
     }
 
+    initPosition() {
+        this.mesh.animations.push(
+            this.animationTo(this.initialPosition)
+        );
+        this.scene.beginAnimation(this.mesh, 0, 30, false);
+        this.mesh.animations = [];
+    }
+
     animationTo(vectorCase) {
         const animation = new Animation('anim', "position", 60, Animation.ANIMATIONTYPE_VECTOR3);
         

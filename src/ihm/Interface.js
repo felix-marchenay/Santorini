@@ -29,6 +29,9 @@ export class Interface
         this.vue.$on('goSingleplayer', data => {
             this.emitter.emit('goSingleplayer', data);
         });
+        this.vue.$on('replay', () => {
+            this.emitter.emit('replay');
+        });
     }
 
     enteredRoom(room) {

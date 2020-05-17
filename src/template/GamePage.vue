@@ -20,6 +20,10 @@
                 <div class="text">
                     Victoire pour <span class="name">{{ playerVictorious.name }}</span> !!
                 </div>
+                <div class="buttons">
+                    <Button @click="replay">Rejouer</Button>
+                    <Button @click="backToMainMenu">Menu principal</Button>
+                </div>
             </div>
         </div>
     </div>
@@ -88,6 +92,14 @@ export default {
         switchAtlasMode() {
             this.atlasMode = this.atlasMode == 'etage' ? 'dome' : 'etage';
             this.$root.$emit('switchAtlasMode');
+        },
+        replay() {
+            this.playerVictoriousId = null;
+            this.$emit('replay');
+        },
+        backToMainMenu() {
+            this.playerVictoriousId = null;
+            this.$emit('main-menu');
         }
     }
 }
@@ -154,6 +166,7 @@ export default {
     }
 
     .victory {
+        pointer-events: all;
         position: fixed;
         left: 50%;
         bottom: 130px;
@@ -167,7 +180,18 @@ export default {
 
         span.name {
             font-weight: 800;
-            color: rgb(173, 162, 6);
+            color: rgb(9, 56, 78);
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+
+            button {
+                margin: 6px 0;
+                font-size: 21px;
+            }
         }
     }
 }

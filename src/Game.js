@@ -141,6 +141,9 @@ export class Game
     }
 
     pionsUnpickables(pions) {
+        if (pions === undefined) {
+            pions = this.pions;
+        }
         pions.forEach(p => {
             p.disableClickable();
             p.emitter.flush();
@@ -182,6 +185,9 @@ export class Game
 
     victory(joueur) {
         this.ihm.victory(joueur);
+        this.ihm.emitter.on('replay', () => {
+            this.replay();
+        });
         setTimeout(() => {
             joueur.lastMovedPion.animateVictory();
         }, 1100);
@@ -190,7 +196,6 @@ export class Game
     async play() {
         this.stepper.run().catch(e => {
             if (e instanceof Victoire) {
-                console.log(e, e.joueur.lastMovedPion);
                 this.victory(e.joueur);
             } else {
                 console.error(e);
@@ -212,15 +217,21 @@ export class Game
     }
 
     replay () {
-        this.ihm.hideAll();
-
-        this.plateau.vider();
-        
-        this.pions.forEach(pion => pion.mesh.dispose());
-
-        this.joueurs = [];
-
+        console.log('replay');
+        this.pionsUnpickables();
+        this.casesUnpickables();
+        this.reinitialiser();
+        this.stepper = new Stepper;
+        this.setStepsFromPlayers();
         this.play();
+    }
+
+    reinitialiser() {
+        this.plateau.vider();
+        this.pions.forEach(p => {
+            p.initPosition();
+            p.case = null;
+        });
     }
 
     static allDivinites() {

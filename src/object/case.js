@@ -68,7 +68,7 @@ export class Case
     }
 
     glow () {
-        this.mesh.material.emissiveColor.b = 0.3;
+        this.mesh.material.emissiveColor.b = 0.5;
     }
 
     unGlow() {

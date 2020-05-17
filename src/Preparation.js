@@ -82,7 +82,6 @@ export class Preparation
             const joueurs = players.map((p, i) => 
                 new Joueur(i+1, p.name, Game.diviniteFromString(p.divinite), this.scene.scene, i, false, [{id:0},{id:1}])
             );
-
             
             this.ihm.letsGo(joueurs);
             resolve(new Game(this.scene.scene, this.ihm, joueurs));

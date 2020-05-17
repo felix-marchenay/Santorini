@@ -15,6 +15,8 @@
         <GamePage
             v-show="page == 'game'"
             :players="players"
+            @replay="replay"
+            @main-menu="mainMenu"
         />
         <Rules 
             v-show="page == 'rules'" 
@@ -44,6 +46,12 @@ export default {
     methods: {
         goto (menu) {
             this.page = menu;
+        },
+        replay() {
+            this.$root.$emit('replay');
+        },
+        mainMenu() {
+            this.page = 'main-menu';
         }
     },
     
