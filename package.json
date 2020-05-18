@@ -1,6 +1,6 @@
 {
   "name": "santorini",
-  "version": "0.8",
+  "version": "1.0.0",
   "description": "Jeu de plateau santorini",
   "main": "webpack.config.js",
   "scripts": {
