@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "serve": "webpack-dev-server --host 0.0.0.0",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "mocha -r esm"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "html-webpack-plugin": "^4.3.0",
+    "mocha": "^7.1.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "webpack": "^4.43.0",
@@ -25,6 +27,7 @@
     "babylonjs": "^4.1.0",
     "css-loader": "^3.5.3",
     "debounce": "^1.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",

@@ -32,6 +32,9 @@ export class Interface
         this.vue.$on('replay', () => {
             this.emitter.emit('replay');
         });
+        this.vue.$on('mainMenu', () => {
+            this.emitter.emit('mainMenu');
+        });
     }
 
     enteredRoom(room) {
