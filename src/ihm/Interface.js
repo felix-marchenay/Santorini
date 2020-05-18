@@ -79,6 +79,10 @@ export class Interface
         this.vue.$emit('victory', joueur);
     }
 
+    hideVictory() {
+        this.vue.$emit('hideVictory');
+    }
+
     error(error) {
         
     }

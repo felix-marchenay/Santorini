@@ -6,17 +6,18 @@ export class Server
 {
     constructor() {
         this.emitter = new Emitter;
-        this.host = 'felixmarchenay.fr';
-        this.port = '4949'
+        this.host = 'localhost';
+        this.port = '4949';
+        this.protocol = 'http';;
         this.socket = null;
         this.transitEvents = [
-            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'pionMoveForce', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory'
+            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'pionMoveForce', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory', 'replay'
         ];
     }
 
     connect (roomName) {
         const fn = (resolve, reject) => {
-            this.socket = io('https://' + this.host + ':' + this.port);
+            this.socket = io(this.protocol + '://' + this.host + ':' + this.port);
     
             this.socket.on('connected', () => {
                 this.socket.emit('register', roomName);

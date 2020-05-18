@@ -20,6 +20,7 @@ export class Santorini
 
         SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", this.scene.scene, (container) => {
             this.scene.scene.container = container;
+            console.log(container);
             this.emitter.emit('ready');
         });
 

@@ -196,11 +196,18 @@ export class Game
     victory(joueur) {
         this.ihm.victory(joueur);
         this.ihm.emitter.on('replay', () => {
+            this.server.emit('replay');
             this.replay();
         });
         this.ihm.emitter.on('mainMenu', () => {
             this.emitter.emit('mainMenu');
         });
+        if (this.server) {
+            this.server.emitter.on('replay', () => {
+                this.ihm.hideVictory();
+                this.replay();
+            });
+        }
         setTimeout(() => {
             joueur.lastMovedPion.animateVictory();
         }, 1100);

@@ -84,6 +84,10 @@ export default {
         this.$root.$on('victory', joueur => {
             this.playerVictoriousId = joueur.id;
         });
+
+        this.$root.$on('hideVictory', () => {
+            this.playerVictoriousId = null;
+        });
     },
     methods: {
         skip() {
