@@ -1,7 +1,7 @@
 {
-  "name": "santori",
-  "version": "1.0.0",
-  "description": "",
+  "name": "santorini",
+  "version": "0.8",
+  "description": "Jeu de plateau santorini",
   "main": "webpack.config.js",
   "scripts": {
     "serve": "webpack-dev-server --host 0.0.0.0",
@@ -32,6 +32,7 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^3.0.1",
     "typescript": "^3.9.2",
     "uuid": "^8.0.0",
     "vue": "^2.6.11",
