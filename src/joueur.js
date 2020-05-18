@@ -33,8 +33,6 @@ export class Joueur
             this.divinite = new NoDivinite;
         }
 
-        console.trace();
-
         this.pions.push(
             new Pion(scene, materials[nb-1], 'h', pionsIds[0].id),
             new Pion(scene, materials[nb-1], 'f', pionsIds[1].id)

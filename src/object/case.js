@@ -42,7 +42,7 @@ export class Case
             }
         );
         this.onPickAction = new ExecuteCodeAction(
-            ActionManager.OnPickDownTrigger,
+            ActionManager.OnPickTrigger,
             () => {
                 this.emitter.emit('pointerPicked', this);
             }

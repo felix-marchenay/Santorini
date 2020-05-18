@@ -19,7 +19,7 @@ export class Etage
         
         this.mesh.actionManager.registerAction(
             new ExecuteCodeAction(
-                ActionManager.OnPickDownTrigger,
+                ActionManager.OnPickTrigger,
                 () => {
                     this.emitter.emit('pointerPicked', this);
                 }

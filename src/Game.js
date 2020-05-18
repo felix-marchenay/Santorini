@@ -66,9 +66,9 @@ export class Game
 
     setStepsFromPlayers() {
 
-        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
-        // this.stepper.addSteps(new AutoPreparation(this));
+        this.stepper.addSteps(new AutoPreparation(this), new RandomBuild(this));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {

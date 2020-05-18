@@ -79,7 +79,7 @@ export class Preparation
                 },
                 {
                     name: 'xx-kevin',
-                    divinite: 'eros',
+                    divinite: 'poseidon',
                 },
             ];
 
