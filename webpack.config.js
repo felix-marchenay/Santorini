@@ -1,12 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     mode: 'development',
-
     entry: './src/index.js',
     module: {
         rules: [
@@ -30,12 +30,14 @@ module.exports = {
         contentBase: './public',
         port: 8081
     },
-
+    optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+    },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'main.js',
     },
-
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({ template: './public/index.html' }),
