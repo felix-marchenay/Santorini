@@ -11,7 +11,7 @@ export class DistantConstruction extends Step
                 const caze = this.game.findCaseByCoordinates(data);
                 caze.build();
                 if (caze.pion) {
-                    caze.poserPion(caze.pion);
+                    caze.poserPionForce(caze.pion);
                 }
             });
 

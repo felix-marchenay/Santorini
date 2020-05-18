@@ -35,6 +35,9 @@ export class Interface
         this.vue.$on('mainMenu', () => {
             this.emitter.emit('mainMenu');
         });
+        this.vue.$on('quitRoom', () => {
+            this.emitter.emit('quitRoom');
+        });
     }
 
     enteredRoom(room) {
