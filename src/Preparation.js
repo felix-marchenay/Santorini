@@ -58,6 +58,10 @@ export class Preparation
                 resolve(new Game(this.scene.scene, this.ihm, joueurs, this.server));
             });
 
+            this.ihm.emitter.on('quitRoom', () => {
+                this.server.disconnect();
+            });
+
             this.ihm.emitter.on('goSingleplayer', players => {
 
                 const joueurs = players.map((p, i) => 
@@ -75,7 +79,7 @@ export class Preparation
                 },
                 {
                     name: 'xx-kevin',
-                    divinite: 'eros',
+                    divinite: 'poseidon',
                 },
             ];
 

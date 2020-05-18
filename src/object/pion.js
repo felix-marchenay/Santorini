@@ -31,7 +31,7 @@ export class Pion {
         this.case = null;
 
         this.onPickAction = new ExecuteCodeAction(
-            ActionManager.OnPickDownTrigger,
+            ActionManager.OnPickTrigger,
             () => {
                 this.emitter.emit('picked', this);
             }

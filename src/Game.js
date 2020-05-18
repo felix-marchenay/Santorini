@@ -68,7 +68,7 @@ export class Game
 
         this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
-        // this.stepper.addSteps(new AutoPreparation(this));
+        // this.stepper.addSteps(new AutoPreparation(this), new RandomBuild(this));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {
@@ -198,6 +198,9 @@ export class Game
         this.ihm.emitter.on('replay', () => {
             this.replay();
         });
+        this.ihm.emitter.on('mainMenu', () => {
+            this.emitter.emit('mainMenu');
+        });
         setTimeout(() => {
             joueur.lastMovedPion.animateVictory();
         }, 1100);
@@ -227,8 +230,6 @@ export class Game
     }
 
     replay () {
-        this.pionsUnpickables();
-        this.casesUnpickables();
         this.reinitialiser();
         this.stepper = new Stepper;
         this.setStepsFromPlayers();
@@ -236,6 +237,8 @@ export class Game
     }
 
     reinitialiser() {
+        this.pionsUnpickables();
+        this.casesUnpickables();
         this.plateau.vider();
         this.pions.forEach(p => {
             p.initPosition();

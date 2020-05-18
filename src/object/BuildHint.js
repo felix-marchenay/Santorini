@@ -44,7 +44,7 @@ export class BuildHint
         mesh.actionManager = new ActionManager(this.scene);
         mesh.actionManager.registerAction(
             new ExecuteCodeAction(
-                ActionManager.OnPickDownTrigger,
+                ActionManager.OnPickTrigger,
                 () => {
                     this.emitter.emit('pointerPicked', this);
                 }

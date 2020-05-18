@@ -13,13 +13,16 @@
         <Button @click="search">Rejoindre</Button>
     </div>
     <div v-else>
-        <h2>Room : {{ room }}</h2>
+        <div class="title">
+            <h2>Room : {{ room }}</h2>
+            <Button class="back" @click="quitRoom">quitter cette partie</Button>
+        </div>
         <div class="players">
             <div class="my player">
                 <DivinitePicker @selected="setDivinite" :active="divinitePickerActive"/>
                 <DiviniteCard :divinite="divinite" @click.native="divinitePickerActive = true"/>
                 <input type="text" @input="inputTyped" v-model="playerName" placeholder="Nom" />
-                <Button :class="{active: amReady}" @click="ready">{{ amReady ? 'Ready!': 'not ready' }}</Button>
+                <Button :class="{active: amReady}" @click="ready">{{ amReady ? 'Ready!': 'Cliquez pour être prêt' }}</Button>
             </div>
             <div v-for="(player, k) in othersPlayers" :key="k" class="other player">
                 <DiviniteCard :divinite="player.divinite" />
@@ -112,13 +115,19 @@ export default {
         this.$root.$emit("refreshPlayer", this.infos);
     },
     setDivinite(divinite) {
-        console.log(divinite);
         this.divinite = divinite;
         this.divinitePickerActive = false;
         this.$root.$emit('refreshPlayer', this.infos);
     },
     inputTyped() {
         this.debounceType();
+    },
+    quitRoom() {
+        this.room = null;
+        this.othersPlayers = [];
+        this.divinite = new NoDivinite;
+        this.playerName = '';
+        this.$root.$emit('quitRoom');
     }
   },
 };
@@ -129,9 +138,20 @@ export default {
         text-align: center;
     }
 
-    .multiplayer.menu {
-        position: relative;
+    #app {
+        .multiplayer.menu {
+            position: relative;
+
+            .title {
+                justify-content: center;
+
+                button.back {
+                    margin: 0;
+                }
+            }
+        }
     }
+
 
     .players {
 

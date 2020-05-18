@@ -52,6 +52,7 @@ export default {
         },
         mainMenu() {
             this.page = 'main-menu';
+            this.$root.$emit('mainMenu');
         }
     },
     

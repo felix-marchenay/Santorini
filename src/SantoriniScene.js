@@ -70,9 +70,11 @@ export class SantoriniScene
             this.fps.push(parseInt(fps));
         }
 
-        if (this.fps.length > 30) {
+        if (this.fps.length > 150) {
             this.fps = this.fps.slice(1);
-            document.querySelector('.fps').innerHTML = Math.floor(this.fps.reduce((a,b) => a+b) / this.fps.length);
+            document.querySelector('.fps').innerHTML = 
+            Math.floor(this.fps.reduce((a,b) => a+b) / this.fps.length) + ' - ' + 
+            Math.floor(fps);
         }
     }
 

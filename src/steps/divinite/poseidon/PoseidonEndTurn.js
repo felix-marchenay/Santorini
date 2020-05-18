@@ -8,7 +8,7 @@ export class PoseidonEndTurn extends Step
     }
 
     run () {
-        return super.run(resolve => {
+        return super.run((resolve, reject) => {
 
             this.game.ihm.tour('construire sur le personnage immobile');
 

@@ -28,20 +28,33 @@ export class Santorini
         });
 
         this.server = new Server();
-        this.stepper = new Stepper;
         this.ihm = new Interface;
-        this.preparation = new Preparation(this.ihm, this.server, this.scene);
         this.game = null;
     }
 
     async ignition() {
-        const game = await this.preparation.launch();
 
-        game.play();
+        await this.launch();
         
         this.engine.runRenderLoop(() => {
             this.scene.render();
             this.scene.showFPS(this.engine);
         });
+
+        // this.game.emitter.on('mainMenu', () => {
+        //     const canvas = document.querySelector('canvas');
+        //     document.querySelector('canvas').remove();
+        //     document.body.prepend(canvas);
+
+        //     this.launch();
+        // });
+    }
+
+    async launch() {
+        this.preparation = new Preparation(this.ihm, this.server, this.scene);
+        
+        this.game = await this.preparation.launch();
+
+        this.game.play();
     }
 }
