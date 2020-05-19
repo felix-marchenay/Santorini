@@ -34,13 +34,15 @@ export class BuildHint
 
         const mesh = this.scene.container.meshes.find(mesh => mesh.id === map[niveau]).clone();
 
-        mesh.freezeWorldMatrix();
-        mesh.convertToUnIndexedMesh();
         mesh.material = new StandardMaterial("", this.scene);
         mesh.material.alpha = .2;
         mesh.material.diffuseColor = new Color3(0.9, 0.25, 0.9);
         mesh.position = this.case.mesh.position.clone();
         mesh.setEnabled(false);
+        mesh.overlayColor.r = 0.176;
+        mesh.overlayColor.g = 0.380;
+        mesh.overlayColor.b = 0.631;
+        mesh.renderOverlay = true;
         mesh.actionManager = new ActionManager(this.scene);
         mesh.actionManager.registerAction(
             new ExecuteCodeAction(
@@ -50,9 +52,6 @@ export class BuildHint
                 }
             )
         );
-        mesh.renderOutline = true;
-        mesh.outlineColor = new Color3(.8, .2, .7);
-        mesh.outlineWidth = .1;
 
         if (niveau == '2-dome') {
             mesh.position.y = 1;

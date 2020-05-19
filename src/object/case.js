@@ -22,6 +22,7 @@ export class Case
         this.mesh.receiveShadows = true;
         this.constructions = {etage1: null, etage2: null, etage3: null, dome: null};
         this.mesh.material = this.mesh.material.clone();
+        this.initialEmissive = this.mesh.material.emissiveColor.clone();
         this.buildHint = new BuildHint(scene, this);
         this.buildHint.emitter.on('pointerPicked', () => {
             this.emitter.emit('pointerPicked', this);
@@ -64,15 +65,21 @@ export class Case
     }
 
     lightGlow () {
-        this.mesh.material.emissiveColor.b = 0.12;
+        // this.mesh.material.emissiveColor.r = this.initialEmissive.r + 0.15;
+        // this.mesh.material.emissiveColor.g = this.initialEmissive.g + 0.15;
+        this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.25;
     }
 
     glow () {
-        this.mesh.material.emissiveColor.b = 0.5;
+        // this.mesh.material.emissiveColor.r = this.initialEmissive.r + 0.25;
+        // this.mesh.material.emissiveColor.g = this.initialEmissive.g + 0.25;
+        this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.7;
     }
 
     unGlow() {
-        this.mesh.material.emissiveColor.b = 0;
+        // this.mesh.material.emissiveColor.r = this.initialEmissive.r;
+        // this.mesh.material.emissiveColor.g = this.initialEmissive.g;
+        this.mesh.material.emissiveColor.b = this.initialEmissive.b;
     }
 
     poserPion(pion) {

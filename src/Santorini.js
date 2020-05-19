@@ -41,14 +41,6 @@ export class Santorini
             this.scene.render();
             this.scene.showFPS(this.engine);
         });
-
-        // this.game.emitter.on('mainMenu', () => {
-        //     const canvas = document.querySelector('canvas');
-        //     document.querySelector('canvas').remove();
-        //     document.body.prepend(canvas);
-
-        //     this.launch();
-        // });
     }
 
     async launch() {
