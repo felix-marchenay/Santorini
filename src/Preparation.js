@@ -65,31 +65,20 @@ export class Preparation
             this.ihm.emitter.on('goSingleplayer', players => {
 
                 const joueurs = players.map((p, i) => 
-                    new Joueur(i+1, p.name, p.divinite, this.scene.scene, i, false, [{id:0},{id:1}])
+                    new Joueur(i+1, p.name, p.divinite, this.scene.scene, i, false, [{id:0},{id:1}], p.type == 'cpu')
                 );
 
                 this.ihm.letsGo(joueurs);
                 resolve(new Game(this.scene.scene, this.ihm, joueurs));
             });
 
-            const players = [
-                {
-                    name: 'Michelinho',
-                    divinite: 'eros',
-                },
-                {
-                    name: 'xx-kevin',
-                    divinite: 'poseidon',
-                },
-            ];
-
-            const joueurs = [
-                new Joueur(1, "John", new NoDivinite, this.scene.scene, 12, false, [11, 12], false),
-                new Joueur(2, "Bernie", new NoDivinite, this.scene.scene, 12, false, [13, 14], true),
-            ];
+            // const joueurs = [
+            //     new Joueur(1, "John", new NoDivinite, this.scene.scene, 12, false, [11, 12], true),
+            //     new Joueur(2, "Bernie", new NoDivinite, this.scene.scene, 15, false, [13, 14], true),
+            // ];
             
-            this.ihm.letsGo(joueurs);
-            resolve(new Game(this.scene.scene, this.ihm, joueurs));
+            // this.ihm.letsGo(joueurs);
+            // resolve(new Game(this.scene.scene, this.ihm, joueurs));
         }
         return new Promise(fn);
     }

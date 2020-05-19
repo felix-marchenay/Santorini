@@ -1,7 +1,7 @@
 import { Step } from "../Step";
 
 export class IAConstruction extends Step
-{    
+{
     run () {
         return super.run((resolve, reject) => {
 
@@ -13,7 +13,7 @@ export class IAConstruction extends Step
                 cases[Math.floor(Math.random() * cases.length)].build();
 
                 resolve();
-            }, 500);
+            }, 250);
         });
     }
 }

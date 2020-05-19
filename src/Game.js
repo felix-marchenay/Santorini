@@ -60,15 +60,15 @@ export class Game
     sendVictory(joueur) {
         this.sendServer('victory', {
             joueur: joueur.export(),
-            pion: this.idlePion().export()
+            pion: joueur.lastMovedPion.export()
         });
     }
 
     setStepsFromPlayers() {
 
-        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
-        this.stepper.addSteps(new RandomBuild(this), new AutoPreparation(this));
+        // this.stepper.addSteps(new RandomBuild(this), new AutoPreparation(this));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {

@@ -9,6 +9,10 @@
 
         <div class="players">
             <div v-for="(player, k) in players" v-bind:key="k" class="player">
+                <div class="human">
+                    <Button @click="player.type = 'human'" :class="{active: player.type == 'human'}">Vrai humain</Button>
+                    <Button @click="player.type = 'cpu'" :class="{active: player.type == 'cpu'}">Ordinateur</Button>
+                </div>
                 <DivinitePicker @selected="setDivinite($event, k)" :active="player.divinitePickerActive"/>
                 <DiviniteCard :divinite="player.divinite" @click.native="player.divinitePickerActive = true"/>
                 <input type="text" @input="updateName($event.target.value, k)" placeholder="Nom" />
@@ -37,12 +41,14 @@ export default {
                 {
                     name: '',
                     divinite: new NoDivinite,
-                    divinitePickerActive: false
+                    divinitePickerActive: false,
+                    type: 'human'
                 },
                 {
                     name: '',
                     divinite: new NoDivinite,
-                    divinitePickerActive: false
+                    divinitePickerActive: false,
+                    type: 'cpu'
                 },
             ],
         };
@@ -71,6 +77,21 @@ export default {
     min-width: 450px;
     justify-content: space-evenly;
     position: relative;
+
+    .human {
+        button {
+            border: 2px solid rgba(0, 0, 0, 0.6);
+            background: none;
+            padding: 4px;
+            color : black;
+
+            &.active {
+                background: rgb(26, 52, 201);
+                border: 2px solid rgb(26, 52, 201);
+                color: white;
+            }
+        }
+    }
 
     .player {
         display: flex;

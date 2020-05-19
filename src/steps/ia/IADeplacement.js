@@ -8,19 +8,31 @@ export class IADeplacement extends Step
 
             setTimeout(() => {
 
-                const pion = this.joueur.pions.find(p => {
-                    return this.game.plateau.casesAvoisinantes(p.case).filter(c => p.canGo(c)).length > 0;
-                });
+                let pionHighestCase = this.joueur.pions.reduce((carry, p) => {
+                    const hCase = this.game.plateau.highestCaseCanGo(p);
+                    if (hCase === null) {
+                        return carry;
+                    }
+                    if (carry.case === null || hCase.niveau() > carry.case.niveau()) {
+                        carry.pion = p;
+                        carry.case = hCase;
+                    }
 
-                const cases = this.game.plateau.casesAvoisinantes(pion.case).filter(c => pion.canGo(c));
+                    return carry;
+                }, {pion: null, case: null});
 
-                cases[Math.floor(Math.random() * cases.length)].poserPion(pion);
+                pionHighestCase.case.poserPion(pionHighestCase.pion);
                 
-                this.joueur.lastMovedPion = pion;
+                this.joueur.lastMovedPion = pionHighestCase.pion;
+
+                if (this.joueur.isVictorious()) {
+                    this.game.sendVictory(this.joueur);
+                    reject(new Victoire(this.joueur));
+                }
 
                 resolve();
 
-            }, Math.random()*300+150)
+            }, 150)
 
         });
     }

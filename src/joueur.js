@@ -78,7 +78,7 @@ export class Joueur
         }
 
         if (this.ia) {
-            return this.divinite.getIADeplacementStep(game, this);
+            return this.divinite.getIAPreparationStep(game, this);
         }
 
         return this.divinite.getPreparationStep(game, this);

@@ -64,6 +64,23 @@ export class Plateau {
         return this.casesAvoisinantes(caze).filter(c => c.isBuildable());
     }
 
+    highestCaseCanGo(pion) {
+        return this.casesAvoisinantes(pion.case)
+            .filter(c => pion.canGo(c))
+            .reduce((carry, c) => {
+                if (carry.c === null || carry.h < c.niveau()) {
+                    carry.c = c;
+                    carry.h = c.niveau();
+                }
+
+                return carry;
+            }, {c: null, h: 0}).c;
+    }
+
+    casesDisponibles () {
+        return this.allCases().filter(c => c.pion === null);
+    }
+
     showBuildHintAround (caze) {
         this.showBuildHint(
             this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())

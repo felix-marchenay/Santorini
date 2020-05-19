@@ -1,6 +1,7 @@
 export class Victoire
 {
-    constructor(joueur) {
+    constructor(joueur, tours) {
         this.joueur = joueur;
+        this.tours = tours;
     }
 }
