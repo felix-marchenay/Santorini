@@ -60,6 +60,10 @@ export class Plateau {
         return [...this.allCases().filter(caseB => caseB.estAvoisinante(caseA)), caseA];
     }
 
+    casesAvoisinantesBuildables(caze) {
+        return this.casesAvoisinantes(caze).filter(c => c.isBuildable());
+    }
+
     showBuildHintAround (caze) {
         this.showBuildHint(
             this.casesAvoisinantes(caze).filter(caze => caze.isBuildable())

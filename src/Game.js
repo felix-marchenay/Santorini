@@ -66,9 +66,9 @@ export class Game
 
     setStepsFromPlayers() {
 
-        this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
+        // this.joueurs.forEach(j => this.stepper.addSteps(...j.getPreparationStep(this)));
 
-        // this.stepper.addSteps(new AutoPreparation(this), new RandomBuild(this));
+        this.stepper.addSteps(new RandomBuild(this), new AutoPreparation(this));
 
         const steps = [...this.joueurs.reduce(
             (steps, joueur) => {
@@ -196,7 +196,9 @@ export class Game
     victory(joueur) {
         this.ihm.victory(joueur);
         this.ihm.emitter.on('replay', () => {
-            this.server.emit('replay');
+            if (this.server) {
+                this.server.emit('replay');
+            }
             this.replay();
         });
         this.ihm.emitter.on('mainMenu', () => {

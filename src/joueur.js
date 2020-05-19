@@ -8,7 +8,7 @@ import { DistantPreparation } from "./steps/distant/DistantPreparation";
 
 export class Joueur
 {
-    constructor (nb, name, divinite, scene, id, distant, pionsIds) {
+    constructor (nb, name, divinite, scene, id, distant, pionsIds, ia) {
         const couleursHex = [
             'e6e6e6',
             '1543e6',
@@ -28,6 +28,10 @@ export class Joueur
         this.divinite = divinite;
         this.distant = distant;
         this.id = id;
+        if (ia === undefined) {
+            ia = false;
+        }
+        this.ia = ia;
 
         if (divinite === null) {
             this.divinite = new NoDivinite;
@@ -49,6 +53,10 @@ export class Joueur
             return this.divinite.getDistantDeplacementStep(game, this);
         }
 
+        if (this.ia) {
+            return this.divinite.getIADeplacementStep(game, this);
+        }
+
         return this.divinite.getDeplacementStep(game, this);
     }
 
@@ -57,12 +65,20 @@ export class Joueur
             return this.divinite.getDistantConstructionStep(game, this);
         }
 
+        if (this.ia) {
+            return this.divinite.getIAConstructionStep(game, this);
+        }
+
         return this.divinite.getConstructionStep(game, this);
     }
 
     getPreparationStep (game) {
         if (this.distant) {
             return this.divinite.getDistantPreparationStep(game, this);
+        }
+
+        if (this.ia) {
+            return this.divinite.getIADeplacementStep(game, this);
         }
 
         return this.divinite.getPreparationStep(game, this);

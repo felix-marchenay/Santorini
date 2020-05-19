@@ -4,6 +4,9 @@ import { PreparationUnSeulJoueur } from "../steps/PreparationUnJoueur";
 import { DistantDeplacement } from "../steps/distant/DistantDeplacement";
 import { DistantConstruction } from "../steps/distant/DistantConstruction";
 import { DistantPreparation } from "../steps/distant/DistantPreparation";
+import { IADeplacement } from "../steps/ia/IADeplacement";
+import { IAConstruction } from "../steps/ia/IAConstruction";
+import { IAPreparation } from "../steps/ia/IAPreparation";
 
 export class Divinite
 {
@@ -30,6 +33,19 @@ export class Divinite
 
     getDistantPreparationStep (game, joueur) {
         return [new DistantPreparation(game, joueur)];
+    }
+
+    // IA
+    getIADeplacementStep (game, joueur) {
+        return [new IADeplacement(game, joueur)];
+    }
+
+    getIAConstructionStep (game, joueur) {
+        return [new IAConstruction(game, joueur)];
+    }
+
+    getIAPreparationStep (game, joueur) {
+        return [new IAPreparation(game, joueur)];
     }
 
     isVictorious(joueur) {
