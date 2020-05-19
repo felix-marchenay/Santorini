@@ -13,7 +13,7 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of mesh:  case
-		processing begun of material:  blanc
+		processing begun of material:  white cement
 		num positions      :  452
 		num normals        :  452
 		num tangents       :  0
@@ -24,7 +24,6 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		WARNING: # of 0 area faces found:  40
 	processing begun of mesh:  case.002
 		processing begun of material:  blanc
-		registered as also a user of material:  blanc
 		num positions      :  452
 		num normals        :  452
 		num tangents       :  0
@@ -35,10 +34,11 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 		WARNING: # of 0 area faces found:  40
 	processing begun of mesh:  etage-1
 		processing begun of material:  white cement
-		num positions      :  3071
-		num normals        :  3071
+		registered as also a user of material:  white cement
+		num positions      :  3331
+		num normals        :  3331
 		num tangents       :  0
-		num uvs            :  6142
+		num uvs            :  6662
 		num uvs2           :  0
 		num colors         :  0
 		num indices        :  5898
@@ -171,4 +171,4 @@ Exporter version: 6.3.1, Blender version: 2.82 (sub 7)
 	writing mesh:  pion-f
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 5.2408 secs
+elapsed time:  0 min, 6.7532 secs
