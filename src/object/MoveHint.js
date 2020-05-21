@@ -30,7 +30,7 @@ export class MoveHint
     }
 
     addAll() {
-        this.meshes.forEach(mesh =>  {
+        this.meshes.forEach(mesh => {
             this.highlightLayer.addMesh(mesh, this.color);
         });
     }

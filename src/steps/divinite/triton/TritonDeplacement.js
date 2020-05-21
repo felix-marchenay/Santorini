@@ -28,7 +28,7 @@ export class TritonDeplacement extends Step
         this.game.casesPickables(
             this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
             caze => {
-                try  {
+                try {
                     this.game.pionsUnpickables(this.game.pions);
                     caze.poserPion(pion);
                     

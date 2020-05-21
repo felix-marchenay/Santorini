@@ -25,7 +25,7 @@ export class HermesDeplacement extends Step
                 this.game.casesPickables(
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
                     caze => {
-                        try  {
+                        try {
                             caze.poserPion(pion);
 
                             premierDeplacement = caze;

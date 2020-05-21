@@ -278,6 +278,6 @@ export class Case
     }
 
     export() {
-        return this.coordinates;
+        return this.coordinates;
     }
 }

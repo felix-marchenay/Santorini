@@ -21,7 +21,7 @@ export class Deplacement extends Step
                 this.game.casesPickables(
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),
                     caze => {
-                        try  {
+                        try {
                             caze.poserPion(pion);
         
                             this.game.sendServer('pionMove', pion.export());

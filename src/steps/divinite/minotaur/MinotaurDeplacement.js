@@ -21,7 +21,7 @@ export class MinotaurDeplacement extends Step
                 this.game.casesPickables(
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.minotaurCanGo(caze)),
                     caze => {
-                        try  {        
+                        try {        
                             const pionCible = caze.pion;
                             
                             if (pionCible !== null) {
