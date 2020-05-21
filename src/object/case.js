@@ -135,7 +135,7 @@ export class Case
     }
 
     estDuPerimetre() {
-        return this.coordinates.x == 0 || this.coordinates.x == 4 || this.coordinates.y == 4 || this.coordinates.y == 0;
+        return this.coordinates.x == 0 || this.coordinates.x == 4 || this.coordinates.y == 4 || this.coordinates.y == 0;
     }
 
     showBuildHint() {

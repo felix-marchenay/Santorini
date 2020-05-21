@@ -32,4 +32,8 @@ export class Construction extends Step
             });
         });
     }
+
+    after() {
+        super.after();
+    }
 }
