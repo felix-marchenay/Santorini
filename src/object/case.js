@@ -65,20 +65,14 @@ export class Case
     }
 
     lightGlow () {
-        // this.mesh.material.emissiveColor.r = this.initialEmissive.r + 0.15;
-        // this.mesh.material.emissiveColor.g = this.initialEmissive.g + 0.15;
         this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.25;
     }
 
     glow () {
-        // this.mesh.material.emissiveColor.r = this.initialEmissive.r + 0.25;
-        // this.mesh.material.emissiveColor.g = this.initialEmissive.g + 0.25;
         this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.7;
     }
 
     unGlow() {
-        // this.mesh.material.emissiveColor.r = this.initialEmissive.r;
-        // this.mesh.material.emissiveColor.g = this.initialEmissive.g;
         this.mesh.material.emissiveColor.b = this.initialEmissive.b;
     }
 
@@ -108,6 +102,10 @@ export class Case
     poserPionForce(pion) {
         if (this.dernierEtage() && this.dernierEtage().niveau == 'dome') {
             throw "Impossible de se déplacer sur un dome";
+        }
+
+        if (this.pion !== null) {
+            throw "Case occupée";
         }
 
         pion.moveTo(this);

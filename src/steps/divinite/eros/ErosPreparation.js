@@ -8,17 +8,7 @@ export class ErosPreparation extends Step
             this.game.ihm.tour('placer ses pions');
             
             this.game.pionsPickables(this.joueur.pions, pion => {
-                if (pion.case === null) {
-                    this.game.toggleIdle(pion);
-                    this.game.sendServer('idlePion', pion.export());
-                }
-
-                pion = this.game.idlePion();
                 
-                if (!pion) {
-                    return;
-                }
-
                 const autrePion = this.joueur.pions.find(p => p != pion);
 
                 this.game.casesUnpickables();

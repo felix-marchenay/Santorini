@@ -13,14 +13,6 @@ export class HermesDeplacement extends Step
             let premierDeplacement = null;
 
             this.game.pionsPickables(this.joueur.pions, pion => {
-
-                this.game.toggleIdle(pion);
-
-                pion = this.game.idlePion();
-
-                if (!pion) {
-                    return;
-                }
                 
                 this.game.casesPickables(
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.canGo(caze)),

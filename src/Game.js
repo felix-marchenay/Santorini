@@ -3,7 +3,6 @@ import { Joueur } from "./joueur";
 import { Color3, KeyboardEventTypes, PointerEventTypes, Color4, Scene } from "@babylonjs/core";
 import { Pion } from "./object/pion";
 import { Stepper } from "./infrastructure/Stepper";
-import { Preparation } from "./steps/Preparation";
 import { AutoPreparation } from "./steps/AutoPreparation";
 import { RandomBuild } from "./steps/RandomBuild";
 import { Unsplash } from "./steps/Unsplash";
@@ -138,7 +137,18 @@ export class Game
     pionsPickables(pions, fn) {
         return pions.map(p => {
             p.enableClickable();
-            return p.emitter.on('picked', fn);
+            return p.emitter.on('picked', pion => {
+                this.toggleIdle(pion);
+                this.sendServer('idlePion', pion.export());
+
+                pion = this.idlePion();
+
+                if (!pion) {
+                    return;
+                }
+
+                fn(pion);
+            });
         });
     }
 

@@ -27,14 +27,7 @@ export class CharonDebutTour extends Step
                 }
                 
                 this.game.pionsPickables(pionsProcheAdversaires, pion => {
-                    pion.toggleIdle();
-
-                    pion = this.game.idlePion();
-
-                    if (!pion) {
-                        return;
-                    }
-
+                    
                     const cases = this.game.plateau.casesDistanceDe(pion.case, 2).filter(c => {
                         const caseEntre = this.game.plateau.caseEntre(c, pion.case);
                         if (caseEntre && caseEntre.pion && this.joueur.hasPion(caseEntre.pion)) {

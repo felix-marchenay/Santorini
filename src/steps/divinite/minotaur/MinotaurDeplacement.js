@@ -9,19 +9,11 @@ export class MinotaurDeplacement extends Step
             this.game.ihm.tour('se déplacer');
 
             this.game.pionsPickables(this.joueur.pions, pion => {
-
-                this.game.toggleIdle(pion);
-
-                pion = this.game.idlePion();
-
-                if (!pion) {
-                    return;
-                }
                 
                 this.game.casesPickables(
                     this.game.plateau.casesAvoisinantes(pion.case).filter(caze => pion.minotaurCanGo(caze)),
                     caze => {
-                        try {        
+                        try {
                             const pionCible = caze.pion;
                             
                             if (pionCible !== null) {
