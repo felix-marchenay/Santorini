@@ -6,9 +6,9 @@ export class Server
 {
     constructor() {
         this.emitter = new Emitter;
-        this.host = 'localhost';
+        this.host = 'felixmarchenay.fr';
         this.port = '4949';
-        this.protocol = 'http';;
+        this.protocol = 'http';
         this.socket = null;
         this.transitEvents = [
             'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'pionMoveForce', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory', 'replay'
