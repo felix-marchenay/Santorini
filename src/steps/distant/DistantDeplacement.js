@@ -22,6 +22,12 @@ export class DistantDeplacement extends Step
                 caze.poserPionForce(pion);
             });
 
+            this.game.server.emitter.on('pionSwitch', pions => {
+                const pion1 = this.game.findPionById(pions[0].id);
+                const pion2 = this.game.findPionById(pions[1].id);
+                pion1.switchWith(pion2);
+            });
+
             this.game.server.emitter.on('endTurn', () => {
                 resolve();
             });

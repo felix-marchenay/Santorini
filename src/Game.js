@@ -22,6 +22,7 @@ import { Charon } from "./divinite/Charon";
 import { Eros } from "./divinite/Eros";
 import { Chronos } from "./divinite/Chronos";
 import { Demeter } from "./divinite/Demeter";
+import { Apollon } from "./divinite/Apollon";
 
 export class Game
 {
@@ -282,7 +283,8 @@ export class Game
             charon: new Charon,
             eros: new Eros,
             chronos: new Chronos,
-            demeter: new Demeter
+            demeter: new Demeter,
+            apollon: new Apollon
         };
     }
 

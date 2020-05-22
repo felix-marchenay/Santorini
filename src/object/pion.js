@@ -76,6 +76,17 @@ export class Pion {
         this.mesh.material.emissiveColor.b = 0;
     }
 
+    switchWith(pion) {
+        const caze = pion.case;
+        const caze2 = this.case;
+
+        pion.moveTo(caze2);
+        this.moveTo(caze);
+
+        caze.pion = this;
+        caze2.pion = pion;
+    }
+
     moveTo (caseCible) {
         if (this.case && this.case !== caseCible) {
             this.case.liberer();
@@ -165,6 +176,10 @@ export class Pion {
 
     canGo(caze) {
         return caze.pion == null && (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
+    }
+
+    apollonCanGo(caze) {
+        return (caze.differenceNiveau(this.case) < 2) && !caze.hasDome();
     }
 
     minotaurCanGo(caze) {

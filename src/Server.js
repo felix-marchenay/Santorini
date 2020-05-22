@@ -11,7 +11,7 @@ export class Server
         this.protocol = 'http';
         this.socket = null;
         this.transitEvents = [
-            'newPlayer', 'letsgo', 'idlePion', 'pionMove', 'pionMoveForce', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory', 'replay'
+            'newPlayer', 'pionSwitch', 'letsgo', 'idlePion', 'pionMove', 'pionMoveForce', 'construct', 'constructDome', 'endTurn', 'disconnection', 'victory', 'replay'
         ];
     }
 
@@ -38,6 +38,7 @@ export class Server
 
             this.transitEvents.forEach(ev => {
                 this.socket.on(ev, data => {
+                    console.log('receiving', ev, data);
                     this.emitter.emit(ev, data);
                 });
             });
