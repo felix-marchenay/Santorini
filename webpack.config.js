@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
@@ -35,7 +34,6 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
-    //   new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: "./public/index.html" }),
     new CopyWebpackPlugin({
       patterns: [

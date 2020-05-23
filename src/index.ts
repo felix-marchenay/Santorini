@@ -1,13 +1,5 @@
-import { Mesh, Scene, Engine } from 'babylonjs';
-import vue from 'vue';
-import App from './template/App.vue';
+import { Santorini } from "../Santorini";
 
-const engine: Engine = new Engine(<HTMLCanvasElement>document.getElementById('render'));
-const scene: Scene = new Scene(engine);
-const mesh: Mesh = new Mesh("lol");
+const santorini = new Santorini;
 
-console.log(mesh);
-
-const Vue: vue = new vue({
-    render: h => h(App),
-}).$mount('#gui');
+santorini.ignition();
