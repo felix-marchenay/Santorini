@@ -1,5 +1,5 @@
 export interface EmitterListener {
-    (...vars: any): void
+    (...vars: any[]): void;
 }
 
 export interface ListenerCollection {
@@ -8,7 +8,7 @@ export interface ListenerCollection {
 
 export class Emitter
 {
-    private listeners: ListenerCollection;
+    private listeners: ListenerCollection = {};
 
     on (event: string, f: EmitterListener): EmitterListener {
         if (!this.listeners[event]) {
@@ -31,7 +31,7 @@ export class Emitter
         });
     }
 
-    emit (event: string, ...vars: any): void {
+    emit (event: string, ...vars: any[]): void {
         if (this.listeners[event]) {
             this.listeners[event].forEach(f => f(...vars));
         }

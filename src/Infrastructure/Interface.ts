@@ -4,7 +4,7 @@ import App from '../Template/App.vue';
 
 export class Interface
 {
-    public emitter: Emitter = new Emitter;
+    public emitter: Emitter = new Emitter();
     private vue: Vue;
     private transitOutEvents: Array<string> = [
         'roomSearch', 'skip', 'refreshPlayer', 'switchAtlasMode',

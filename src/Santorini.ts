@@ -1,12 +1,12 @@
-import { SceneLoader, Scene, Engine } from 'babylonjs';
-import { Emitter } from './src/Infrastructure/Emitter/Emitter';
-import { Interface } from './src/Infrastructure/Interface';
+import { Engine } from 'babylonjs';
+import { Emitter } from './Infrastructure/Emitter/Emitter';
+// import { Interface } from './src/Infrastructure/Interface';
 
 export class Santorini 
 {
     public emitter: Emitter = new Emitter;
     private engine: Engine;
-    private interface: Interface = new Interface;
+    // private interface: Interface = new Interface;
 
     constructor() {
         const canvas = <HTMLCanvasElement> document.querySelector('#render');
