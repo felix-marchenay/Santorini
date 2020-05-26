@@ -4,7 +4,7 @@ import { CaseCollection } from "./CaseCollection";
 export class Plateau
 {
     private mesh: Mesh;
-    private cases: CaseCollection;
+    public cases: CaseCollection;
 
     constructor(
         private scene: Scene,
@@ -12,12 +12,7 @@ export class Plateau
     ) {
         this.mesh = MeshBuilder.CreateBox("", {}, this.scene);
         this.cases = new CaseCollection(this.scene, this.container);
-        this.creerCases();
-        this.container;
+        this.cases.initTo(5, 5);
         this.mesh;
-    }
-
-    creerCases (): void {
-        this.cases.add(5, 5);
     }
 }

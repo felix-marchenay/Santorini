@@ -10,9 +10,25 @@ export class CaseCollection
         private container: AssetContainer
     ) {}
 
-    add (x: number, y: number) {
+    initTo (x: number, y: number): void {
+        for (let i = 1; i <= x; i++) {
+            for (let j = 1; j <= y; j++) {
+                this.add(i, j);
+            }
+        }
+    }
+
+    private add (x: number, y: number): void {
         this.cases.push(
             new Case(this.scene, this.container, {x, y})
         );
+    }
+
+    get length (): number {
+        return this.cases.length;
+    }
+
+    get all (): Array<Case> {
+        return this.cases;
     }
 }
