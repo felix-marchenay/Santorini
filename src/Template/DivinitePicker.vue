@@ -13,7 +13,6 @@
 
 <script>
 import DiviniteCard from './DiviniteCard';
-// import { Game } from '../Game';
 
 export default {
     components: { DiviniteCard },
@@ -25,7 +24,28 @@ export default {
     data() {
         return {
             diviniteSelected: null,
-            // divinites: Object.values(Game.divinitesStringMapping())
+            divinites: [
+                {
+                    name: "Sans divinite",
+                    slug: "no",
+                    description: ""
+                },
+                {
+                    name: "Atlas",
+                    slug: "atlas",
+                    description: "desc"
+                },
+                {
+                    name: "Triton",
+                    slug: "triton",
+                    description: "desc"
+                },
+                {
+                    name: "Zeus",
+                    slug: "zeus",
+                    description: "desc"
+                }
+            ]
         };
     },
     methods: {

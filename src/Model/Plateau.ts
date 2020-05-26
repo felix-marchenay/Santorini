@@ -1,18 +1,22 @@
-import { Scene, Mesh, MeshBuilder, AssetContainer } from "babylonjs";
+import { Scene, AbstractMesh } from "babylonjs";
 import { CaseCollection } from "./CaseCollection";
+import { MeshLoader } from "../MeshLoader";
 
 export class Plateau
 {
-    private mesh: Mesh;
+    private meshes: Array<AbstractMesh> = [];
     public cases: CaseCollection;
 
     constructor(
         private scene: Scene,
-        private container: AssetContainer
     ) {
-        this.mesh = MeshBuilder.CreateBox("", {}, this.scene);
-        this.cases = new CaseCollection(this.scene, this.container);
+        this.cases = new CaseCollection(this.scene);
         this.cases.initTo(5, 5);
-        this.mesh;
+        this.meshes.push(
+            MeshLoader.load('ile'),
+            MeshLoader.load('plateau'),
+            MeshLoader.load('colonnes'),
+        );
+        this.meshes.forEach(mesh => mesh.receiveShadows = true);
     }
 }

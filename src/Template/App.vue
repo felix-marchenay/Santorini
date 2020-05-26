@@ -6,10 +6,12 @@
         />
         <SinglePlayerMenu 
             v-show="page == 'singleplayer'"
+            @go="goSingle"
             @back="page = 'main-menu'"
         />
         <MultiPlayerMenu 
             v-show="page == 'multiplayer'"
+            @go="goMulti"
             @back="page = 'main-menu'"
         />
         <GamePage
@@ -45,6 +47,19 @@ export default {
     methods: {
         goto(menu) {
             this.page = menu;
+        },
+        replay() {
+
+        },
+        mainMenu() {
+
+        },
+        goSingle(players) {
+            this.page = 'game';
+            this.$root.$emit('goSingleplayer', players);
+        },
+        goMulti() {
+
         }
     }
 }
@@ -75,6 +90,8 @@ export default {
             display:flex;
             flex-direction: column;
             align-items: center;
+            background: white;
+            padding: 10px;
 
             .title {
                 display: flex;

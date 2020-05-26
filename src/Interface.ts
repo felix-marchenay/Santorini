@@ -8,7 +8,7 @@ export class Interface implements EmitterInterface
     private vue: Vue;
     private transitOutEvents: Array<string> = [
         'roomSearch', 'skip', 'refreshPlayer', 'switchAtlasMode',
-        'replay', 'mainMenu', 'quitRoom'
+        'replay', 'mainMenu', 'quitRoom', 'goSingleplayer'
     ];
 
     constructor(app: VueConstructor) {

@@ -39,8 +39,6 @@ import Button from "../Button";
 import PlayerPicker from "../PlayerPicker";
 import DiviniteCard from "../DiviniteCard";
 import DivinitePicker from "../DivinitePicker";
-// import { Game } from "../../Game";
-// import { NoDivinite } from '../../divinite/NoDivinite';
 import { debounce } from "debounce";
 
 export default {
@@ -52,27 +50,30 @@ export default {
   },
   data: function() {
     return {
-      roomNameInput: null,
-      room: null,
-      serverId: null,
-      playerName: "",
-      divinite: new NoDivinite,
-      amReady: false,
-      othersPlayers: [],
-      divinitePickerActive: false
+        roomNameInput: null,
+        room: null,
+        serverId: null,
+        playerName: "",
+        divinite: {
+            name: "Sans divinité",
+            slug: "no",
+            description: ""
+        },
+        amReady: false,
+        othersPlayers: [],
+        divinitePickerActive: false
     };
   },
   created() {
     this.$root.$on("enteredRoom", (data) => {
       this.room = data.room.name;
       data.room.joueurs = data.room.joueurs.map(j => {
-        //   j.divinite = Game.diviniteFromString(j.divinite);
-        //   return j;
+          return j;
       });
-    //   this.serverId = data.you;
-    //   this.othersPlayers.push(
-    //     ...data.room.joueurs.filter((j) => j.id !== this.serverId)
-    //   );
+      this.serverId = data.you;
+      this.othersPlayers.push(
+        ...data.room.joueurs.filter((j) => j.id !== this.serverId)
+      );
     });
     
     this.$root.$on("newPlayer", (player) => {

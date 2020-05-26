@@ -27,7 +27,6 @@
 import Button from '../Button';
 import DiviniteCard from '../DiviniteCard';
 import DivinitePicker from '../DivinitePicker';
-// import { NoDivinite } from '../../divinite/NoDivinite';
 
 export default {
     components: {
@@ -40,13 +39,21 @@ export default {
             players: [
                 {
                     name: '',
-                    // divinite: new NoDivinite,
+                    divinite: {
+                        name: "Sans divinité",
+                        slug: "no",
+                        description: ""
+                    },
                     divinitePickerActive: false,
                     type: 'human'
                 },
                 {
                     name: '',
-                    // divinite: new NoDivinite,
+                    divinite: {
+                        name: "Sans divinité",
+                        slug: "no",
+                        description: ""
+                    },
                     divinitePickerActive: false,
                     type: 'cpu'
                 },
@@ -58,13 +65,13 @@ export default {
             this.$emit('back');
         },
         letsgo() {
-            this.$root.$emit('goSingleplayer', this.players);
+            this.$emit('go', this.players);
         },
         updateName(name, k) {
             this.players[k].name = name;
         },
         setDivinite(divinite, k) {
-            // this.players[k].divinite = divinite;
+            this.players[k].divinite = divinite;
             this.players[k].divinitePickerActive = false;
         }
     }

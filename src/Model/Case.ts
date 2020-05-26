@@ -1,5 +1,6 @@
-import { Scene, AssetContainer, AbstractMesh, ActionManager } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager } from "babylonjs";
 import { ConstructionCollection } from "./ConstructionCollection";
+import { MeshLoader } from "../MeshLoader";
 
 export class Case
 {
@@ -8,23 +9,10 @@ export class Case
 
     constructor (
         private scene: Scene,
-        private container: AssetContainer,
         public coordonnees: {x: number, y: number},
     ) {
         const caseName = "case"+this.coordonnees.x+this.coordonnees.y;
-        let mesh =  this.container.meshes.find(m => m.id == 'case');
-
-        if (mesh === undefined) {
-            throw "Mesh " + caseName + " introuvable";
-        }
-
-        const clone = mesh.clone(caseName, null);
-        
-        if (clone === null) {
-            throw "Inclonable";
-        }
-
-        this.mesh = mesh;
+        this.mesh = MeshLoader.load(caseName);
         this.mesh.actionManager = new ActionManager(this.scene);
     }
 
@@ -47,5 +35,11 @@ export class Case
         return this.distanceDe(caze) === 1;
     }
 
-    
+    estComplete (): boolean {
+        return this.constructions.complet();
+    }
+
+    aUnDome(): boolean {
+        return this.constructions.aUnDome();
+    }
 }

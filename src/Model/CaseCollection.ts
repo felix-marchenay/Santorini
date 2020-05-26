@@ -1,13 +1,12 @@
 import { Case } from "./Case";
-import { Scene, AssetContainer } from "babylonjs";
+import { Scene } from "babylonjs";
 
 export class CaseCollection
 {
     private cases: Array<Case> = [];
 
     constructor (
-        private scene: Scene,
-        private container: AssetContainer
+        private scene: Scene
     ) {}
 
     initTo (x: number, y: number): void {
@@ -20,7 +19,7 @@ export class CaseCollection
 
     private add (x: number, y: number): void {
         this.cases.push(
-            new Case(this.scene, this.container, {x, y})
+            new Case(this.scene, {x, y})
         );
     }
 

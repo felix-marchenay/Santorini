@@ -1,31 +1,27 @@
-import { AbstractMesh, Scene, AssetContainer, ActionManager } from "babylonjs";
+import { AbstractMesh, Scene, ActionManager } from "babylonjs";
 import { Construction } from "./Construction";
+import { MeshLoader } from "../MeshLoader";
 
 export class Dome implements Construction
 {
     private mesh: AbstractMesh;
     
     constructor (
-        private scene: Scene,
-        private container: AssetContainer
+        private scene: Scene
     ) {
-        let mesh =  this.container.meshes.find(m => m.id == 'etage-dome');
-
-        if (mesh === undefined) {
-            throw "Mesh etage introuvable";
-        }
-
-        const clone = mesh.clone("etage-dome", null);
-        
-        if (clone === null) {
-            throw "Inclonable";
-        }
-
-        this.mesh = mesh;
+        this.mesh = MeshLoader.load('etage-dome');
         this.mesh.actionManager = new ActionManager(this.scene);
     }
 
     get niveau (): number {
         return 4;
+    }
+
+    get prochainNiveau(): number {
+        throw "Pas de prochain niveau sur le dome";
+    }
+
+    estUnDome(): boolean {
+        return true;
     }
 }

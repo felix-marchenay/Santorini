@@ -1,6 +1,6 @@
 import { Emitter } from './Infrastructure/Emitter/Emitter';
 import { Interface } from './Interface';
-import App from '../Template/App.vue';
+import App from './Template/App.vue';
 import { Setup } from './Setup';
 import { Engine } from 'babylonjs';
 

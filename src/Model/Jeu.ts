@@ -1,4 +1,4 @@
-import { Scene, AssetContainer } from "babylonjs";
+import { Scene } from "babylonjs";
 import { Server } from "../Server";
 import { Joueur } from "./Joueur";
 import { Plateau } from "./Plateau";
@@ -12,12 +12,11 @@ export class Jeu
 
     constructor(
         private scene: Scene,
-        private container: AssetContainer,
         private ihm: EmitterInterface,
         private joueurs: Joueur[],
         private server?: Server
     ) {
-        this.plateau = new Plateau(this.scene, this.container);
+        this.plateau = new Plateau(this.scene);
     }
 
     sendServer(event: string, data: any): void {
@@ -29,5 +28,6 @@ export class Jeu
     start(): void {
         this.ihm;
         this.joueurs;
+        console.log(this.plateau);
     }
 }

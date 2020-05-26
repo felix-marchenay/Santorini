@@ -1,16 +1,17 @@
 import { Case } from "../src/Model/Case";
 import { Scene, NullEngine } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
+import { MeshLoader } from "../src/MeshLoader";
 
 describe("Cases", () => {
     describe("Création", () => {
         const scene = new Scene(new NullEngine);
-        const container = new FakeAsetContainer(scene);
+        MeshLoader.container = new FakeAsetContainer(scene);
 
         let cases = [
-            new Case(scene, container, {x: 1, y: 4}),
-            new Case(scene, container, {x: 3, y: 4}),
-            new Case(scene, container, {x: 1, y: 5})
+            new Case(scene, {x: 1, y: 4}),
+            new Case(scene, {x: 3, y: 4}),
+            new Case(scene, {x: 1, y: 5})
         ];
 
         it ("doivent toutes être au niveau 0", () => {

@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-menu {
+.main-menu {    
     button {
         margin: 20px;
         font-size: 25px;
