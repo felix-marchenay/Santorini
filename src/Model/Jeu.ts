@@ -1,9 +1,9 @@
-import { Scene } from "babylonjs";
-import { Server } from "./Server";
+import { Scene, AssetContainer } from "babylonjs";
+import { Server } from "../Server";
 import { Joueur } from "./Joueur";
 import { Plateau } from "./Plateau";
-import { Stepper } from "./Infrastructure/Stepper";
-import { EmitterInterface } from "./Infrastructure/Emitter/Emitter";
+import { Stepper } from "../Infrastructure/Stepper";
+import { EmitterInterface } from "../Infrastructure/Emitter/Emitter";
 
 export class Jeu
 {
@@ -12,11 +12,12 @@ export class Jeu
 
     constructor(
         private scene: Scene,
+        private container: AssetContainer,
         private ihm: EmitterInterface,
         private joueurs: Joueur[],
         private server?: Server
     ) {
-        this.plateau = new Plateau(this.scene);
+        this.plateau = new Plateau(this.scene, this.container);
     }
 
     sendServer(event: string, data: any): void {
