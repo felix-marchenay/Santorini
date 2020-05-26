@@ -1,8 +1,8 @@
-import { Emitter } from "./Emitter/Emitter";
+import { Emitter, EmitterInterface, EmitterListener } from "./Infrastructure/Emitter/Emitter";
 import Vue from 'vue';
-import App from '../Template/App.vue';
+import { VueConstructor } from "vue/types/umd";
 
-export class Interface
+export class Interface implements EmitterInterface
 {
     public emitter: Emitter = new Emitter();
     private vue: Vue;
@@ -11,9 +11,9 @@ export class Interface
         'replay', 'mainMenu', 'quitRoom'
     ];
 
-    constructor() {
+    constructor(app: VueConstructor) {
         this.vue = new Vue({
-            render: h => h(App)
+            render: h => h(app)
         }).$mount('#gui');
 
         this.transitOutEvents.forEach((ev: string) => {
@@ -25,5 +25,13 @@ export class Interface
 
     action (ev: string, ...data: any): void {
         this.vue.$emit(ev, ...data);
+    }
+
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
     }
 }

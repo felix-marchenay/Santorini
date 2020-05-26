@@ -6,7 +6,12 @@ export interface ListenerCollection {
     [key: string]: Array<EmitterListener>;
 }
 
-export class Emitter
+export interface EmitterInterface {
+    on (event: string, f: EmitterListener): EmitterListener;
+    emit (event: string, ...vars: any[]): void;
+}
+
+export class Emitter implements EmitterInterface
 {
     private listeners: ListenerCollection = {};
 

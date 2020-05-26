@@ -1,32 +1,24 @@
-import { Engine } from 'babylonjs';
 import { Emitter } from './Infrastructure/Emitter/Emitter';
-// import { Interface } from './src/Infrastructure/Interface';
+import { Interface } from './Interface';
+import App from '../Template/App.vue';
+import { Setup } from './Setup';
 
 export class Santorini 
 {
     public emitter: Emitter = new Emitter;
-    private engine: Engine;
-    // private interface: Interface = new Interface;
+    private interface: Interface;
 
     constructor() {
-        const canvas = <HTMLCanvasElement> document.querySelector('#render');
-        this.engine = new Engine(canvas, true, { stencil: true});
-        // const scene = new Scene(this.engine);
-        // this.scene = new SantoriniScene(scene, canvas);
-        // this.server = null;
-
         // SceneLoader.LoadAssetContainer("./models/", "pieces.babylon", this.scene.scene, (container) => {
         //     this.scene.scene.container = container;
         //     console.log(container);
         //     this.emitter.emit('ready');
         // });
+        this.interface = new Interface(App);
 
-        window.addEventListener('resize', () => {
-            this.engine.resize();
-        });
     }
 
     async ignition() {
-
+        new Setup(this.interface, <HTMLCanvasElement> document.querySelector('canvas'));
     }
 }

@@ -7,10 +7,9 @@
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "noImplicitReturns": true,
+      "esModuleInterop": true,
       "target": "es2017",
-      "types": [
-          "babylonjs", "mocha"
-      ],
-      "lib": [ "es2015", "dom" ]
+      "types": ["babylonjs", "jest", "node"],
+      "lib": [ "es2015", "dom"]
     },
   }

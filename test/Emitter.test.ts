@@ -1,10 +1,8 @@
-import * as chai from 'chai';
-import { Emitter } from '../../src/Infrastructure/Emitter/Emitter';
+import { Emitter } from '../src/Infrastructure/Emitter/Emitter';
 
 describe("Emitter", () => {
     describe("Emit", () => {
         it("Devrait enregistrer un évenement", () => {
-            chai.should();
 
             let emitter = new Emitter;
 
@@ -15,16 +13,13 @@ describe("Emitter", () => {
 
             let result = emitter.on('eventz', fn);
             emitter.emit('eventz');
-
-            chai.expect(call).to.equal(1);
-            result.should.be.a('function');
+            expect(call).toEqual(1);
+            expect(result).toEqual(fn);
         })
     });
 
     describe("Emit multiple", () => {
         it("Devrait enregistrer un évenement plusieurs fois", () => {
-            chai.should();
-
             let emitter = new Emitter;
 
             let call = 0;
@@ -32,8 +27,8 @@ describe("Emitter", () => {
                 call++;
             }
 
-            let result = emitter.on('eventz', fn);
-            let result2 = emitter.on('eventz', fn);
+            emitter.on('eventz', fn);
+            emitter.on('eventz', fn);
 
             emitter.emit('eventz');
             emitter.emit('eventz');
@@ -41,18 +36,12 @@ describe("Emitter", () => {
             emitter.emit('eventz');
             emitter.emit('eventz');
 
-            chai.expect(call).to.equal(10);
-            result.should.be.a('function');
-            result2.should.be.a('function');
-
-            result.should.equal(result2);
+            expect(call).toEqual(10);
         })
     });
 
     describe("Emit le mauvais", () => {
         it("Ne devrait pas appeller l'évenement", () => {
-            chai.should();
-
             let emitter = new Emitter;
 
             let call = 0;
@@ -60,18 +49,15 @@ describe("Emitter", () => {
                 call++;
             }
             
-            let result = emitter.on('eventz', fn);
+            emitter.on('eventz', fn);
             emitter.emit('Nope');
 
-            chai.expect(call).to.equal(0);
-            result.should.be.a('function');
+            expect(call).toBe(0);
         })
     });
 
     describe("Retirer un évenement", () => {
         it("L'évenement ne doit pas être appellé", () => {
-            chai.should();
-
             let emitter = new Emitter;
 
             let call = 0;
@@ -87,14 +73,12 @@ describe("Emitter", () => {
             emitter.emit('click');
             emitter.emit('click');
 
-            chai.expect(call).to.equal(1);
+            expect(call).toBe(1);
         });
     });
 
     describe("Retirer tous les évenements", () => {
         it("L'évenement ne doit pas être appellé", () => {
-            chai.should();
-
             let emitter = new Emitter;
 
             let call = 0;
@@ -110,7 +94,7 @@ describe("Emitter", () => {
             emitter.emit('click');
             emitter.emit('clack');
 
-            chai.expect(call).to.equal(0);
+            expect(call).toBe(0);
         });
     });
 });
