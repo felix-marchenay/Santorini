@@ -4,12 +4,16 @@ export class MeshLoader
 {
     public static container: AssetContainer;
 
-    static load(name: string): AbstractMesh {
+    static load(name: string, id?: string): AbstractMesh {
 
-        let mesh =  MeshLoader.container.meshes.find(m => m.id == 'case');
+        if (id === undefined) {
+            id = name;
+        }
+
+        let mesh =  MeshLoader.container.meshes.find(m => m.id == id);
 
         if (mesh === undefined) {
-            throw "Mesh " + name + " introuvable";
+            throw "Mesh " + id + " introuvable";
         }
 
         const clone = mesh.clone(name, null);
@@ -18,6 +22,6 @@ export class MeshLoader
             throw name + " Inclonable";
         }
 
-        return mesh;
+        return clone;
     }
 }

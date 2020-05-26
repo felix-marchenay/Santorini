@@ -38,6 +38,7 @@ export class Setup
         }
 
         const scene = new Scene(this.engine);
+        // scene.debugLayer.show();
 
         this.setElementsUp();
 

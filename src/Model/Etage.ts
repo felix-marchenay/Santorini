@@ -11,7 +11,7 @@ export class Etage implements Construction
         private slug: string,
         private nv: number
     ) {
-        this.mesh = MeshLoader.load('etage' + this.slug);
+        this.mesh = MeshLoader.load('etage-' + this.slug);
         this.mesh.actionManager = new ActionManager(this.scene);
     }
 
