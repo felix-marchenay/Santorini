@@ -21,6 +21,10 @@ export class Dome implements Construction
         throw "Pas de prochain niveau sur le dome";
     }
 
+    get minimumY (): number {
+        return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
+    }
+
     estUnDome(): boolean {
         return true;
     }

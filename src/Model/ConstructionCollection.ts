@@ -39,7 +39,11 @@ export class ConstructionCollection
         return this.elements.length === 4;
     }
 
-    aUnDome(): boolean {
+    aUnDome (): boolean {
         return this.elements.find(el => el.estUnDome() === true) !== undefined;
+    }
+
+    construire (): void {
+        
     }
 }

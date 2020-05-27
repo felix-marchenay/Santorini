@@ -23,6 +23,10 @@ export class Etage implements Construction
         return this.nv + 1;
     }
 
+    get minimumY (): number {
+        return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
+    }
+
     estUnDome(): boolean {
         return false;
     }

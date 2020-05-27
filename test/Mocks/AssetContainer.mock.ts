@@ -14,6 +14,8 @@ export class FakeAsetContainer extends AssetContainer
             new Mesh("ile", this.scene),
             new Mesh("plateau", this.scene),
             new Mesh("colonnes", this.scene),
+            new Mesh("pion-h", this.scene),
+            new Mesh("pion-f", this.scene),
         );
     }
 }

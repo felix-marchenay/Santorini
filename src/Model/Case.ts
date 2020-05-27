@@ -1,11 +1,13 @@
 import { Scene, AbstractMesh, ActionManager, Vector3 } from "babylonjs";
 import { ConstructionCollection } from "./ConstructionCollection";
 import { MeshLoader } from "../MeshLoader";
+import { Pion } from "./Pion";
 
 export class Case
 {
     private mesh: AbstractMesh;
     private constructions: ConstructionCollection = new ConstructionCollection;
+    private inPion: Pion | null = null;
 
     constructor (
         private scene: Scene,
@@ -32,15 +34,54 @@ export class Case
         return this.coordonnees.x == 1 || this.coordonnees.x == 5 || this.coordonnees.y == 5 || this.coordonnees.y == 1;
     }
 
-    avoisine (caze: Case): boolean {
-        return this.distanceDe(caze) === 1;
+    get y(): number {
+        if (this.constructions.dernierEtage === null) {
+            return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
+        }
+
+        return this.constructions.dernierEtage.minimumY;
     }
 
-    estComplete (): boolean {
+    get positionPosePion(): Vector3 {
+        const pionPosition = this.mesh.position.clone();
+        pionPosition.y = this.y;
+        return pionPosition;
+    }
+
+    get estComplete (): boolean {
         return this.constructions.complet();
     }
 
-    aUnDome(): boolean {
+    get aUnDome(): boolean {
         return this.constructions.aUnDome();
+    }
+
+    get estOccupée (): boolean {
+        return this.inPion !== null && !this.aUnDome;
+    }
+
+    construire (): void {
+        if (this.estOccupée) {
+            throw "On ne peut pas construire sur une case occupée";
+        }
+
+        this.constructions.construire();
+    }
+
+    poser(pion: Pion): void {
+        pion.déplacerSur(this);
+        this.inPion = pion;
+    }
+
+    libérer (): void {
+        this.inPion = null;
+    }
+
+    differenceDeNiveauAvec (caze: Case): number {
+        return this.constructions.niveau - caze.constructions.niveau;
+    }
+
+    avoisine (caze: Case): boolean {
+        return this.distanceDe(caze) === 1;
     }
 }
