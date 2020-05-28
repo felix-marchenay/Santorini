@@ -12,11 +12,13 @@ export class Stepper
 
     async run (): Promise<void> {
         for (let i = 0; i < this.steps.length; i++) {
-            
-            console.log(this.steps[i]);
-            
+
             const step = this.steps[i];
-            await step.run();
+            try {
+                await step.run();
+            } catch (e) {
+                throw e;
+            }
         }
     }
 }
