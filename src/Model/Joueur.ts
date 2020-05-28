@@ -23,12 +23,12 @@ export class Joueur
             new Pion(
                 scene, 'h',
                 new Vector3(-7 + (order * 2) * 2.2, 0, 8.6),
-                materials[order]
+                materials[order-1]
             ),
             new Pion(
                 scene, 'f', 
                 new Vector3(-7 + ( 1 + order * 2) * 2.2, 0, 8.6),
-                materials[order]
+                materials[order-1]
             ),
         ];
     }
