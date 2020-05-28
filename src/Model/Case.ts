@@ -1,6 +1,6 @@
 import { Scene, AbstractMesh, ActionManager, Vector3 } from "babylonjs";
 import { ConstructionCollection } from "./ConstructionCollection";
-import { MeshLoader } from "../MeshLoader";
+import { Container } from "../Container";
 import { Pion } from "./Pion";
 
 export class Case
@@ -14,7 +14,7 @@ export class Case
         public coordonnees: {x: number, y: number},
     ) {
         const caseName = "case"+this.coordonnees.x+this.coordonnees.y;
-        this.mesh = MeshLoader.load(caseName, 'case');
+        this.mesh = Container.loadMesh(caseName, 'case');
         this.mesh.position = new Vector3(3.1 * (this.coordonnees.x - 1) - 6.2, 0, 3.1 * (this.coordonnees.y - 1) - 6.2);
         this.mesh.actionManager = new ActionManager(this.scene);
     }
@@ -66,6 +66,11 @@ export class Case
         }
 
         this.constructions.construire();
+    }
+
+    construireSousLePion (): void {
+        this.constructions.construire();
+        // TODO re-déplacer le pion
     }
 
     poser(pion: Pion): void {

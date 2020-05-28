@@ -45,7 +45,8 @@ export default {
                         description: ""
                     },
                     divinitePickerActive: false,
-                    type: 'human'
+                    type: 'human',
+                    order: 1
                 },
                 {
                     name: '',
@@ -55,7 +56,8 @@ export default {
                         description: ""
                     },
                     divinitePickerActive: false,
-                    type: 'cpu'
+                    type: 'cpu',
+                    order: 2
                 },
             ],
         };

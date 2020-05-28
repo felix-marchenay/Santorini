@@ -2,7 +2,8 @@ import { Jeu } from "./Model/Jeu";
 import { Interface } from "./Interface";
 import { Scene, Engine, SceneLoader, ArcRotateCamera, Vector3, PointLight } from "babylonjs";
 import { Joueur } from "./Model/Joueur";
-import { MeshLoader } from "./MeshLoader";
+import { infosJoueur } from "./InfosJoueur";
+import { Container } from "./Container";
 
 export class Setup
 {
@@ -18,12 +19,13 @@ export class Setup
         });
 
         SceneLoader.LoadAssetContainer("./model/", "pieces.babylon", this.scene, (container) => {
-            MeshLoader.container = container;
+            Container.init(container);
         });
     }
 
-    private setup(infosJoueurs: [{name: string}]): Jeu {
-        const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info));
+    private setup(infosJoueurs: Array<infosJoueur>): Jeu {
+        console.log(infosJoueurs);
+        const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info, this.scene));
         
         return new Jeu(
             this.scene,

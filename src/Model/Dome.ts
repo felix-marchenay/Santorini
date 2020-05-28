@@ -1,6 +1,6 @@
 import { AbstractMesh, Scene, ActionManager } from "babylonjs";
 import { Construction } from "./Construction";
-import { MeshLoader } from "../MeshLoader";
+import { Container } from "../Container";
 
 export class Dome implements Construction
 {
@@ -9,7 +9,7 @@ export class Dome implements Construction
     constructor (
         private scene: Scene
     ) {
-        this.mesh = MeshLoader.load('etage-dome');
+        this.mesh = Container.loadMesh('etage-dome');
         this.mesh.actionManager = new ActionManager(this.scene);
     }
 

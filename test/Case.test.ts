@@ -1,13 +1,13 @@
 import { Case } from "../src/Model/Case";
 import { Scene, NullEngine } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
-import { MeshLoader } from "../src/MeshLoader";
+import { Container } from "../src/Container";
 import { Pion } from "../src/Model/Pion";
 
 describe("Cases", () => {
     describe("Création", () => {
         const scene = new Scene(new NullEngine);
-        MeshLoader.container = new FakeAsetContainer(scene);
+        Container.container = new FakeAsetContainer(scene);
 
         let cases = [
             new Case(scene, {x: 1, y: 4}),
@@ -36,14 +36,28 @@ describe("Cases", () => {
             expect(cases[2].estDuPerimetre).toBe(true);
         });
 
-        it ("doit déplacer le pion", () => {
+        it ("doit déplacer le pion - enchainement de déplacements", () => {
             expect(pions[0].peutAller(cases[0])).toBe(true);
 
             cases[0].poser(pions[0]);
-
             expect(cases[0].estOccupée).toBe(true);
             expect(cases[1].estOccupée).toBe(false);
-            expect(pions[1].peutAller(cases[0])).toBe(false);
+
+            cases[1].poser(pions[0]);
+
+            expect(cases[0].estOccupée).toBe(false);
+            expect(cases[1].estOccupée).toBe(true);
+
+            cases[0].poser(pions[0]);
+            cases[2].poser(pions[0]);
+
+            expect(pions[1].peutAller(cases[0])).toBe(true);
+        });
+
+        it ("doit s'animer pour la victoire", () => {
+            pions[0].animateVictory();
+
+            expect(pions[0].peutAller(cases[0])).toBe(true);
         });
 
         it ("doit construire sans emcombre", () => {

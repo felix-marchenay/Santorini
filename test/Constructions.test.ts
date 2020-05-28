@@ -3,13 +3,13 @@ import { Etage } from "../src/Model/Etage";
 import { Scene, NullEngine } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
 import { Dome } from "../src/Model/Dome";
-import { MeshLoader } from "../src/MeshLoader";
+import { Container } from "../src/Container";
 
 describe("Construction", () => {
     describe("Création", () => {
         
         const scene = new Scene(new NullEngine);
-        MeshLoader.container = new FakeAsetContainer(scene);
+        Container.container = new FakeAsetContainer(scene);
 
         let constructions = new ConstructionCollection;
 
@@ -32,7 +32,7 @@ describe("Construction", () => {
     describe("Avec des dômes", () => {
         
         const scene = new Scene(new NullEngine);
-        MeshLoader.container = new FakeAsetContainer(scene);
+        Container.container = new FakeAsetContainer(scene);
 
         let constructions = new ConstructionCollection;
 

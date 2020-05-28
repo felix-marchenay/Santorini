@@ -1,6 +1,6 @@
-import { Scene, AbstractMesh, ActionManager, Vector3, Animation } from "babylonjs";
-import { MeshLoader } from "../MeshLoader";
+import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material } from "babylonjs";
 import { Case } from "./Case";
+import { Container } from "../Container";
 
 export class Pion
 {
@@ -9,10 +9,15 @@ export class Pion
 
     constructor (
         private scene: Scene,
-        gender: string
+        gender: string,
+        private initialPosition: Vector3,
+        material: Material
     ) {
-        this.mesh = MeshLoader.load("pion-" + gender);
+        this.mesh = Container.loadMesh("pion-" + gender);
+        this.mesh.material = material;
         this.mesh.actionManager = new ActionManager(this.scene);
+
+        this.mesh.position = this.initialPosition;
     }
 
     déplacerSur (caseCible: Case) {

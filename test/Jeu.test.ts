@@ -4,13 +4,13 @@ import { Emitter } from "../src/Infrastructure/Emitter/Emitter";
 import { Plateau } from "../src/Model/Plateau";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
 import { Case } from "../src/Model/Case";
-import { MeshLoader } from "../src/MeshLoader";
+import { Container } from "../src/Container";
 
 describe("Ce bon vieu jeu", () => {
     describe("Création instance", () => {
 
         const scene = new Scene(new NullEngine);
-        MeshLoader.container = new FakeAsetContainer(scene);
+        Container.init(new FakeAsetContainer(scene));
 
         let jeu = new Jeu(
             scene,
@@ -26,7 +26,7 @@ describe("Ce bon vieu jeu", () => {
 
     describe("Construction du plateau", () => {
         const scene = new Scene(new NullEngine);
-        MeshLoader.container = new FakeAsetContainer(scene);
+        Container.init(new FakeAsetContainer(scene));
 
         let jeu = new Jeu(
             scene,
