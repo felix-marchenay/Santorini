@@ -9,7 +9,7 @@ describe("Construction", () => {
     describe("Création", () => {
         
         const scene = new Scene(new NullEngine);
-        Container.container = new FakeAsetContainer(scene);
+        Container.init(new FakeAsetContainer(scene));
 
         let constructions = new ConstructionCollection;
 
@@ -32,7 +32,7 @@ describe("Construction", () => {
     describe("Avec des dômes", () => {
         
         const scene = new Scene(new NullEngine);
-        Container.container = new FakeAsetContainer(scene);
+        Container.init(new FakeAsetContainer(scene));
 
         let constructions = new ConstructionCollection;
 

@@ -2,6 +2,7 @@ import { Pion } from "./Pion";
 import { Scene, Vector3 } from "babylonjs";
 import { infosJoueur } from "../InfosJoueur";
 import { Case } from "./Case";
+import { Container } from "../Container";
 
 export class Joueur
 {
@@ -13,13 +14,21 @@ export class Joueur
         order: number,
         scene: Scene
     ) {
+        const materials = [
+            Container.loadMaterial('pion-blanc'),
+            Container.loadMaterial('pion-bleu'),
+            Container.loadMaterial('pion-vert'),
+        ];
         this.pions = [
             new Pion(
-                scene, 'h', 
-                new Vector3(-7 + (order * 2) * 2.2, 0, 8.6)
+                scene, 'h',
+                new Vector3(-7 + (order * 2) * 2.2, 0, 8.6),
+                materials[order]
             ),
-            new Pion(scene, 'f', 
-                new Vector3(-7 + ( 1 + order * 2) * 2.2, 0, 8.6)
+            new Pion(
+                scene, 'f', 
+                new Vector3(-7 + ( 1 + order * 2) * 2.2, 0, 8.6),
+                materials[order]
             ),
         ];
     }

@@ -1,5 +1,5 @@
 import { Case } from "../src/Model/Case";
-import { Scene, NullEngine } from "babylonjs";
+import { Scene, NullEngine, Vector3 } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
 import { Container } from "../src/Container";
 import { Pion } from "../src/Model/Pion";
@@ -7,7 +7,7 @@ import { Pion } from "../src/Model/Pion";
 describe("Cases", () => {
     describe("Création", () => {
         const scene = new Scene(new NullEngine);
-        Container.container = new FakeAsetContainer(scene);
+        Container.init(new FakeAsetContainer(scene));
 
         let cases = [
             new Case(scene, {x: 1, y: 4}),
@@ -16,8 +16,8 @@ describe("Cases", () => {
         ];
 
         let pions = [
-            new Pion(scene, 'h'),
-            new Pion(scene, 'f'),
+            new Pion(scene, 'h', Vector3.Zero(), Container.loadMaterial('pion-blanc')),
+            new Pion(scene, 'f', Vector3.Zero(), Container.loadMaterial('pion-blanc')),
         ];
 
         it ("doivent toutes être au niveau 0", () => {

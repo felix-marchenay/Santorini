@@ -1,4 +1,4 @@
-import { AssetContainer, Scene, Mesh } from "babylonjs";
+import { AssetContainer, Scene, Mesh, Material } from "babylonjs";
 
 export class FakeAsetContainer extends AssetContainer
 {
@@ -16,6 +16,12 @@ export class FakeAsetContainer extends AssetContainer
             new Mesh("colonnes", this.scene),
             new Mesh("pion-h", this.scene),
             new Mesh("pion-f", this.scene),
+        );
+
+        this.materials.push(
+            new Material("pion-blanc", this.scene),
+            new Material("pion-vert", this.scene),
+            new Material("pion-bleu", this.scene),
         );
     }
 }
