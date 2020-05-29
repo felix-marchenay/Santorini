@@ -8,6 +8,7 @@ export class StepGroup implements Steppable{
     ) {}
 
     public async run (): Promise<void> {
+        console.log(this);
         if (this.infinite) {
             while (1) {
                 await this.cycle();

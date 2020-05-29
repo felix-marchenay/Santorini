@@ -1,13 +1,16 @@
-import { Scene, AbstractMesh, ActionManager, Vector3 } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager, Vector3, ExecuteCodeAction } from "babylonjs";
 import { ConstructionCollection } from "./ConstructionCollection";
 import { Container } from "../Container";
 import { Pion } from "./Pion";
+import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
 
-export class Case
+export class Case implements EmitterInterface
 {
     private mesh: AbstractMesh;
     private constructions: ConstructionCollection = new ConstructionCollection;
     private inPion: Pion | null = null;
+    private emitter = new Emitter;
+    private actions: {hover: ExecuteCodeAction, unhover: ExecuteCodeAction, click: ExecuteCodeAction};
 
     constructor (
         private scene: Scene,
@@ -17,6 +20,27 @@ export class Case
         this.mesh = Container.loadMesh(caseName, 'case');
         this.mesh.position = new Vector3(3.1 * (this.coordonnees.x - 1) - 6.2, 0, 3.1 * (this.coordonnees.y - 1) - 6.2);
         this.mesh.actionManager = new ActionManager(this.scene);
+
+        this.actions = {
+            hover: new ExecuteCodeAction(
+                ActionManager.OnPointerOverTrigger,
+                () => {
+                    this.glow();
+                }
+            ),
+            unhover: new ExecuteCodeAction(
+                ActionManager.OnPointerOutTrigger,
+                () => {
+                    this.lightGlow();
+                }
+            ),
+            click: new ExecuteCodeAction(
+                ActionManager.OnPickTrigger,
+                () => {
+                    this.emit('click', this);
+                }
+            ),
+        };
     }
 
     private distanceDe (caze: Case): number {
@@ -60,6 +84,36 @@ export class Case
         return this.inPion !== null && !this.aUnDome;
     }
 
+    lightGlow () {
+        // this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.25;
+    }
+
+    glow () {
+        // this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.7;
+    }
+
+    unGlow() {
+        // this.mesh.material.emissiveColor.b = this.initialEmissive.b;
+    }
+
+    enableClickable() {
+        if (this.mesh.actionManager) {
+            this.mesh.actionManager.registerAction(this.actions.hover);
+            this.mesh.actionManager.registerAction(this.actions.unhover);
+            this.mesh.actionManager.registerAction(this.actions.click);
+            this.lightGlow();
+        }
+    }
+
+    disableClickable() {
+        if (this.mesh.actionManager) {
+            this.mesh.actionManager.unregisterAction(this.actions.hover);
+            this.mesh.actionManager.unregisterAction(this.actions.unhover);
+            this.mesh.actionManager.unregisterAction(this.actions.click);
+            this.unGlow();
+        }
+    }
+
     construire (): void {
         if (this.estOccupée) {
             throw "On ne peut pas construire sur une case occupée";
@@ -88,5 +142,21 @@ export class Case
 
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
+    }    
+    
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }

@@ -1,4 +1,4 @@
-import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, ExecuteCodeAction } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, ExecuteCodeAction, Animatable } from "babylonjs";
 import { Case } from "./Case";
 import { Container } from "../Container";
 import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
@@ -6,10 +6,11 @@ import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Em
 export class Pion implements EmitterInterface
 {
     private mesh: AbstractMesh;
-    private case: Case | null = null;
+    private caze: Case | null = null;
     private actions: {hover: ExecuteCodeAction, unhover: ExecuteCodeAction, click: ExecuteCodeAction};
     private emitter: EmitterInterface = new Emitter;
-    public idling: boolean = false;
+    public idlingState: boolean = false;
+    private idleAnimation: Animatable | null = null;
 
     constructor (
         private scene: Scene,
@@ -38,10 +39,27 @@ export class Pion implements EmitterInterface
             click: new ExecuteCodeAction(
                 ActionManager.OnPickTrigger,
                 () => {
-                    this.emit('picked', this);
+                    this.emit('click', this);
                 }
             ),
         };
+    }
+
+    get idling (): boolean {
+        return this.idling;
+    }
+
+    set idling (idl: boolean) {
+        this.idlingState = idl;
+        if (idl) {
+            this.animateIdle();
+        } else {
+            this.stopAnimateIdle();
+        }
+    }
+
+    get case (): Case | null {
+        return this.caze;
     }
 
     enableClickable() {
@@ -78,8 +96,8 @@ export class Pion implements EmitterInterface
     }
 
     déplacerSur (caseCible: Case) {
-        if (this.case && this.case !== caseCible) {
-            this.case.libérer();
+        if (this.caze && this.caze !== caseCible) {
+            this.caze.libérer();
         }
 
         this.mesh.animations.push(
@@ -88,7 +106,7 @@ export class Pion implements EmitterInterface
         this.scene.beginAnimation(this.mesh, 0, 30, false);
         this.mesh.animations = [];
 
-        this.case = caseCible;
+        this.caze = caseCible;
     }
 
     animationTo(vectorCase: Vector3) {
@@ -153,6 +171,28 @@ export class Pion implements EmitterInterface
 
         this.mesh.animations.push(animation, animationTranslate);
         this.scene.beginAnimation(this.mesh, 0, frames, true);
+    }
+
+    stopAnimateIdle() {
+        this.idleAnimation?.stop();
+        this.mesh.animations = [];
+    }
+
+    animateIdle() {
+        const frames = 80;
+        const animation = new Animation('anim', "rotation", 60, Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CYCLE);
+        animation.setKeys([
+            {
+                frame: 0,
+                value: new Vector3(-Math.PI/2, -Math.PI/2, 0)
+            },
+            {
+                frame: frames,
+                value: new Vector3(-Math.PI/2, 3*Math.PI/2, 0)
+            },
+        ]);
+        this.mesh.animations.push(animation);
+        this.idleAnimation = this.scene.beginAnimation(this.mesh, 0, frames, true);
     }
 
     peutAller (caze: Case): boolean {

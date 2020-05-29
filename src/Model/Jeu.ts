@@ -7,6 +7,7 @@ import { EmitterListener } from "../Infrastructure/Emitter/Emitter";
 import { StepGroup } from "../Infrastructure/StepGroup";
 import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
+import { Case } from "./Case";
 
 export class Jeu
 {
@@ -23,13 +24,6 @@ export class Jeu
     ) {
         this.plateau = new Plateau(this.scene);
         this.initSteps();
-    }
-
-    get pions (): Array<Pion> {
-        return this.joueurs.reduce((pions: Array<Pion>, joueur: Joueur) => {
-            pions.push(...joueur.allPions);
-            return pions;
-        }, []);
     }
 
     private initSteps(): void {
@@ -49,27 +43,11 @@ export class Jeu
         this.stepper.addSteps(steps);
     }
 
-    pionsClickables(pions: Array<Pion>, fn: (p: Pion) => void) {
-        return pions.map(p => {
-            p.enableClickable();
-            return p.on('click', () => {
-                this.pionIdle = p;
-
-                // this.sendServer('idlePion', pion.export());
-
-                fn(p);
-            });
-        });
-    }
-
-    pionsUnclickables (pions?: Pion[]) {
-        if (pions === undefined) {
-            pions = this.pions;
-        }
-        pions.forEach(p => {
-            p.disableClickable();
-            p.flush();
-        });
+    get pions (): Array<Pion> {
+        return this.joueurs.reduce((pions: Array<Pion>, joueur: Joueur) => {
+            pions.push(...joueur.allPions);
+            return pions;
+        }, []);
     }
 
     get pionIdle (): Pion | null {
@@ -83,6 +61,40 @@ export class Jeu
         }
         pion.idling = true;
         this.idlePion = pion;
+    }
+
+    pionsClickables(pions: Array<Pion>, fn: (p: Pion) => void) {
+        return pions.map(p => {
+            p.enableClickable();
+            return p.on('click', () => {
+                this.pionIdle = p;
+
+                // this.sendServer('idlePion', pion.export());
+
+                fn(p);
+            });
+        });
+    }
+
+    pionsUnclickables (pions: Pion[]) {
+        pions.forEach(p => {
+            p.disableClickable();
+            p.flush();
+        });
+    }
+
+    casesClickables(cases: Case[], fn: EmitterListener) {
+        return cases.map(c => {
+            c.enableClickable();
+            return c.on('click', fn);
+        });
+    }
+
+    casesUnpickables(cases: Case[]) {
+        cases.forEach(c => {
+            c.disableClickable();
+            c.flush();
+        });
     }
 
     sendServer(event: string, data: any): void {
@@ -104,6 +116,14 @@ export class Jeu
         if (this.skipListener) {
             this.ihm.off('skip', this.skipListener);
         }
+    }
+
+    flushIhm() {
+        this.ihm.flush();
+    }
+
+    flushServer () {
+        this.server?.flush();
     }
 
     endTurn() {

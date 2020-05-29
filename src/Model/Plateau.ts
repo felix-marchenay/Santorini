@@ -1,11 +1,12 @@
 import { Scene, AbstractMesh } from "babylonjs";
 import { CaseCollection } from "./CaseCollection";
 import { Container } from "../Container";
+import { Case } from "./Case";
 
 export class Plateau
 {
     private meshes: Array<AbstractMesh> = [];
-    public cases: CaseCollection;
+    private cases: CaseCollection;
 
     constructor(
         private scene: Scene,
@@ -18,5 +19,13 @@ export class Plateau
             Container.loadMesh('colonnes'),
         );
         this.meshes.forEach(mesh => mesh.receiveShadows = true);
+    }
+
+    get allCases (): Case[] {
+        return this.cases.all;
+    }
+
+    casesAvoisinantes(caze: Case): Case[] {
+        return this.cases.avoisinantes(caze);
     }
 }

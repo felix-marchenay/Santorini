@@ -29,8 +29,8 @@ describe("Ce bon vieu jeu", () => {
 
     describe("Construction du plateau", () => {
         it ("Doit bien avoir les cases et le plateau", () => {
-            expect(jeu.plateau.cases.length).toBe(25);
-            jeu.plateau.cases.all.forEach(caze => {
+            expect(jeu.plateau.allCases.length).toBe(25);
+            jeu.plateau.allCases.forEach(caze => {
                 expect(caze).toBeInstanceOf(Case);
             });
         });
@@ -83,6 +83,33 @@ describe("Ce bon vieu jeu", () => {
             pions[0].emit('click');
 
             expect(count).toBe(2);
+        });
+    });
+
+    describe("cases clickables", () => {
+        it ("doivent etre clickables", () => {
+            let cases = [
+                new Case(scene, {x: 2, y: 4}),
+                new Case(scene, {x: 2, y: 3})
+            ];
+
+            let count = 0;
+            jeu.casesClickables(cases, () => {
+                count++;
+            });
+
+            cases[0].emit('click');
+            cases[0].emit('click');
+            cases[1].emit('click');
+
+            expect(count).toBe(3);
+
+            jeu.casesUnpickables(cases);
+
+            cases[0].emit('click');
+            cases[1].emit('click');
+
+            expect(count).toBe(3);
         });
     });
 });

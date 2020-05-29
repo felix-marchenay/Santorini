@@ -30,4 +30,8 @@ export class CaseCollection
     get all (): Array<Case> {
         return this.cases;
     }
+
+    avoisinantes(caze: Case): Case[] {
+        return this.cases.filter(c => c.avoisine(caze));
+    }
 }

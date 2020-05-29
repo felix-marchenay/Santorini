@@ -8,6 +8,7 @@ import { Container } from "./Container";
 export class Setup
 {
     private scene: Scene;
+    private fps: number[] = [];
 
     constructor (
         private ihm: Interface,
@@ -40,7 +41,7 @@ export class Setup
         }
 
         const scene = new Scene(this.engine);
-        scene.debugLayer.show();
+        // scene.debugLayer.show();
 
         this.setElementsUp();
 
@@ -50,7 +51,7 @@ export class Setup
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
-            // this.scene.showFPS(this.engine);
+            this.showFPS(this.engine);
         });
 
         return scene;
@@ -88,21 +89,24 @@ export class Setup
         // lightBox4.position = lightPosition4;
     }
 
-    // private showFPS(engine: Engine): void {
-    //     if (!this.fps) {
-    //         this.fps = [];
-    //     }
+    private showFPS(engine: Engine): void {
+        if (!this.fps) {
+            this.fps = [];
+        }
 
-    //     const fps = engine.getFps().toFixed();
-    //     if (fps !== "Infinity") {
-    //         this.fps.push(parseInt(fps));
-    //     }
+        const fps = engine.getFps().toFixed();
+        if (fps !== "Infinity") {
+            this.fps.push(parseInt(fps));
+        }
 
-    //     if (this.fps.length > 150) {
-    //         this.fps = this.fps.slice(1);
-    //         document.querySelector('.fps').innerHTML = 
-    //         Math.floor(this.fps.reduce((a,b) => a+b) / this.fps.length) + ' - ' + 
-    //         Math.floor(fps);
-    //     }
-    // }
+        if (this.fps.length > 150) {
+            this.fps = this.fps.slice(1);
+            const el = document.querySelector('.fps');
+            if (el) {
+                el.innerHTML =
+                    Math.floor(this.fps.reduce((a,b) => a+b) / this.fps.length) + ' - ' + 
+                    Math.floor(parseInt(fps));
+            }
+        }
+    }
 }
