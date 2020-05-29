@@ -15,7 +15,7 @@ export class Setup
     ) {
         this.scene = this.createScene();
         this.ihm.on('goSingleplayer', joueurs => {
-            this.setup(joueurs).start();
+            this.setup(joueurs).play();
         });
 
         SceneLoader.LoadAssetContainer("./model/", "pieces.babylon", this.scene, (container) => {

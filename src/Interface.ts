@@ -1,8 +1,9 @@
-import { Emitter, EmitterInterface, EmitterListener } from "./Infrastructure/Emitter/Emitter";
+import { Emitter, EmitterListener } from "./Infrastructure/Emitter/Emitter";
 import Vue from 'vue';
 import { VueConstructor } from "vue/types/umd";
+import { IHMInterface } from "./IHMInterface";
 
-export class Interface implements EmitterInterface
+export class Interface implements IHMInterface
 {
     public emitter: Emitter = new Emitter();
     private vue: Vue;
@@ -31,7 +32,15 @@ export class Interface implements EmitterInterface
         return this.emitter.on(event, f);
     }
 
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
     emit (event: string, ...vars: any[]) {
         this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }

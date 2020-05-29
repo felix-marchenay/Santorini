@@ -1,23 +1,80 @@
-import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, ExecuteCodeAction } from "babylonjs";
 import { Case } from "./Case";
 import { Container } from "../Container";
+import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
 
-export class Pion
+export class Pion implements EmitterInterface
 {
     private mesh: AbstractMesh;
     private case: Case | null = null;
+    private actions: {hover: ExecuteCodeAction, unhover: ExecuteCodeAction, click: ExecuteCodeAction};
+    private emitter: EmitterInterface = new Emitter;
+    public idling: boolean = false;
 
     constructor (
         private scene: Scene,
-        gender: string,
+        gender: 'f' | 'h',
         private initialPosition: Vector3,
         material: Material
     ) {
         this.mesh = Container.loadMesh("pion-" + gender);
         this.mesh.material = material;
         this.mesh.actionManager = new ActionManager(this.scene);
-
         this.mesh.position = this.initialPosition;
+
+        this.actions = {
+            hover: new ExecuteCodeAction(
+                ActionManager.OnPointerOverTrigger,
+                () => {
+                    this.glow();
+                }
+            ),
+            unhover: new ExecuteCodeAction(
+                ActionManager.OnPointerOutTrigger,
+                () => {
+                    this.lightGlow();
+                }
+            ),
+            click: new ExecuteCodeAction(
+                ActionManager.OnPickTrigger,
+                () => {
+                    this.emit('picked', this);
+                }
+            ),
+        };
+    }
+
+    enableClickable() {
+        if (this.mesh.actionManager) {
+            this.mesh.actionManager.registerAction(this.actions.hover);
+            this.mesh.actionManager.registerAction(this.actions.unhover);
+            this.mesh.actionManager.registerAction(this.actions.click);
+            this.lightGlow();
+        }
+    }
+
+    disableClickable() {
+        if (this.mesh.actionManager) {
+            this.mesh.actionManager.unregisterAction(this.actions.hover);
+            this.mesh.actionManager.unregisterAction(this.actions.unhover);
+            this.mesh.actionManager.unregisterAction(this.actions.click);
+            this.unGlow();
+        }
+    }
+
+    lightGlow() {
+        // const mat = <StandardMaterial> this.mesh.material;
+        // mat.emissiveColor.b = 0.15;
+    }
+
+    glow () {
+        // const mat = <StandardMaterial> this.mesh.material;
+        // mat.emissiveColor.b = 0.5;
+    }
+
+    unGlow() {
+        // const mat = <StandardMaterial> this.mesh.material;
+        // mat.emissiveColor.b = 0;
     }
 
     déplacerSur (caseCible: Case) {
@@ -33,14 +90,6 @@ export class Pion
 
         this.case = caseCible;
     }
-
-    // initPosition(): void {
-    //     this.mesh.animations.push(
-    //         this.animationTo(this.initialPosition)
-    //     );
-    //     this.scene.beginAnimation(this.mesh, 0, 30, false);
-    //     this.mesh.animations = [];
-    // }
 
     animationTo(vectorCase: Vector3) {
         const animation = new Animation('anim', "position", 60, Animation.ANIMATIONTYPE_VECTOR3);
@@ -111,5 +160,21 @@ export class Pion
             return ! caze.estOccupée;
         }
         return ! caze.estOccupée && (caze.differenceDeNiveauAvec(this.case) < 2);
+    }
+
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }

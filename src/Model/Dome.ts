@@ -1,10 +1,12 @@
 import { AbstractMesh, Scene, ActionManager } from "babylonjs";
 import { Construction } from "./Construction";
 import { Container } from "../Container";
+import { EmitterListener, Emitter } from "../Infrastructure/Emitter/Emitter";
 
 export class Dome implements Construction
 {
     private mesh: AbstractMesh;
+    private emitter = new Emitter;
     
     constructor (
         private scene: Scene
@@ -27,5 +29,21 @@ export class Dome implements Construction
 
     estUnDome(): boolean {
         return true;
+    }    
+    
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }

@@ -1,4 +1,6 @@
-export interface Construction
+import { EmitterInterface } from "../Infrastructure/Emitter/Emitter";
+
+export interface Construction extends EmitterInterface
 {
     niveau: number;
     prochainNiveau: number;

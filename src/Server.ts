@@ -11,4 +11,12 @@ export class Server implements EmitterInterface
     on (event: string, f: EmitterListener): EmitterListener {
         return this.emitter.on(event, f);
     }
+
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
+    flush (): void {
+        this.emitter.flush();
+    }
 }

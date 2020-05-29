@@ -8,7 +8,9 @@ export interface ListenerCollection {
 
 export interface EmitterInterface {
     on (event: string, f: EmitterListener): EmitterListener;
+    off (event: string, f: EmitterListener): void;
     emit (event: string, ...vars: any[]): void;
+    flush (): void;
 }
 
 export class Emitter implements EmitterInterface
