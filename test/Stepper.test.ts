@@ -14,7 +14,7 @@ describe("Stepper", () => {
             const date = new Date();
             await stepper.run();
 
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(120);
+            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(118);
             expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(130);
         });
 
@@ -28,7 +28,7 @@ describe("Stepper", () => {
 
             await stepper.run();
 
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(180);
+            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(178);
             expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(190);
         });
 
@@ -47,7 +47,7 @@ describe("Stepper", () => {
                 expect(e).toBe('rejected');
             }
 
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(360);
+            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(358);
             expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(380);
         });
     });

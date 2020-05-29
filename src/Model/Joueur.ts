@@ -3,6 +3,11 @@ import { Scene, Vector3 } from "babylonjs";
 import { infosJoueur } from "../InfosJoueur";
 import { Case } from "./Case";
 import { Container } from "../Container";
+import { Preparation } from "../Steps/Preparation";
+import { Jeu } from "./Jeu";
+import { Deplacement } from "../Steps/Deplacement";
+import { Construction } from "../Steps/Construction";
+import { Steppable } from "../Infrastructure/Steppable";
 
 export class Joueur
 {
@@ -33,6 +38,10 @@ export class Joueur
         ];
     }
 
+    public get allPions (): Array<Pion> {
+        return this.pions;
+    }
+
     public static fromInfos(infos: infosJoueur, scene: Scene): Joueur
     {
         return new Joueur(infos.name, infos.order, scene);
@@ -51,5 +60,17 @@ export class Joueur
     public posePion (pion: Pion, caze: Case): void {
         pion.déplacerSur(caze);
         this.dernierPionDéplacé = pion;
+    }
+
+    public getPreparationStep(jeu: Jeu): Steppable {
+        return new Preparation(jeu, this);
+    }
+
+    public getDeplacementStep(jeu: Jeu): Steppable {
+        return new Deplacement(jeu, this);
+    }
+
+    public getConstructionStep(jeu: Jeu): Steppable {
+        return new Construction(jeu, this);
     }
 }

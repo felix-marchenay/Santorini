@@ -1,10 +1,9 @@
-import { Step } from "../Steps/Step";
 import { Steppable } from "./Steppable";
 
 export class StepGroup implements Steppable{
     
     constructor (
-        private steps: Array<Step>,
+        private steps: Array<Steppable>,
         private readonly infinite: boolean
     ) {}
 
@@ -24,5 +23,12 @@ export class StepGroup implements Steppable{
 
             this.steps[i].after();
         }
+    }
+
+    public after (): void {
+    }
+
+    public add (...steps: Array<Steppable>): void {
+        this.steps.push(...steps);
     }
 }

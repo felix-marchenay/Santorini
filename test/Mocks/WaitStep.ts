@@ -1,6 +1,6 @@
-import { Step } from "../../src/Steps/Step";
+import { FakeStep } from "./FakeStep";
 
-export class WaitStep extends Step {
+export class WaitStep extends FakeStep {
     
     async run (): Promise<void> {
         return new Promise<void>((resolve: Function) => {

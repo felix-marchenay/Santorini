@@ -1,6 +1,6 @@
-import { Step } from "../../src/Steps/Step";
+import { FakeStep } from "./FakeStep";
 
-export class ErrorAfterN extends Step
+export class ErrorAfterN extends FakeStep
 {
     private runs: number = 0;
 
