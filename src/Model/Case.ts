@@ -3,6 +3,9 @@ import { ConstructionCollection } from "./ConstructionCollection";
 import { Container } from "../Container";
 import { Pion } from "./Pion";
 import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
+import { Construction } from "../Model/Construction";
+import { Etage } from "./Etage";
+import { Dome } from "./Dome";
 
 export class Case implements EmitterInterface
 {
@@ -84,6 +87,10 @@ export class Case implements EmitterInterface
         return this.inPion !== null && !this.aUnDome;
     }
 
+    get position (): Vector3 {
+        return this.mesh.position.clone();
+    }
+
     lightGlow () {
         // this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.25;
     }
@@ -119,11 +126,11 @@ export class Case implements EmitterInterface
             throw "On ne peut pas construire sur une case occupée";
         }
 
-        this.constructions.construire();
+        this.constructions.construire(this.prochainEtage());
     }
 
     construireSousLePion (): void {
-        this.constructions.construire();
+        this.constructions.construire(this.prochainEtage());
         // TODO re-déplacer le pion
     }
 
@@ -142,7 +149,22 @@ export class Case implements EmitterInterface
 
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
-    }    
+    } 
+    
+    prochainEtage(): Construction {
+        switch (this.niveau) {
+            case 0:
+                return new Etage(this.scene, '1', 1, this);
+            case 1:
+                return new Etage(this.scene, '2', 2, this);
+            case 2:
+                return new Etage(this.scene, '3', 3, this);
+            case 3:
+                return new Dome(this.scene, this);
+            default:
+                throw "wut";
+        }
+    }
     
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);

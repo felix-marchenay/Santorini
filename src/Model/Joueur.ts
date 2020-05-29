@@ -58,7 +58,7 @@ export class Joueur
     }
 
     public posePion (pion: Pion, caze: Case): void {
-        pion.déplacerSur(caze);
+        caze.poser(pion);
         this.dernierPionDéplacé = pion;
     }
 
@@ -72,5 +72,10 @@ export class Joueur
 
     public getConstructionStep(jeu: Jeu): Steppable {
         return new Construction(jeu, this);
+    }
+
+    autoriseDeplacement (pion: Pion, caze: Case): boolean {
+        pion; caze;
+        return true;
     }
 }

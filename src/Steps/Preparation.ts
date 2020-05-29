@@ -14,10 +14,10 @@ export class Preparation extends Step
                 this.jeu.casesClickables(
                     this.jeu.plateau.allCases.filter(c => !c.estOccupée),
                     (caze: Case) => {
-                        caze.poser(pion);
+                        this.joueur.posePion(pion, caze);
                         
                         if (this.joueur.allPions.filter(p => p.case === null).length === 0) {
-                            resolve();
+                            this.jeu.endTurn(resolve);
                         }
                     }
                 );

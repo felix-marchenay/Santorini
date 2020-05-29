@@ -43,7 +43,7 @@ export class ConstructionCollection
         return this.elements.find(el => el.estUnDome() === true) !== undefined;
     }
 
-    construire (): void {
-        
+    construire (construction: Construction): void {
+        this.add(construction);
     }
 }

@@ -2,6 +2,7 @@ import { Scene, AbstractMesh, ActionManager } from "babylonjs";
 import { Construction } from "./Construction";
 import { Container } from "../Container";
 import { EmitterListener, Emitter } from "../Infrastructure/Emitter/Emitter";
+import { Case } from "./Case";
 
 export class Etage implements Construction
 {
@@ -11,10 +12,12 @@ export class Etage implements Construction
     constructor (
         private scene: Scene,
         private slug: string,
-        private nv: number
+        private nv: number,
+        caze: Case
     ) {
         this.mesh = Container.loadMesh('etage-' + this.slug);
         this.mesh.actionManager = new ActionManager(this.scene);
+        this.mesh.position = caze.position;
     }
 
     get niveau ():number {

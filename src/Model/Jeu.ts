@@ -103,11 +103,19 @@ export class Jeu
         }
     }
 
+    poser (pion: Pion, caze: Case, joueur: Joueur) {
+        const nonAutorise = this.joueurs.filter(j => j !== joueur).map(j => j.autoriseDeplacement(pion, caze)).filter(aut => !aut).length > 0;
+        if (nonAutorise) {
+            return;
+        }
+        
+        joueur.posePion(pion, caze);
+    }
+
     displaySkip(resolve: Function) {
         this.ihm.action('showSkip');
         this.skipListener = this.ihm.on('skip', () => {
-            this.endTurn();
-            resolve();
+            this.endTurn(resolve);
         });
     }
 
@@ -118,6 +126,12 @@ export class Jeu
         }
     }
 
+    construire(caze: Case) {
+        caze.construire();
+        // TODO export caze
+        this.sendServer('construire', {});
+    }
+
     flushIhm() {
         this.ihm.flush();
     }
@@ -126,9 +140,10 @@ export class Jeu
         this.server?.flush();
     }
 
-    endTurn() {
+    endTurn(resolve: Function) {
         this.pions.forEach(p => p.idling = false);
         this.sendServer('endTurn', null);
+        resolve();
     }
 
     async play(): Promise<void> {
