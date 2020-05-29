@@ -1,6 +1,6 @@
-import { FakeStep } from "./FakeStep";
+import { Steppable } from "../../src/Infrastructure/Steppable";
 
-export class ErrorAfterN extends FakeStep
+export class ErrorAfterN implements Steppable
 {
     private runs: number = 0;
 
@@ -15,4 +15,6 @@ export class ErrorAfterN extends FakeStep
             }
         });
     }
+
+    after () {}
 }

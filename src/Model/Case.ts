@@ -34,7 +34,7 @@ export class Case
         return this.coordonnees.x == 1 || this.coordonnees.x == 5 || this.coordonnees.y == 5 || this.coordonnees.y == 1;
     }
 
-    get y(): number {
+    private get y(): number {
         if (this.constructions.dernierEtage === null) {
             return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
         }

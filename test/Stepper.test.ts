@@ -1,54 +1,52 @@
 import { Stepper } from "../src/Infrastructure/Stepper";
-import { WaitStep } from "./Mocks/WaitStep";
 import { StepGroup } from "../src/Infrastructure/StepGroup";
 import { ErrorAfterN } from "./Mocks/ErrorAfterN";
+import { FakeStep } from "./Mocks/FakeStep";
 
 describe("Stepper", () => {
     describe("Création du stepper", () => {
         let stepper = new Stepper;
+        let count = {count: 0};
 
-        stepper.addSteps(new WaitStep);
-        stepper.addSteps(new WaitStep);
+        stepper.addSteps(new FakeStep(count));
+        stepper.addSteps(new FakeStep(count));
 
         it ("doit attendre 2 x 60ms", async () => {
-            const date = new Date();
             await stepper.run();
 
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(118);
-            expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(130);
+            expect(count.count).toBe(2);
         });
 
         it ("doit attendre et opérer la collection", async () => {
-            const date = new Date();
+            let count = {count: 0};
 
             stepper.addSteps(new StepGroup(
-                [new WaitStep],
+                [new FakeStep(count)],
                 false
             ));
 
             await stepper.run();
 
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(178);
-            expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(190);
+            expect(count.count).toBe(1);
         });
 
         it ("doit tourner 3 fois avant de lacher une exception", async () => {
+            let count = {count: 0};
+
             stepper = new Stepper(
                 [new StepGroup(
-                    [new WaitStep, new WaitStep, new ErrorAfterN],
+                    [new FakeStep(count), new FakeStep(count), new ErrorAfterN],
                     true
                 )]
             );
-            const date = new Date();
 
             try {
                 await stepper.run();
             } catch (e) {
                 expect(e).toBe('rejected');
             }
-
-            expect((new Date).getTime() - date.getTime()).toBeGreaterThanOrEqual(358);
-            expect((new Date).getTime() - date.getTime()).toBeLessThanOrEqual(380);
+            
+            expect(count.count).toBe(6);
         });
     });
 });
