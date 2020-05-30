@@ -19,7 +19,8 @@ export class Preparation extends Step
                         if (this.joueur.allPions.filter(p => p.case === null).length === 0) {
                             this.jeu.endTurn(resolve);
                         }
-                    }
+                    },
+                    false
                 );
             });
         });

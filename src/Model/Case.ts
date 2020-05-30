@@ -14,6 +14,7 @@ export class Case implements EmitterInterface
     private inPion: Pion | null = null;
     private emitter = new Emitter;
     private actions: {hover: ExecuteCodeAction, unhover: ExecuteCodeAction, click: ExecuteCodeAction};
+    private lightGlowActive: boolean = false;
 
     constructor (
         private scene: Scene,
@@ -34,7 +35,11 @@ export class Case implements EmitterInterface
             unhover: new ExecuteCodeAction(
                 ActionManager.OnPointerOutTrigger,
                 () => {
-                    this.lightGlow();
+                    if (this.lightGlowActive) {
+                        this.lightGlow();
+                    } else {
+                        this.unGlow();
+                    }
                 }
             ),
             click: new ExecuteCodeAction(
@@ -95,11 +100,13 @@ export class Case implements EmitterInterface
         this.mesh.renderOverlay = false;
         this.mesh.renderOutline = true;
         this.mesh.outlineColor = new Color3(0.56, 0.56, 1);
-        this.mesh.outlineWidth = 0.03;
+        this.mesh.outlineWidth = 0.04;
     }
 
     glow () {
         this.mesh.renderOutline = true;
+        this.mesh.outlineColor = new Color3(0.56, 0.56, 1);
+        this.mesh.outlineWidth = 0.045;
         this.mesh.renderOverlay = true;
         this.mesh.overlayColor = new Color3(0.2, 0.2, 0.6);
     }
@@ -109,13 +116,16 @@ export class Case implements EmitterInterface
         this.mesh.renderOverlay = false;
     }
 
-    enableClickable() {
+    enableClickable(lightGlow: boolean) {
+        this.lightGlowActive = lightGlow;
         if (this.mesh.actionManager) {
             this.mesh.actionManager.registerAction(this.actions.hover);
             this.mesh.actionManager.registerAction(this.actions.unhover);
             this.mesh.actionManager.registerAction(this.actions.click);
             this.constructions.enableClickable();
-            this.lightGlow();
+            if(lightGlow) {
+                this.lightGlow();
+            }
         }
     }
 

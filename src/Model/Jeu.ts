@@ -83,9 +83,9 @@ export class Jeu
         });
     }
 
-    casesClickables(cases: Case[], fn: EmitterListener) {
+    casesClickables(cases: Case[], fn: EmitterListener, lightGlow: boolean = true) {
         return cases.map(c => {
-            c.enableClickable();
+            c.enableClickable(lightGlow);
             return c.on('click', fn);
         });
     }
