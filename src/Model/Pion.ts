@@ -1,4 +1,4 @@
-import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, ExecuteCodeAction, Animatable } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, ExecuteCodeAction, Animatable, Color3 } from "babylonjs";
 import { Case } from "./Case";
 import { Container } from "../Container";
 import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
@@ -81,16 +81,22 @@ export class Pion implements EmitterInterface
     }
 
     lightGlow() {
+        this.mesh.renderOverlay = false;
+        // this.mesh.renderOverlay = true;
+        // this.mesh.overlayColor = new Color3(0.65, 0.65, 0.87);
         // const mat = <StandardMaterial> this.mesh.material;
         // mat.emissiveColor.b = 0.15;
     }
 
     glow () {
+        this.mesh.renderOverlay = true;
+        this.mesh.overlayColor = new Color3(0, 0.56, 1);
         // const mat = <StandardMaterial> this.mesh.material;
         // mat.emissiveColor.b = 0.5;
     }
 
     unGlow() {
+        this.mesh.renderOverlay = false;
         // const mat = <StandardMaterial> this.mesh.material;
         // mat.emissiveColor.b = 0;
     }

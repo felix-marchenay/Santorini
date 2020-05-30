@@ -1,4 +1,4 @@
-import { Scene, AbstractMesh, ActionManager, Vector3, ExecuteCodeAction } from "babylonjs";
+import { Scene, AbstractMesh, ActionManager, Vector3, ExecuteCodeAction, Color3 } from "babylonjs";
 import { ConstructionCollection } from "./ConstructionCollection";
 import { Container } from "../Container";
 import { Pion } from "./Pion";
@@ -92,15 +92,21 @@ export class Case implements EmitterInterface
     }
 
     lightGlow () {
-        // this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.25;
+        this.mesh.renderOverlay = false;
+        this.mesh.renderOutline = true;
+        this.mesh.outlineColor = new Color3(0.56, 0.56, 1);
+        this.mesh.outlineWidth = 0.03;
     }
 
     glow () {
-        // this.mesh.material.emissiveColor.b = this.initialEmissive.b + 0.7;
+        this.mesh.renderOutline = true;
+        this.mesh.renderOverlay = true;
+        this.mesh.overlayColor = new Color3(0.2, 0.2, 0.6);
     }
 
     unGlow() {
-        // this.mesh.material.emissiveColor.b = this.initialEmissive.b;
+        this.mesh.renderOutline = false;
+        this.mesh.renderOverlay = false;
     }
 
     enableClickable() {
