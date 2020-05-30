@@ -4,24 +4,8 @@ export class ConstructionCollection
 {
     private elements: Array<Construction> = [];
 
-    add (construction: Construction): void {
-        if (this.has(construction)) {
-            throw construction.niveau + ' est déjà dedans';
-        }
-
-        this.elements.push(construction);
-    }
-
-    private has(construction: Construction): boolean {
-        return this.elements.find(c => c.niveau === construction.niveau) !== undefined;
-    }
-
     get niveau (): number {
-        if (this.elements.length === 0) {
-            return 0;
-        }
-
-        return Math.max(...this.elements.map(c => c.niveau));
+        return Math.max(0, ...this.elements.map(c => c.niveau));
     }
 
     get dernierEtage (): Construction | null {
@@ -35,15 +19,48 @@ export class ConstructionCollection
         }, null);
     }
 
+    add (construction: Construction): void {
+        if (!this.dernierEtage && construction.niveau !== 1) {
+            throw "Il faut construire un etage 1 en premier";
+        }
+
+        if (this.dernierEtage && this.dernierEtage.prochainNiveau !== construction.niveau)  {
+            throw "Il faut construire dans l'ordre";
+        }
+
+        if (this.dernierEtage && this.dernierEtage.estUnDome) {
+            throw "Impossible de construire sur un dôme";
+        }
+
+        this.elements.push(construction);
+    }
+
+    removeLast () {
+        if (!this.dernierEtage) {
+            return;
+        }
+
+        this.dernierEtage.dispose();
+        this.elements = [...this.elements.filter(el => el !== this.dernierEtage)];
+    }
+
     complet (): boolean {
         return this.elements.length === 4;
     }
 
     aUnDome (): boolean {
-        return this.elements.find(el => el.estUnDome() === true) !== undefined;
+        return this.elements.find(el => el.estUnDome === true) !== undefined;
     }
 
-    construire (construction: Construction): void {
-        this.add(construction);
+    enableClickable() {
+        this.elements.forEach(etage => {
+            etage.enableClickable();
+        });
+    }
+
+    disableClickable() {
+        this.elements.forEach(etage => {
+            etage.disableClickable();
+        });
     }
 }

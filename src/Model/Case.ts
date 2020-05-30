@@ -108,6 +108,7 @@ export class Case implements EmitterInterface
             this.mesh.actionManager.registerAction(this.actions.hover);
             this.mesh.actionManager.registerAction(this.actions.unhover);
             this.mesh.actionManager.registerAction(this.actions.click);
+            this.constructions.enableClickable();
             this.lightGlow();
         }
     }
@@ -117,6 +118,7 @@ export class Case implements EmitterInterface
             this.mesh.actionManager.unregisterAction(this.actions.hover);
             this.mesh.actionManager.unregisterAction(this.actions.unhover);
             this.mesh.actionManager.unregisterAction(this.actions.click);
+            this.constructions.disableClickable();
             this.unGlow();
         }
     }
@@ -125,12 +127,27 @@ export class Case implements EmitterInterface
         if (this.estOccupée) {
             throw "On ne peut pas construire sur une case occupée";
         }
+        
+        const etage = this.prochainEtage();
+        etage.on('click', () => {
+            this.emit('click');
+        });
+        etage.on('hover', () => {
+            this.emit('hover');
+        });
+        etage.on('unhover', () => {
+            this.emit('unhover');
+        });
 
-        this.constructions.construire(this.prochainEtage());
+        this.constructions.add(etage);
+    }
+
+    detruire () {
+        this.constructions.removeLast();
     }
 
     construireSousLePion (): void {
-        this.constructions.construire(this.prochainEtage());
+        this.constructions.add(this.prochainEtage());
         // TODO re-déplacer le pion
     }
 
@@ -154,13 +171,13 @@ export class Case implements EmitterInterface
     prochainEtage(): Construction {
         switch (this.niveau) {
             case 0:
-                return new Etage(this.scene, '1', 1, this);
+                return new Etage(this.scene, 1, this);
             case 1:
-                return new Etage(this.scene, '2', 2, this);
+                return new Etage(this.scene, 2, this);
             case 2:
-                return new Etage(this.scene, '3', 3, this);
+                return new Etage(this.scene, 3, this);
             case 3:
-                return new Dome(this.scene, this);
+                return new Dome(this.scene, this, 4);
             default:
                 throw "wut";
         }
