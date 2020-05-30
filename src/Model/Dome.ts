@@ -10,6 +10,10 @@ export class Dome extends Construction
         niveau: number
     ) {
         super(scene, 'etage-dome', niveau, caze);
+
+        const position = caze.positionPosePion;
+        this.mesh.position.set(position.x, caze.y - 0.08, position.z);
+        this.animateBuild();
     }
 
     public readonly estUnDome = true;

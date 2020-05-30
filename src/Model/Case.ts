@@ -61,7 +61,7 @@ export class Case implements EmitterInterface
         return this.coordonnees.x == 1 || this.coordonnees.x == 5 || this.coordonnees.y == 5 || this.coordonnees.y == 1;
     }
 
-    private get y(): number {
+    public get y(): number {
         if (this.constructions.dernierEtage === null) {
             return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
         }
@@ -129,14 +129,19 @@ export class Case implements EmitterInterface
         }
         
         const etage = this.prochainEtage();
+
+        if (etage === null) {
+            throw "Plus de construction possible";
+        }
+
         etage.on('click', () => {
-            this.emit('click');
+            this.emit('click', this);
         });
         etage.on('hover', () => {
-            this.emit('hover');
+            this.emit('hover', this);
         });
         etage.on('unhover', () => {
-            this.emit('unhover');
+            this.emit('unhover', this);
         });
 
         this.constructions.add(etage);
@@ -147,8 +152,25 @@ export class Case implements EmitterInterface
     }
 
     construireSousLePion (): void {
-        this.constructions.add(this.prochainEtage());
-        // TODO re-déplacer le pion
+        const etage = this.prochainEtage();
+
+        if (etage === null) {
+            throw "Plus de construction possible";
+        }
+
+        etage.on('click', () => {
+            this.emit('click', this);
+        });
+        etage.on('hover', () => {
+            this.emit('hover', this);
+        });
+        etage.on('unhover', () => {
+            this.emit('unhover', this);
+        });
+
+        this.constructions.add(etage);
+
+        this.inPion?.déplacerSur(this);
     }
 
     poser(pion: Pion): void {
@@ -168,7 +190,7 @@ export class Case implements EmitterInterface
         return this.distanceDe(caze) === 1;
     } 
     
-    prochainEtage(): Construction {
+    private prochainEtage(): Construction | null {
         switch (this.niveau) {
             case 0:
                 return new Etage(this.scene, 1, this);
@@ -178,6 +200,8 @@ export class Case implements EmitterInterface
                 return new Etage(this.scene, 3, this);
             case 3:
                 return new Dome(this.scene, this, 4);
+            case 4:
+                return null;
             default:
                 throw "wut";
         }
