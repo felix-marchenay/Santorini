@@ -19,14 +19,22 @@ export class StepGroup implements Steppable{
     
     private async cycle (): Promise<void> {
         for (let i = 0; i < this.steps.length; i++) {
-            await this.steps[i].run();
+            try {
+                console.log(this.steps[i]);
+                this.steps[i].before();
+                await this.steps[i].run();
+                this.steps[i].after();
+            } catch (e) {
+                this.steps[i].after();
+                throw e;
+            }
 
-            this.steps[i].after();
         }
     }
 
-    public after (): void {
-    }
+    public before (): void {}
+
+    public after (): void {}
 
     public add (...steps: Array<Steppable>): void {
         this.steps.push(...steps);

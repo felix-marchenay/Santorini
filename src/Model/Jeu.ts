@@ -8,13 +8,16 @@ import { StepGroup } from "../Infrastructure/StepGroup";
 import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
+import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
+import { Victoire } from "../Victoire";
 
-export class Jeu
+export class Jeu implements EmitterInterface
 {
     public plateau: Plateau;
     public stepper: Stepper = new Stepper;
     private idlePion: Pion | null = null;
     private skipListener: EmitterListener | null = null;
+    private emitter = new Emitter;
 
     constructor(
         private scene: Scene,
@@ -27,6 +30,7 @@ export class Jeu
     }
 
     private initSteps(): void {
+        this.stepper = new Stepper;
         this.joueurs.forEach(j => this.stepper.addSteps(j.getPreparationStep(this)));
 
         const steps: StepGroup = this.joueurs.reduce(
@@ -61,6 +65,14 @@ export class Jeu
         }
         pion.idling = true;
         this.idlePion = pion;
+    }
+
+    set joueurActif (joueur: Joueur) {
+        this.ihm.action('joueurActif', joueur);
+    }
+
+    tour (action: string) {
+        this.ihm.action('tour', action);
     }
 
     pionsClickables(pions: Array<Pion>, fn: (p: Pion) => void) {
@@ -146,7 +158,79 @@ export class Jeu
         resolve();
     }
 
+    victory(joueur: Joueur, reject: Function) {
+        this.ihm.action('victory', joueur);
+        this.ihm.on('replay', () => {
+            if (this.server) {
+                this.server.emit('replay', null);
+            }
+            this.replay();
+        });
+
+        this.ihm.on('mainMenu', () => {
+            this.emit('mainMenu', null);
+        });
+
+        if (this.server) {
+            this.server.on('replay', () => {
+                this.ihm.action('hideVictory');
+                this.replay();
+            });
+        }
+
+        setTimeout(() => {
+            joueur.dernierPionDéplacé?.animateVictory();
+        }, 600);
+
+        reject(new Victoire(joueur));
+    }
+
+    replay () {
+        this.reinitialiser();
+        this.stepper = new Stepper;
+        this.initSteps();
+        this.play();
+    }
+
+    reinitialiser() {
+        this.pionsUnclickables(this.pions);
+        this.casesUnpickables(this.plateau.allCases);
+        // this.plateau.vider();
+        this.pions.forEach(p => {
+            p.initPosition();
+        });
+    }
+
     async play(): Promise<void> {
-        this.stepper.run();
+        try {
+            this.ihm.action('launchSingle', this.joueurs.map(j => ({
+                name: j.name,
+                divinite: {
+                    name: 'Atlas',
+                    slug: 'atlas',
+                    description: 'a'
+                },
+                id: j.id
+            })));
+            await this.stepper.run();
+        } catch (e) {
+            console.error(e);
+        }
+    }    
+    
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    off (event: string, f: EmitterListener): void {
+        return this.emitter.off(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }

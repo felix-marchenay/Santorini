@@ -14,7 +14,6 @@ export class ConstructionCollection
                 last = item;
                 return last;
             }
-
             return last;
         }, null);
     }
@@ -44,11 +43,11 @@ export class ConstructionCollection
         this.elements = [...this.elements.filter(el => el !== this.dernierEtage)];
     }
 
-    complet (): boolean {
+    get complet (): boolean {
         return this.elements.length === 4;
     }
 
-    aUnDome (): boolean {
+    get aUnDome (): boolean {
         return this.elements.find(el => el.estUnDome === true) !== undefined;
     }
 

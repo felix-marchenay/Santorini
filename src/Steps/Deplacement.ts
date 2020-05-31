@@ -2,10 +2,16 @@ import { Step } from "./Step";
 import { Pion } from "../Model/Pion";
 import { Case } from "../Model/Case";
 
-export class Deplacement extends Step {
-    
+export class Deplacement extends Step
+{    
+    before () {
+        super.before();
+        this.jeu.tour("se déplacer d'une case");
+    }
+
     async run (): Promise<void> {
-        return new Promise<void>((resolve: Function) => {
+        return new Promise<void>((resolve: Function, reject: Function) => {
+
             this.jeu.pionsClickables(this.joueur.allPions, (pion: Pion) => {
 
                 this.jeu.casesUnpickables(this.jeu.plateau.allCases);
@@ -20,7 +26,11 @@ export class Deplacement extends Step {
 
                         this.jeu.poser(pion, caze, this.joueur);
 
-                        resolve();
+                        if (caze.niveau === 3) {
+                            this.jeu.victory(this.joueur, reject);
+                        } else {
+                            resolve();
+                        }
                     }
                 );
             });

@@ -31,6 +31,14 @@ export class CaseCollection
         return this.cases;
     }
 
+    find(x: number, y: number): Case {
+        const caze = this.cases.find(c => c.coordonnees.x === x && c.coordonnees.y === y);
+        if (!caze) {
+            throw "Case " + x + "," + y + " introuvable";
+        }
+        return caze;
+    }
+
     avoisinantes(caze: Case): Case[] {
         return this.cases.filter(c => c.avoisine(caze));
     }

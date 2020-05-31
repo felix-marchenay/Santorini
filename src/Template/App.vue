@@ -55,12 +55,17 @@ export default {
 
         },
         goSingle(players) {
-            this.page = 'game';
             this.$root.$emit('goSingleplayer', players);
         },
         goMulti() {
-
+            this.$root.$emit('goMultiplayer', players);
         }
+    },
+    created () {
+        this.$root.$on('launchSingle', joueurs => {
+            this.players = joueurs;
+            this.page = 'game';
+        });
     }
 }
 </script>

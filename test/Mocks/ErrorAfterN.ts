@@ -16,5 +16,7 @@ export class ErrorAfterN implements Steppable
         });
     }
 
+    before () {}
+
     after () {}
 }

@@ -25,6 +25,10 @@ export class Plateau
         return this.cases.all;
     }
 
+    getCase (x: number, y:number): Case {
+        return this.cases.find(x, y);
+    }
+
     casesAvoisinantes(caze: Case): Case[] {
         return this.cases.avoisinantes(caze);
     }

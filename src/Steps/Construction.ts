@@ -3,13 +3,17 @@ import { Case } from "../Model/Case";
 
 export class Construction extends Step
 {
+    before () {
+        super.before();
+        this.jeu.tour('construire un étage');
+    }
+
     run (): Promise<void> {
         return new Promise<void>(resolve => {
-            
+
             const pion = this.joueur.dernierPionDéplacé;
 
             if (!pion?.case) {
-                console.error('pas de dernier pion');
                 return;
             }
 

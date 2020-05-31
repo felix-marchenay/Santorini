@@ -65,8 +65,8 @@ export default {
         }
     },
     created() {
-        this.$root.$on('activePlayer', id => {
-            this.activePlayerId = id;
+        this.$root.$on('joueurActif', joueur => {
+            this.activePlayerId = joueur.id;
         });
 
         this.$root.$on('tour', action => {

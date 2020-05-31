@@ -17,8 +17,12 @@ export class Joueur
     constructor (
         public name: string,
         order: number,
-        scene: Scene
+        scene: Scene,
+        public readonly id?: string
     ) {
+        if (this.id === undefined) {
+            this.id = Math.random().toString(36).substring(2, 15);
+        }
         const materials = [
             Container.loadMaterial('pion-blanc'),
             Container.loadMaterial('pion-bleu'),

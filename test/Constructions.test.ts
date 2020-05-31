@@ -40,7 +40,8 @@ describe("Construction", () => {
         constructions.add(new Etage(scene, 1, caze));
         constructions.add(etage2);
         constructions.add(etage3);
-        constructions.add(new Dome(scene, caze, 4));
+        let dome = new Dome(scene, caze, 4);
+        constructions.add(dome);
 
         it ("doit renvoyer le plus haut niveau", () => {
             expect(constructions.niveau).toBe(4);
@@ -57,16 +58,31 @@ describe("Construction", () => {
         it ("doit montrer la différence de niveau", () => {
             expect(etage3.differenceDeNiveauAvec(etage2)).toBe(-1);
         });
+
+        it ("doit montrer le dernier étage", () => {
+            expect(constructions.dernierEtage).toBe(dome);
+        });
+
+        it ("rendre clickable", () => {
+            constructions.enableClickable();
+            constructions.disableClickable();
+
+            expect(constructions.complet).toBe(true);
+            expect(constructions.aUnDome).toBe(true);
+        });
     });
 
     describe("Destruction", () => {
         let constructions = new ConstructionCollection;
+
+        constructions.removeLast();
 
         constructions.add(new Etage(scene, 1, caze));
         constructions.add(new Etage(scene, 2, caze));
 
         it ("détruit normalement", () => {
             expect(constructions.niveau).toBe(2);
+            expect(constructions.aUnDome).toBe(false);
 
             constructions.removeLast();
 

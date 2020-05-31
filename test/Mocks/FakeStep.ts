@@ -11,5 +11,7 @@ export class FakeStep implements Steppable
         });
     }
 
+    before (): void {}
+    
     after (): void {}
 }

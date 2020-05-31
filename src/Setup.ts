@@ -25,7 +25,6 @@ export class Setup
     }
 
     private setup(infosJoueurs: Array<infosJoueur>): Jeu {
-        console.log(infosJoueurs);
         const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info, this.scene));
         
         return new Jeu(
@@ -41,7 +40,7 @@ export class Setup
         }
 
         const scene = new Scene(this.engine);
-        scene.debugLayer.show();
+        // scene.debugLayer.show();
 
         this.setElementsUp();
 

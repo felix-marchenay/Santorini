@@ -11,6 +11,10 @@ export abstract class Step  implements Steppable{
 
     abstract run (): Promise<void>;
 
+    before (): void {
+        this.jeu.joueurActif = this.joueur;
+    }
+
     after (): void {
         // this.jeu.hideAllBuildHint();
         this.jeu.pionsUnclickables(this.jeu.pions);

@@ -6,6 +6,7 @@ import { Case } from "../src/Model/Case";
 import { Container } from "../src/Container";
 import { Pion } from "../src/Model/Pion";
 import { FakeInterface } from "./Mocks/FakeInterface";
+import { Joueur } from "../src/Model/Joueur";
 
 describe("Ce bon vieu jeu", () => {
 
@@ -112,4 +113,39 @@ describe("Ce bon vieu jeu", () => {
             expect(count).toBe(3);
         });
     });
+
+    describe("Actions de jeu", () => {
+
+        let bernadette = new Joueur("bernadette", 1, scene);
+        let jacques = new Joueur("jacques", 1, scene);
+        let joueurs = [bernadette, jacques];
+        let jeu = new Jeu(
+            scene,
+            new FakeInterface,
+            joueurs
+        );
+        
+        it ("phase de jeu", () => {
+
+            jeu.poser(bernadette.allPions[0], jeu.plateau.getCase(1, 4), bernadette);
+
+            expect(bernadette.allPions[0].case).toEqual(jeu.plateau.getCase(1, 4));
+            jeu.poser(bernadette.allPions[1], jeu.plateau.getCase(2, 5), bernadette);
+            jeu.poser(jacques.allPions[0], jeu.plateau.getCase(2, 4), jacques);
+            jeu.poser(jacques.allPions[1], jeu.plateau.getCase(4, 2), jacques);
+
+            jeu.construire(jeu.plateau.getCase(1, 3));
+            jeu.construire(jeu.plateau.getCase(1, 3));
+
+            jeu.construire(jeu.plateau.getCase(2, 3));
+            jeu.construire(jeu.plateau.getCase(2, 3));
+            jeu.construire(jeu.plateau.getCase(2, 3));
+
+            jeu.poser(jacques.allPions[1], jeu.plateau.getCase(2, 3), jacques);
+
+            expect(bernadette.allPions[0].case).toEqual(jeu.plateau.getCase(1, 4));
+            expect(bernadette.allPions[1].case).toEqual(jeu.plateau.getCase(2, 5));
+            expect(jacques.allPions[0].case).toEqual(jeu.plateau.getCase(2, 4));
+        });
+    })
 });

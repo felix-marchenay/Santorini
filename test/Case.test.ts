@@ -23,6 +23,10 @@ describe("Cases", () => {
         it ("doivent toutes être au niveau 0", () => {
             expect(cases[0].niveau).toBe(0);
             expect(cases[1].niveau).toBe(0);
+
+            cases[0].lightGlow();
+            cases[0].glow();
+            cases[0].unGlow();
         });
 
         it ("doit être avoisinantes", () => {
@@ -68,6 +72,23 @@ describe("Cases", () => {
             cases[1].construire();
 
             expect(cases[0])
+        });
+
+        it ("clickables & contruction", () => {
+            cases[0].enableClickable(false);
+            cases[0].disableClickable();
+            
+            cases[0].construire();
+
+            expect(cases[0].niveau).toBe(1);
+
+            cases[1].construire();
+            cases[1].construire();
+
+            cases[2].construireSousLePion();
+
+            expect(cases[2].estComplete).toBe(false);
+            expect(cases[1].estDuPerimetre).toBe(false);
         });
     });
 });

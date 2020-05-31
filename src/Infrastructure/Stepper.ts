@@ -15,9 +15,11 @@ export class Stepper
 
             const step = this.steps[i];
             try {
+                step.before();
                 await step.run();
                 step.after();
             } catch (e) {
+                step.after();
                 throw e;
             }
         }

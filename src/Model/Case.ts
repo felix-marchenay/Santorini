@@ -18,7 +18,7 @@ export class Case implements EmitterInterface
 
     constructor (
         private scene: Scene,
-        public coordonnees: {x: number, y: number},
+        public readonly coordonnees: {x: number, y: number},
     ) {
         const caseName = "case"+this.coordonnees.x+this.coordonnees.y;
         this.mesh = Container.loadMesh(caseName, 'case');
@@ -57,6 +57,23 @@ export class Case implements EmitterInterface
             Math.abs(caze.coordonnees.y - this.coordonnees.y),
         );
     }
+    
+    private prochainEtage(): Construction | null {
+        switch (this.niveau) {
+            case 0:
+                return new Etage(this.scene, 1, this);
+            case 1:
+                return new Etage(this.scene, 2, this);
+            case 2:
+                return new Etage(this.scene, 3, this);
+            case 3:
+                return new Dome(this.scene, this, 4);
+            case 4:
+                return null;
+            default:
+                throw "wut";
+        }
+    }
 
     get niveau (): number {
         return this.constructions.niveau;
@@ -66,7 +83,7 @@ export class Case implements EmitterInterface
         return this.coordonnees.x == 1 || this.coordonnees.x == 5 || this.coordonnees.y == 5 || this.coordonnees.y == 1;
     }
 
-    public get y(): number {
+    get y(): number {
         if (this.constructions.dernierEtage === null) {
             return this.mesh.getBoundingInfo().boundingBox.maximumWorld.y;
         }
@@ -81,11 +98,11 @@ export class Case implements EmitterInterface
     }
 
     get estComplete (): boolean {
-        return this.constructions.complet();
+        return this.constructions.complet;
     }
 
     get aUnDome(): boolean {
-        return this.constructions.aUnDome();
+        return this.constructions.aUnDome;
     }
 
     get estOccupée (): boolean {
@@ -105,10 +122,10 @@ export class Case implements EmitterInterface
 
     glow () {
         this.mesh.renderOutline = true;
-        this.mesh.outlineColor = new Color3(0.56, 0.56, 1);
-        this.mesh.outlineWidth = 0.045;
+        this.mesh.outlineColor = new Color3(0.35, 0.35, 1);
+        this.mesh.outlineWidth = 0.053;
         this.mesh.renderOverlay = true;
-        this.mesh.overlayColor = new Color3(0.2, 0.2, 0.6);
+        this.mesh.overlayColor = new Color3(1, 1, 1);
     }
 
     unGlow() {
@@ -205,23 +222,6 @@ export class Case implements EmitterInterface
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
     } 
-    
-    private prochainEtage(): Construction | null {
-        switch (this.niveau) {
-            case 0:
-                return new Etage(this.scene, 1, this);
-            case 1:
-                return new Etage(this.scene, 2, this);
-            case 2:
-                return new Etage(this.scene, 3, this);
-            case 3:
-                return new Dome(this.scene, this, 4);
-            case 4:
-                return null;
-            default:
-                throw "wut";
-        }
-    }
     
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);

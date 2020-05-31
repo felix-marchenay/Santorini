@@ -62,6 +62,11 @@ export class Pion implements EmitterInterface
         return this.caze;
     }
 
+    initPosition() {
+        this.caze = null;
+        this.animationTo(this.initialPosition);
+    }
+
     enableClickable() {
         if (this.mesh.actionManager) {
             this.mesh.actionManager.registerAction(this.actions.hover);

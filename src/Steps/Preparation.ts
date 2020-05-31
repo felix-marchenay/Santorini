@@ -4,6 +4,11 @@ import { Case } from "../Model/Case";
 
 export class Preparation extends Step
 {
+    before () {
+        super.before();
+        this.jeu.tour('poser ses pions');
+    }
+
     run (): Promise<void>  {
         return new Promise<void>(resolve => {
 
