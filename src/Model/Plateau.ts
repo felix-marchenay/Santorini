@@ -32,4 +32,8 @@ export class Plateau
     casesAvoisinantes(caze: Case): Case[] {
         return this.cases.avoisinantes(caze);
     }
+
+    vider () {
+        this.cases.vider();
+    }
 }

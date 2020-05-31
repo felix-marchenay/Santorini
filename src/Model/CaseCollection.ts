@@ -42,4 +42,10 @@ export class CaseCollection
     avoisinantes(caze: Case): Case[] {
         return this.cases.filter(c => c.avoisine(caze));
     }
+
+    vider() {
+        this.cases.forEach(c => {
+            c.vider();
+        });
+    }
 }

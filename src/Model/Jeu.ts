@@ -9,7 +9,7 @@ import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
 import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
-import { Victoire } from "../Victoire";
+// import { Victoire } from "../Victoire";
 
 export class Jeu implements EmitterInterface
 {
@@ -158,7 +158,7 @@ export class Jeu implements EmitterInterface
         resolve();
     }
 
-    victory(joueur: Joueur, reject: Function) {
+    victory(joueur: Joueur) {
         this.ihm.action('victory', joueur);
         this.ihm.on('replay', () => {
             if (this.server) {
@@ -181,8 +181,6 @@ export class Jeu implements EmitterInterface
         setTimeout(() => {
             joueur.dernierPionDéplacé?.animateVictory();
         }, 600);
-
-        reject(new Victoire(joueur));
     }
 
     replay () {
@@ -195,18 +193,14 @@ export class Jeu implements EmitterInterface
     reinitialiser() {
         this.pionsUnclickables(this.pions);
         this.casesUnpickables(this.plateau.allCases);
-        // this.plateau.vider();
+        this.plateau.vider();
         this.pions.forEach(p => {
             p.initPosition();
         });
     }
 
     async play(): Promise<void> {
-        try {
-            await this.stepper.run();
-        } catch (e) {
-            console.error(e);
-        }
+        await this.stepper.run();
     }    
     
     on (event: string, f: EmitterListener): EventListener {

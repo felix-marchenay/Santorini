@@ -63,8 +63,12 @@ export class Pion implements EmitterInterface
     }
 
     initPosition() {
+        this.caze?.libérer();
         this.caze = null;
-        this.animationTo(this.initialPosition);
+        this.mesh.animations.push(
+            this.animationTo(this.initialPosition)
+        );
+        this.scene.beginAnimation(this.mesh, 0, 30, false);
     }
 
     enableClickable() {

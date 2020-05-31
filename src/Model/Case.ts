@@ -219,6 +219,10 @@ export class Case implements EmitterInterface
         return this.constructions.niveau - caze.constructions.niveau;
     }
 
+    vider () {
+        this.constructions.removeAll();
+    }
+
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
     } 

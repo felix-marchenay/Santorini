@@ -10,7 +10,7 @@ export class Deplacement extends Step
     }
 
     async run (): Promise<void> {
-        return new Promise<void>((resolve: Function, reject: Function) => {
+        return new Promise<void>((resolve: Function) => {
 
             this.jeu.pionsClickables(this.joueur.allPions, (pion: Pion) => {
 
@@ -27,7 +27,7 @@ export class Deplacement extends Step
                         this.jeu.poser(pion, caze, this.joueur);
 
                         if (caze.niveau === 3) {
-                            this.jeu.victory(this.joueur, reject);
+                            this.jeu.victory(this.joueur);
                         } else {
                             resolve();
                         }

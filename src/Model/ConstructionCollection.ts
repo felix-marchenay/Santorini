@@ -43,6 +43,11 @@ export class ConstructionCollection
         this.elements = [...this.elements.filter(el => el !== this.dernierEtage)];
     }
 
+    removeAll () {
+        this.elements.forEach(el => el.dispose());
+        this.elements = []; 
+    }
+
     get complet (): boolean {
         return this.elements.length === 4;
     }
