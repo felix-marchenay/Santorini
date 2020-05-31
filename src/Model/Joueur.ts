@@ -13,16 +13,19 @@ export class Joueur
 {
     private pions: Array<Pion>;
     public dernierPionDéplacé: Pion | null = null;
+    public readonly id: string;
 
     constructor (
         public name: string,
         order: number,
         scene: Scene,
-        public readonly id?: string
+        id?: string
     ) {
-        if (this.id === undefined) {
-            this.id = Math.random().toString(36).substring(2, 15);
+        if (id === undefined) {
+            id = Math.random().toString(36).substring(2, 15);
         }
+        this.id = id;
+        
         const materials = [
             Container.loadMaterial('pion-blanc'),
             Container.loadMaterial('pion-bleu'),

@@ -4,6 +4,7 @@ import { Scene, Engine, SceneLoader, ArcRotateCamera, Vector3, PointLight } from
 import { Joueur } from "./Model/Joueur";
 import { infosJoueur } from "./InfosJoueur";
 import { Container } from "./Container";
+import { Normalizer } from "./Normalizer/Normalizer";
 
 export class Setup
 {
@@ -12,7 +13,8 @@ export class Setup
 
     constructor (
         private ihm: Interface,
-        private engine: Engine
+        private engine: Engine,
+        private normalizer: Normalizer
     ) {
         this.scene = this.createScene();
         this.ihm.on('goSingleplayer', joueurs => {
@@ -26,6 +28,8 @@ export class Setup
 
     private setup(infosJoueurs: Array<infosJoueur>): Jeu {
         const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info, this.scene));
+            
+        this.ihm.action('launchSingle', joueurs.map(j => this.normalizer.normalize(j)));
         
         return new Jeu(
             this.scene,

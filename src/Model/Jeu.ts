@@ -13,7 +13,7 @@ import { Victoire } from "../Victoire";
 
 export class Jeu implements EmitterInterface
 {
-    public plateau: Plateau;
+    public readonly plateau: Plateau;
     public stepper: Stepper = new Stepper;
     private idlePion: Pion | null = null;
     private skipListener: EmitterListener | null = null;
@@ -22,7 +22,7 @@ export class Jeu implements EmitterInterface
     constructor(
         private scene: Scene,
         private ihm: IHMInterface,
-        private joueurs: Array<Joueur>,
+        public readonly joueurs: Array<Joueur>,
         private server?: Server     
     ) {
         this.plateau = new Plateau(this.scene);
@@ -203,15 +203,6 @@ export class Jeu implements EmitterInterface
 
     async play(): Promise<void> {
         try {
-            this.ihm.action('launchSingle', this.joueurs.map(j => ({
-                name: j.name,
-                divinite: {
-                    name: 'Atlas',
-                    slug: 'atlas',
-                    description: 'a'
-                },
-                id: j.id
-            })));
             await this.stepper.run();
         } catch (e) {
             console.error(e);

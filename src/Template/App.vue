@@ -49,7 +49,7 @@ export default {
             this.page = menu;
         },
         replay() {
-
+            this.$root.$emit('replay');
         },
         mainMenu() {
 

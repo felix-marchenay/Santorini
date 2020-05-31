@@ -3,6 +3,7 @@ import { Interface } from './Interface';
 import App from './Template/App.vue';
 import { Setup } from './Setup';
 import { Engine } from 'babylonjs';
+import { JoueurNormalizer } from './Normalizer/JoueurNormalizer';
 
 export class Santorini 
 {
@@ -16,6 +17,6 @@ export class Santorini
     async ignition() {
         new Setup(this.interface, new Engine(
             document.querySelector('canvas')
-        ));
+        ), new JoueurNormalizer);
     }
 }
