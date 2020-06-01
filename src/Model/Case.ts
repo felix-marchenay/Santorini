@@ -236,7 +236,7 @@ export class Case implements EmitterInterface
     }
 
     emit (event: string, ...vars: any[]) {
-        this.emitter.emit(event, ...vars);
+        this.emitter.emit(event, ...[this, ...vars]);
     }
 
     flush (): void {

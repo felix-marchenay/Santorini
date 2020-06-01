@@ -70,6 +70,10 @@ export class Joueur
     }
 
     public posePion (pion: Pion, caze: Case): void {
+        if (!this.aLePion(pion)) {
+            throw "Pion d'un autre joueur";
+        }
+        
         caze.poser(pion);
         this.dernierPionDéplacé = pion;
     }
