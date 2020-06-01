@@ -55,7 +55,11 @@ export default {
 
         },
         goSingle(players) {
-            this.$root.$emit('goSingleplayer', players);
+            this.$root.$emit('goSingleplayer', players.map(j => ({
+                name: j.name,
+                divinite: j.divinite.slug,
+                order: j.order
+            })));
         },
         goMulti() {
             this.$root.$emit('goMultiplayer', players);

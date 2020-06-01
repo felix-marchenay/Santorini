@@ -8,9 +8,9 @@ export class JoueurNormalizer implements Normalizer
             name: joueur.name,
             id: joueur.id,
             divinite: {
-                name: 'slug',
-                slug: 'atlas',
-                description: 'aze'
+                name: joueur.divinite.name,
+                slug: joueur.divinite.slug,
+                description: joueur.divinite.description
             }
         };
     }

@@ -7,6 +7,7 @@ import { Container } from "../src/Container";
 import { Pion } from "../src/Model/Pion";
 import { FakeInterface } from "./Mocks/FakeInterface";
 import { Joueur } from "../src/Model/Joueur";
+import { No } from "../src/Model/Divinite/No";
 
 describe("Ce bon vieu jeu", () => {
 
@@ -116,8 +117,8 @@ describe("Ce bon vieu jeu", () => {
 
     describe("Actions de jeu", () => {
 
-        let bernadette = new Joueur("bernadette", 1, scene);
-        let jacques = new Joueur("jacques", 1, scene);
+        let bernadette = new Joueur("bernadette", 1, scene, new No);
+        let jacques = new Joueur("jacques", 1, scene, new No);
         let joueurs = [bernadette, jacques];
         let jeu = new Jeu(
             scene,

@@ -3,11 +3,10 @@ import { Scene, Vector3 } from "babylonjs";
 import { infosJoueur } from "../InfosJoueur";
 import { Case } from "./Case";
 import { Container } from "../Container";
-import { Preparation } from "../Steps/Preparation";
 import { Jeu } from "./Jeu";
-import { Deplacement } from "../Steps/Deplacement";
-import { Construction } from "../Steps/Construction";
 import { Steppable } from "../Infrastructure/Steppable";
+import { Divinite } from "./Divinite/Divinite";
+import { DiviniteFactory } from "./Divinite/DiviniteFactory";
 
 export class Joueur
 {
@@ -19,7 +18,8 @@ export class Joueur
         public name: string,
         order: number,
         scene: Scene,
-        id?: string
+        public readonly divinite: Divinite,
+        id?: string,
     ) {
         if (id === undefined) {
             id = Math.random().toString(36).substring(2, 15);
@@ -51,7 +51,12 @@ export class Joueur
 
     public static fromInfos(infos: infosJoueur, scene: Scene): Joueur
     {
-        return new Joueur(infos.name, infos.order, scene);
+        return new Joueur(
+            infos.name, 
+            infos.order, 
+            scene, 
+            DiviniteFactory.build(infos.divinite)
+        );
     }
 
     public aLePion(pion: Pion): Pion | null {
@@ -70,15 +75,15 @@ export class Joueur
     }
 
     public getPreparationStep(jeu: Jeu): Steppable {
-        return new Preparation(jeu, this);
+        return this.divinite.getPreparationStep(jeu, this);
     }
 
     public getDeplacementStep(jeu: Jeu): Steppable {
-        return new Deplacement(jeu, this);
+        return this.divinite.getDeplacementStep(jeu, this);
     }
 
     public getConstructionStep(jeu: Jeu): Steppable {
-        return new Construction(jeu, this);
+        return this.divinite.getConstructionStep(jeu, this);
     }
 
     autoriseDeplacement (pion: Pion, caze: Case): boolean {
