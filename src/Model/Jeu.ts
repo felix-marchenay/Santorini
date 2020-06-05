@@ -144,6 +144,12 @@ export class Jeu implements EmitterInterface
         this.sendServer('construire', {});
     }
 
+    construireSousLePion(caze: Case) {
+        caze.construireSousLePion();
+        // TODO export caze
+        this.sendServer('construire', {});
+    }
+
     flushIhm() {
         this.ihm.flush();
     }

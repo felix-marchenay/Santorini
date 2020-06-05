@@ -16,7 +16,6 @@ export abstract class Step  implements Steppable{
     }
 
     after (): void {
-        // this.jeu.hideAllBuildHint();
         this.jeu.pionsUnclickables(this.jeu.pions);
         this.jeu.casesUnpickables(this.jeu.plateau.allCases);
         this.jeu.hideSkip();

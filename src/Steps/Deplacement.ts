@@ -23,13 +23,17 @@ export class Deplacement extends Step
                 this.jeu.casesClickables(
                     this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => pion.peutAller(c)),
                     (caze: Case) => {
+                        const caseDepart = pion.case;
 
                         this.jeu.poser(pion, caze, this.joueur);
 
-                        if (caze.niveau === 3) {
+                        if (caseDepart) {
+                            console.log(caze.differenceDeNiveauAvec(caseDepart));
+                        }
+                        if (caseDepart && caze.differenceDeNiveauAvec(caseDepart) === 1 && caze.niveau === 3) {
                             this.jeu.victory(this.joueur);
                         } else {
-                            resolve();
+                            this.jeu.endTurn(resolve);
                         }
                     }
                 );
