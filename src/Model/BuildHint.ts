@@ -9,6 +9,7 @@ export class BuildHint
 {
     private etages = new ConstructionCollection;
     private emitter = new Emitter;
+    private active = false;
 
     constructor (
         private scene: Scene,
@@ -25,14 +26,16 @@ export class BuildHint
             }
             hint.on('click', () => this.emit('click'));
             hint.on('hover', () => this.emit('hover'));
-            hint.on('unhover', () => this.emit('unhover'));
+            hint.on('unhover', () => this.active && this.emit('unhover'));
             this.etages.addHint(hint);
         }
 
+        this.active = true;
         this.etages.enable(niveau);
     }
 
     hide () {
+        this.active = false;
         this.etages.disableAll();
     }
     
@@ -42,5 +45,9 @@ export class BuildHint
 
     emit (event: string, ...vars: any[]) {
         this.emitter.emit(event, ...vars);
+    }
+
+    flush (): void {
+        this.emitter.flush();
     }
 }
