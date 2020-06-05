@@ -27,9 +27,6 @@ export class Deplacement extends Step
 
                         this.jeu.poser(pion, caze, this.joueur);
 
-                        if (caseDepart) {
-                            console.log(caze.differenceDeNiveauAvec(caseDepart));
-                        }
                         if (caseDepart && caze.differenceDeNiveauAvec(caseDepart) === 1 && caze.niveau === 3) {
                             this.jeu.victory(this.joueur);
                         } else {

@@ -165,7 +165,10 @@ export class Jeu implements EmitterInterface
     }
 
     victory(joueur: Joueur) {
+        this.flushEvents();
+
         this.ihm.action('victory', joueur);
+        
         this.ihm.on('replay', () => {
             if (this.server) {
                 this.server.emit('replay', null);
@@ -207,7 +210,15 @@ export class Jeu implements EmitterInterface
 
     async play(): Promise<void> {
         await this.stepper.run();
-    }    
+    }
+
+    flushEvents() {
+        this.pionsUnclickables(this.pions);
+        this.casesUnpickables(this.plateau.allCases);
+        this.hideSkip();
+        this.flushServer();
+        this.flushIhm();
+    }
     
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);
