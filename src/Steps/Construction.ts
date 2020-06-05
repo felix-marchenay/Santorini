@@ -17,8 +17,12 @@ export class Construction extends Step
                 return;
             }
 
+            const cases = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => !c.estOccupée);
+
+            cases.forEach(c => c.showBuildHint());
+            
             this.jeu.casesClickables(
-                this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => !c.estOccupée),
+                cases,
                 (caze: Case) => {
                     this.jeu.construire(caze);
 

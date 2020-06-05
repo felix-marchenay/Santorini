@@ -90,5 +90,30 @@ describe("Cases", () => {
             expect(cases[2].estComplete).toBe(false);
             expect(cases[1].estDuPerimetre).toBe(false);
         });
+
+        let caze = new Case(scene, {x: 2, y: 4});
+
+        it ("build hint", () => {
+            caze.showBuildHint();
+
+            caze.hideBuildHint();
+
+            caze.construire();
+            caze.construire();
+
+            caze.showBuildHint();
+
+            expect(caze.estComplete).toBe(false);
+
+            caze.construire();
+
+            caze.showBuildHint();
+            
+            caze.construire();
+
+            caze.showBuildHint();
+
+            expect(caze.estComplete).toBe(true);
+        });
     });
 });

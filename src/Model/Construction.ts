@@ -120,6 +120,14 @@ export abstract class Construction implements EmitterInterface
         this.mesh.dispose();
     }
 
+    enable () {
+        this.mesh.setEnabled(true);
+    }
+
+    disable () {
+        this.mesh.setEnabled(false);
+    }
+
     enableClickable() {
         if (this.mesh.actionManager) {
             this.mesh.actionManager.registerAction(this.actions.hover);

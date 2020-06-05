@@ -1,5 +1,7 @@
 import { Construction } from "./Construction";
 import { EmitterListener } from "../Infrastructure/Emitter/Emitter";
+import { EtageHint } from "./EtageHint";
+import { DomeHint } from "./DomeHint";
 
 export class ConstructionCollection
 {
@@ -19,6 +21,18 @@ export class ConstructionCollection
         }, null);
     }
 
+    get complet (): boolean {
+        return this.elements.length === 4;
+    }
+
+    get aUnDome (): boolean {
+        return this.elements.find(el => el.estUnDome === true) !== undefined;
+    }
+
+    private getNiveau (niveau: number): Construction | undefined {
+        return this.elements.find(construction => construction.niveau === niveau);
+    }
+
     add (construction: Construction): void {
         if (!this.dernierEtage && construction.niveau !== 1) {
             throw "Il faut construire un etage 1 en premier";
@@ -35,6 +49,22 @@ export class ConstructionCollection
         this.elements.push(construction);
     }
 
+    addHint (construction: EtageHint | DomeHint): void {
+        this.elements.push(construction);
+    }
+
+    has (niveau: number): boolean {
+        return this.elements.filter(construction => construction.niveau === niveau).length > 0;
+    }
+
+    enable (niveau: number): void {
+        this.getNiveau(niveau)?.enable();
+    }
+
+    disableAll (): void {
+        this.elements.forEach(construction => construction.disable);
+    }
+
     removeLast () {
         if (!this.dernierEtage) {
             return;
@@ -47,14 +77,6 @@ export class ConstructionCollection
     removeAll () {
         this.elements.forEach(el => el.dispose());
         this.elements = []; 
-    }
-
-    get complet (): boolean {
-        return this.elements.length === 4;
-    }
-
-    get aUnDome (): boolean {
-        return this.elements.find(el => el.estUnDome === true) !== undefined;
     }
 
     enableClickable() {

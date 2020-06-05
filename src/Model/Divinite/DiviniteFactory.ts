@@ -2,6 +2,7 @@ import { Divinite } from "./Divinite";
 import { Atlas } from "./Atlas";
 import { No } from "./No";
 import { Triton } from "./Triton";
+import { Zeus } from "./Zeus";
 
 export class DiviniteFactory {
     
@@ -11,10 +12,12 @@ export class DiviniteFactory {
                 return new Atlas;
             case 'triton' :
                 return new Triton;
+            case 'zeus' :
+                return new Zeus;
             case 'no' :
-                return new No
+                return new No;
             default :
-                throw "Divinité "+ slug +"inconnue"
+                throw "Divinité "+ slug +" inconnue"
         }
     }
 }

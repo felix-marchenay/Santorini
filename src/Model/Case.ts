@@ -6,6 +6,7 @@ import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Em
 import { Construction } from "../Model/Construction";
 import { Etage } from "./Etage";
 import { Dome } from "./Dome";
+import { BuildHint } from "./BuildHint";
 
 export class Case implements EmitterInterface
 {
@@ -15,6 +16,7 @@ export class Case implements EmitterInterface
     private emitter = new Emitter;
     private actions: {hover: ExecuteCodeAction, unhover: ExecuteCodeAction, click: ExecuteCodeAction};
     private lightGlowActive: boolean = false;
+    private buildHint: BuildHint;
 
     constructor (
         private scene: Scene,
@@ -24,7 +26,7 @@ export class Case implements EmitterInterface
         this.mesh = Container.loadMesh(caseName, 'case');
         this.mesh.position = new Vector3(3.1 * (this.coordonnees.x - 1) - 6.2, 0, 3.1 * (this.coordonnees.y - 1) - 6.2);
         this.mesh.actionManager = new ActionManager(this.scene);
-
+        
         this.actions = {
             hover: new ExecuteCodeAction(
                 ActionManager.OnPointerOverTrigger,
@@ -49,6 +51,8 @@ export class Case implements EmitterInterface
                 }
             ),
         };
+
+        this.buildHint = new BuildHint(this.scene, this);
     }
 
     private distanceDe (caze: Case): number {
@@ -150,6 +154,9 @@ export class Case implements EmitterInterface
                     this.unGlow();
                 }
             });
+            this.constructions.on('click', () => {
+                this.emit('click');
+            });
             if(lightGlow) {
                 this.lightGlow();
             }
@@ -228,6 +235,20 @@ export class Case implements EmitterInterface
 
     differenceDeNiveauAvec (caze: Case): number {
         return this.constructions.niveau - caze.constructions.niveau;
+    }
+
+    showBuildHint () {
+        const niveau = (this.constructions.dernierEtage?.niveau ?? 1) + 1;
+
+        if (niveau > 4) {
+            return;
+        }
+
+        this.buildHint.show(niveau);
+    }
+
+    hideBuildHint () {
+        this.buildHint.hide();
     }
 
     vider () {
