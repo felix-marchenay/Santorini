@@ -62,7 +62,7 @@ export class ConstructionCollection
     }
 
     disableAll (): void {
-        this.elements.forEach(construction => construction.disable);
+        this.elements.forEach(construction => construction.disable());
     }
 
     removeLast () {

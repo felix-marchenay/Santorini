@@ -10,14 +10,16 @@ export class DomeHint extends Construction
         caze: Case,
     ) {
         super(scene, 'etage-dome', niveau, caze);
-        if (this.mesh.material !== null) {
-            this.mesh.material.alpha = .2;
-        }
+        
+        const position = caze.positionPosePion;
+        this.mesh.position.set(position.x, caze.y - 0.08, position.z);
 
-        this.mesh.overlayColor.r = 0.176;
-        this.mesh.overlayColor.g = 0.380;
-        this.mesh.overlayColor.b = 0.631;
+        this.mesh.visibility = .3;
+
         this.mesh.renderOverlay = true;
+        this.mesh.overlayColor.r = 0.38;
+        this.mesh.overlayColor.g = 0.56;
+        this.mesh.overlayColor.b = 0.79;
         this.enableClickable();
     }
 

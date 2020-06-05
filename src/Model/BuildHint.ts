@@ -3,10 +3,12 @@ import { EtageHint } from "./EtageHint";
 import { Scene } from "babylonjs";
 import { Case } from "./Case";
 import { DomeHint } from "./DomeHint";
+import { EmitterListener, Emitter } from "../Infrastructure/Emitter/Emitter";
 
 export class BuildHint
 {
     private etages = new ConstructionCollection;
+    private emitter = new Emitter;
 
     constructor (
         private scene: Scene,
@@ -21,6 +23,9 @@ export class BuildHint
             } else {
                 hint = new EtageHint(this.scene, niveau, this.caze)
             }
+            hint.on('click', () => this.emit('click'));
+            hint.on('hover', () => this.emit('hover'));
+            hint.on('unhover', () => this.emit('unhover'));
             this.etages.addHint(hint);
         }
 
@@ -29,5 +34,13 @@ export class BuildHint
 
     hide () {
         this.etages.disableAll();
+    }
+    
+    on (event: string, f: EmitterListener): EventListener {
+        return this.emitter.on(event, f);
+    }
+
+    emit (event: string, ...vars: any[]) {
+        this.emitter.emit(event, ...vars);
     }
 }

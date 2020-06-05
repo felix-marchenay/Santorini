@@ -30,29 +30,22 @@ export class Case implements EmitterInterface
         this.actions = {
             hover: new ExecuteCodeAction(
                 ActionManager.OnPointerOverTrigger,
-                () => {
-                    this.glow();
-                }
+                () => this.hover()
             ),
             unhover: new ExecuteCodeAction(
                 ActionManager.OnPointerOutTrigger,
-                () => {
-                    if (this.lightGlowActive) {
-                        this.lightGlow();
-                    } else {
-                        this.unGlow();
-                    }
-                }
+                () => this.unhover()
             ),
             click: new ExecuteCodeAction(
                 ActionManager.OnPickTrigger,
-                () => {
-                    this.emit('click', this);
-                }
+                () => this.click()
             ),
         };
 
         this.buildHint = new BuildHint(this.scene, this);
+        this.buildHint.on('click', () => this.click());
+        this.buildHint.on('hover', () => this.hover());
+        this.buildHint.on('unhover', () => this.unhover());
     }
 
     private distanceDe (caze: Case): number {
@@ -137,6 +130,22 @@ export class Case implements EmitterInterface
         this.mesh.renderOverlay = false;
     }
 
+    hover () {
+        this.glow();
+    }
+
+    unhover () {
+        if (this.lightGlowActive) {
+            this.lightGlow();
+        } else {
+            this.unGlow();
+        }
+    }
+
+    click () {
+        this.emit('click');
+    }
+
     enableClickable(lightGlow: boolean) {
         this.lightGlowActive = lightGlow;
         if (this.mesh.actionManager) {
@@ -144,19 +153,9 @@ export class Case implements EmitterInterface
             this.mesh.actionManager.registerAction(this.actions.unhover);
             this.mesh.actionManager.registerAction(this.actions.click);
             this.constructions.enableClickable();
-            this.constructions.on('hover', () => {
-                this.glow();
-            });
-            this.constructions.on('unhover', () => {
-                if (this.lightGlowActive) {
-                    this.lightGlow();
-                } else {
-                    this.unGlow();
-                }
-            });
-            this.constructions.on('click', () => {
-                this.emit('click');
-            });
+            this.constructions.on('hover', () => this.hover());
+            this.constructions.on('unhover', () => this.unhover());
+            this.constructions.on('click', () => this.emit('click'));
             if(lightGlow) {
                 this.lightGlow();
             }
@@ -171,6 +170,7 @@ export class Case implements EmitterInterface
             this.constructions.disableClickable();
             this.constructions.flush();
             this.unGlow();
+            this.hideBuildHint();
         }
     }
 
@@ -238,7 +238,7 @@ export class Case implements EmitterInterface
     }
 
     showBuildHint () {
-        const niveau = (this.constructions.dernierEtage?.niveau ?? 1) + 1;
+        const niveau = this.constructions.niveau + 1;
 
         if (niveau > 4) {
             return;
