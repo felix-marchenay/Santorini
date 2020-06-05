@@ -140,6 +140,16 @@ export class Case implements EmitterInterface
             this.mesh.actionManager.registerAction(this.actions.unhover);
             this.mesh.actionManager.registerAction(this.actions.click);
             this.constructions.enableClickable();
+            this.constructions.on('hover', () => {
+                this.glow();
+            });
+            this.constructions.on('unhover', () => {
+                if (this.lightGlowActive) {
+                    this.lightGlow();
+                } else {
+                    this.unGlow();
+                }
+            });
             if(lightGlow) {
                 this.lightGlow();
             }
@@ -152,6 +162,7 @@ export class Case implements EmitterInterface
             this.mesh.actionManager.unregisterAction(this.actions.unhover);
             this.mesh.actionManager.unregisterAction(this.actions.click);
             this.constructions.disableClickable();
+            this.constructions.flush();
             this.unGlow();
         }
     }
@@ -225,7 +236,7 @@ export class Case implements EmitterInterface
 
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
-    } 
+    }
     
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);

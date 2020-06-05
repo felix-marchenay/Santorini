@@ -1,4 +1,5 @@
 import { Construction } from "./Construction";
+import { EmitterListener } from "../Infrastructure/Emitter/Emitter";
 
 export class ConstructionCollection
 {
@@ -66,5 +67,19 @@ export class ConstructionCollection
         this.elements.forEach(etage => {
             etage.disableClickable();
         });
+    }
+
+    on (event: string, f: EmitterListener): Array<EventListener> {
+        return this.elements.map(etage => etage.on(event, f));
+    }
+    
+    off (event: string, f: Array<EmitterListener>): void {
+        this.elements.forEach((etage, index) => {
+            etage.off(event, f[index]);
+        });
+    }
+
+    flush (): void {
+        this.elements.forEach(el => el.flush());
     }
 }
