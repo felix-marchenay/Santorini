@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Jeu de plateau Santorini, fait avec BabylonsJS",
   "scripts": {
-    "test": "tsc && jest",
+    "test": "tsc && jest --silent",
     "serve": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack --mode=production"
   },
