@@ -2,6 +2,7 @@ import { Scene, AbstractMesh } from "babylonjs";
 import { CaseCollection } from "./CaseCollection";
 import { Container } from "../Container";
 import { Case } from "./Case";
+import { Pion } from "./Pion";
 
 export class Plateau
 {
@@ -31,6 +32,26 @@ export class Plateau
 
     casesAvoisinantes(caze: Case): Case[] {
         return this.cases.avoisinantes(caze);
+    }
+
+    casesDisponibles (): Case[] {
+        return this.cases.disponibles;
+    }
+
+    casesLaPlusHauteOuPionPeutAller(pion: Pion): Case {
+        if (!pion.case) {
+            throw "Le pion doit être posé sur une case";
+        }
+
+        return this
+            .casesAvoisinantes(pion.case)
+            .filter(c => pion.peutAller(c))
+            .reduce((caze: Case, c: Case) => {
+                if (caze.niveau < c.niveau) {
+                    caze = c;
+                }
+                return caze;
+            });
     }
 
     vider () {

@@ -31,6 +31,10 @@ export class CaseCollection
         return this.cases;
     }
 
+    get disponibles (): Case[] {
+        return this.cases.filter(c => !c.estOccupée);
+    }
+
     find(x: number, y: number): Case {
         const caze = this.cases.find(c => c.coordonnees.x === x && c.coordonnees.y === y);
         if (!caze) {

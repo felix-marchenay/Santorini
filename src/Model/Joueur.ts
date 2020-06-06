@@ -8,6 +8,9 @@ import { Steppable } from "../Infrastructure/Steppable";
 import { Divinite } from "./Divinite/Divinite";
 import { DiviniteFactory } from "./Divinite/DiviniteFactory";
 import { TypeJoueur } from "./TypeJoueur";
+import { PreparationIA } from "../Steps/PreparationIA";
+import { DeplacementIA } from "../Steps/DeplacementIA";
+import { ConstructionIA } from "../Steps/ConstructionIA";
 
 export class Joueur
 {
@@ -83,16 +86,22 @@ export class Joueur
 
     public getPreparationStep(jeu: Jeu): Steppable {
         if (this.type === TypeJoueur.ia) {
-            // return new 
+            return new PreparationIA(jeu, this);
         }
         return this.divinite.getPreparationStep(jeu, this);
     }
 
     public getDeplacementStep(jeu: Jeu): Steppable {
+        if (this.type === TypeJoueur.ia) {
+            return new DeplacementIA(jeu, this);
+        }
         return this.divinite.getDeplacementStep(jeu, this);
     }
 
     public getConstructionStep(jeu: Jeu): Steppable {
+        if (this.type === TypeJoueur.ia) {
+            return new ConstructionIA(jeu, this);
+        }
         return this.divinite.getConstructionStep(jeu, this);
     }
 

@@ -8,6 +8,8 @@ import { FakeInterface } from "./Mocks/FakeInterface";
 import { Joueur } from "../src/Model/Joueur";
 import { No } from "../src/Model/Divinite/No";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
+import { PreparationIA } from "../src/Steps/PreparationIA";
+import { Case } from "../src/Model/Case";
 
 describe("Construction", () => {
     describe("Création", () => {
@@ -42,6 +44,18 @@ describe("Construction", () => {
 
             expect(joueur.allPions[0].case).toBe(jeu.plateau.allCases[2]);
             expect(joueur.allPions[1].case).toBe(jeu.plateau.allCases[3]);
+        });
+
+        it ("IA se prépare", async () => {
+
+            const ia = new Joueur("roboto", 1, scene, new No, TypeJoueur.ia);
+
+            stepper = new Stepper([new PreparationIA(jeu, ia)]);
+
+            await stepper.run();
+
+            expect(ia.allPions[0].case).toBeInstanceOf(Case);
+            expect(ia.allPions[1].case).toBeInstanceOf(Case);
         });
 
     });
