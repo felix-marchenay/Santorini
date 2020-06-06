@@ -58,7 +58,8 @@ export default {
             this.$root.$emit('goSingleplayer', players.map(j => ({
                 name: j.name,
                 divinite: j.divinite.slug,
-                order: j.order
+                order: j.order,
+                type: j.type
             })));
         },
         goMulti() {

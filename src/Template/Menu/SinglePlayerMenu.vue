@@ -10,8 +10,8 @@
         <div class="players">
             <div v-for="(player, k) in players" v-bind:key="k" class="player">
                 <div class="human">
-                    <Button @click="player.type = 'human'" :class="{active: player.type == 'human'}">Vrai humain</Button>
-                    <Button @click="player.type = 'cpu'" :class="{active: player.type == 'cpu'}">Ordinateur</Button>
+                    <Button @click="player.type = 'humain'" :class="{active: player.type == 'humain'}">Vrai humain</Button>
+                    <Button @click="player.type = 'ia'" :class="{active: player.type == 'ia'}">Ordinateur</Button>
                 </div>
                 <DivinitePicker @selected="setDivinite($event, k)" :active="player.divinitePickerActive"/>
                 <DiviniteCard :divinite="player.divinite" @click.native="player.divinitePickerActive = true"/>
@@ -45,7 +45,7 @@ export default {
                         description: ""
                     },
                     divinitePickerActive: false,
-                    type: 'human',
+                    type: 'humain',
                     order: 1
                 },
                 {
@@ -56,7 +56,7 @@ export default {
                         description: ""
                     },
                     divinitePickerActive: false,
-                    type: 'cpu',
+                    type: 'ia',
                     order: 2
                 },
             ],
