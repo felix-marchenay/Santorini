@@ -12,6 +12,17 @@ export class Deplacement extends Step
     async run (): Promise<void> {
         return new Promise<void>((resolve: Function) => {
 
+            if(this.joueur.allPions[0].case && this.joueur.allPions[1].case) {
+                const casesPossibles = [
+                    ...this.jeu.plateau.casesAvoisinantes(this.joueur.allPions[0].case).filter(c => this.joueur.allPions[0].peutAller(c)),
+                    ...this.jeu.plateau.casesAvoisinantes(this.joueur.allPions[1].case).filter(c => this.joueur.allPions[1].peutAller(c)),
+                ];
+
+                if (casesPossibles.length < 1) {
+                    this.jeu.victory(this.jeu.adversaire(this.joueur));
+                }
+            }
+
             this.jeu.pionsClickables(this.joueur.allPions, (pion: Pion) => {
 
                 this.jeu.casesUnpickables(this.jeu.plateau.allCases);

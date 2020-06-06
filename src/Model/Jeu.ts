@@ -75,6 +75,16 @@ export class Jeu implements EmitterInterface
         this.ihm.action('joueurActif', joueur);
     }
 
+    adversaire (joueur: Joueur): Joueur {
+        const adversaire = this.joueurs.find(j => j !== joueur);
+        
+        if (!adversaire) {
+            throw "Pas d'aversaire pour le joueur " + joueur.name;
+        }
+
+        return adversaire;
+    }
+
     tour (action: string) {
         this.ihm.action('tour', action);
     }
