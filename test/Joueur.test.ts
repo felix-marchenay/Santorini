@@ -12,6 +12,7 @@ import { Deplacement } from "../src/Steps/Deplacement";
 import { Preparation } from "../src/Steps/Preparation";
 import { ConstructionAtlas } from "../src/Steps/ConstructionAtlas";
 import { DeplacementTriton } from "../src/Steps/DeplacementTriton";
+import { TypeJoueur } from "../src/Model/TypeJoueur";
 
 describe("Joueurs", () => {
 
@@ -20,8 +21,8 @@ describe("Joueurs", () => {
         const scene = new Scene(new NullEngine);
         Container.init(new FakeAsetContainer(scene));
         let joueurs = [
-            new Joueur("adrian", 1, scene, new Atlas),
-            new Joueur("richard", 2, scene, new Triton)
+            new Joueur("adrian", 1, scene, new Atlas, TypeJoueur.humain),
+            new Joueur("richard", 2, scene, new Triton, TypeJoueur.humain)
         ];
         
         let jeu = new Jeu(
@@ -45,7 +46,8 @@ describe("Joueurs", () => {
             let joueur = Joueur.fromInfos({
                 name: 'Albertinho',
                 divinite: 'no',
-                order: 1
+                order: 1,
+                type: 'humain'
             }, scene);
 
             expect(joueur).toBeInstanceOf(Joueur);

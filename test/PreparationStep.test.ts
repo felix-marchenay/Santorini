@@ -7,6 +7,7 @@ import { Jeu } from "../src/Model/Jeu";
 import { FakeInterface } from "./Mocks/FakeInterface";
 import { Joueur } from "../src/Model/Joueur";
 import { No } from "../src/Model/Divinite/No";
+import { TypeJoueur } from "../src/Model/TypeJoueur";
 
 describe("Construction", () => {
     describe("Création", () => {
@@ -14,8 +15,8 @@ describe("Construction", () => {
         const scene = new Scene(new NullEngine);
         Container.init(new FakeAsetContainer(scene));
         
-        let joueur = new Joueur("a", 1, scene, new No);
-        let joueur2 = new Joueur("bc", 2, scene, new No);
+        let joueur = new Joueur("a", 1, scene, new No, TypeJoueur.humain);
+        let joueur2 = new Joueur("bc", 2, scene, new No, TypeJoueur.humain);
 
         let jeu = new Jeu(
             scene,

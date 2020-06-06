@@ -7,6 +7,7 @@ import { Jeu } from "./Jeu";
 import { Steppable } from "../Infrastructure/Steppable";
 import { Divinite } from "./Divinite/Divinite";
 import { DiviniteFactory } from "./Divinite/DiviniteFactory";
+import { TypeJoueur } from "./TypeJoueur";
 
 export class Joueur
 {
@@ -19,6 +20,7 @@ export class Joueur
         order: number,
         scene: Scene,
         public readonly divinite: Divinite,
+        public readonly type: TypeJoueur,
         id?: string,
     ) {
         if (id === undefined) {
@@ -52,10 +54,11 @@ export class Joueur
     public static fromInfos(infos: infosJoueur, scene: Scene): Joueur
     {
         return new Joueur(
-            infos.name, 
-            infos.order, 
-            scene, 
-            DiviniteFactory.build(infos.divinite)
+            infos.name,
+            infos.order,
+            scene,
+            DiviniteFactory.build(infos.divinite),
+            TypeJoueur[infos.type]
         );
     }
 
@@ -79,6 +82,9 @@ export class Joueur
     }
 
     public getPreparationStep(jeu: Jeu): Steppable {
+        if (this.type === TypeJoueur.ia) {
+            // return new 
+        }
         return this.divinite.getPreparationStep(jeu, this);
     }
 
