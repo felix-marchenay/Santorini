@@ -91,9 +91,8 @@ describe("Cases", () => {
             expect(cases[1].estDuPerimetre).toBe(false);
         });
 
-        let caze = new Case(scene, {x: 2, y: 4});
-
         it ("build hint", () => {
+            let caze = new Case(scene, {x: 2, y: 4});
             caze.showBuildHint();
 
             caze.hideBuildHint();
@@ -114,6 +113,37 @@ describe("Cases", () => {
             caze.showBuildHint();
 
             expect(caze.estComplete).toBe(true);
+        });
+
+        it ("check état de la case", () => {
+            let caze = new Case(scene, {x: 1, y: 4});
+
+            caze.construire();
+            caze.construireDome();
+
+            try {
+                caze.construire();
+            } catch (e) {
+                expect(e).toBe("On ne peut pas construire sur une case occupée");
+            }
+
+            caze.showBuildHint();
+
+            expect(caze.estComplete).toBe(false);
+            expect(caze.aUnDome).toBe(true);
+            expect(caze.estOccupée).toBe(true);
+
+            caze = new Case(scene, {x: 1, y: 1});
+
+            caze.construire();
+            caze.construire();
+            caze.construire();
+
+            caze.showBuildHint();
+
+            expect(caze.estComplete).toBe(false);
+            expect(caze.aUnDome).toBe(false);
+            expect(caze.estOccupée).toBe(false);
         });
     });
 });

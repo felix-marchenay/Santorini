@@ -28,10 +28,11 @@ export class BuildHint
     }
 
     showDome (niveau: number) {
-        niveau;
-        // if ( ! this.etages.aUnDome ) {
-        //     this.etages.addHint(new DomeHint(this.scene, niveau, this.caze));
-        // }
+        this.etage = new DomeHint(this.scene, niveau, this.caze);
+
+        this.etage.on('click', () => this.emit('click'));
+        this.etage.on('hover', () => this.emit('hover'));
+        this.etage.on('unhover', () => this.emit('unhover'));
     }
 
     hide () {

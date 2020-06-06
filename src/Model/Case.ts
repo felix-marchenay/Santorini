@@ -102,8 +102,12 @@ export class Case implements EmitterInterface
         return this.constructions.aUnDome;
     }
 
+    get constructible(): boolean {
+        return !this.estOccupée && !this.estComplete && !this.aUnDome;
+    }
+
     get estOccupée (): boolean {
-        return this.inPion !== null && !this.aUnDome;
+        return this.inPion !== null || this.aUnDome;
     }
 
     get position (): Vector3 {
@@ -181,6 +185,10 @@ export class Case implements EmitterInterface
         
         const etage = this.prochainEtage();
 
+        if (this.aUnDome) {
+            throw "On ne peut pas construire sur un dôme";
+        }
+
         if (etage === null) {
             throw "Plus de construction possible";
         }
@@ -196,6 +204,21 @@ export class Case implements EmitterInterface
         });
 
         this.constructions.add(etage);
+    }
+
+    construireDome (): void {
+
+        if (this.estOccupée) {
+            throw "On ne peut pas construire sur une case occupée";
+        }
+
+        if (this.aUnDome) {
+            throw "On ne peut pas construire sur un dôme";
+        }
+
+        const dome = new Dome(this.scene, this, this.niveau+1);
+
+        this.constructions.add(dome);
     }
 
     detruire () {

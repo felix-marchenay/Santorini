@@ -148,6 +148,12 @@ export class Jeu implements EmitterInterface
         this.sendServer('construire', {});
     }
 
+    construireDome(caze: Case) {
+        caze.construireDome();
+        // TODO export caze
+        this.sendServer('construireDome', {});
+    }
+
     construireSousLePion(caze: Case) {
         caze.construireSousLePion();
         // TODO export caze

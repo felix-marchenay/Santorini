@@ -54,7 +54,7 @@ export default {
             return this.players.find(p => p.id == this.activePlayerId);
         },
         atlasBuilding() {
-            return this.activePlayer && this.activePlayer.divinite.slug == 'atlas' && this.action == 'construire';
+            return this.activePlayer && this.activePlayer.divinite.slug == 'atlas' && this.action.search(/construire/) != -1;
         },
         playerVictorious() {
             if (this.playerVictoriousId === null) {
@@ -87,6 +87,10 @@ export default {
 
         this.$root.$on('hideVictory', () => {
             this.playerVictoriousId = null;
+        });
+
+        this.$root.$on('setAtlasMode', mode => {
+            this.atlasMode = mode;
         });
     },
     methods: {

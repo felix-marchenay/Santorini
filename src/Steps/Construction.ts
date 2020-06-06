@@ -17,7 +17,7 @@ export class Construction extends Step
                 return;
             }
 
-            const cases = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => !c.estOccupée && !c.estComplete);
+            const cases = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => c.constructible);
 
             cases.forEach(c => c.showBuildHint());
             

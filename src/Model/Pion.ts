@@ -214,7 +214,7 @@ export class Pion implements EmitterInterface
         if (this.case === null) {
             return ! caze.estOccupée;
         }
-        return ! caze.estOccupée && (caze.differenceDeNiveauAvec(this.case) < 2);
+        return !caze.estOccupée && (caze.differenceDeNiveauAvec(this.case) < 2);
     }
 
     on (event: string, f: EmitterListener): EventListener {
