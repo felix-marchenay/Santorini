@@ -107,7 +107,7 @@ describe("Cases", () => {
 
             caze.construire();
 
-            caze.showBuildHint();
+            caze.showBuildHintDome();
             
             caze.construire();
 

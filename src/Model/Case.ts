@@ -247,6 +247,16 @@ export class Case implements EmitterInterface
         this.buildHint.show(niveau);
     }
 
+    showBuildHintDome () {
+        const niveau = this.constructions.niveau + 1;
+
+        if (niveau > 4) {
+            return;
+        }
+
+        this.buildHint.showDome(niveau);
+    }
+
     hideBuildHint () {
         this.buildHint.hide();
     }

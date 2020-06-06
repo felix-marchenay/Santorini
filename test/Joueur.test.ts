@@ -10,6 +10,8 @@ import { FakeInterface } from "./Mocks/FakeInterface";
 import { Construction } from "../src/Steps/Construction";
 import { Deplacement } from "../src/Steps/Deplacement";
 import { Preparation } from "../src/Steps/Preparation";
+import { ConstructionAtlas } from "../src/Steps/ConstructionAtlas";
+import { DeplacementTriton } from "../src/Steps/DeplacementTriton";
 
 describe("Joueurs", () => {
 
@@ -56,9 +58,13 @@ describe("Joueurs", () => {
             let deplacement = joueurs[0].getDeplacementStep(jeu);
             let preparation = joueurs[0].getPreparationStep(jeu);
 
-            expect(construction).toBeInstanceOf(Construction);
+            expect(construction).toBeInstanceOf(ConstructionAtlas);
             expect(deplacement).toBeInstanceOf(Deplacement);
             expect(preparation).toBeInstanceOf(Preparation);
+
+            expect(joueurs[1].getConstructionStep(jeu)).toBeInstanceOf(Construction);
+            expect(joueurs[1].getDeplacementStep(jeu)).toBeInstanceOf(DeplacementTriton);
+            expect(joueurs[1].getPreparationStep(jeu)).toBeInstanceOf(Preparation);
         });
     });
 });

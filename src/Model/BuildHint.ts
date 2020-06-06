@@ -1,4 +1,3 @@
-import { ConstructionCollection } from "./ConstructionCollection";
 import { EtageHint } from "./EtageHint";
 import { Scene } from "babylonjs";
 import { Case } from "./Case";
@@ -7,9 +6,8 @@ import { EmitterListener, Emitter } from "../Infrastructure/Emitter/Emitter";
 
 export class BuildHint
 {
-    private etages = new ConstructionCollection;
+    private etage: DomeHint | EtageHint | null = null;
     private emitter = new Emitter;
-    private active = false;
 
     constructor (
         private scene: Scene,
@@ -17,26 +15,29 @@ export class BuildHint
     ) {}
 
     show (niveau: number) {
-        if ( ! this.etages.has(niveau)) {
-            let hint;
-            if (niveau === 4) {
-                hint = new DomeHint(this.scene, niveau, this.caze);
-            } else {
-                hint = new EtageHint(this.scene, niveau, this.caze)
-            }
-            hint.on('click', () => this.emit('click'));
-            hint.on('hover', () => this.emit('hover'));
-            hint.on('unhover', () => this.active && this.emit('unhover'));
-            this.etages.addHint(hint);
+
+        if (niveau === 4) {
+            this.etage = new DomeHint(this.scene, niveau, this.caze);
+        } else {
+            this.etage = new EtageHint(this.scene, niveau, this.caze)
         }
 
-        this.active = true;
-        this.etages.enable(niveau);
+        this.etage.on('click', () => this.emit('click'));
+        this.etage.on('hover', () => this.emit('hover'));
+        this.etage.on('unhover', () => this.emit('unhover'));
+    }
+
+    showDome (niveau: number) {
+        niveau;
+        // if ( ! this.etages.aUnDome ) {
+        //     this.etages.addHint(new DomeHint(this.scene, niveau, this.caze));
+        // }
     }
 
     hide () {
-        this.active = false;
-        this.etages.disableAll();
+        this.etage?.flush();
+        this.etage?.dispose();
+        this.etage = null;
     }
     
     on (event: string, f: EmitterListener): EventListener {

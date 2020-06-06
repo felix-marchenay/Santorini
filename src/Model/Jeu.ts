@@ -9,6 +9,7 @@ import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
 import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
+import { AutoPreparation } from "../Steps/AutoPreparation";
 // import { Victoire } from "../Victoire";
 
 export class Jeu implements EmitterInterface
@@ -21,7 +22,7 @@ export class Jeu implements EmitterInterface
 
     constructor(
         private scene: Scene,
-        private ihm: IHMInterface,
+        public readonly ihm: IHMInterface,
         public readonly joueurs: Array<Joueur>,
         private server?: Server     
     ) {
@@ -31,7 +32,10 @@ export class Jeu implements EmitterInterface
 
     private initSteps(): void {
         this.stepper = new Stepper;
-        this.joueurs.forEach(j => this.stepper.addSteps(j.getPreparationStep(this)));
+
+        // this.joueurs.forEach(j => this.stepper.addSteps(j.getPreparationStep(this)));
+
+        this.stepper.addSteps(new AutoPreparation(this, this.joueurs[0]));
 
         const steps: StepGroup = this.joueurs.reduce(
             (steps: StepGroup, joueur: Joueur) => {

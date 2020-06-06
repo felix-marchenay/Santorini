@@ -95,7 +95,7 @@ export default {
         },
         switchAtlasMode() {
             this.atlasMode = this.atlasMode == 'etage' ? 'dome' : 'etage';
-            this.$root.$emit('switchAtlasMode');
+            this.$root.$emit('switchAtlasMode', this.atlasMode);
         },
         replay() {
             this.playerVictoriousId = null;
@@ -121,15 +121,15 @@ export default {
 
     .actions {
         position: absolute;
-        right: 0;
+        right: 20px;
         bottom: 60px;
         padding: 15px;
         pointer-events: all;
 
-        .skip {
-            button {
-
-            }
+        button {
+            font-size: 28px;
+            border: 3px solid #fff;
+            box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.6);
         }
 
         .atlas {
