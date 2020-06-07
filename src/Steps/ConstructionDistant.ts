@@ -11,12 +11,10 @@ export class ConstructionDistant extends Step
         return new Promise<void>(resolve => {
             
             this.jeu.server?.on('construire', data => {
-                const caze = this.jeu.plateau.getCase(data.x, data.y)
-                
-                caze.construireSousLePion();
+                this.jeu.plateau.getCase(data.x, data.y).construireSousLePion();
             });
 
-            this.jeu.server?.on('constructDome', data => {
+            this.jeu.server?.on('construireDome', data => {
                 this.jeu.plateau.getCase(data.x, data.y).construireDome();
             });
 

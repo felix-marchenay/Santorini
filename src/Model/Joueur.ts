@@ -70,7 +70,7 @@ export class Joueur
             scene,
             DiviniteFactory.build(infos.divinite),
             TypeJoueur[infos.type],
-            undefined, 
+            infos.id, 
             infos.pionsIds
         );
     }

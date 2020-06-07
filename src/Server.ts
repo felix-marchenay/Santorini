@@ -8,7 +8,7 @@ export class Server implements EmitterInterface, ServerInterface
     private socket: SocketIOClient.Socket | null = null;
     private events = [
         'newPlayer', 'pionSwitch', 'letsgo', 'idlePion', 
-        'pionMove', 'pionMoveForce', 'construire', 'construireDome', 
+        'pionMove', 'pionMoveForce', 'construire', 'construireDome',
         'endTurn', 'disconnection', 'victory', 'replay', 'enteredRoom',
         'connected', 'playerInfo_RX'
     ];

@@ -9,6 +9,7 @@ import { No } from "../src/Model/Divinite/No";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
 import { PreparationDistant } from "../src/Steps/PreparationDistant";
 import { DeplacementDistant } from "../src/Steps/DeplacementDistant";
+import { ConstructionDistant } from "../src/Steps/ConstructionDistant";
 // import { Case } from "../src/Model/Case";
 
 describe ("Jeu en ligne", () => {
@@ -88,5 +89,24 @@ describe ("Jeu en ligne", () => {
         jeu.server?.emit('endTurn');
 
         return dep;
+    });
+
+    test ("construction", () => {
+        const construction = new ConstructionDistant(jeu, joeDist);
+
+        const cons = construction.run().then(() => {
+            expect(jeu.plateau.getCase(2, 4).niveau).toBe(2);
+            expect(jeu.plateau.getCase(2, 1).niveau).toBe(1);
+            expect(jeu.plateau.getCase(1, 1).niveau).toBe(0);
+            expect(jeu.plateau.getCase(1, 2).niveau).toBe(0);
+        });
+
+        jeu.server?.emit('construire', {x: 2, y: 4});
+        jeu.server?.emit('construire', {x: 2, y: 4});
+        jeu.server?.emit('construire', {x: 2, y: 1});
+
+        jeu.server?.emit('endTurn');
+
+        return cons;
     });
 });
