@@ -12,6 +12,8 @@ import { PreparationIA } from "../Steps/PreparationIA";
 import { DeplacementIA } from "../Steps/DeplacementIA";
 import { ConstructionIA } from "../Steps/ConstructionIA";
 import { PreparationDistant } from "../Steps/PreparationDistant";
+import { DeplacementDistant } from "../Steps/DeplacementDistant";
+import { ConstructionDistant } from "../Steps/ConstructionDistant";
 
 export class Joueur
 {
@@ -67,7 +69,9 @@ export class Joueur
             infos.order,
             scene,
             DiviniteFactory.build(infos.divinite),
-            TypeJoueur[infos.type]
+            TypeJoueur[infos.type],
+            undefined, 
+            infos.pionsIds
         );
     }
 
@@ -102,6 +106,8 @@ export class Joueur
     public getDeplacementStep(jeu: Jeu): Steppable {
         if (this.type === TypeJoueur.ia) {
             return new DeplacementIA(jeu, this);
+        } else if (this.type === TypeJoueur.distant) {
+            return new DeplacementDistant(jeu, this);
         }
         return this.divinite.getDeplacementStep(jeu, this);
     }
@@ -109,6 +115,8 @@ export class Joueur
     public getConstructionStep(jeu: Jeu): Steppable {
         if (this.type === TypeJoueur.ia) {
             return new ConstructionIA(jeu, this);
+        } else if (this.type === TypeJoueur.distant) {
+            return new ConstructionDistant(jeu, this);
         }
         return this.divinite.getConstructionStep(jeu, this);
     }

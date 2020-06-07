@@ -13,6 +13,7 @@ export class Stepper
     async run (): Promise<void> {
         for (let i = 0; i < this.steps.length; i++) {
             const step = this.steps[i];
+            console.log(step);
             step.before();
             await step.run();
             step.after();

@@ -3,11 +3,6 @@ import { Scene, NullEngine, Vector3 } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
 import { Container } from "../src/Container";
 import { Pion } from "../src/Model/Pion";
-// import { Joueur } from "../src/Model/Joueur";
-// import { Jeu } from "../src/Model/Jeu";
-// import { FakeInterface } from "./Mocks/FakeInterface";
-// import { TypeJoueur } from "../src/Model/TypeJoueur";
-// import { No } from "../src/Model/Divinite/No";
 
 describe("Cases", () => {
     describe("Création", () => {
@@ -150,45 +145,5 @@ describe("Cases", () => {
             expect(caze.aUnDome).toBe(false);
             expect(caze.estOccupée).toBe(false);
         });
-    
-        // let joe = new Joueur("Ian", 1, scene, new No, TypeJoueur.ia);
-        // const jeu = new Jeu(
-        //     scene, new FakeInterface, [joe]
-        // );
-
-        // describe("case la plus haute", () => {
-        //     joe.allPions[0].déplacerSur(jeu.plateau.getCase(2, 3));
-        //     joe.allPions[1].déplacerSur(jeu.plateau.getCase(4, 3));
-
-        //     expect(joe.allPions[0].case).toBeInstanceOf(Case);
-        //     expect(joe.allPions[1].case).toBeInstanceOf(Case);
-
-        //     jeu.plateau.getCase(2, 2).construire();
-        //     jeu.plateau.getCase(2, 2).construire();
-
-        //     jeu.plateau.getCase(5, 2).construire();
-        //     jeu.plateau.getCase(5, 2).construire();
-        //     jeu.plateau.getCase(5, 2).construire();
-
-        //     jeu.plateau.getCase(3, 3).construire();
-            
-        //     jeu.plateau.getCase(1, 4).construire();
-
-        //     jeu.plateau.getCase(5, 4).construire();
-        //     jeu.plateau.getCase(5, 4).construire();
-        //     jeu.plateau.getCase(5, 4).construire();
-        //     jeu.plateau.getCase(5, 4).construire();
-
-        //     //      1   2   3   4   5
-        //     //    ---------------------
-        //     //  1 |   -   -   -   -   -
-        //     //  2 |   - 2 -   -   - 3 -
-        //     //  3 |   -P0 - 1 - P1-   -
-        //     //  4 | 1 -   -   -   - 4 -
-        //     //  5 |   -   -   -   -   -
-        //     //    ---------------------
-        //     expect(jeu.plateau.casesLaPlusHauteOuPionPeutAller(joe.allPions[0])).toBe(jeu.plateau.getCase(3, 3));
-        //     expect(jeu.plateau.casesLaPlusHauteOuPionPeutAller(joe.allPions[1])).toBe(jeu.plateau.getCase(1, 4));
-        // });
     });
 });

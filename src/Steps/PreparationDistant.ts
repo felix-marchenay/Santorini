@@ -11,16 +11,11 @@ export class PreparationDistant extends Step
         return new Promise<void>(resolve => {
 
             this.jeu.server?.on('pionMove', data => {
-                const pion = this.jeu.pionById(data.data.id);
+                const pion = this.jeu.findPionById(data.data.id);
 
-                if (pion === undefined) {
-                    resolve();
-                    return;
-                }
+                const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.y);
 
-                const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.x);
-
-                this.jeu.poser(pion, caze, this.joueur);
+                this.joueur.posePion(pion, caze);
 
                 if (this.joueur.allPions.filter(p => p.case === null).length === 0) {
                     resolve();

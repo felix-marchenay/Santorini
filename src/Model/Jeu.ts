@@ -1,5 +1,4 @@
 import { Scene } from "babylonjs";
-import { Server } from "../Server";
 import { Joueur } from "./Joueur";
 import { Plateau } from "./Plateau";
 import { Stepper } from "../Infrastructure/Stepper";
@@ -9,6 +8,7 @@ import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
 import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
+import { ServerInterface } from "../ServerInterface";
 // import { AutoPreparation } from "../Steps/AutoPreparation";
 
 export class Jeu implements EmitterInterface
@@ -23,7 +23,7 @@ export class Jeu implements EmitterInterface
         private scene: Scene,
         public readonly ihm: IHMInterface,
         public readonly joueurs: Array<Joueur>,
-        public readonly server?: Server     
+        public readonly server?: ServerInterface
     ) {
         this.plateau = new Plateau(this.scene);
         this.initSteps();
@@ -74,8 +74,24 @@ export class Jeu implements EmitterInterface
         this.ihm.action('joueurActif', joueur);
     }
 
-    pionById (id: string): Pion | undefined {
-        return this.pions.find(p => p.id === id);
+    findPionById (id: string): Pion {
+        const pion = this.pions.find(p => p.id === id);
+
+        if (pion === undefined) {
+            throw "Pion " + id + " introuvable";
+        }
+
+        return pion;
+    }
+
+    findJoueurById(id: string): Joueur {
+        const j = this.joueurs.find(p => p.id === id);
+
+        if (j === undefined) {
+            throw 'Joueur ' + id + ' introuvable';
+        }
+
+        return j;
     }
 
     adversaire (joueur: Joueur): Joueur {

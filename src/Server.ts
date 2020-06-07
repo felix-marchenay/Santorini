@@ -1,7 +1,8 @@
 import { EmitterInterface, Emitter, EmitterListener } from "./Infrastructure/Emitter/Emitter";
 import io from 'socket.io-client';
+import { ServerInterface } from "./ServerInterface";
 
-export class Server implements EmitterInterface
+export class Server implements EmitterInterface, ServerInterface
 {
     private emitter: EmitterInterface = new Emitter;
     private socket: SocketIOClient.Socket | null = null;

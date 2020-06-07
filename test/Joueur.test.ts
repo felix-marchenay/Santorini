@@ -47,7 +47,9 @@ describe("Joueurs", () => {
                 name: 'Albertinho',
                 divinite: 'no',
                 order: 1,
-                type: 'humain'
+                type: 'humain',
+                id: '1',
+                pionsIds: ['5', 'a5']
             }, scene);
 
             expect(joueur).toBeInstanceOf(Joueur);

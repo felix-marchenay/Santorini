@@ -37,7 +37,7 @@ export class CaseCollection
 
     find(x: number, y: number): Case {
         const caze = this.cases.find(c => c.coordonnees.x === x && c.coordonnees.y === y);
-        if (!caze) {
+        if (caze === undefined) {
             throw "Case " + x + "," + y + " introuvable";
         }
         return caze;

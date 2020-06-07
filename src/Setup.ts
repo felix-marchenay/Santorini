@@ -26,6 +26,11 @@ export class Setup
         });
 
         this.ihm.on('goSingleplayer', joueurs => {
+            joueurs = joueurs.map((j: any, i: any) => {
+                j.pionsIds = [2*i+1, 2*i+2];
+                j.id = i;
+                return j;
+            });
             this.setup(joueurs).play();
         });
         this.ihm.on('connect', (room: string) => {
@@ -52,12 +57,14 @@ export class Setup
             this.ihm.action('connected', id);
         });
         server?.on('letsgo', data => {
-            const joueurs = data.joueurs.map((p: any,i: number) => {
+            const joueurs = data.joueurs.map((player: any,i: number) => {
                 return {
-                    name: p.name,
-                    order: i,
-                    divinite: p.divinite,
-                    type: (p.id === this.serverId) ? TypeJoueur.humain : TypeJoueur.distant
+                    name: player.name,
+                    order: i+1,
+                    divinite: player.divinite,
+                    type: (player.id === this.serverId) ? TypeJoueur.humain : TypeJoueur.distant,
+                    id: player.id,
+                    pionsIds: player.pions.map((pion: any) => pion.id)
                 };
             });
             this.setup(joueurs, server).play();
@@ -66,7 +73,7 @@ export class Setup
 
     private setup(infosJoueurs: Array<infosJoueur>, server?: Server): Jeu {
         const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info, this.scene));
-            
+        
         this.ihm.action('launchSingle', joueurs.map(j => this.normalizer.normalize(j)));
         
         return new Jeu(
