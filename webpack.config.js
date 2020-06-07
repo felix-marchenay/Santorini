@@ -1,48 +1,51 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+
+const fs = require('fs');
 
 module.exports = {
-    mode: 'development',
-    entry: './src/index.js',
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.vue$/,
-                use: ['vue-loader'],
-            },
-        ]
-    },
-    resolve: {
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        },
-        extensions: ['*', '.js', '.vue', '.json'],
-    },
-    devServer: {
-        contentBase: './public',
-        port: 8081
-    },
-    optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()],
-    },
-    output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'main.js',
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({ template: './public/index.html' }),
-        new CopyWebpackPlugin([{ from: './public/models', to: 'models' }]),
-        new CopyWebpackPlugin([{ from: './public/image', to: 'image' }]),
-        new VueLoaderPlugin()
+  mode: "development",
+  entry: "./src/index.ts",
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.vue$/,
+        use: ["vue-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
     ],
+  },
+  resolve: {
+    alias: {
+      vue$: "vue/dist/vue.esm.js",
+    },
+    extensions: [".ts", ".js", ".vue", ".json"],
+  },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./public/index.html" }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "./public/image", to: "image" },
+        { from: "./public/model", to: "model" },
+      ],
+      options: {
+        concurrency: 100,
+      },
+    }),
+    new VueLoaderPlugin(),
+  ],
 };
