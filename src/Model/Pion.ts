@@ -16,8 +16,13 @@ export class Pion implements EmitterInterface
         private scene: Scene,
         gender: 'f' | 'h',
         private initialPosition: Vector3,
-        material: Material
+        material: Material,
+        public readonly id?: string
     ) {
+        if (this.id === undefined) {
+            this.id = Math.random().toString(36).substring(2, 15);
+        }
+        
         this.mesh = Container.loadMesh("pion-" + gender);
         this.mesh.material = material;
         this.mesh.actionManager = new ActionManager(this.scene);
@@ -209,6 +214,13 @@ export class Pion implements EmitterInterface
         return !caze.estOccupée && (caze.differenceDeNiveauAvec(this.case) < 2);
     }
 
+    export () {
+        return {
+            id: this.id,
+            position: this.case?.coordonnees
+        };
+    }
+    
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);
     }

@@ -8,7 +8,7 @@ export class Interface implements IHMInterface
     public emitter: Emitter = new Emitter();
     private vue: Vue;
     private transitOutEvents: Array<string> = [
-        'roomSearch', 'skip', 'refreshPlayer', 'switchAtlasMode',
+        'connect', 'skip', 'playerInfo_TX', 'switchAtlasMode',
         'replay', 'mainMenu', 'quitRoom', 'goSingleplayer'
     ];
 

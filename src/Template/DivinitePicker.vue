@@ -20,33 +20,9 @@ export default {
         active : {
             type: Boolean
         },
-    },
-    data() {
-        return {
-            diviniteSelected: null,
-            divinites: [
-                {
-                    name: "Sans divinite",
-                    slug: "no",
-                    description: ""
-                },
-                {
-                    name: "Atlas",
-                    slug: "atlas",
-                    description: "desc"
-                },
-                {
-                    name: "Triton",
-                    slug: "triton",
-                    description: "desc"
-                },
-                {
-                    name: "Zeus",
-                    slug: "zeus",
-                    description: "desc"
-                }
-            ]
-        };
+        divinites: {
+            type: Array
+        }
     },
     methods: {
         select(divinite) {

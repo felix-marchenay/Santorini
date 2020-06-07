@@ -19,7 +19,7 @@ export class Preparation extends Step
                 this.jeu.casesClickables(
                     this.jeu.plateau.allCases.filter(c => !c.estOccupée),
                     (caze: Case) => {
-                        this.joueur.posePion(pion, caze);
+                        this.jeu.poser(pion, caze, this.joueur);
                         
                         if (this.joueur.allPions.filter(p => p.case === null).length === 0) {
                             this.jeu.endTurn(resolve);

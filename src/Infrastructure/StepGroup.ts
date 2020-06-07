@@ -18,6 +18,7 @@ export class StepGroup implements Steppable{
     }
     
     private async cycle (): Promise<void> {
+        console.log('ntm');
         for (let i = 0; i < this.steps.length; i++) {
             console.log(this.steps[i]);
             this.steps[i].before();

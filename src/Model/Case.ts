@@ -291,6 +291,10 @@ export class Case implements EmitterInterface
     avoisine (caze: Case): boolean {
         return this.distanceDe(caze) === 1;
     }
+
+    export () {
+        return this.coordonnees;
+    }
     
     on (event: string, f: EmitterListener): EventListener {
         return this.emitter.on(event, f);

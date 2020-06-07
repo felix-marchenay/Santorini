@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
+const fs = require('fs');
+
 module.exports = {
   mode: "development",
   entry: "./src/index.ts",

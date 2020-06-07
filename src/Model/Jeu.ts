@@ -9,8 +9,7 @@ import { Pion } from "./Pion";
 import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
 import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
-import { AutoPreparation } from "../Steps/AutoPreparation";
-// import { Victoire } from "../Victoire";
+// import { AutoPreparation } from "../Steps/AutoPreparation";
 
 export class Jeu implements EmitterInterface
 {
@@ -24,7 +23,7 @@ export class Jeu implements EmitterInterface
         private scene: Scene,
         public readonly ihm: IHMInterface,
         public readonly joueurs: Array<Joueur>,
-        private server?: Server     
+        public readonly server?: Server     
     ) {
         this.plateau = new Plateau(this.scene);
         this.initSteps();
@@ -33,9 +32,9 @@ export class Jeu implements EmitterInterface
     private initSteps(): void {
         this.stepper = new Stepper;
 
-        // this.joueurs.forEach(j => this.stepper.addSteps(j.getPreparationStep(this)));
+        this.joueurs.forEach(j => this.stepper.addSteps(j.getPreparationStep(this)));
 
-        this.stepper.addSteps(new AutoPreparation(this, this.joueurs[0]));
+        // this.stepper.addSteps(new AutoPreparation(this, this.joueurs[0]));
 
         const steps: StepGroup = this.joueurs.reduce(
             (steps: StepGroup, joueur: Joueur) => {
@@ -73,6 +72,10 @@ export class Jeu implements EmitterInterface
 
     set joueurActif (joueur: Joueur) {
         this.ihm.action('joueurActif', joueur);
+    }
+
+    pionById (id: string): Pion | undefined {
+        return this.pions.find(p => p.id === id);
     }
 
     adversaire (joueur: Joueur): Joueur {
@@ -124,9 +127,7 @@ export class Jeu implements EmitterInterface
     }
 
     sendServer(event: string, data: any): void {
-        if (this.server) {
-            this.server.emit(event, data);
-        }
+        this.server?.action(event, data);
     }
 
     poser (pion: Pion, caze: Case, joueur: Joueur) {
@@ -134,8 +135,8 @@ export class Jeu implements EmitterInterface
         if (nonAutorise) {
             return;
         }
-        
         joueur.posePion(pion, caze);
+        this.sendServer('pionMove', pion.export());
     }
 
     displaySkip(resolve: Function) {
@@ -154,20 +155,17 @@ export class Jeu implements EmitterInterface
 
     construire(caze: Case) {
         caze.construire();
-        // TODO export caze
-        this.sendServer('construire', {});
+        this.sendServer('construire', caze.export());
     }
 
     construireDome(caze: Case) {
         caze.construireDome();
-        // TODO export caze
-        this.sendServer('construireDome', {});
+        this.sendServer('construireDome', caze.export());
     }
 
     construireSousLePion(caze: Case) {
         caze.construireSousLePion();
-        // TODO export caze
-        this.sendServer('construire', {});
+        this.sendServer('construireSousLePion', caze.export());
     }
 
     flushIhm() {

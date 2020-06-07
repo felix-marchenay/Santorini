@@ -11,12 +11,12 @@ import { TypeJoueur } from "./TypeJoueur";
 import { PreparationIA } from "../Steps/PreparationIA";
 import { DeplacementIA } from "../Steps/DeplacementIA";
 import { ConstructionIA } from "../Steps/ConstructionIA";
+import { PreparationDistant } from "../Steps/PreparationDistant";
 
 export class Joueur
 {
     private pions: Array<Pion>;
     public dernierPionDéplacé: Pion | null = null;
-    public readonly id: string;
 
     constructor (
         public name: string,
@@ -24,12 +24,16 @@ export class Joueur
         scene: Scene,
         public readonly divinite: Divinite,
         public readonly type: TypeJoueur,
-        id?: string,
+        public readonly id?: string,
+        pionsIds?: string[]
     ) {
-        if (id === undefined) {
-            id = Math.random().toString(36).substring(2, 15);
+        if (this.id === undefined) {
+            this.id = Math.random().toString(36).substring(2, 15);
         }
-        this.id = id;
+
+        if (pionsIds === undefined) {
+            pionsIds = ['1', '2'];
+        }
         
         const materials = [
             Container.loadMaterial('pion-blanc'),
@@ -40,12 +44,14 @@ export class Joueur
             new Pion(
                 scene, 'h',
                 new Vector3(-7 + (order * 2) * 2.2, 0, 8.6),
-                materials[order-1]
+                materials[order-1],
+                pionsIds[0]
             ),
             new Pion(
                 scene, 'f', 
                 new Vector3(-7 + ( 1 + order * 2) * 2.2, 0, 8.6),
-                materials[order-1]
+                materials[order-1],
+                pionsIds[1]
             ),
         ];
     }
@@ -87,6 +93,8 @@ export class Joueur
     public getPreparationStep(jeu: Jeu): Steppable {
         if (this.type === TypeJoueur.ia) {
             return new PreparationIA(jeu, this);
+        } else if (this.type === TypeJoueur.distant) {
+            return new PreparationDistant(jeu, this);
         }
         return this.divinite.getPreparationStep(jeu, this);
     }
@@ -103,6 +111,15 @@ export class Joueur
             return new ConstructionIA(jeu, this);
         }
         return this.divinite.getConstructionStep(jeu, this);
+    }
+
+    export () {
+        return {
+            name: this.name,
+            divinite: this.divinite.slug,
+            id: this.id,
+            pions: this.pions.map(p => p.export())
+        }
     }
 
     autoriseDeplacement (pion: Pion, caze: Case): boolean {

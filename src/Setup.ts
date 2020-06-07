@@ -5,28 +5,66 @@ import { Joueur } from "./Model/Joueur";
 import { infosJoueur } from "./InfosJoueur";
 import { Container } from "./Container";
 import { Normalizer } from "./Normalizer/Normalizer";
+import { Server } from "./Server";
+import { TypeJoueur } from "./Model/TypeJoueur";
 
 export class Setup
 {
     private scene: Scene;
     private fps: number[] = [];
+    private serverId: string = '';
 
     constructor (
         private ihm: Interface,
         private engine: Engine,
-        private normalizer: Normalizer
+        private normalizer: Normalizer,
+        server?: Server
     ) {
         this.scene = this.createScene();
-        this.ihm.on('goSingleplayer', joueurs => {
-            this.setup(joueurs).play();
-        });
-
         SceneLoader.LoadAssetContainer("./model/", "pieces.babylon", this.scene, (container) => {
             Container.init(container);
         });
+
+        this.ihm.on('goSingleplayer', joueurs => {
+            this.setup(joueurs).play();
+        });
+        this.ihm.on('connect', (room: string) => {
+            server?.action('connection', room);
+        });
+        this.ihm.on('playerInfo_TX', data => {
+            server?.action('playerInfo_TX', data);
+        });
+        this.ihm.on('quitRoom', () => {
+            server?.action('disconnection', null);
+        });
+
+        server?.on('enteredRoom', data => {
+            this.serverId = data.you;
+            this.ihm.action('enteredRoom', data)
+        });
+        server?.on('playerInfo_RX', player => {
+            this.ihm.action('playerInfo_RX', player);
+        });
+        server?.on('disconnection', player => {
+            this.ihm.action('removePlayer', player);
+        });
+        server?.on('connected', id => {
+            this.ihm.action('connected', id);
+        });
+        server?.on('letsgo', data => {
+            const joueurs = data.joueurs.map((p: any,i: number) => {
+                return {
+                    name: p.name,
+                    order: i,
+                    divinite: p.divinite,
+                    type: (p.id === this.serverId) ? TypeJoueur.humain : TypeJoueur.distant
+                };
+            });
+            this.setup(joueurs, server).play();
+        });
     }
 
-    private setup(infosJoueurs: Array<infosJoueur>): Jeu {
+    private setup(infosJoueurs: Array<infosJoueur>, server?: Server): Jeu {
         const joueurs = infosJoueurs.map(info => Joueur.fromInfos(info, this.scene));
             
         this.ihm.action('launchSingle', joueurs.map(j => this.normalizer.normalize(j)));
@@ -34,7 +72,8 @@ export class Setup
         return new Jeu(
             this.scene,
             this.ihm,
-            joueurs
+            joueurs,
+            server
         );
     }
 
@@ -76,20 +115,14 @@ export class Setup
         const lightPosition2 = new Vector3(-6, 15, -10);
         const light2 = new PointLight("light", lightPosition2, this.scene);
         light2.intensity = 500;
-        // const lightBox2 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        // lightBox2.position = lightPosition2;
     
         const lightPosition3 = new Vector3(7, 15, -15);
         const light3 = new PointLight("light", lightPosition3, this.scene);
         light3.intensity = 600;
-        // const lightBox3 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        // lightBox3.position = lightPosition3;
 
         const lightPosition4 = new Vector3(-8, 20, 10);
         const light4 = new PointLight("light", lightPosition4, this.scene);
         light4.intensity = 500;
-        // const lightBox4 = MeshBuilder.CreateBox("lightBox", {}, this.scene);
-        // lightBox4.position = lightPosition4;
     }
 
     private showFPS(engine: Engine): void {
