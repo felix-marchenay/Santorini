@@ -38,7 +38,7 @@ export class DeplacementDistant extends Step
             });
 
             this.jeu.server?.on('victory', data => {
-                this.jeu.victory(this.jeu.findJoueurById(data.id));
+                this.jeu.receiveVictory(this.jeu.findJoueurById(data.id));
             });
 
         });

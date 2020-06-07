@@ -39,10 +39,10 @@ export class Server implements EmitterInterface, ServerInterface
     }
 
     async action (event: string, data: any) {
+        console.log('ENVOI : ', event, data);
         if (!this.socket?.connected) {
             await this.connect();
         }
-        console.log('ENVOI : ', event, data);
         if (this.socket === null) {
             return;
         }

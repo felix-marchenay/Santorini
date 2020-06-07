@@ -205,7 +205,7 @@ export class Jeu implements EmitterInterface
         this.server?.action('victory', joueur.export());
         
         this.ihm.on('replay', () => {
-            this.server?.emit('replay', null);
+            this.server?.action('replay', null);
             this.replay();
         });
 
@@ -218,6 +218,29 @@ export class Jeu implements EmitterInterface
             this.replay();
         });
         
+        setTimeout(() => {
+            joueur.dernierPionDéplacé?.animateVictory();
+        }, 600);
+    }
+
+    receiveVictory (joueur: Joueur) {
+        this.flushEvents();
+
+        this.ihm.action('victory', joueur);
+        
+        this.ihm.on('replay', () => {
+            this.server?.action('replay', null);
+            this.replay();
+        });
+
+        this.ihm.on('mainMenu', () => {
+            this.emit('mainMenu', null);
+        });
+
+        this.server?.on('replay', () => {
+            this.ihm.action('hideVictory');
+            this.replay();
+        });
 
         setTimeout(() => {
             joueur.dernierPionDéplacé?.animateVictory();
