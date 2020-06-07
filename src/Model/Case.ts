@@ -114,6 +114,10 @@ export class Case implements EmitterInterface
         return this.mesh.position.clone();
     }
 
+    get aUnPion(): boolean {
+        return this.inPion !== null;
+    }
+
     lightGlow () {
         this.mesh.renderOverlay = false;
         this.mesh.renderOutline = true;

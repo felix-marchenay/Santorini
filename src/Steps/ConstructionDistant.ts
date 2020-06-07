@@ -9,7 +9,24 @@ export class ConstructionDistant extends Step
 
     run (): Promise<void> {
         return new Promise<void>(resolve => {
-            resolve;
+            
+            this.jeu.server?.on('construire', data => {
+                const caze = this.jeu.plateau.getCase(data.x, data.y)
+                
+                caze.construireSousLePion();
+            });
+
+            this.jeu.server?.on('constructDome', data => {
+                this.jeu.plateau.getCase(data.x, data.y).construireDome();
+            });
+
+            this.jeu.server?.on('victory', data => {
+                this.jeu.victory(this.jeu.findJoueurById(data.joueur.id));
+            });
+
+            this.jeu.server?.on('endTurn', () => {
+                resolve();
+            });
         });
     }
 }
