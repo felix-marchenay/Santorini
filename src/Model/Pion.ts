@@ -122,6 +122,21 @@ export class Pion implements EmitterInterface
         this.caze = caseCible;
     }
 
+    echangerPlace (pion: Pion) {
+        const case1 = pion.case;
+        const case2 = this.case;
+
+        if (!case1 || !case2) {
+            throw "Pas de cases pour un des deux pions à échanger"
+        }
+
+        pion.déplacerSur(case2);
+        this.déplacerSur(case1);
+
+        case2?.poser(pion);
+        case1?.poser(this);
+    }
+
     animationTo(vectorCase: Vector3) {
         const animation = new Animation('anim', "position", 60, Animation.ANIMATIONTYPE_VECTOR3);
         
@@ -234,6 +249,14 @@ export class Pion implements EmitterInterface
         }
 
         return !caze.aUnDome;
+    }
+
+    apollonPeutAller (caze: Case): boolean {
+        if (this.case === null) {
+            return ! caze.estOccupée;
+        }
+
+        return !caze.aUnDome && (caze.differenceDeNiveauAvec(this.case) < 2);
     }
 
     export () {
