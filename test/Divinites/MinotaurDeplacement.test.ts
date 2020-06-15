@@ -1,13 +1,13 @@
-import { Joueur } from "../src/Model/Joueur";
+import { Joueur } from "../../src/Model/Joueur";
 import { Scene, NullEngine } from "babylonjs";
-import { Container } from "../src/Container";
-import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
-import { Minotaur } from "../src/Model/Divinite/Minotaur";
-import { TypeJoueur } from "../src/Model/TypeJoueur";
-import { No } from "../src/Model/Divinite/No";
-import { Jeu } from "../src/Model/Jeu";
-import { FakeInterface } from "./Mocks/FakeInterface";
-import { DeplacementMinotaur } from "../src/Steps/Deplacement/DeplacementMinotaur";
+import { Container } from "../../src/Container";
+import { FakeAsetContainer } from "../Mocks/AssetContainer.mock";
+import { Minotaur } from "../../src/Model/Divinite/Minotaur";
+import { TypeJoueur } from "../../src/Model/TypeJoueur";
+import { No } from "../../src/Model/Divinite/No";
+import { Jeu } from "../../src/Model/Jeu";
+import { FakeInterface } from "../Mocks/FakeInterface";
+import { DeplacementMinotaur } from "../../src/Steps/Deplacement/DeplacementMinotaur";
 
 describe("Minotaur", () => {
     const scene = new Scene(new NullEngine);
