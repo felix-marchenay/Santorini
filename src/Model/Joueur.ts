@@ -129,9 +129,4 @@ export class Joueur
             pions: this.pions.map(p => p.export())
         }
     }
-
-    autoriseDeplacement (pion: Pion, caze: Case): boolean {
-        pion; caze;
-        return true;
-    }
 }

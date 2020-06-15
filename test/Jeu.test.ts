@@ -9,6 +9,7 @@ import { FakeInterface } from "./Mocks/FakeInterface";
 import { Joueur } from "../src/Model/Joueur";
 import { No } from "../src/Model/Divinite/No";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
+import { Minotaur } from "../src/Model/Divinite/Minotaur";
 
 describe("Ce bon vieu jeu", () => {
 
@@ -149,5 +150,53 @@ describe("Ce bon vieu jeu", () => {
             expect(bernadette.allPions[1].case).toEqual(jeu.plateau.getCase(2, 5));
             expect(jacques.allPions[0].case).toEqual(jeu.plateau.getCase(2, 4));
         });
-    })
+    });
+
+    describe("réinitialiser", () => {
+
+        let minos = new Joueur("minos", 1, scene, new Minotaur, TypeJoueur.humain);
+        let jacques = new Joueur("jacques", 1, scene, new No, TypeJoueur.humain);
+        let joueurs = [jacques, minos];
+        let jeu = new Jeu(
+            scene,
+            new FakeInterface,
+            joueurs
+        );
+
+        test ("réinitialiser", () => {
+            jeu.plateau.getCase(1, 2).construire();
+            jeu.plateau.getCase(2, 2).construire();
+
+            jeu.plateau.getCase(1, 2).poser(minos.allPions[0]);
+            jeu.plateau.getCase(2, 2).poser(minos.allPions[1]);
+
+            jeu.plateau.getCase(3, 1).poser(jacques.allPions[0]);
+            jeu.plateau.getCase(2, 3).poser(jacques.allPions[1]);
+            
+            jeu.plateau.getCase(4, 5).construire();
+            jeu.plateau.getCase(4, 5).construire();
+            jeu.plateau.getCase(4, 5).construire();
+            jeu.plateau.getCase(4, 5).construire();
+
+            expect(jeu.plateau.getCase(4, 5).niveau).toBe(4);
+            expect(jeu.plateau.getCase(4, 5).aUnDome).toBe(true);
+
+            expect(jeu.plateau.getCase(1, 2).aUnPion).toBe(true);
+            expect(jeu.plateau.getCase(2, 2).aUnPion).toBe(true);
+
+            expect(minos.allPions[0].case?.coordonnees.x).toBe(1);
+            expect(minos.allPions[0].case?.coordonnees.y).toBe(2);
+
+            jeu.reinitialiser();
+
+            jeu.plateau.allCases.forEach(c => {
+                expect(c.niveau).toBe(0);
+                expect(c.pion).toBe(null);
+            });
+
+            minos.allPions.forEach(p => {
+                expect(p.case).toBe(null);
+            });
+        });
+    });
 });

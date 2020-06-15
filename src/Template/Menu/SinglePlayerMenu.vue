@@ -13,7 +13,7 @@
                     <Button @click="player.type = 'humain'" :class="{active: player.type == 'humain'}">Vrai humain</Button>
                     <Button @click="player.type = 'ia'" :class="{active: player.type == 'ia'}">Ordinateur</Button>
                 </div>
-                <DivinitePicker @selected="setDivinite($event, k)" :active="player.divinitePickerActive"/>
+                <DivinitePicker @selected="setDivinite($event, k)" :active="player.divinitePickerActive" :divinites="divinites"/>
                 <DiviniteCard :divinite="player.divinite" @click.native="player.divinitePickerActive = true"/>
                 <input type="text" @input="updateName($event.target.value, k)" placeholder="Nom" />
             </div>
@@ -38,7 +38,7 @@ export default {
         return {
             players: [
                 {
-                    name: '',
+                    name: 'Joueur 1',
                     divinite: {
                         name: "Sans divinité",
                         slug: "no",
@@ -49,7 +49,7 @@ export default {
                     order: 1
                 },
                 {
-                    name: '',
+                    name: 'Joueur 2',
                     divinite: {
                         name: "Sans divinité",
                         slug: "no",
@@ -60,6 +60,33 @@ export default {
                     order: 2
                 },
             ],
+            divinites: [
+                {
+                    name: "Sans divinite",
+                    slug: "no",
+                    description: ""
+                },
+                {
+                    name: "Atlas",
+                    slug: "atlas",
+                    description: "desc"
+                },
+                {
+                    name: "Triton",
+                    slug: "triton",
+                    description: "desc"
+                },
+                {
+                    name: "Zeus",
+                    slug: "zeus",
+                    description: "desc"
+                },
+                {
+                    name: "Minotaur",
+                    slug: "minotaur",
+                    description: "desc"
+                }
+            ]
         };
     },
     methods: {

@@ -147,12 +147,8 @@ export class Jeu implements EmitterInterface
     }
 
     poser (pion: Pion, caze: Case, joueur: Joueur) {
-        const nonAutorise = this.joueurs.filter(j => j !== joueur).map(j => j.autoriseDeplacement(pion, caze)).filter(aut => !aut).length > 0;
-        if (nonAutorise) {
-            return;
-        }
         joueur.posePion(pion, caze);
-        this.sendServer('pionMove', pion.export());
+        this.sendServer('deplacerPion', pion.export());
     }
 
     displaySkip(resolve: Function) {

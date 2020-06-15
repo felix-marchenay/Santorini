@@ -54,6 +54,22 @@ export class Plateau
             });
     }
 
+    caseSuivante(case1: Case, case2: Case): Case {
+        
+        if (!case2.avoisine(case1)) {
+            throw "Les cases doivent être avoisinantes";
+        }
+
+        const x = case1.coordonnees.x + 2*(case2.coordonnees.x - case1.coordonnees.x);
+        const y = case1.coordonnees.y + 2*(case2.coordonnees.y - case1.coordonnees.y);
+
+        if (x > 5 || y > 5) {
+            throw "Pas de case suivante";
+        }
+
+        return this.getCase(x, y);
+    }
+
     vider () {
         this.cases.vider();
     }

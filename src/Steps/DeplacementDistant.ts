@@ -10,19 +10,11 @@ export class DeplacementDistant extends Step
     async run (): Promise<void> {
         return new Promise<void>((resolve: Function) => {
 
-            this.jeu.server?.on('pionMove', data => {
+            this.jeu.server?.on('deplacerPion', data => {
                 const pion = this.jeu.findPionById(data.data.id);
 
                 const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.y);
 
-                this.joueur.posePion(pion, caze);
-            });
-
-            this.jeu.server?.on('pionMoveForce', data => {
-                const pion = this.jeu.findPionById(data.data.id);
-
-                const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.y);
-                
                 this.joueur.posePion(pion, caze);
             });
 

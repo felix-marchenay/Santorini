@@ -2,6 +2,7 @@ import { Scene, AbstractMesh, ActionManager, Vector3, Animation, Material, Execu
 import { Case } from "./Case";
 import { Container } from "../Container";
 import { EmitterInterface, Emitter, EmitterListener } from "../Infrastructure/Emitter/Emitter";
+import { Plateau } from "./Plateau";
 
 export class Pion implements EmitterInterface
 {
@@ -212,6 +213,27 @@ export class Pion implements EmitterInterface
             return ! caze.estOccupée;
         }
         return !caze.estOccupée && (caze.differenceDeNiveauAvec(this.case) < 2);
+    }
+
+    minotaurPeutAller (caze: Case, plateau: Plateau): boolean {
+        if (this.case === null) {
+            return ! caze.estOccupée;
+        }
+
+        if (caze.differenceDeNiveauAvec(this.case) > 1) {
+            return false;
+        }
+
+        if (caze.aUnPion) {
+            try {
+                const caseSuivante = plateau.caseSuivante(this.case, caze);
+                return !caseSuivante.estOccupée;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        return !caze.aUnDome;
     }
 
     export () {

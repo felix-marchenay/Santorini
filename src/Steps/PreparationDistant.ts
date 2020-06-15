@@ -7,10 +7,10 @@ export class PreparationDistant extends Step
         this.jeu.tour('poser ses pions');
     }
 
-    run (): Promise<void>  {
+    run () {
         return new Promise<void>(resolve => {
 
-            this.jeu.server?.on('pionMove', data => {
+            this.jeu.server?.on('deplacerPion', data => {
                 const pion = this.jeu.findPionById(data.data.id);
 
                 const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.y);

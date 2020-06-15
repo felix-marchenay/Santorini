@@ -118,6 +118,10 @@ export class Case implements EmitterInterface
         return this.inPion !== null;
     }
 
+    get pion(): Pion | null {
+        return this.inPion;
+    }
+
     lightGlow () {
         this.mesh.renderOverlay = false;
         this.mesh.renderOutline = true;
