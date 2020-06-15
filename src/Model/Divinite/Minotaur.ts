@@ -2,7 +2,7 @@ import { Divinite } from "./Divinite";
 import { Jeu } from "../Jeu";
 import { Joueur } from "../Joueur";
 import { Steppable } from "../../Infrastructure/Steppable";
-import { DeplacementMinotaur } from "../../Steps/DeplacementMinotaur";
+import { DeplacementMinotaur } from "../../Steps/Deplacement/DeplacementMinotaur";
 
 export class Minotaur extends Divinite
 {

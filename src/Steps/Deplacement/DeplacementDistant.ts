@@ -1,4 +1,4 @@
-import { Step } from "./Step";
+import { Step } from "../Step";
 
 export class DeplacementDistant extends Step
 {    
@@ -10,7 +10,7 @@ export class DeplacementDistant extends Step
     async run (): Promise<void> {
         return new Promise<void>((resolve: Function) => {
 
-            this.jeu.server?.on('deplacerPion', data => {
+            this.jeu.server?.on('deplacerPion', (data: any) => {
                 const pion = this.jeu.findPionById(data.data.id);
 
                 const caze = this.jeu.plateau.getCase(data.data.position.x, data.data.position.y);
@@ -18,7 +18,7 @@ export class DeplacementDistant extends Step
                 this.joueur.posePion(pion, caze);
             });
 
-            this.jeu.server?.on('pionSwitch', pions => {
+            this.jeu.server?.on('pionSwitch', (pions: Array<any>) => {
                 pions;
                 // const pion1 = this.jeu.findPionById(pions[0].id);
                 // const pion2 = this.jeu.findPionById(pions[1].id);
@@ -29,7 +29,7 @@ export class DeplacementDistant extends Step
                 resolve();
             });
 
-            this.jeu.server?.on('victory', data => {
+            this.jeu.server?.on('victory', (data: any) => {
                 this.jeu.receiveVictory(this.jeu.findJoueurById(data.id));
             });
 

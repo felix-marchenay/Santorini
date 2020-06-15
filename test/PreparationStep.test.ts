@@ -2,13 +2,13 @@ import { NullEngine, Scene } from "babylonjs";
 import { FakeAsetContainer } from "./Mocks/AssetContainer.mock";
 import { Container } from "../src/Container";
 import { Stepper } from "../src/Infrastructure/Stepper";
-import { Preparation } from "../src/Steps/Preparation";
+import { Preparation } from "../src/Steps/Preparation/Preparation";
 import { Jeu } from "../src/Model/Jeu";
 import { FakeInterface } from "./Mocks/FakeInterface";
 import { Joueur } from "../src/Model/Joueur";
 import { No } from "../src/Model/Divinite/No";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
-import { PreparationIA } from "../src/Steps/PreparationIA";
+import { PreparationIA } from "../src/Steps/Preparation/PreparationIA";
 import { Case } from "../src/Model/Case";
 
 describe("Construction", () => {

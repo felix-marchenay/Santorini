@@ -9,7 +9,6 @@ import { IHMInterface } from "../IHMInterface";
 import { Case } from "./Case";
 import {Emitter, EmitterInterface } from "../Infrastructure/Emitter/Emitter";
 import { ServerInterface } from "../ServerInterface";
-// import { AutoPreparation } from "../Steps/AutoPreparation";
 
 export class Jeu implements EmitterInterface
 {

@@ -7,11 +7,11 @@ import { Container } from "../src/Container";
 import { No } from "../src/Model/Divinite/No";
 import { Jeu } from "../src/Model/Jeu";
 import { FakeInterface } from "./Mocks/FakeInterface";
-import { Construction } from "../src/Steps/Construction";
-import { Deplacement } from "../src/Steps/Deplacement";
-import { Preparation } from "../src/Steps/Preparation";
-import { ConstructionAtlas } from "../src/Steps/ConstructionAtlas";
-import { DeplacementTriton } from "../src/Steps/DeplacementTriton";
+import { Construction } from "../src/Steps/Construction/Construction";
+import { Deplacement } from "../src/Steps/Deplacement/Deplacement";
+import { Preparation } from "../src/Steps/Preparation/Preparation";
+import { ConstructionAtlas } from "../src/Steps/Construction/ConstructionAtlas";
+import { DeplacementTriton } from "../src/Steps/Deplacement/DeplacementTriton";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
 
 describe("Joueurs", () => {

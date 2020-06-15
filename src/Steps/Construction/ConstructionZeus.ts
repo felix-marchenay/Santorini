@@ -1,7 +1,7 @@
-import { Step } from "./Step";
-import { Case } from "../Model/Case";
+import { Step } from "../Step";
+import { Case } from "../../Model/Case";
 
-export class Construction extends Step
+export class ConstructionZeus extends Step
 {
     before () {
         super.before();
@@ -17,14 +17,18 @@ export class Construction extends Step
                 return;
             }
 
-            const cases = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => c.constructible);
+            const cases = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => !c.estOccupée && !c.estComplete);
+            
+            if (pion.case.niveau < 3) {
+                cases.push(pion.case);
+            }
 
             cases.forEach(c => c.showBuildHint());
             
             this.jeu.casesClickables(
                 cases,
                 (caze: Case) => {
-                    this.jeu.construire(caze);
+                    this.jeu.construireSousLePion(caze);
 
                     this.jeu.endTurn(resolve);
                 }

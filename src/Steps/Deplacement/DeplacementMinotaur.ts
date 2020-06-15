@@ -1,8 +1,8 @@
-import { Step } from "./Step";
-import { Pion } from "../Model/Pion";
-import { Case } from "../Model/Case";
+import { Step } from "../Step";
+import { Pion } from "../../Model/Pion";
+import { Case } from "../../Model/Case";
 
-export class Deplacement extends Step
+export class DeplacementMinotaur extends Step
 {    
     before () {
         super.before();
@@ -13,6 +13,7 @@ export class Deplacement extends Step
         return new Promise<void>((resolve: Function) => {
 
             if(this.joueur.allPions[0].case && this.joueur.allPions[1].case) {
+                // TODO minotaur peut aller sur plus de cases
                 const casesPossibles = [
                     ...this.jeu.plateau.casesAvoisinantes(this.joueur.allPions[0].case).filter(c => this.joueur.allPions[0].peutAller(c)),
                     ...this.jeu.plateau.casesAvoisinantes(this.joueur.allPions[1].case).filter(c => this.joueur.allPions[1].peutAller(c)),
@@ -32,12 +33,23 @@ export class Deplacement extends Step
                 }
 
                 this.jeu.casesClickables(
-                    this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => pion.peutAller(c)),
+                    this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => pion.minotaurPeutAller(c, this.jeu.plateau)),
                     (caze: Case) => {
                         const caseDepart = pion.case;
 
-                        this.jeu.poser(pion, caze, this.joueur);
+                        if (!pion.case) {
+                            throw "case inoccupée";
+                        }
 
+                        const pionAExpulser = caze.pion;
+
+                        if (pionAExpulser) {
+                            this.jeu.plateau.caseSuivante(pion.case, caze).poser(pionAExpulser);
+                            this.jeu.sendServer('deplacerPion', pionAExpulser.export());
+                        }
+
+                        this.jeu.poser(pion, caze, this.joueur);
+                        
                         if (caseDepart && caze.differenceDeNiveauAvec(caseDepart) === 1 && caze.niveau === 3) {
                             this.jeu.victory(this.joueur);
                         } else {

@@ -1,5 +1,5 @@
-import { Step } from "./Step";
-import { Pion } from "../Model/Pion";
+import { Step } from "../Step";
+import { Pion } from "../../Model/Pion";
 
 export class DeplacementIA extends Step
 {    

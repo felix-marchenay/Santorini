@@ -1,5 +1,5 @@
-import { Step } from "./Step";
-import { Case } from "../Model/Case";
+import { Step } from "../Step";
+import { Case } from "../../Model/Case";
 
 export class ConstructionAtlas extends Step
 {

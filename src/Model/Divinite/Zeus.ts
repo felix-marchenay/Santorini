@@ -2,7 +2,7 @@ import { Divinite } from "./Divinite";
 import { Jeu } from "../Jeu";
 import { Joueur } from "../Joueur";
 import { Steppable } from "../../Infrastructure/Steppable";
-import { ConstructionZeus } from "../../Steps/ConstructionZeus";
+import { ConstructionZeus } from "../../Steps/Construction/ConstructionZeus";
 
 export class Zeus extends Divinite
 {

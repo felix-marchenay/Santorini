@@ -2,7 +2,7 @@ import { Divinite } from "./Divinite";
 import { Jeu } from "../Jeu";
 import { Joueur } from "../Joueur";
 import { Steppable } from "../../Infrastructure/Steppable";
-import { ConstructionAtlas } from "../../Steps/ConstructionAtlas";
+import { ConstructionAtlas } from "../../Steps/Construction/ConstructionAtlas";
 
 export class Atlas extends Divinite
 {

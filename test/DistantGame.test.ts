@@ -7,9 +7,9 @@ import { FakeServer } from "./Mocks/FakeServer";
 import { Joueur } from "../src/Model/Joueur";
 import { No } from "../src/Model/Divinite/No";
 import { TypeJoueur } from "../src/Model/TypeJoueur";
-import { PreparationDistant } from "../src/Steps/PreparationDistant";
-import { DeplacementDistant } from "../src/Steps/DeplacementDistant";
-import { ConstructionDistant } from "../src/Steps/ConstructionDistant";
+import { PreparationDistant } from "../src/Steps/Preparation/PreparationDistant";
+import { DeplacementDistant } from "../src/Steps/Deplacement/DeplacementDistant";
+import { ConstructionDistant } from "../src/Steps/Construction/ConstructionDistant";
 
 describe ("Jeu en ligne", () => {
     

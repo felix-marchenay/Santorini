@@ -8,12 +8,12 @@ import { Steppable } from "../Infrastructure/Steppable";
 import { Divinite } from "./Divinite/Divinite";
 import { DiviniteFactory } from "./Divinite/DiviniteFactory";
 import { TypeJoueur } from "./TypeJoueur";
-import { PreparationIA } from "../Steps/PreparationIA";
-import { DeplacementIA } from "../Steps/DeplacementIA";
-import { ConstructionIA } from "../Steps/ConstructionIA";
-import { PreparationDistant } from "../Steps/PreparationDistant";
-import { DeplacementDistant } from "../Steps/DeplacementDistant";
-import { ConstructionDistant } from "../Steps/ConstructionDistant";
+import { PreparationIA } from "../Steps/Preparation/PreparationIA";
+import { DeplacementIA } from "../Steps/Deplacement/DeplacementIA";
+import { ConstructionIA } from "../Steps/Construction/ConstructionIA";
+import { PreparationDistant } from "../Steps/Preparation/PreparationDistant";
+import { DeplacementDistant } from "../Steps/Deplacement/DeplacementDistant";
+import { ConstructionDistant } from "../Steps/Construction/ConstructionDistant";
 
 export class Joueur
 {

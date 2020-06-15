@@ -1,9 +1,9 @@
 import { Steppable } from "../../Infrastructure/Steppable";
 import { Jeu } from "../Jeu";
 import { Joueur } from "../Joueur";
-import { Deplacement } from "../../Steps/Deplacement";
-import { Construction } from "../../Steps/Construction";
-import { Preparation } from "../../Steps/Preparation";
+import { Deplacement } from "../../Steps/Deplacement/Deplacement";
+import { Construction } from "../../Steps/Construction/Construction";
+import { Preparation } from "../../Steps/Preparation/Preparation";
 
 export abstract class Divinite {
     abstract name: string;

@@ -1,5 +1,5 @@
 import { Divinite } from "./Divinite";
-import { DeplacementTriton } from "../../Steps/DeplacementTriton";
+import { DeplacementTriton } from "../../Steps/Deplacement/DeplacementTriton";
 import { Jeu } from "../Jeu";
 import { Joueur } from "../Joueur";
 

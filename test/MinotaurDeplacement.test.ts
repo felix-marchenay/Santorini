@@ -7,7 +7,7 @@ import { TypeJoueur } from "../src/Model/TypeJoueur";
 import { No } from "../src/Model/Divinite/No";
 import { Jeu } from "../src/Model/Jeu";
 import { FakeInterface } from "./Mocks/FakeInterface";
-import { DeplacementMinotaur } from "../src/Steps/DeplacementMinotaur";
+import { DeplacementMinotaur } from "../src/Steps/Deplacement/DeplacementMinotaur";
 
 describe("Minotaur", () => {
     const scene = new Scene(new NullEngine);

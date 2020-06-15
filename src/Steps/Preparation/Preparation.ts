@@ -1,6 +1,6 @@
-import { Step } from "./Step";
-import { Pion } from "../Model/Pion";
-import { Case } from "../Model/Case";
+import { Step } from "../Step";
+import { Pion } from "../../Model/Pion";
+import { Case } from "../../Model/Case";
 
 export class Preparation extends Step
 {
