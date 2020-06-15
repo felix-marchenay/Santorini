@@ -85,6 +85,11 @@ export default {
                     name: "Minotaur",
                     slug: "minotaur",
                     description: "desc"
+                },
+                {
+                    name: "Apollon",
+                    slug: "apollon",
+                    description: "desc"
                 }
             ]
         };
