@@ -10,7 +10,6 @@ import { TypeJoueur } from "../src/Model/TypeJoueur";
 import { PreparationDistant } from "../src/Steps/PreparationDistant";
 import { DeplacementDistant } from "../src/Steps/DeplacementDistant";
 import { ConstructionDistant } from "../src/Steps/ConstructionDistant";
-// import { Case } from "../src/Model/Case";
 
 describe ("Jeu en ligne", () => {
     
@@ -45,7 +44,7 @@ describe ("Jeu en ligne", () => {
             expect(case2?.coordonnees.y).toBe(4);
         });
 
-        jeu.server?.emit('pionMove', {
+        jeu.server?.emit('deplacerPion', {
             data: {
                 id: 'c1',
                 position: {x: 2, y: 1}
@@ -53,7 +52,7 @@ describe ("Jeu en ligne", () => {
             joueur: '19'
         });
 
-        jeu.server?.emit('pionMove', {
+        jeu.server?.emit('deplacerPion', {
             data: {
                 id: 'c2',
                 position: {x: 1, y: 4}
@@ -78,7 +77,7 @@ describe ("Jeu en ligne", () => {
             expect(case2?.coordonnees.y).toBe(4);
         });
 
-        jeu.server?.emit('pionMove', {
+        jeu.server?.emit('deplacerPion', {
             data: {
                 id: 'c2',
                 position: {x: 4, y: 4}
