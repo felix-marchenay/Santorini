@@ -43,6 +43,11 @@ export class Setup
             server?.action('disconnection', null);
         });
 
+        server?.connect();
+
+        server?.on('rooms', rooms => {
+            this.ihm.action('rooms', rooms);
+        })
         server?.on('enteredRoom', data => {
             this.serverId = data.you;
             this.ihm.action('enteredRoom', data)
@@ -53,8 +58,8 @@ export class Setup
         server?.on('disconnection', player => {
             this.ihm.action('removePlayer', player);
         });
-        server?.on('connected', id => {
-            this.ihm.action('connected', id);
+        server?.on('connected', data => {
+            this.ihm.action('connected', data);
         });
         server?.on('letsgo', data => {
             const joueurs = data.joueurs.map((player: any,i: number) => {

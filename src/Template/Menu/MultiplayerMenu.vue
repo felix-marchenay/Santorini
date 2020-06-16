@@ -7,6 +7,11 @@
     <div v-if="!room" class="room-search">
       <input type="room" v-model="roomNameInput" placeholder="Nom de la partie" />
       <Button @click="search">Rejoindre</Button>
+      <h3>Parties en cours</h3>
+      <div @click="search(room.name)" class="room" v-for="room in rooms" :key="room.name">
+        {{ room.name }} - ({{ room.joueurs.length }}p)
+      </div>
+      <i v-if="rooms.length === 0">Aucune partie</i>
     </div>
     <div v-else>
       <div class="title">
@@ -89,7 +94,8 @@ export default {
           slug: "zeus",
           description: "desc"
         }
-      ]
+      ],
+      rooms: []
     };
   },
   created() {
@@ -116,6 +122,14 @@ export default {
       }
     });
 
+    this.$root.$on("connected", data => {
+      this.rooms = data.rooms;
+    });
+
+    this.$root.$on("rooms", rooms => {
+      this.rooms = rooms;
+    });
+
     this.$root.$on("removePlayer", player => {
       this.othersPlayers = this.othersPlayers.filter(p => p.id !== player.id);
     });
@@ -137,8 +151,11 @@ export default {
     getDivinite(slug) {
       return this.divinites.find(d => d.slug === slug);
     },
-    search() {
-      this.$root.$emit("connect", this.roomNameInput);
+    search(roomName) {
+      if (!roomName) {
+        roomName = this.roomNameInput;
+      }
+      this.$root.$emit("connect", roomName);
     },
     back() {
       this.$emit("back");
@@ -179,6 +196,16 @@ h2 {
 
       button.back {
         margin: 0;
+      }
+    }
+
+    .room {
+      padding: 3px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+      &:hover {
+        background: #eee;
+        cursor: pointer;
       }
     }
   }

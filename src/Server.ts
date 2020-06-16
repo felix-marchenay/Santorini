@@ -9,8 +9,8 @@ export class Server implements EmitterInterface, ServerInterface
     private events = [
         'newPlayer', 'pionSwitch', 'letsgo', 'idlePion', 
         'deplacerPion', 'construire', 'construireDome',
-        'endTurn', 'disconnection', 'victory', 'replay', 'enteredRoom',
-        'connected', 'playerInfo_RX'
+        'endTurn', 'disconnection', 'victory', 'replay', 
+        'enteredRoom', 'playerInfo_RX', 'rooms'
     ];
 
     constructor (
@@ -20,10 +20,12 @@ export class Server implements EmitterInterface, ServerInterface
     ) {}
 
     async connect () {
-        return new Promise<null>(resolve => {
+        return new Promise<null>((resolve, reject) => {
             this.socket = io(this.protocol + '://' + this.host + ':' + this.port);
     
             this.socket.on('connected', (data: any) => {
+
+                this.emit('connected', data);
 
                 this.events.forEach(ev => {
                     this.socket?.on(ev, (data: any) => {
@@ -31,10 +33,12 @@ export class Server implements EmitterInterface, ServerInterface
                         this.emit(ev, data);
                     });
                 });
-            
-                console.log('connected, id : ', data);
                 resolve();
             });
+
+            setTimeout(() => {
+                reject();
+            }, 1000);
         });
     }
 
