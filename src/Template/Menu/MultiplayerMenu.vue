@@ -200,12 +200,18 @@ h2 {
     }
 
     .room {
-      padding: 3px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      padding: 10px 9px;
+      margin: 10px;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      text-align: center;
+      transition: 200ms;
 
       &:hover {
-        background: #eee;
+        background: #fff;
         cursor: pointer;
+        box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.3);
+        border: 1px solid #bbb;
       }
     }
   }
