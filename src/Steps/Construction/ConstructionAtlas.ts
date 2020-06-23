@@ -1,5 +1,6 @@
 import { Step } from "../Step";
 import { Case } from "../../Model/Case";
+import { Construire } from "../../Command/Construire";
 
 export class ConstructionAtlas extends Step
 {
@@ -45,7 +46,9 @@ export class ConstructionAtlas extends Step
                 cases,
                 (caze: Case) => {
                     if (this.buildMode === 'etage') {
-                        this.jeu.construire(caze);
+                        this.commandBus.execute(
+                            new Construire(this.jeu, caze)
+                        );
                     } else {
                         this.jeu.construireDome(caze);
                     }

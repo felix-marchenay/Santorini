@@ -1,6 +1,7 @@
 import { Step } from "../Step";
 import { Pion } from "../../Model/Pion";
 import { Case } from "../../Model/Case";
+import { DéplacerPion } from "../../Command/DéplacerPion";
 
 export class Deplacement extends Step
 {    
@@ -36,7 +37,7 @@ export class Deplacement extends Step
                     (caze: Case) => {
                         const caseDepart = pion.case;
 
-                        this.jeu.poser(pion, caze, this.joueur);
+                        this.commandBus.execute(new DéplacerPion(pion, caze, this.joueur, this.jeu));
 
                         if (caseDepart && caze.differenceDeNiveauAvec(caseDepart) === 1 && caze.niveau === 3) {
                             this.jeu.victory(this.joueur);

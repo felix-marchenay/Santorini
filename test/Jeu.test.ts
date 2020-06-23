@@ -137,12 +137,12 @@ describe("Ce bon vieu jeu", () => {
             jeu.poser(jacques.allPions[0], jeu.plateau.getCase(2, 4), jacques);
             jeu.poser(jacques.allPions[1], jeu.plateau.getCase(4, 2), jacques);
 
-            jeu.construire(jeu.plateau.getCase(1, 3));
-            jeu.construire(jeu.plateau.getCase(1, 3));
+            jeu.plateau.getCase(1, 3).construire();
+            jeu.plateau.getCase(1, 3).construire();
 
-            jeu.construire(jeu.plateau.getCase(2, 3));
-            jeu.construire(jeu.plateau.getCase(2, 3));
-            jeu.construire(jeu.plateau.getCase(2, 3));
+            jeu.plateau.getCase(2, 3).construire();
+            jeu.plateau.getCase(2, 3).construire();
+            jeu.plateau.getCase(2, 3).construire();
 
             jeu.poser(jacques.allPions[1], jeu.plateau.getCase(2, 3), jacques);
 
@@ -164,6 +164,7 @@ describe("Ce bon vieu jeu", () => {
         );
 
         test ("réinitialiser", () => {
+            
             jeu.plateau.getCase(1, 2).construire();
             jeu.plateau.getCase(2, 2).construire();
 

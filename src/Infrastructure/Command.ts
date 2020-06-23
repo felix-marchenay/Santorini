@@ -1,8 +1,9 @@
+import { DéplacerPionHandler } from "../CommandHandler/DéplacerPionHandler";
+
 export interface Command {}
 
 export interface CommandHandler {
     execute (command: Command): void;
-    supports (command: Command): boolean;
 }
 
 export class CommandBus {
@@ -10,14 +11,16 @@ export class CommandBus {
     private commands: Map<string, CommandHandler> = new Map;
 
     constructor () {
-        
+        this.commands.set('DéplacerPion', new DéplacerPionHandler);
     }
 
-    execute (command: Command) {
-        this.commands.forEach(handler => {
-            if (handler.supports(command)) {
-                handler.execute(command);
-            }
-        });
+    execute (...commands: Command[]) {
+        commands.forEach(command => {
+            this.commands.forEach((handler, key) => {
+                if (command.constructor.name === key) {
+                    handler.execute(command);
+                }
+            });
+        })
     }
 }

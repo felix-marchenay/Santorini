@@ -164,11 +164,6 @@ export class Jeu implements EmitterInterface
         }
     }
 
-    construire(caze: Case) {
-        caze.construire();
-        this.sendServer('construire', caze.export());
-    }
-
     construireDome(caze: Case) {
         caze.construireDome();
         this.sendServer('construireDome', caze.export());
