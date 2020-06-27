@@ -1,4 +1,5 @@
 import { Step } from "../Step";
+import { Construire } from "../../Command/Construire";
 
 export class ConstructionIA extends Step
 {
@@ -28,7 +29,9 @@ export class ConstructionIA extends Step
     
                 const casesVoisines = this.jeu.plateau.casesAvoisinantes(pion.case).filter(c => c.constructible);
                 
-                casesVoisines[Math.floor(Math.random() * casesVoisines.length)].construire();
+                this.commandBus.execute(
+                    new Construire(this.jeu, casesVoisines[Math.floor(Math.random() * casesVoisines.length)])
+                );
     
                 resolve();
             }, 800);

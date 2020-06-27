@@ -1,5 +1,6 @@
 import { Step } from "../Step";
 import { Case } from "../../Model/Case";
+import { ConstruireSousLePion } from "../../Command/ConstruireSousLePion";
 
 export class ConstructionZeus extends Step
 {
@@ -28,7 +29,10 @@ export class ConstructionZeus extends Step
             this.jeu.casesClickables(
                 cases,
                 (caze: Case) => {
-                    this.jeu.construireSousLePion(caze);
+                    
+                    this.commandBus.execute(
+                        new ConstruireSousLePion(this.jeu, caze)
+                    );
 
                     this.jeu.endTurn(resolve);
                 }

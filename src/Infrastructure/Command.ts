@@ -1,4 +1,7 @@
 import { DéplacerPionHandler } from "../CommandHandler/DéplacerPionHandler";
+import { ConstruireHandler } from "../CommandHandler/ConstruireHandler";
+import { ConstruireSousLePion } from "../Command/ConstruireSousLePion";
+import { ConstruireSousLePionHandler } from "../CommandHandler/ConstruireSousLePionHandler";
 
 export interface Command {}
 
@@ -12,6 +15,8 @@ export class CommandBus {
 
     constructor () {
         this.commands.set('DéplacerPion', new DéplacerPionHandler);
+        this.commands.set('Construire', new ConstruireHandler);
+        this.commands.set('ConstruireSousLePion', new ConstruireSousLePionHandler);
     }
 
     execute (...commands: Command[]) {
